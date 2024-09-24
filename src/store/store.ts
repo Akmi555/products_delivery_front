@@ -1,8 +1,9 @@
 import type { Action, ThunkAction } from "@reduxjs/toolkit"
 import { combineSlices, configureStore } from "@reduxjs/toolkit"
+import { allProductsSlice } from "./redux/allProducts/allProductsSlice"
 
-
-const rootReducer = combineSlices()
+// сюда добавляются слайсы через запятую 
+const rootReducer = combineSlices(allProductsSlice)
 export type RootState = ReturnType<typeof rootReducer>
 
 export const makeStore = (preloadedState?: Partial<RootState>) => {
