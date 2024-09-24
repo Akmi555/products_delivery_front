@@ -3,7 +3,6 @@ import {
   CompanyInfoContainer,
   Header,
   LayoutWrapper,
-  LinkImg,
   Logo,
   Main,
   NavigationContainer,
@@ -13,7 +12,10 @@ import {
 import logoWhite from "assets/logo-white.png"
 import userWhite from "assets/user-white.png"
 import cartWhite from "assets/shopping-cart-white.png"
+import userGreen from "assets/user-green.png"
+import cartGreen from "assets/shopping-cart-green.png"
 import { LayoutProps } from "./types"
+import LinkHeaderCustomized from "components/LinkHeaderCustomized/LinkHeaderCustomized"
 
 function Layout({ children }: LayoutProps) {
   return (
@@ -23,13 +25,16 @@ function Layout({ children }: LayoutProps) {
           <Logo src={logoWhite} />
         </NavLinkStyled>
         <NavigationContainer>
-          <NavLinkStyled to="/userProfile" >
-            <LinkImg src={userWhite} />
-            {/* todo ИЗМЕНЕНИЕ КАРТИНКИ ПРИ НАЖАТИИ НА ЗЕЛЕНЫЙ ЦВЕТ ЧЕРЕЗ isActive */}
-          </NavLinkStyled>
-          <NavLinkStyled to="/cart">
-            <LinkImg src={cartWhite} />
-          </NavLinkStyled>
+          <LinkHeaderCustomized
+            to="/userProfile"
+            whiteImg={userWhite}
+            greenImg={userGreen}
+          />
+          <LinkHeaderCustomized
+            to="/cart"
+            whiteImg={cartWhite}
+            greenImg={cartGreen}
+          />
         </NavigationContainer>
       </Header>
       <Main>{children}</Main>

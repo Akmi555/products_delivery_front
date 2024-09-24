@@ -38,20 +38,11 @@ export const NavLinkStyled = styled(NavLink)`
 
 `
 
-// export const Link = styled.a`
-//   font-size: 20px;
-//   text-decoration: none;
-//   cursor: pointer;
-// `
-export const LinkImg = styled.img`
-  height: 30px;
-  width: 30px;
-`
-
 export const Main = styled.main`
   display: flex;
   flex-direction: column;
   flex: 1;
+  background-color: black;
 `
 
 export const Footer = styled.footer`
@@ -59,15 +50,17 @@ export const Footer = styled.footer`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 30px;
+  padding: 20px;
   background-color: black;
   color: white;
+  font-size: 11px;
 `
 
 export const CompanyInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 5px;
 `
 
-export const CompanyInfo = styled.p``
+export const CompanyInfo = styled.p`
+`
