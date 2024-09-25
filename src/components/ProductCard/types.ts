@@ -7,7 +7,7 @@ import { ProductObject } from "store/redux/allProducts/types"
 //   price?: number
 // }
 
-export interface ProductDataProps {
+export interface ProductCardProps {
   productData: ProductObject
-  // isSaved: boolean
+  isSinglePageProduct?: boolean | undefined
 }

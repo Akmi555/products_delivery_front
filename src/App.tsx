@@ -4,6 +4,7 @@ import GlobalStyles from "styles/GlobalStyles"
 import Cart from "pages/Cart/Cart"
 import AllProducts from "pages/AllProducts/AllProducts"
 import UserProfile from "pages/UserProfile/UserProfile"
+import OneProduct from "pages/OneProduct/OneProduct"
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<AllProducts/>}/>
           <Route path="/cart" element={<Cart/>}/>
           <Route path="/userProfile" element={<UserProfile/>}/>
+          <Route path="/oneProductCard" element={<OneProduct/>}/>
           <Route path="*" element={"error 404 - Page not found"}/>
         </Routes>
       </Layout>

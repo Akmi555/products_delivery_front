@@ -34,3 +34,11 @@ function GlobalStyles() {
 }
 
 export default GlobalStyles
+
+export const globalPageStyles = css`
+  display: flex;
+  flex: 1;
+  background-color: white;
+  border-radius: 50px;
+  padding: 30px;
+`

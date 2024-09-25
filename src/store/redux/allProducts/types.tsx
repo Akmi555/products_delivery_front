@@ -9,6 +9,6 @@ export interface ProductObject {
   id: number
   title: string
   price: number
-  minQuantity: number
+  minQuantity: string
   photoLink: string
 }

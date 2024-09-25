@@ -15,7 +15,7 @@ import cartWhite from "assets/shopping-cart-white.png"
 import userGreen from "assets/user-green.png"
 import cartGreen from "assets/shopping-cart-green.png"
 import { LayoutProps } from "./types"
-import LinkHeaderCustomized from "components/LinkHeaderCustomized/LinkHeaderCustomized"
+import LinkHeaderCustomized from "components/LinkHeaderIcon/LinkHeaderIcon"
 
 function Layout({ children }: LayoutProps) {
   return (
@@ -45,7 +45,9 @@ function Layout({ children }: LayoutProps) {
           <CompanyInfo>+49 175 456 76 45</CompanyInfo>
           <CompanyInfo>Hauptstr. 1, 10827 Berlin, Deutchland</CompanyInfo>
         </CompanyInfoContainer>
-        <Logo src={logoWhite} />
+        <NavLinkStyled to="/">
+          <Logo src={logoWhite} />
+        </NavLinkStyled>
       </Footer>
     </LayoutWrapper>
   )

@@ -17,7 +17,7 @@ const dispatch = useAppDispatch();
 
 const { products } = useAppSelector(productsSelectors.productsState)
 const productCards = products.map((productObj : ProductObject)=>(
-  <ProductCard productData={productObj}/>
+  <ProductCard productData={productObj} isSinglePageProduct/>
 ))
 
 // если есть функции которые что то меняют (у насх их нет) , если это надо то см конец урока 15 с Катей 2 часа 45 минут примерно 

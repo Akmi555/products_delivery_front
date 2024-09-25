@@ -2,7 +2,10 @@ import {
   ButtonContainer,
   ImgContainer,
   ImgProduct,
+  LinkProductCard,
+  PhotoNameWrapper,
   PriceButtonContainer,
+  ProductMainInfo,
   ProductName,
   ProductPrice,
   ProductWeight,
@@ -10,34 +13,45 @@ import {
 } from "./styles"
 import Button from "components/Button/Button"
 import cartWhite from "assets/shopping-cart-white.png"
-import { ProductDataProps } from "./types"
+import { ProductCardProps } from "./types"
 
-function ProductCard(productData: ProductDataProps) {
-  const photoLink: string = productData.productData.photoLink
-  const title: string = productData.productData.title
-  const minQuantity: number = productData.productData.minQuantity
-  const price: number = productData.productData.price
+function ProductCard({
+  productData,
+  isSinglePageProduct = false,
+}: ProductCardProps) {
+  const photoLink: string = productData.photoLink
+  const title: string = productData.title
+  const minQuantity: string = productData.minQuantity
+  const price: number = productData.price
 
-  // РЕАЛИЗОВАТЬ ДОБАВЛЕНИЕ В КОРЗИНУ 
+  // РЕАЛИЗОВАТЬ ДОБАВЛЕНИЕ В КОРЗИНУ
   // const onAddToCart= () => {
   //   dispatch(productsAction.addProductToCart(productData.productData.id))
   //   // ТУТ МОЖНО ДОБАВИТЬ АЛЕРТ ИЛИ ДРУГОЕ ПОДТВЕРЖДЕНИЕ ЧТО ДЕЙСТВИЕ ПРОШЛО УСПЕШНО
   // }
 
   return (
-    <ProductWrapper>
-      <ImgContainer>
-        <ImgProduct src={photoLink} />
-      </ImgContainer>
+    <ProductWrapper data-isSinglePageProduct={isSinglePageProduct}>
+      <PhotoNameWrapper>
+        <LinkProductCard to="/oneProductCard">
+          <ImgContainer>
+            <ImgProduct src={photoLink} />
+          </ImgContainer>
+        </LinkProductCard>
+        <LinkProductCard to="/oneProductCard">
+          <ProductName>{title}</ProductName>
+        </LinkProductCard>
+      </PhotoNameWrapper>
 
-      <ProductName>{title}</ProductName>
-      <ProductWeight>{minQuantity}</ProductWeight>
-      <PriceButtonContainer>
-        <ProductPrice>{price} €</ProductPrice>
-        <ButtonContainer>
-          <Button imgSrc={cartWhite} type="button" />
-        </ButtonContainer>
-      </PriceButtonContainer>
+      <ProductMainInfo>
+        <ProductWeight>{minQuantity}</ProductWeight>
+        <PriceButtonContainer>
+          <ProductPrice>{price} €</ProductPrice>
+          <ButtonContainer>
+            <Button imgSrc={cartWhite} type="button" />
+          </ButtonContainer>
+        </PriceButtonContainer>
+      </ProductMainInfo>
     </ProductWrapper>
   )
 }

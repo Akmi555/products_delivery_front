@@ -33,7 +33,6 @@ export const NavigationContainer = styled.nav`
   gap: 30px;
 `
 
-// в погоде это было сделано по другому, пока сделала как помню
 export const NavLinkStyled = styled(NavLink)`
 
 `

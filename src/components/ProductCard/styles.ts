@@ -1,12 +1,55 @@
 import styled from "@emotion/styled"
+import { Link } from "react-router-dom"
+
+const getCardFlexDirection = ($isSinglePageProduct: boolean | undefined) => {
+  if($isSinglePageProduct) {
+    return "raw"
+  } else {
+    return "column"
+  }
+}
 
 export const ProductWrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
+  flex-direction:${ ({$isSinglePageProduct})  =>
+    getCardFlexDirection($isSinglePageProduct)};
   height: 300px;
-  /* gap: 5px; */
-  /* border: 1px solid black; */
 `
+
+// export const ProductWrapper = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   flex-direction:${( isSinglePageProduct ) =>
+//     getCardFlexDirection(isSinglePageProduct)};
+//   height: 300px;
+// `
+
+// style={{flex-direction: isSinglePageProduct? "raw" :"column"}
+
+// const getButtonColor = (
+//   disbled: boolean | undefined,
+//   $isTransparent: boolean | undefined,
+// ) => {
+//   if ($isTransparent) {
+//     return colors.TRANSPARENT
+//   } else if (disbled) {
+//     return colors.DISABLED
+//   } else {
+//     return colors.BUTTON_BLUE
+//   }
+// }
+
+// background-color: ${({ disabled, $isTransparent }) =>
+//     getButtonColor(disabled, $isTransparent)};
+
+export const LinkProductCard = styled(Link)`
+ text-decoration: none;
+ color: black;
+`
+export const PhotoNameWrapper = styled.div`
+`
+
 export const ImgContainer = styled.div`
   width: 200px;
   height: 200px;
@@ -14,8 +57,8 @@ export const ImgContainer = styled.div`
 
 export const ImgProduct = styled.img`
   width: 200px;
-  /* height: 200px; */
 `
+export const ProductMainInfo = styled.div``
 
 export const ProductName = styled.div``
 
@@ -28,14 +71,13 @@ export const PriceButtonContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* align-content: space-between; */
   margin-top: 5px;
-  /* gap: 100px; */
 `
 
 export const ProductPrice = styled.div`
   font-weight: bold;
 `
+
 export const ButtonContainer = styled.div`
   display: flex;
   flex: 1;
