@@ -14,7 +14,7 @@ function OneProduct() {
 
   return (
     <PageWrapper>
-      <ProductCard productData={productExample} isSinglePageProduct={true} />
+      <ProductCard productData={productExample} isSinglePageProduct={true}/>
     </PageWrapper>
   )
 }

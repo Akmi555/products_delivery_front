@@ -31,19 +31,19 @@ function ProductCard({
   // }
 
   return (
-    <ProductWrapper data-isSinglePageProduct={isSinglePageProduct}>
+    <ProductWrapper isSinglePageProduct={isSinglePageProduct}>
       <PhotoNameWrapper>
         <LinkProductCard to="/oneProductCard">
           <ImgContainer>
             <ImgProduct src={photoLink} />
           </ImgContainer>
         </LinkProductCard>
-        <LinkProductCard to="/oneProductCard">
-          <ProductName>{title}</ProductName>
-        </LinkProductCard>
       </PhotoNameWrapper>
 
       <ProductMainInfo>
+        <LinkProductCard to="/oneProductCard">
+          <ProductName>{title}</ProductName>
+        </LinkProductCard>
         <ProductWeight>{minQuantity}</ProductWeight>
         <PriceButtonContainer>
           <ProductPrice>{price} €</ProductPrice>

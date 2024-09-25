@@ -1,54 +1,41 @@
 import styled from "@emotion/styled"
 import { Link } from "react-router-dom"
 
-const getCardFlexDirection = ($isSinglePageProduct: boolean | undefined) => {
-  if($isSinglePageProduct) {
-    return "raw"
+interface StyledCardProps {
+  isSinglePageProduct?: boolean | undefined
+}
+
+const getCardFlexDirection = (isSinglePageProduct: boolean | undefined) => {
+  if (isSinglePageProduct) {
+    return "row"
   } else {
     return "column"
   }
 }
 
-export const ProductWrapper = styled.div`
+const getSizeOfCardElements = (isSinglePageProduct: boolean | undefined) => {
+  if (isSinglePageProduct) {
+    return ""
+  } else {
+    return ""
+  }
+}
+
+export const ProductWrapper = styled("div")<StyledCardProps>`
   display: flex;
-  /* flex-direction: column; */
-  flex-direction:${ ({$isSinglePageProduct})  =>
-    getCardFlexDirection($isSinglePageProduct)};
+  flex-direction: column;
   height: 300px;
+  flex-direction: ${({ isSinglePageProduct }) =>
+    getCardFlexDirection(isSinglePageProduct)};
 `
 
-// export const ProductWrapper = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   flex-direction:${( isSinglePageProduct ) =>
-//     getCardFlexDirection(isSinglePageProduct)};
-//   height: 300px;
-// `
 
-// style={{flex-direction: isSinglePageProduct? "raw" :"column"}
-
-// const getButtonColor = (
-//   disbled: boolean | undefined,
-//   $isTransparent: boolean | undefined,
-// ) => {
-//   if ($isTransparent) {
-//     return colors.TRANSPARENT
-//   } else if (disbled) {
-//     return colors.DISABLED
-//   } else {
-//     return colors.BUTTON_BLUE
-//   }
-// }
-
-// background-color: ${({ disabled, $isTransparent }) =>
-//     getButtonColor(disabled, $isTransparent)};
 
 export const LinkProductCard = styled(Link)`
- text-decoration: none;
- color: black;
+  text-decoration: none;
+  color: black;
 `
-export const PhotoNameWrapper = styled.div`
-`
+export const PhotoNameWrapper = styled.div``
 
 export const ImgContainer = styled.div`
   width: 200px;
