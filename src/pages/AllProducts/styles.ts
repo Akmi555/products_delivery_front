@@ -6,6 +6,9 @@ flex: 1;
 background-color: white;
 border-radius: 50px;
 padding: 30px;
+gap: 35px;
+  flex-wrap: wrap;
+
 `
 
 

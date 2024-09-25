@@ -40,20 +40,17 @@ export const allProductsSlice = createAppSlice({
           state.isPending = true
         },
         fulfilled: (state: ProductsSliceState, action) => {
+          // console.log("Fulfilled")
           // const id = v4()
-          const id = action.payload.data.products[0].id
-          const title = action.payload.data.products[0].title
-          const price = action.payload.data.products[0].price
-          const minQuantity = action.payload.data.products[0].minQuantity
-          const photoLink = action.payload.data.products[0].photoLink
+          // console.log(products)
+
+          // const id = action.payload.data.products[0].id
+          // const title = action.payload.data.products[0].title
+          // const price = action.payload.data.products[0].price
+          // const minQuantity = action.payload.data.products[0].minQuantity
+          // const photoLink = action.payload.data.products[0].photoLink
           state.isPending = false
-          state.currentProduct = {
-            id: id,
-            title: title,
-            price: price,
-            minQuantity: minQuantity,
-            photoLink: photoLink,
-          }
+          state.products = action.payload.data
         },
         rejected: (state: ProductsSliceState, action) => {
           state.error = action.error.message

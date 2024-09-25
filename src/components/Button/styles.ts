@@ -9,7 +9,6 @@ cursor: pointer;
 background-color: ${colors.MAIN_GREEN};
 border: none;
 border-radius: 50px;
-
 `
 
 export const ButtonImg = styled.img`
