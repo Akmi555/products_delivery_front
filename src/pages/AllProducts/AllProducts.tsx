@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { PageWrapper } from "./styles"
+import { PageWrapper, PaginatorWrapper, ProductCardsWrapper } from "./styles"
 import ProductCard from "components/ProductCard/ProductCard"
 // импорт для работы слайса
 import { useAppDispatch, useAppSelector } from "store/hooks"
@@ -21,7 +21,7 @@ function AllProducts() {
 
   // для пагинации:
   const [currentPage, setCurrentPage] = useState<number>(1)
-  const [pageSize, setPageSize] = useState<number>(3)
+  const [pageSize] = useState<number>(1)
   const [pageQuantity, setPageQuantity] = useState<number>(1)
 
   const { products, totalPages } = useAppSelector(
@@ -65,22 +65,26 @@ function AllProducts() {
         pageSize: pageSize,
       }),
     )
-    setPageQuantity(totalPages)
+    // .then((res)=>{setPageQuantity(res.payload.data.content.totalPages)})
+    
+
   }, [currentPage, pageQuantity])
 
   return (
-    <Container>
-      <PageWrapper>
-        {productCards}
-        <Stack spacing={2}>
-          <Pagination
-            count={pageQuantity}
-            page={currentPage}
-            onChange={handleChange}
-          />
-        </Stack>
-      </PageWrapper>
-    </Container>
+    <PageWrapper>
+      <Container>
+        <ProductCardsWrapper>{productCards}</ProductCardsWrapper>
+        <PaginatorWrapper>
+          <Stack spacing={2}>
+            <Pagination
+              count={totalPages}
+              page={currentPage}
+              onChange={handleChange}
+            />
+          </Stack>
+        </PaginatorWrapper>
+      </Container>
+    </PageWrapper>
   )
 }
 

@@ -17,7 +17,7 @@ import { v4 } from "uuid"
 const productsInitialState: ProductsSliceState = {
   currentProduct: undefined,
   products: [],
-  totalPages: 1,
+  totalPages: 3,
   error: undefined,
   isPending: false,
 }
@@ -31,14 +31,17 @@ export const allProductsSlice = createAppSlice({
   // объект со всеми редьюсерами
   reducers: create => ({
     getProducts: create.asyncThunk(
-// !!!!
+      // !!!!
       async (payload: any) => {
         const response = await axios.get(
-          `/api/products/page?page=${payload.currentPage-1}&size=${payload.pageSize}`,
+          `/api/products/page?page=${payload.currentPage - 1}&size=${payload.pageSize}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          },
         )
-      // async () => {
-      //   const response = await axios.get("/api/products")
-        return response
+        return response.data;
       },
       {
         pending: (state: ProductsSliceState) => {
@@ -47,10 +50,9 @@ export const allProductsSlice = createAppSlice({
         },
         fulfilled: (state: ProductsSliceState, action) => {
           state.isPending = false
-          // state.products = action.payload.data
           //!!!!
-          state.products = action.payload.data.content
-          state.totalPages = action.payload.data.totalPages
+          state.products = action.payload.content
+          state.totalPages = action.payload.totalPages
         },
         rejected: (state: ProductsSliceState, action) => {
           state.error = action.error.message
@@ -80,14 +82,13 @@ export const allProductsSlice = createAppSlice({
         fulfilled: (state: ProductsSliceState, action) => {
           state.isPending = false
           state.currentProduct = action.payload.data
-          
         },
         rejected: (state: ProductsSliceState, action) => {
           state.error = action.error.message
           state.isPending = false
         },
       },
-    ), 
+    ),
   }),
   // селекторы, которые дают забирать данные из хранилища в какой то компонент
   selectors: {
