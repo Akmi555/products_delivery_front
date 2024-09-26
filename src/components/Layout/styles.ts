@@ -1,5 +1,6 @@
 import styled from "@emotion/styled"
 import { NavLink } from "react-router-dom"
+import mainPicGradient from "assets/main-pic-gradient.png"
 
 export const LayoutWrapper = styled.div`
   display: flex;
@@ -16,8 +17,11 @@ export const Header = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  background-color: black;
+  height: 500px;
+  /* background-color: black; */
   padding: 30px;
+  background-image: url(${mainPicGradient});
+  background-size: cover;
 `
 
 export const Logo = styled.img`

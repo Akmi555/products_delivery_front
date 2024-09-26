@@ -19,7 +19,6 @@ import { productsAction } from "store/redux/allProducts/allProductsSlice"
 
 function ProductCard({
   productData,
-  isSinglePageProduct = false,
 }: ProductCardProps) {
   const dispatch = useAppDispatch()
 
@@ -33,14 +32,14 @@ function ProductCard({
     dispatch(productsAction.openProduct(productId))
   }
 
-  // РЕАЛИЗОВАТЬ ДОБАВЛЕНИЕ В КОРЗИНУ
+  // ! РЕАЛИЗОВАТЬ ДОБАВЛЕНИЕ В КОРЗИНУ
   // const onAddToCart= () => {
   //   dispatch(productsAction.addProductToCart(productData.productData.id))
   //   // ТУТ МОЖНО ДОБАВИТЬ АЛЕРТ ИЛИ ДРУГОЕ ПОДТВЕРЖДЕНИЕ ЧТО ДЕЙСТВИЕ ПРОШЛО УСПЕШНО
   // }
 
   return (
-    <ProductWrapper isSinglePageProduct={isSinglePageProduct}>
+    <ProductWrapper >
       <PhotoNameWrapper>
         <LinkProductCard to="/oneProductCard">
           <ImgContainer>
@@ -49,7 +48,7 @@ function ProductCard({
         </LinkProductCard>
       </PhotoNameWrapper>
 
-      <ProductMainInfo isSinglePageProduct={isSinglePageProduct}>
+      <ProductMainInfo>
         <LinkProductCard to="/oneProductCard">
           <ProductName>{title}</ProductName>
         </LinkProductCard>
