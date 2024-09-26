@@ -6,6 +6,6 @@ export interface ButtonStyledProps {
   type?: ButtonType
   buttonName?: string
   onClick?: (event: MouseEvent) => void
-  //   disabled?: boolean
+  disabled?: boolean
   //   isTransparent?: boolean
 }
