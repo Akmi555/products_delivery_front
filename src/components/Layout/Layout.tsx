@@ -8,6 +8,8 @@ import {
   NavigationContainer,
   CompanyInfo,
   NavLinkStyled,
+  FooterLogoContainer,
+  HeaderLogoContainer,
 } from "./styles"
 import logoWhite from "assets/logo-white.png"
 import userWhite from "assets/user-white.png"
@@ -21,11 +23,13 @@ function Layout({ children }: LayoutProps) {
   return (
     <LayoutWrapper>
       <Header>
-        <NavLinkStyled to="/">
-          <Logo src={logoWhite} />
-        </NavLinkStyled>
+        <HeaderLogoContainer>
+          <NavLinkStyled to="/">
+            <Logo src={logoWhite} />
+          </NavLinkStyled>
+        </HeaderLogoContainer>
         <NavigationContainer>
-        <LinkHeaderCustomized
+          <LinkHeaderCustomized
             to="/registration"
             whiteImg={userWhite}
             greenImg={userGreen}
@@ -50,8 +54,11 @@ function Layout({ children }: LayoutProps) {
           <CompanyInfo>+49 175 456 76 45</CompanyInfo>
           <CompanyInfo>Hauptstr. 1, 10827 Berlin, Deutchland</CompanyInfo>
         </CompanyInfoContainer>
+
         <NavLinkStyled to="/">
-          <Logo src={logoWhite} />
+          <FooterLogoContainer>
+            <Logo src={logoWhite} />
+          </FooterLogoContainer>
         </NavLinkStyled>
       </Footer>
     </LayoutWrapper>
