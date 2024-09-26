@@ -25,6 +25,11 @@ function Layout({ children }: LayoutProps) {
           <Logo src={logoWhite} />
         </NavLinkStyled>
         <NavigationContainer>
+        <LinkHeaderCustomized
+            to="/registration"
+            whiteImg={userWhite}
+            greenImg={userGreen}
+          />
           <LinkHeaderCustomized
             to="/userProfile"
             whiteImg={userWhite}

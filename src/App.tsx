@@ -5,6 +5,7 @@ import Cart from "pages/Cart/Cart"
 import AllProducts from "pages/AllProducts/AllProducts"
 import UserProfile from "pages/UserProfile/UserProfile"
 import OneProduct from "pages/OneProduct/OneProduct"
+import Registration from "pages/Registration/Registration"
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/cart" element={<Cart/>}/>
           <Route path="/userProfile" element={<UserProfile/>}/>
           <Route path="/oneProductCard" element={<OneProduct/>}/>
+          <Route path="/registration" element={<Registration/>}/>
           <Route path="*" element={"error 404 - Page not found"}/>
         </Routes>
       </Layout>
