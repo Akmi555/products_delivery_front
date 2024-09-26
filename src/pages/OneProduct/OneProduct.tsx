@@ -1,4 +1,3 @@
-import ProductCard from "components/ProductCard/ProductCard"
 import {
   PageWrapper,
   ProductDescription,
@@ -19,7 +18,7 @@ function OneProduct() {
 
   return (
     <PageWrapper>
-      <ProductCard productData={productExample} isSinglePageProduct={true} />
+      // ! создать новый компонент карты 
       <ProductDescriptionWrapper>
         <ProductDescriptionName>{}</ProductDescriptionName>
         <ProductDescription></ProductDescription>

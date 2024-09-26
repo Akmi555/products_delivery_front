@@ -10,7 +10,7 @@ function Button({
   return (
     <ButtonStyled type={type} onClick={onClick}>
       {buttonName}
-      <ButtonImg src={imgSrc}></ButtonImg>
+      {imgSrc && <ButtonImg src={imgSrc}></ButtonImg>}
     </ButtonStyled>
   )
 }

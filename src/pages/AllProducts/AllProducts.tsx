@@ -21,7 +21,8 @@ function AllProducts() {
 
   // для пагинации:
   const [currentPage, setCurrentPage] = useState<number>(1)
-  const [pageSize] = useState<number>(1)
+  // ! ТУТ СТАВИТСЯ КОЛ-ВО ПРОДУКТОВ НА СТРАНИЦЕ
+  const [pageSize] = useState<number>(20)
   const [pageQuantity, setPageQuantity] = useState<number>(1)
 
   const { products, totalPages } = useAppSelector(
@@ -66,14 +67,12 @@ function AllProducts() {
       }),
     )
     // .then((res)=>{setPageQuantity(res.payload.data.content.totalPages)})
-    
-
   }, [currentPage, pageQuantity])
 
   return (
     <PageWrapper>
+      <ProductCardsWrapper>{productCards}</ProductCardsWrapper>
       <Container>
-        <ProductCardsWrapper>{productCards}</ProductCardsWrapper>
         <PaginatorWrapper>
           <Stack spacing={2}>
             <Pagination

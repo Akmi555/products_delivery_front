@@ -1,63 +1,13 @@
 import styled from "@emotion/styled"
 import { Link } from "react-router-dom"
 
-interface StyledCardProps {
-  isSinglePageProduct?: boolean | undefined
-}
-
-const getCardFlexDirection = (isSinglePageProduct: boolean | undefined) => {
-  if (isSinglePageProduct) {
-    return "row"
-  } else {
-    return "column"
-  }
-}
-
-const getAlignItems = (isSinglePageProduct: boolean | undefined) => {
-  if (isSinglePageProduct) {
-    return "center"
-  } else {
-    return "normal"
-  }
-}
-
-const getCardHeight = (isSinglePageProduct: boolean | undefined) => {
-  if (isSinglePageProduct) {
-    return "200px"
-  } else {
-    return "300px"
-  }
-}
-
-const getCardWidth = (isSinglePageProduct: boolean | undefined) => {
-  if (isSinglePageProduct) {
-    return "350px"
-  }
-}
-
-const getCardWidth2 = (isSinglePageProduct: boolean | undefined) => {
-  if (isSinglePageProduct) {
-    return "400px"
-  }
-}
-
-const getJustifyContent = (isSinglePageProduct: boolean | undefined) => {
-  if (isSinglePageProduct) {
-    return "space-between"
-  }
-}
-
-export const ProductWrapper = styled("div")<StyledCardProps>`
+export const ProductWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: ${({ isSinglePageProduct }) =>
-    getJustifyContent(isSinglePageProduct)};
-  width: ${({ isSinglePageProduct }) => getCardWidth(isSinglePageProduct)};
-  height: ${({ isSinglePageProduct }) => getCardHeight(isSinglePageProduct)};
-  flex-direction: ${({ isSinglePageProduct }) =>
-    getCardFlexDirection(isSinglePageProduct)};
-  align-items: ${({ isSinglePageProduct }) =>
-    getAlignItems(isSinglePageProduct)};
+  width: 250px;
+  background-color: white;
+  border-radius: 50px;
+  padding: 25px;
 `
 
 export const LinkProductCard = styled(Link)`
@@ -75,11 +25,7 @@ export const ImgProduct = styled.img`
   width: 200px;
 `
 
-// НЕ РАБОТАЕТ 
-export const ProductMainInfo = styled("div")<StyledCardProps>`
-    width: ${({ isSinglePageProduct }) => getCardWidth2(isSinglePageProduct)};
-    
-`
+export const ProductMainInfo = styled.div``
 
 export const ProductName = styled.div``
 

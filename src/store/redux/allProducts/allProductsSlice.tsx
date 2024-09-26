@@ -11,7 +11,6 @@ import axios from "axios"
 import { createAppSlice } from "store/createAppSlice"
 import { ProductObject, ProductsSliceState } from "./types"
 import { PayloadAction, isPending } from "@reduxjs/toolkit"
-import { v4 } from "uuid"
 
 //начальное значение ВСЕГДА объект
 const productsInitialState: ProductsSliceState = {
@@ -41,7 +40,7 @@ export const allProductsSlice = createAppSlice({
             },
           },
         )
-        return response.data;
+        return response.data
       },
       {
         pending: (state: ProductsSliceState) => {
@@ -66,7 +65,6 @@ export const allProductsSlice = createAppSlice({
         state.products = state.products.filter((productCard: ProductObject) => {
           return productCard.id !== action.payload
         })
-        // state.products = [...state.products, action.payload]
       },
     ),
     openProduct: create.asyncThunk(
