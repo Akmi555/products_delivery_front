@@ -13,23 +13,52 @@ const getCardFlexDirection = (isSinglePageProduct: boolean | undefined) => {
   }
 }
 
-const getSizeOfCardElements = (isSinglePageProduct: boolean | undefined) => {
+const getAlignItems = (isSinglePageProduct: boolean | undefined) => {
   if (isSinglePageProduct) {
-    return ""
+    return "center"
   } else {
-    return ""
+    return "normal"
+  }
+}
+
+const getCardHeight = (isSinglePageProduct: boolean | undefined) => {
+  if (isSinglePageProduct) {
+    return "200px"
+  } else {
+    return "300px"
+  }
+}
+
+const getCardWidth = (isSinglePageProduct: boolean | undefined) => {
+  if (isSinglePageProduct) {
+    return "350px"
+  }
+}
+
+const getCardWidth2 = (isSinglePageProduct: boolean | undefined) => {
+  if (isSinglePageProduct) {
+    return "400px"
+  }
+}
+
+const getJustifyContent = (isSinglePageProduct: boolean | undefined) => {
+  if (isSinglePageProduct) {
+    return "space-between"
   }
 }
 
 export const ProductWrapper = styled("div")<StyledCardProps>`
   display: flex;
   flex-direction: column;
-  height: 300px;
+  justify-content: ${({ isSinglePageProduct }) =>
+    getJustifyContent(isSinglePageProduct)};
+  width: ${({ isSinglePageProduct }) => getCardWidth(isSinglePageProduct)};
+  height: ${({ isSinglePageProduct }) => getCardHeight(isSinglePageProduct)};
   flex-direction: ${({ isSinglePageProduct }) =>
     getCardFlexDirection(isSinglePageProduct)};
+  align-items: ${({ isSinglePageProduct }) =>
+    getAlignItems(isSinglePageProduct)};
 `
-
-
 
 export const LinkProductCard = styled(Link)`
   text-decoration: none;
@@ -45,7 +74,12 @@ export const ImgContainer = styled.div`
 export const ImgProduct = styled.img`
   width: 200px;
 `
-export const ProductMainInfo = styled.div``
+
+// НЕ РАБОТАЕТ 
+export const ProductMainInfo = styled("div")<StyledCardProps>`
+    width: ${({ isSinglePageProduct }) => getCardWidth2(isSinglePageProduct)};
+    
+`
 
 export const ProductName = styled.div``
 

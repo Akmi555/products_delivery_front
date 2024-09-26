@@ -1,5 +1,10 @@
 import ProductCard from "components/ProductCard/ProductCard"
-import { PageWrapper } from "./styles"
+import {
+  PageWrapper,
+  ProductDescription,
+  ProductDescriptionName,
+  ProductDescriptionWrapper,
+} from "./styles"
 import { ProductObject } from "store/redux/allProducts/types"
 
 function OneProduct() {
@@ -14,7 +19,11 @@ function OneProduct() {
 
   return (
     <PageWrapper>
-      <ProductCard productData={productExample} isSinglePageProduct={true}/>
+      <ProductCard productData={productExample} isSinglePageProduct={true} />
+      <ProductDescriptionWrapper>
+        <ProductDescriptionName>{}</ProductDescriptionName>
+        <ProductDescription></ProductDescription>
+      </ProductDescriptionWrapper>
     </PageWrapper>
   )
 }

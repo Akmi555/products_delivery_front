@@ -14,15 +14,24 @@ import {
 import Button from "components/Button/Button"
 import cartWhite from "assets/shopping-cart-white.png"
 import { ProductCardProps } from "./types"
+import { useAppDispatch } from "store/hooks"
+import { productsAction } from "store/redux/allProducts/allProductsSlice"
 
 function ProductCard({
   productData,
   isSinglePageProduct = false,
 }: ProductCardProps) {
+  const dispatch = useAppDispatch()
+
+  const productId : number = productData.id
   const photoLink: string = productData.photoLink
   const title: string = productData.title
   const minQuantity: string = productData.minQuantity
   const price: number = productData.price
+
+  const openCurrentProduct = (productId: number) => {
+    dispatch(productsAction.openProduct(productId))
+  }
 
   // РЕАЛИЗОВАТЬ ДОБАВЛЕНИЕ В КОРЗИНУ
   // const onAddToCart= () => {
@@ -40,7 +49,7 @@ function ProductCard({
         </LinkProductCard>
       </PhotoNameWrapper>
 
-      <ProductMainInfo>
+      <ProductMainInfo isSinglePageProduct={isSinglePageProduct}>
         <LinkProductCard to="/oneProductCard">
           <ProductName>{title}</ProductName>
         </LinkProductCard>
@@ -48,7 +57,7 @@ function ProductCard({
         <PriceButtonContainer>
           <ProductPrice>{price} €</ProductPrice>
           <ButtonContainer>
-            <Button imgSrc={cartWhite} type="button" />
+            <Button imgSrc={cartWhite} type="button"  />
           </ButtonContainer>
         </PriceButtonContainer>
       </ProductMainInfo>

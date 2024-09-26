@@ -15,7 +15,7 @@ import cartWhite from "assets/shopping-cart-white.png"
 import userGreen from "assets/user-green.png"
 import cartGreen from "assets/shopping-cart-green.png"
 import { LayoutProps } from "./types"
-import LinkHeaderCustomized from "components/LinkHeaderIcon/LinkHeaderIcon"
+import LinkHeaderCustomized from "components/LinkHeaderIcon/LinkHeaderCustomized"
 
 function Layout({ children }: LayoutProps) {
   return (

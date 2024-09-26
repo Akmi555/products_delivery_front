@@ -17,6 +17,7 @@ import { v4 } from "uuid"
 const productsInitialState: ProductsSliceState = {
   currentProduct: undefined,
   products: [],
+  totalPages: 1,
   error: undefined,
   isPending: false,
 }
@@ -30,8 +31,13 @@ export const allProductsSlice = createAppSlice({
   // объект со всеми редьюсерами
   reducers: create => ({
     getProducts: create.asyncThunk(
-      async () => {
-        const response = await axios.get("/api/products")
+// !!!!
+      async (payload: any) => {
+        const response = await axios.get(
+          `/api/products/page?page=${payload.currentPage-1}&size=${payload.pageSize}`,
+        )
+      // async () => {
+      //   const response = await axios.get("/api/products")
         return response
       },
       {
@@ -40,17 +46,11 @@ export const allProductsSlice = createAppSlice({
           state.isPending = true
         },
         fulfilled: (state: ProductsSliceState, action) => {
-          // console.log("Fulfilled")
-          // const id = v4()
-          // console.log(products)
-
-          // const id = action.payload.data.products[0].id
-          // const title = action.payload.data.products[0].title
-          // const price = action.payload.data.products[0].price
-          // const minQuantity = action.payload.data.products[0].minQuantity
-          // const photoLink = action.payload.data.products[0].photoLink
           state.isPending = false
-          state.products = action.payload.data
+          // state.products = action.payload.data
+          //!!!!
+          state.products = action.payload.data.content
+          state.totalPages = action.payload.data.totalPages
         },
         rejected: (state: ProductsSliceState, action) => {
           state.error = action.error.message
@@ -67,6 +67,27 @@ export const allProductsSlice = createAppSlice({
         // state.products = [...state.products, action.payload]
       },
     ),
+    openProduct: create.asyncThunk(
+      async (productId: number) => {
+        const response = await axios.get(`/api/products/${productId}`)
+        return response
+      },
+      {
+        pending: (state: ProductsSliceState) => {
+          state.error = undefined
+          state.isPending = true
+        },
+        fulfilled: (state: ProductsSliceState, action) => {
+          state.isPending = false
+          state.currentProduct = action.payload.data
+          
+        },
+        rejected: (state: ProductsSliceState, action) => {
+          state.error = action.error.message
+          state.isPending = false
+        },
+      },
+    ), 
   }),
   // селекторы, которые дают забирать данные из хранилища в какой то компонент
   selectors: {
