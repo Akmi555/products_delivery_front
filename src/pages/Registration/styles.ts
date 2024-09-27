@@ -8,7 +8,7 @@ export const PageWrapper = styled.div`
   justify-content: center;
 `
 
-export const RegistrationContainer = styled.div`
+export const RegistrationContainer = styled.form`
   display: flex;
   flex-direction: column;
   margin: 50px;

@@ -53,7 +53,7 @@ export const userAuthSlice = createAppSlice({
             "Content-Type": "application/json",
           },
           data: {
-            userName: payload.email,
+            username: payload.email,
             password: payload.password,
           },
         })

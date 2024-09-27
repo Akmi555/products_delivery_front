@@ -21,14 +21,14 @@ function Login() {
   const dispatch = useDispatch<AppDispatch>()
 
   const [isModalOpen, setModalOpen] = useState<boolean>(false)
-  let EMAIL_REGX = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/
+  let EMAIL_REGX = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
   const validationSchema = Yup.object().shape({
     email: Yup.string()
       .required("Email is required")
       .matches(EMAIL_REGX, "Email is not valid"),
     password: Yup.string()
       .required("Password is required")
-      .min(6, "Password field should contain minimum 6 symobols"),
+      .min(3, "Password field should contain minimum 3 symobols"),
   })
 
   const formik = useFormik({
@@ -82,7 +82,7 @@ function Login() {
         <ButtonContainer>
           <Button
             disabled={!formik.dirty || formik.isSubmitting}
-            buttonName="Registration"
+            buttonName="Login"
             type="submit"
           />
         </ButtonContainer>
