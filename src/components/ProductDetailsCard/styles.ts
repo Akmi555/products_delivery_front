@@ -10,13 +10,10 @@ export const ProductWrapper = styled.div`
   padding: 25px;
 `
 
-// export const LinkProductCard = styled(Link)`
-//   text-decoration: none;
-//   color: black;
-// `
-
-
-
+export const LinkProductCard = styled(Link)`
+  text-decoration: none;
+  color: black;
+`
 export const PhotoNameWrapper = styled.div``
 
 export const ImgContainer = styled.div`
@@ -52,4 +49,10 @@ export const ButtonContainer = styled.div`
   display: flex;
   flex: 1;
   max-width: 60px;
+`
+export const ProductDescriptionContainer = styled.div`
+  font-weight: bold;
+`
+export const ProductDescription = styled.div`
+  font-weight: bold;
 `

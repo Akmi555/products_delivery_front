@@ -1,29 +1,18 @@
-import {
-  PageWrapper,
-  ProductDescription,
-  ProductDescriptionName,
-  ProductDescriptionWrapper,
-} from "./styles"
-import { ProductObject } from "store/redux/allProducts/types"
+import { productDescriptionSelectors } from "store/redux/oneProduct/oneProductDescriptionSlice"
+import { PageWrapper } from "./styles"
+import { useAppSelector } from "store/hooks"
+import ProductDetailsCard from "components/ProductDetailsCard/ProductDetailsCard"
+import { ProductDescriptionObject } from "store/redux/oneProduct/types"
 
 function OneProduct() {
-  const productExample: ProductObject = {
-    id: 1,
-    title: "Milk",
-    price: 1.5,
-    minQuantity: "1l",
-    photoLink:
-      "https://rskrf.ru/upload/iblock/1a3/jfs0j9ivsls0sij9u77x13lc134keuwb.jpg",
-  }
+  const { currentProduct } = useAppSelector(
+    productDescriptionSelectors.productState,
+  )
 
   return (
     <PageWrapper>
-      // ! создать новый компонент карты 
-      <ProductDescriptionWrapper>
-        <ProductDescriptionName>{}</ProductDescriptionName>
-        <ProductDescription></ProductDescription>
-      </ProductDescriptionWrapper>
-    </PageWrapper>
+      {currentProduct && <ProductDetailsCard productData={currentProduct} />}
+    </PageWrapper> 
   )
 }
 

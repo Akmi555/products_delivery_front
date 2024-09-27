@@ -13,10 +13,6 @@ import { v4 } from "uuid"
 import { Container, Pagination, Stack } from "@mui/material"
 
 function AllProducts() {
-  // забираем значение из стора
-  // const allProducts = useAppSelector(productsSelectors.productsState)
-
-  // сохраняем функцию dispatch которую возвращает вызов хука useAppDispatch
   const dispatch = useAppDispatch()
 
   // для пагинации:
@@ -24,41 +20,22 @@ function AllProducts() {
   // ! ТУТ СТАВИТСЯ КОЛ-ВО ПРОДУКТОВ НА СТРАНИЦЕ
   const [pageSize] = useState<number>(20)
   const [pageQuantity, setPageQuantity] = useState<number>(1)
-
+  // в аппСелектор добавили общее кол-во страниц для пагинатора
   const { products, totalPages } = useAppSelector(
     productsSelectors.productsState,
   )
+
+  // МАПинг
   const productCards = products.map((productObj: ProductObject) => (
     <ProductCard key={v4()} productData={productObj} />
   ))
 
-  // если есть функции которые что то меняют (у насх их нет) , если это надо то см конец урока 15 с Катей 2 часа 45 минут примерно
-
-  // const { currentProduct, error } = useAppSelector(
-  //   productsSelectors.productsState,
-  // )
-
-  // const [isModalOpen, setModalOpen] = useState<boolean>(false)
-  // const [errorMessage, setErrorMessage] = useState("")
-
-  // const dispatch = useAppDispatch()
-  // const getAllProducts= () => {
-  //   dispatch(productsAction.addProductToCart(productData.productData))
-  //   // ТУТ МОЖНО ДОБАВИТЬ АЛЕРТ ИЛИ ДРУГОЕ ПОДТВЕРЖДЕНИЕ ЧТО ДЕЙСТВИЕ ПРОШЛО УСПЕШНО
-  // }
-
-  // useEffect(() => {
-  //   if (error) {
-  //     setModalOpen(true)
-  //     setErrorMessage(error)
-  //   }
-  // }, [error])
-
+  // пагинация
   const handleChange = (_: any, value: number) => {
     setCurrentPage(value)
     setPageQuantity(totalPages)
   }
-
+  // и тут добавили для пагинации, до этого был вызов при маунтинге
   useEffect(() => {
     dispatch(
       productsAction.getProducts({
@@ -66,7 +43,6 @@ function AllProducts() {
         pageSize: pageSize,
       }),
     )
-    // .then((res)=>{setPageQuantity(res.payload.data.content.totalPages)})
   }, [currentPage, pageQuantity])
 
   return (
