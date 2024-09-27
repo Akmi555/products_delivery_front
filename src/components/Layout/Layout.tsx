@@ -29,6 +29,10 @@ function Layout({ children }: LayoutProps) {
           </NavLinkStyled>
         </HeaderLogoContainer>
         <NavigationContainer>
+        <LinkHeaderCustomized
+            to="/login"
+            linkText="login"
+          />
           <LinkHeaderCustomized
             to="/registration"
             linkText="registration"
