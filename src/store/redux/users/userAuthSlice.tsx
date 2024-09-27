@@ -76,6 +76,31 @@ export const userAuthSlice = createAppSlice({
         },
       },
     ),
+    getUserProfile: create.asyncThunk(
+      async (state: UserAuthSliceState) => {
+        const response = await axios.get(`/api/auth/profile`, {
+          headers: {
+            Authorization: `Bearer ${state.accessToken}`,
+          },
+        })
+        return response.data
+      },
+      {
+        pending: (state: UserAuthSliceState) => {
+          state.error = undefined
+          state.isPending = true
+        },
+        fulfilled: (state: UserAuthSliceState, action) => {
+          state.isPending = false
+          //   указать правильные пути!!!
+          state.currentUser = action.payload.content
+        },
+        rejected: (state: UserAuthSliceState, action) => {
+          state.error = action.error.message
+          state.isPending = false
+        },
+      },
+    ),
   }),
   selectors: {
     userAuthState: (state: UserAuthSliceState) => state,
