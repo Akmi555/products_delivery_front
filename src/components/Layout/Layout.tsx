@@ -31,8 +31,7 @@ function Layout({ children }: LayoutProps) {
         <NavigationContainer>
           <LinkHeaderCustomized
             to="/registration"
-            whiteImg={userWhite}
-            greenImg={userGreen}
+            linkText="registration"
           />
           <LinkHeaderCustomized
             to="/userProfile"
