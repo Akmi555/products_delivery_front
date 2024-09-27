@@ -15,18 +15,21 @@ export const userAuthSlice = createAppSlice({
   reducers: create => ({
     registrUser: create.asyncThunk(
       async (payload: any) => {
-        const response = await axios.post(`/api/users`, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          data: {
+        const response = await axios.post(
+          `/api/users`,
+          {
             firstName: payload.firstName,
             lastName: payload.lastName,
             email: payload.email,
             password: payload.password,
             phoneNumber: payload.phoneNumber,
           },
-        })
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          },
+        )
         return response.data
       },
       {
@@ -36,9 +39,9 @@ export const userAuthSlice = createAppSlice({
         },
         fulfilled: (state: UserAuthSliceState, action) => {
           state.isPending = false
-          //   указать правильные пути!!!
-          state.currentUser = action.payload.content
-          state.accessToken = action.payload.content.accessToken
+
+          state.currentUser = action.payload
+          state.accessToken = action.payload.accessToken
         },
         rejected: (state: UserAuthSliceState, action) => {
           state.error = action.error.message
@@ -48,16 +51,19 @@ export const userAuthSlice = createAppSlice({
     ),
     loginUser: create.asyncThunk(
       async (payload: LoginData) => {
-        const response = await axios.post(`api/auth/login`, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          data: {
+        const response = await axios.post(
+          `/api/auth/login`,
+          {
             username: payload.email,
             password: payload.password,
           },
-        })
-        console.log(payload)
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          },
+        )
+
         return response.data
       },
       {
@@ -67,16 +73,14 @@ export const userAuthSlice = createAppSlice({
         },
         fulfilled: (state: UserAuthSliceState, action) => {
           state.isPending = false
-          //   указать правильные пути!!!
-          console.log(action.payload)
+
           state.currentUser = action.payload
-          state.accessToken = action.payload.content.accessToken
+          state.accessToken = action.payload.accessToken
         },
         rejected: (state: UserAuthSliceState, action) => {
           state.error = action.error.message
           state.isPending = false
           console.log(action.payload)
-         
         },
       },
     ),
@@ -97,7 +101,7 @@ export const userAuthSlice = createAppSlice({
         fulfilled: (state: UserAuthSliceState, action) => {
           state.isPending = false
           //   указать правильные пути!!!
-          state.currentUser = action.payload.content
+          state.currentUser = action.payload
         },
         rejected: (state: UserAuthSliceState, action) => {
           state.error = action.error.message
