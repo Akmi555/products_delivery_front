@@ -1,11 +1,9 @@
 import {
   ButtonContainer,
   ImgContainer,
-  ImgProduct,
   PhotoNameWrapper,
   PriceButtonContainer,
   ProductMainInfo,
-  ProductName,
   ProductPrice,
   ProductWeight,
   ProductWrapper,
@@ -15,9 +13,12 @@ import cartWhite from "assets/shopping-cart-white.png"
 import { ProductCardProps } from "./types"
 import { useAppDispatch } from "store/hooks"
 import { productDescriptionAction } from "store/redux/oneProduct/oneProductDescriptionSlice"
+import ProductButton from "components/ProductButton/ProductButton"
+import { useNavigate } from "react-router-dom"
 
 function ProductCard({ productData }: ProductCardProps) {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   const productId: number = productData.id
   const photoLink: string = productData.photoLink
@@ -27,7 +28,7 @@ function ProductCard({ productData }: ProductCardProps) {
 
   const openCurrentProduct = () => {
     dispatch(productDescriptionAction.openProduct(productId))
-    // может быть редирект надо будет поставить сюда
+    navigate("/oneProductCard")
   }
 
   // ! РЕАЛИЗОВАТЬ ДОБАВЛЕНИЕ В КОРЗИНУ
@@ -39,27 +40,25 @@ function ProductCard({ productData }: ProductCardProps) {
   return (
     <ProductWrapper>
       <PhotoNameWrapper>
-        {/* <LinkProductCard to="/oneProductCard"> */}
-
-          <ImgContainer>
-            <ImgProduct src={photoLink} />
-          </ImgContainer>
-          
-        {/* </LinkProductCard> */}
+        <ImgContainer>
+          <ProductButton
+            type="button"
+            imgSrc={photoLink}
+            onClick={openCurrentProduct}
+          ></ProductButton>
+        </ImgContainer>
       </PhotoNameWrapper>
-
       <ProductMainInfo>
-        {/* <LinkProductCard to="/oneProductCard"> */}
-          <ProductName>{title}</ProductName>
-        {/* </LinkProductCard> */}
+        <ProductButton
+          type="button"
+          buttonName={title}
+          onClick={openCurrentProduct}
+        ></ProductButton>
         <ProductWeight>{minQuantity}</ProductWeight>
         <PriceButtonContainer>
           <ProductPrice>{price} €</ProductPrice>
           <ButtonContainer>
-            <Button
-              imgSrc={cartWhite}
-              type="button"
-            />
+            <Button imgSrc={cartWhite} type="button" />
           </ButtonContainer>
         </PriceButtonContainer>
       </ProductMainInfo>
