@@ -13,7 +13,6 @@ import {
 import Button from "components/Button/Button"
 import cartWhite from "assets/shopping-cart-white.png"
 import { ProductDescriptionProps } from "./types"
-import { useAppDispatch } from "store/hooks"
 
 function ProductDetailsCard({ productData }: ProductDescriptionProps) {
   const title: string = productData.title
@@ -33,18 +32,14 @@ function ProductDetailsCard({ productData }: ProductDescriptionProps) {
       <ImgContainer>
         <ImgProduct src={photoLink} />
       </ImgContainer>
-
       <ProductName>{title}</ProductName>
-
       <ProductWeight>{minQuantity}</ProductWeight>
-
       <PriceButtonContainer>
         <ProductPrice>{price} €</ProductPrice>
         <ButtonContainer>
           <Button imgSrc={cartWhite} type="button" />
         </ButtonContainer>
       </PriceButtonContainer>
-
       <ProductDescriptionContainer>
         <ProductName>{title}</ProductName>
         <ProductDescription>{description}</ProductDescription>

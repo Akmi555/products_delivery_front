@@ -11,7 +11,8 @@ import axios from "axios"
 import { createAppSlice } from "store/createAppSlice"
 import { ProductDescriptionSliceState } from "./types"
 import { PayloadAction } from "@reduxjs/toolkit"
-import { redirect } from "react-router-dom";
+import { redirect } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 //начальное значение ВСЕГДА объект
 const productDescriptionInitialState: ProductDescriptionSliceState = {
@@ -39,7 +40,6 @@ export const oneProductDescriptionSlice = createAppSlice({
         fulfilled: (state: ProductDescriptionSliceState, action) => {
           state.isPending = false
           state.currentProduct = action.payload.data
-          redirect("/oneProductCard");
         },
         rejected: (state: ProductDescriptionSliceState, action) => {
           state.error = action.error.message
@@ -47,7 +47,7 @@ export const oneProductDescriptionSlice = createAppSlice({
         },
       },
     ),
-    // ! реализовать логику добавления в корзину 
+    // ! реализовать логику добавления в корзину
     addProductToCart: create.reducer(
       (state: ProductDescriptionSliceState, action: PayloadAction<number>) => {
         state.currentProduct = undefined

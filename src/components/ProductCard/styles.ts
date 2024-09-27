@@ -1,5 +1,4 @@
 import styled from "@emotion/styled"
-import { Link } from "react-router-dom"
 
 export const ProductWrapper = styled.div`
   display: flex;
@@ -15,8 +14,6 @@ export const ProductWrapper = styled.div`
 //   color: black;
 // `
 
-
-
 export const PhotoNameWrapper = styled.div``
 
 export const ImgContainer = styled.div`
@@ -26,6 +23,8 @@ export const ImgContainer = styled.div`
 
 export const ImgProduct = styled.img`
   width: 200px;
+  pointer-events: all;
+  cursor: pointer;
 `
 
 export const ProductMainInfo = styled.div``
