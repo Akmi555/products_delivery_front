@@ -3,6 +3,7 @@ import * as Yup from "yup"
 import { useDispatch } from "react-redux"
 import { useState } from "react"
 import { Alert } from "@mui/material"
+import { AppDispatch } from "store/store"
 
 import Button from "components/Button/Button"
 import Input from "components/Input/Input"
@@ -14,31 +15,35 @@ import {
   ButtonContainer,
   PageWrapper,
 } from "./styles"
+import { userAuthAction } from "store/redux/users/userAuthSlice"
 
 function Registration() {
   const [isModalOpen, setModalOpen] = useState<boolean>(false)
-  let EMAIL_REGX = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/
+  const EMAIL_REGX = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
   const phoneRegExp =
-    /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+    /^((\+[1-9]{1,4}[ \-]*)|(\([0-9]{2,3}\)[ \-]*)|([0-9]{2,4})[ \-]*)*?[0-9]{3,4}?[ \-]*[0-9]{3,4}?$/
+    
+  const dispatch = useDispatch<AppDispatch>()
 
   const validationSchema = Yup.object().shape({
     firstName: Yup.string()
       .required("First name field is required")
       .min(2, "First name field should contain minimum 2 symbols")
-      .max(20, "First name field should contain maximum 20 symobols"),
+      .max(20, "First name field should contain maximum 20 symbols"),
     lastName: Yup.string()
       .required("Last name field is required")
       .min(2, "Last name field should contain minimum 2 symbols")
-      .max(20, "Last name field should contain maximum 20 symobols"),
-    email: Yup.string().matches(EMAIL_REGX, "Email is not valid"),
+      .max(20, "Last name field should contain maximum 20 symbols"),
+    email: Yup.string()
+      .required("Email is required")
+      .matches(EMAIL_REGX, "Email is not valid"),
     password: Yup.string()
       .required("Password field is required")
-      .min(6, "Password field should contain minimum 6 symobols"),
-    phoneNumber: Yup.string().matches(phoneRegExp, "Phone number is not valid"),
+      .min(6, "Password field should contain minimum 6 symbols"),
+    phoneNumber: Yup.string()
+      .required("Phone number is required")
+      .matches(phoneRegExp, "Phone number is not valid"),
   })
-
-  const dispach = useDispatch()
-  //   const createEmployee = employeesAppSliceAction.createEmployee
 
   const formik = useFormik({
     initialValues: {
@@ -52,18 +57,24 @@ function Registration() {
     validateOnChange: false,
 
     onSubmit: (values, helpers) => {
-      //   dispach(createEmployee(values))
+      dispatch(
+        userAuthAction.registrUser({
+          firstName: values.firstName,
+          lastName: values.lastName,
+          email: values.email,
+          password: values.password,
+          phoneNumber: values.phoneNumber,
+        })
+      )
       helpers.resetForm()
-      console.log(values)
       setModalOpen(true)
     },
   })
 
   return (
-    // onSubmit={formik.handleSubmit} пропс для RegistrationContainer
     <PageWrapper>
-      <RegistrationContainer >
-        <InputContainer >
+      <RegistrationContainer onSubmit={formik.handleSubmit}>
+        <InputContainer>
           <Input
             id="firstName-id"
             name="firstName"
@@ -89,7 +100,7 @@ function Registration() {
             name="email"
             type="text"
             placeholder="mail@mail.com"
-            label="Email*"
+            label="E-mail*"
             value={formik.values.email}
             onChange={formik.handleChange}
             error={formik.errors.email}
@@ -97,7 +108,7 @@ function Registration() {
           <Input
             id="password-id"
             name="password"
-            type="text"
+            type="password"
             label="Password*"
             value={formik.values.password}
             onChange={formik.handleChange}
