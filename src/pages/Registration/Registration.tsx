@@ -48,7 +48,7 @@ function Registration() {
       password: "",
       phoneNumber: "",
     },
-    validationSchema: validationSchema,
+    validationSchema,
     validateOnChange: false,
 
     onSubmit: (values, helpers) => {
@@ -62,8 +62,8 @@ function Registration() {
   return (
     // onSubmit={formik.handleSubmit} пропс для RegistrationContainer
     <PageWrapper>
-      <RegistrationContainer>
-        <InputContainer>
+      <RegistrationContainer >
+        <InputContainer >
           <Input
             id="firstName-id"
             name="firstName"

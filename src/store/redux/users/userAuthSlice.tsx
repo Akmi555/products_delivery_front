@@ -1,6 +1,6 @@
 import axios from "axios"
 import { createAppSlice } from "store/createAppSlice"
-import { UserAuthSliceState } from "./types"
+import { UserAuthSliceState, LoginData } from "./types"
 
 const userAuthInitialState: UserAuthSliceState = {
   currentUser: undefined,
@@ -47,7 +47,7 @@ export const userAuthSlice = createAppSlice({
       },
     ),
     loginUser: create.asyncThunk(
-      async (payload: any) => {
+      async (payload: LoginData) => {
         const response = await axios.post(`api/auth/login`, {
           headers: {
             "Content-Type": "application/json",
@@ -57,6 +57,7 @@ export const userAuthSlice = createAppSlice({
             password: payload.password,
           },
         })
+        console.log(payload)
         return response.data
       },
       {
@@ -67,12 +68,15 @@ export const userAuthSlice = createAppSlice({
         fulfilled: (state: UserAuthSliceState, action) => {
           state.isPending = false
           //   указать правильные пути!!!
-          state.currentUser = action.payload.content
+          console.log(action.payload)
+          state.currentUser = action.payload
           state.accessToken = action.payload.content.accessToken
         },
         rejected: (state: UserAuthSliceState, action) => {
           state.error = action.error.message
           state.isPending = false
+          console.log(action.payload)
+         
         },
       },
     ),
