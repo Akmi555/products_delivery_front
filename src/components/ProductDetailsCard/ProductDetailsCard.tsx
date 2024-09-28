@@ -2,9 +2,11 @@ import {
   ButtonContainer,
   ImgContainer,
   ImgProduct,
+  MainInfoAndImgContainer,
   PriceButtonContainer,
   ProductDescription,
   ProductDescriptionContainer,
+  ProductMainInfoContainer,
   ProductName,
   ProductPrice,
   ProductWeight,
@@ -29,17 +31,21 @@ function ProductDetailsCard({ productData }: ProductDescriptionProps) {
 
   return (
     <ProductWrapper>
-      <ImgContainer>
-        <ImgProduct src={photoLink} />
-      </ImgContainer>
-      <ProductName>{title}</ProductName>
-      <ProductWeight>{minQuantity}</ProductWeight>
-      <PriceButtonContainer>
-        <ProductPrice>{price} €</ProductPrice>
-        <ButtonContainer>
-          <Button imgSrc={cartWhite} type="button" />
-        </ButtonContainer>
-      </PriceButtonContainer>
+      <MainInfoAndImgContainer>
+        <ImgContainer>
+          <ImgProduct src={photoLink} />
+        </ImgContainer>
+        <ProductMainInfoContainer>
+          <ProductName>{title}</ProductName>
+          <ProductWeight>{minQuantity}</ProductWeight>
+          <PriceButtonContainer>
+            <ProductPrice>{price} €</ProductPrice>
+            <ButtonContainer>
+              <Button imgSrc={cartWhite} type="button" />
+            </ButtonContainer>
+          </PriceButtonContainer>
+        </ProductMainInfoContainer>
+      </MainInfoAndImgContainer>
       <ProductDescriptionContainer>
         <ProductName>{title}</ProductName>
         <ProductDescription>{description}</ProductDescription>

@@ -1,6 +1,5 @@
 import styled from "@emotion/styled"
 
-import { colors } from "styles/colors"
 import { globalPageStyles } from "styles/GlobalStyles"
 
 export const PageWrapper = styled.div`
@@ -16,7 +15,7 @@ export const RegistrationContainer = styled.form`
   min-height: 450px;
   max-height: fit-content;
   padding: 60px;
-  border-radius: 50px;
+  border-radius: 10px;
   background-color: white;
   gap: 30px;
 `

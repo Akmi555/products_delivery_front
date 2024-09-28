@@ -2,7 +2,6 @@ import { productDescriptionSelectors } from "store/redux/oneProduct/oneProductDe
 import { PageWrapper } from "./styles"
 import { useAppSelector } from "store/hooks"
 import ProductDetailsCard from "components/ProductDetailsCard/ProductDetailsCard"
-import { ProductDescriptionObject } from "store/redux/oneProduct/types"
 
 function OneProduct() {
   const { currentProduct } = useAppSelector(
@@ -12,7 +11,7 @@ function OneProduct() {
   return (
     <PageWrapper>
       {currentProduct && <ProductDetailsCard productData={currentProduct} />}
-    </PageWrapper> 
+    </PageWrapper>
   )
 }
 

@@ -9,11 +9,6 @@ export const ProductWrapper = styled.div`
   padding: 25px;
 `
 
-// export const LinkProductCard = styled(Link)`
-//   text-decoration: none;
-//   color: black;
-// `
-
 export const PhotoNameWrapper = styled.div``
 
 export const ImgContainer = styled.div`
@@ -27,7 +22,11 @@ export const ImgProduct = styled.img`
   cursor: pointer;
 `
 
-export const ProductMainInfo = styled.div``
+export const ProductMainInfo = styled.div`
+display: flex;
+flex-direction: column;
+gap: 5px;
+`
 
 export const ProductName = styled.div``
 

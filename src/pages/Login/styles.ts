@@ -1,25 +1,27 @@
 import styled from "@emotion/styled"
-import { globalPageStyles } from "styles/GlobalStyles";
+
+import { globalPageStyles } from "styles/GlobalStyles"
 
 export const PageWrapper = styled.div`
   ${globalPageStyles}
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `
 
 export const FormWrapper = styled.form`
-display: flex;
+  display: flex;
   flex-direction: column;
   gap: 30px;
   width: 400px;
   background-color: white;
-border-radius: 50px;
+  border-radius: 10px;
+  padding: 30px;
 `
 
 export const InputContainer = styled.div`
-display: flex;
-flex-direction: column;
-gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 `
-export const ButtonContainer = styled.div`
-
-`
+export const ButtonContainer = styled.div``
