@@ -1,8 +1,5 @@
 import { Link, useMatch } from "react-router-dom"
-import userWhite from "assets/user-white.png"
-import cartWhite from "assets/shopping-cart-white.png"
-import userGreen from "assets/user-green.png"
-import cartGreen from "assets/shopping-cart-green.png"
+
 import { LinkImg, LinkText } from "./styles"
 import { LinkHeaderCustomizedProps } from "./types"
 
@@ -23,3 +20,5 @@ function LinkHeaderCustomized({
   )
 }
 export default LinkHeaderCustomized
+
+

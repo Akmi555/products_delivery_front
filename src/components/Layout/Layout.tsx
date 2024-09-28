@@ -1,7 +1,6 @@
 import {
   Footer,
   CompanyInfoContainer,
-  Header,
   LayoutWrapper,
   Logo,
   Main,
@@ -10,6 +9,8 @@ import {
   NavLinkStyled,
   FooterLogoContainer,
   HeaderLogoContainer,
+  HeaderMainPaige,
+  HeaderSimplePage,
 } from "./styles"
 import logoWhite from "assets/logo-white.png"
 import userWhite from "assets/user-white.png"
@@ -18,25 +19,29 @@ import userGreen from "assets/user-green.png"
 import cartGreen from "assets/shopping-cart-green.png"
 import { LayoutProps } from "./types"
 import LinkHeaderCustomized from "components/LinkHeaderIcon/LinkHeaderCustomized"
+import { useMatch } from "react-router-dom"
 
 function Layout({ children }: LayoutProps) {
-  return (
-    <LayoutWrapper>
-      <Header>
+  const match = useMatch("/")
+
+  // return (
+  //   <Link to={to}>
+  //     {!linkText && <LinkImg src={match ? greenImg : whiteImg} />}
+
+  // HeaderSimplePaige
+  //HeaderMainPaige
+
+  const header = () => {
+    return (
+      <>
         <HeaderLogoContainer>
           <NavLinkStyled to="/">
             <Logo src={logoWhite} />
           </NavLinkStyled>
         </HeaderLogoContainer>
         <NavigationContainer>
-        <LinkHeaderCustomized
-            to="/login"
-            linkText="login"
-          />
-          <LinkHeaderCustomized
-            to="/registration"
-            linkText="registration"
-          />
+          <LinkHeaderCustomized to="/login" linkText="login" />
+          <LinkHeaderCustomized to="/registration" linkText="registration" />
           <LinkHeaderCustomized
             to="/userProfile"
             whiteImg={userWhite}
@@ -48,7 +53,19 @@ function Layout({ children }: LayoutProps) {
             greenImg={cartGreen}
           />
         </NavigationContainer>
-      </Header>
+      </>
+    )
+  }
+
+  // HeaderMainPaige HeaderSimplePage
+
+  return (
+    <LayoutWrapper>
+      {match ? (
+        <HeaderMainPaige>{header()}</HeaderMainPaige>
+      ) : (
+        <HeaderSimplePage>{header()}</HeaderSimplePage>
+      )}
       <Main>{children}</Main>
       <Footer>
         <CompanyInfoContainer>

@@ -1,14 +1,19 @@
-import styled from "@emotion/styled";
-import { colors } from "styles/colors";
-import { ButtonStyledProps } from "./types";
+import styled from "@emotion/styled"
+import { colors } from "styles/colors"
+import { ButtonStyledProps } from "./types"
 
 export const ButtonStyled = styled("button")<ButtonStyledProps>`
-height: 40px;
-width: 100%;
-cursor: pointer;
-background-color: ${colors.MAIN_GREEN};
-border: none;
-border-radius: 50px;
+  height: 50px;
+  width: 100%;
+  cursor: pointer;
+  background-color: ${colors.MAIN_GREEN};
+  border: none;
+  border-radius: 50px;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 16px;
 `
 
 export const ButtonImg = styled.img`

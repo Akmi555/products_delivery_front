@@ -1,27 +1,27 @@
+import { useFormik } from "formik"
+import * as Yup from "yup"
+import { Alert } from "@mui/material"
+import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { AppDispatch } from "store/store"
+
 import Input from "components/Input/Input"
+import Modal from "components/Modal/Modal"
+import Button from "components/Button/Button"
+import { userAuthAction } from "store/redux/users/userAuthSlice"
+
 import {
   ButtonContainer,
   FormWrapper,
   InputContainer,
   PageWrapper,
 } from "./styles"
-import { useFormik } from "formik"
-import * as Yup from "yup"
-import Modal from "components/Modal/Modal"
-import Button from "components/Button/Button"
-import { Alert } from "@mui/material"
-import { useState } from "react"
-import { useDispatch } from "react-redux"
-import { userAuthAction } from "store/redux/users/userAuthSlice"
-import { LoginData } from "store/redux/users/types"
-import { AppDispatch } from "store/store"
 
 function Login() {
-  //   const dispach = useDispatch()
   const dispatch = useDispatch<AppDispatch>()
-
   const [isModalOpen, setModalOpen] = useState<boolean>(false)
   let EMAIL_REGX = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
+
   const validationSchema = Yup.object().shape({
     email: Yup.string()
       .required("Email is required")
@@ -49,12 +49,7 @@ function Login() {
       setModalOpen(true)
     },
   })
-
-  //   dispatch(
-  //     productsAction.getProducts({
-  //       currentPage: currentPage,
-  //       pageSize: pageSize,
-  //     }),
+  
   return (
     <PageWrapper>
       <FormWrapper onSubmit={formik.handleSubmit}>
