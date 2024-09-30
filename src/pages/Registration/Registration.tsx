@@ -14,6 +14,7 @@ import {
   InputContainer,
   ButtonContainer,
   PageWrapper,
+  PageName,
 } from "./styles"
 import { userAuthAction } from "store/redux/users/userAuthSlice"
 
@@ -73,6 +74,7 @@ function Registration() {
 
   return (
     <PageWrapper>
+      <PageName>Registration</PageName>
       <RegistrationContainer onSubmit={formik.handleSubmit}>
         <InputContainer>
           <Input
