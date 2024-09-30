@@ -11,8 +11,6 @@ import axios from "axios"
 import { createAppSlice } from "store/createAppSlice"
 import { ProductDescriptionSliceState } from "./types"
 import { PayloadAction } from "@reduxjs/toolkit"
-import { redirect } from "react-router-dom"
-import { useNavigate } from "react-router-dom"
 
 //начальное значение ВСЕГДА объект
 const productDescriptionInitialState: ProductDescriptionSliceState = {
@@ -23,7 +21,7 @@ const productDescriptionInitialState: ProductDescriptionSliceState = {
 
 // похоже на формик. Вызываем функцию и передаем туда все настройки
 export const oneProductDescriptionSlice = createAppSlice({
-  name: "PRODUCT_DESCRIPTION",
+  name: "PRODUCT",
   initialState: productDescriptionInitialState,
   // объект со всеми редьюсерами
   reducers: create => ({
@@ -54,6 +52,31 @@ export const oneProductDescriptionSlice = createAppSlice({
         // state.products = state.products.filter((productCard: ProductInfoObject) => {
         //   return productCard.id !== action.payload
         // })
+      },
+    ),
+    addProductToDB: create.asyncThunk(
+      async (payload: any) => {
+        const response = await axios.post(
+          `
+        //! ПРОПИСАТЬ ПУТЬ ЗАПРОСА 
+        `,
+          {
+            title: payload.title,
+            price: payload.price,
+            productCode: payload.productCode,
+            minQuantity: payload.minQuantity,
+            description: payload.description,
+            photoLink: payload.photoLink,
+          },
+          {
+            headers: {},
+          },
+        )
+        return response.data
+      },
+      { pending: () => {}, 
+        fulfilled: () => {}, 
+        rejected: () => {} 
       },
     ),
   }),

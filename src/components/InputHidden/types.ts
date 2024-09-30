@@ -5,7 +5,7 @@ export interface InputProps {
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   accept?: string
   //!  починить any 
-  ref?: any
+  $ref?: any
   // ref?: HTMLInputElement | undefined
   //  React.MutableRefObject<null>
 }

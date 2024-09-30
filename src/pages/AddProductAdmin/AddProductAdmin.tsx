@@ -58,25 +58,32 @@ function AddProductAdmin() {
     },
   })
 
-  //! ЗАГРУЗКА ФОТО НА СЕРВЕР
-  const hostUrl = "/api/files/upload "
-  const [selectedImg, setSelectedImg] = useState()
+  // ЗАГРУЗКА ФОТО НА СЕРВЕР
+  const [selectedImg, setSelectedImg] = useState(null) // это работает
   const [uploadedImg, setUploadedImg] = useState()
+  console.log(selectedImg)
+  console.log(uploadedImg)
 
-  // вместо any было ChangeEvent<HTMLInputElement>
-  const handleChange = (event: any) => {
+  //! вместо any было ChangeEvent<HTMLInputElement>
+  const handleChangeImg = (event: any) => {
     console.log(event.target.files)
-    setSelectedImg(event.target.files[0])
+
+    if (event.target.files) {
+      setSelectedImg(event.target.files[0])
+    }
   }
+
+  // для того чтобы при клике на кнопку открывался инпут для файла сразу (работает )
   const filePicker = useRef<HTMLInputElement>(null)
-  // const filePicker = React.RefObject<HTMLInputElement>
   const handlePick = () => {
     {
       filePicker.current && filePicker.current.click()
     }
-    // filePicker.current.click()
   }
+  let imgID = ""
+
   const handleUpload = async () => {
+    // если картинка не выбрана, то выйдет алерт
     if (!selectedImg) {
       alert("Please select img")
       return
@@ -84,21 +91,36 @@ function AddProductAdmin() {
 
     const formData = new FormData()
     formData.append("file", selectedImg)
+    console.log(formData.get("file")) // работает
 
-    const response = await axios.post(
-      hostUrl,
-      {
-        body: formData,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      },
-    )
+    const res = await fetch("/api/files/upload", {
+      method: "POST",
+      body: formData,
+    }).then(res => {
+        // console.log(res.json())
+        const answer = res.text()
+        console.log(answer)
+        return answer
+      }).then((data: any) => {
+        // console.log(data)
+        imgID = data
+      })
 
-    const data = response.data
-    setUploadedImg(data)
+    // чтобы отобразить картинку надо будет ее сохранить в стейт и потом выводить на экран
+    // const data = await res.json()
+    // setUploadedImg(data)
+
+    // const imgID =
+    // const response = await axios.post(
+    //   "/api/files/upload",
+    //   {
+    //     formData,
+    //   }
+    // )
+
+    // console.log(response.data)
+    // setUploadedImg(response.data)
+    // console.log(response.data)
   }
 
   return (
@@ -152,27 +174,15 @@ function AddProductAdmin() {
             onChange={formik.handleChange}
             error={formik.errors.description}
           />
-
-
-
-
           <Button onClick={handlePick} buttonName="Choose img"></Button>
           <InputHidden
             type="file"
-            onChange = {handleChange}
+            onChange={handleChangeImg}
             accept="image/*,.png,.jpg,.bmp,.gif"
-            ref={filePicker}
+            $ref={filePicker}
           />
-          {/* <input
-            type="file"
-            onChange={handleChange}
-            accept="image/*,.png,.jpg,.bmp,.gif"
-            ref={filePicker}
-          /> */}
-
-
-
-
+          {uploadedImg && <img alt="" src={uploadedImg} />}
+          <Button onClick={handleUpload} buttonName="Upload img"></Button>
         </InputContainer>
         <ButtonContainer>
           <Button
