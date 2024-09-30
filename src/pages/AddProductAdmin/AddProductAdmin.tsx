@@ -1,13 +1,14 @@
 import { useFormik } from "formik"
 import * as Yup from "yup"
 import { useDispatch } from "react-redux"
-import { useState } from "react"
+import React, { useState, useRef, ChangeEvent } from "react"
 import { Alert } from "@mui/material"
 import { AppDispatch } from "store/store"
 
 import Button from "components/Button/Button"
 import Input from "components/Input/Input"
 import Modal from "components/Modal/Modal"
+import InputHidden from "components/InputHidden/InputHidden"
 
 import {
   InputContainer,
@@ -16,6 +17,7 @@ import {
   AddProductContainer,
   PageName,
 } from "./styles"
+import axios from "axios"
 
 function AddProductAdmin() {
   const [isModalOpen, setModalOpen] = useState<boolean>(false)
@@ -55,6 +57,49 @@ function AddProductAdmin() {
       setModalOpen(true)
     },
   })
+
+  //! ЗАГРУЗКА ФОТО НА СЕРВЕР
+  const hostUrl = "/api/files/upload "
+  const [selectedImg, setSelectedImg] = useState()
+  const [uploadedImg, setUploadedImg] = useState()
+
+  // вместо any было ChangeEvent<HTMLInputElement>
+  const handleChange = (event: any) => {
+    console.log(event.target.files)
+    setSelectedImg(event.target.files[0])
+  }
+  const filePicker = useRef<HTMLInputElement>(null)
+  // const filePicker = React.RefObject<HTMLInputElement>
+  const handlePick = () => {
+    {
+      filePicker.current && filePicker.current.click()
+    }
+    // filePicker.current.click()
+  }
+  const handleUpload = async () => {
+    if (!selectedImg) {
+      alert("Please select img")
+      return
+    }
+
+    const formData = new FormData()
+    formData.append("file", selectedImg)
+
+    const response = await axios.post(
+      hostUrl,
+      {
+        body: formData,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    )
+
+    const data = response.data
+    setUploadedImg(data)
+  }
 
   return (
     <PageWrapper>
@@ -107,15 +152,27 @@ function AddProductAdmin() {
             onChange={formik.handleChange}
             error={formik.errors.description}
           />
-          <Input
-            id="photo-link-id"
-            name="photoLink"
-            type="text"
-            label="Photo link*"
-            value={formik.values.photoLink}
-            onChange={formik.handleChange}
-            error={formik.errors.photoLink}
+
+
+
+
+          <Button onClick={handlePick} buttonName="Choose img"></Button>
+          <InputHidden
+            type="file"
+            onChange = {handleChange}
+            accept="image/*,.png,.jpg,.bmp,.gif"
+            ref={filePicker}
           />
+          {/* <input
+            type="file"
+            onChange={handleChange}
+            accept="image/*,.png,.jpg,.bmp,.gif"
+            ref={filePicker}
+          /> */}
+
+
+
+
         </InputContainer>
         <ButtonContainer>
           <Button

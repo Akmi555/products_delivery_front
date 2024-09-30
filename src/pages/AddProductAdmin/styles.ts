@@ -8,8 +8,8 @@ export const PageWrapper = styled.div`
   align-items: center;
 `
 export const PageName = styled.h4`
-font-size: xx-large;
-margin-top: 10px;
+  font-size: xx-large;
+  margin-top: 10px;
 `
 
 export const AddProductContainer = styled.form`
@@ -36,3 +36,12 @@ export const ButtonContainer = styled.div`
   flex-direction: column;
   gap: 20px;
 `
+// export const hidden = styled.input`
+//   opacity: 0;
+//   height: 0;
+//   width: 0;
+//   line-height: 0;
+//   overflow: hidden;
+//   padding: 0;
+//   margin: 0;
+// `
