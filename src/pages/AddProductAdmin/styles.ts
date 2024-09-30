@@ -4,17 +4,15 @@ import { globalPageStyles } from "styles/GlobalStyles"
 
 export const PageWrapper = styled.div`
   ${globalPageStyles}
-  /* justify-content: center; */
   flex-direction: column;
   align-items: center;
 `
-
 export const PageName = styled.h4`
-  font-size: xx-large;
-  margin-top: 10px;
+font-size: xx-large;
+margin-top: 10px;
 `
 
-export const RegistrationContainer = styled.form`
+export const AddProductContainer = styled.form`
   display: flex;
   flex-direction: column;
   margin: 50px;

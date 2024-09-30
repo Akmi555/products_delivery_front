@@ -24,13 +24,6 @@ import { useMatch } from "react-router-dom"
 function Layout({ children }: LayoutProps) {
   const match = useMatch("/")
 
-  // return (
-  //   <Link to={to}>
-  //     {!linkText && <LinkImg src={match ? greenImg : whiteImg} />}
-
-  // HeaderSimplePaige
-  //HeaderMainPaige
-
   const header = () => {
     return (
       <>
@@ -40,6 +33,7 @@ function Layout({ children }: LayoutProps) {
           </NavLinkStyled>
         </HeaderLogoContainer>
         <NavigationContainer>
+        <LinkHeaderCustomized to="/addProduct" linkText="addProduct" />
           <LinkHeaderCustomized to="/login" linkText="login" />
           <LinkHeaderCustomized to="/registration" linkText="registration" />
           <LinkHeaderCustomized
@@ -56,8 +50,6 @@ function Layout({ children }: LayoutProps) {
       </>
     )
   }
-
-  // HeaderMainPaige HeaderSimplePage
 
   return (
     <LayoutWrapper>

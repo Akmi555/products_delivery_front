@@ -9,14 +9,21 @@ export const PageWrapper = styled.div`
   justify-content: center;
 `
 
+export const PageName = styled.h4`
+font-size: xx-large;
+margin-top: 10px;
+`
+
 export const FormWrapper = styled.form`
   display: flex;
   flex-direction: column;
   gap: 30px;
   width: 400px;
+  width: 590px;
   background-color: white;
   border-radius: 10px;
-  padding: 30px;
+  padding: 60px;
+  margin: 50px;
 `
 
 export const InputContainer = styled.div`

@@ -14,6 +14,7 @@ import {
   ButtonContainer,
   FormWrapper,
   InputContainer,
+  PageName,
   PageWrapper,
 } from "./styles"
 
@@ -49,15 +50,16 @@ function Login() {
       setModalOpen(true)
     },
   })
-  
+
   return (
     <PageWrapper>
+       <PageName>Login</PageName>
       <FormWrapper onSubmit={formik.handleSubmit}>
         <InputContainer>
           <Input
             id="email-id"
             name="email"
-            type="text"
+            type="email"
             placeholder="mail@mail.com"
             label="E-mail*"
             value={formik.values.email}
