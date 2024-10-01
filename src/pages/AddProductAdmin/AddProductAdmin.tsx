@@ -1,7 +1,7 @@
 import { useFormik } from "formik"
 import * as Yup from "yup"
 import { useDispatch } from "react-redux"
-import React, { useState, useRef, ChangeEvent } from "react"
+import { useState, useRef } from "react"
 import { Alert } from "@mui/material"
 import { AppDispatch } from "store/store"
 
@@ -16,12 +16,19 @@ import {
   PageWrapper,
   AddProductContainer,
   PageName,
+  ImgUploadButtonContainer,
+  ImgCodeContainer,
+  UploadedImg,
 } from "./styles"
-import axios from "axios"
+import { productDescriptionAction } from "store/redux/oneProduct/oneProductDescriptionSlice"
 
 function AddProductAdmin() {
   const [isModalOpen, setModalOpen] = useState<boolean>(false)
   const dispatch = useDispatch<AppDispatch>()
+
+  const [selectedImg, setSelectedImg] = useState<never | null | any>(null) // выбранная картинка на фронтэнде
+  // const [uploadedImg, setUploadedImg] = useState() // загруженная картинка - это ответ от сервера (имя файла и путь до файла)
+  const [imgId, setImgId] = useState<string>() // ID картинки для создания карточки
 
   const validationSchema = Yup.object().shape({
     title: Yup.string()
@@ -52,25 +59,27 @@ function AddProductAdmin() {
     validateOnChange: false,
 
     onSubmit: (values, helpers) => {
-      // тут логина при нажатии кнопки "Создать товар"
+      dispatch(
+        productDescriptionAction.addProductToDB({
+          title: values.title,
+          price: values.price,
+          productCode: values.productCode,
+          minQuantity: values.minQuantity,
+          description: values.description,
+          photoLink: values.photoLink,
+        }),
+      )
       helpers.resetForm()
       setModalOpen(true)
     },
   })
 
   // ЗАГРУЗКА ФОТО НА СЕРВЕР
-  const [selectedImg, setSelectedImg] = useState(null) // это работает
-  const [uploadedImg, setUploadedImg] = useState()
-  console.log(selectedImg)
-  console.log(uploadedImg)
+  const photoLink: string = `http://localhost:8080/api/files/download/${imgId}`
 
   //! вместо any было ChangeEvent<HTMLInputElement>
   const handleChangeImg = (event: any) => {
-    console.log(event.target.files)
-
-    if (event.target.files) {
-      setSelectedImg(event.target.files[0])
-    }
+    setSelectedImg(event.target.files[0])
   }
 
   // для того чтобы при клике на кнопку открывался инпут для файла сразу (работает )
@@ -80,7 +89,6 @@ function AddProductAdmin() {
       filePicker.current && filePicker.current.click()
     }
   }
-  let imgID = ""
 
   const handleUpload = async () => {
     // если картинка не выбрана, то выйдет алерт
@@ -89,39 +97,39 @@ function AddProductAdmin() {
       return
     }
 
+    // способ как загружаются картинки на сайт (вроде не работает с axios но это не точно)
     const formData = new FormData()
     formData.append("file", selectedImg)
-    console.log(formData.get("file")) // работает
 
-    const res = await fetch("/api/files/upload", {
-      method: "POST",
-      body: formData,
-    }).then(res => {
-        // console.log(res.json())
-        const answer = res.text()
-        console.log(answer)
-        return answer
-      }).then((data: any) => {
-        // console.log(data)
-        imgID = data
+    try {
+      const res = await fetch("/api/files/upload", {
+        method: "POST",
+        body: formData,
       })
 
-    // чтобы отобразить картинку надо будет ее сохранить в стейт и потом выводить на экран
-    // const data = await res.json()
-    // setUploadedImg(data)
+      if (!res.ok) {
+        throw new Error(`Response status: ${res.status}`)
+      }
 
-    // const imgID =
-    // const response = await axios.post(
-    //   "/api/files/upload",
-    //   {
-    //     formData,
-    //   }
-    // )
-
-    // console.log(response.data)
-    // setUploadedImg(response.data)
-    // console.log(response.data)
+      // для получения кода картинки
+      const imgNumber: string = await res.text() // тут лежит верный код картнки
+      setImgId(imgNumber)
+    } catch (error: any) {
+      console.error(error)
+    }
+    setSelectedImg(null)
+    // getUploagegImg()
   }
+
+  // для отображения картинки на сайте перед созданием товара
+  // const getUploagegImg = async () => {
+  //   try {
+  //     const response = await axios.get(`/api/files/download/${imgId}`)
+  //     setUploadedImg(response.data)
+  //   } catch (error: any) {
+  //     console.error(error)
+  //   }
+  // }
 
   return (
     <PageWrapper>
@@ -164,7 +172,6 @@ function AddProductAdmin() {
             onChange={formik.handleChange}
             error={formik.errors.minQuantity}
           />
-
           <Input
             id="description-id"
             name="description"
@@ -174,15 +181,42 @@ function AddProductAdmin() {
             onChange={formik.handleChange}
             error={formik.errors.description}
           />
-          <Button onClick={handlePick} buttonName="Choose img"></Button>
-          <InputHidden
-            type="file"
-            onChange={handleChangeImg}
-            accept="image/*,.png,.jpg,.bmp,.gif"
-            $ref={filePicker}
+          <ImgUploadButtonContainer>
+            <Button onClick={handlePick} buttonName="Choose img"></Button>
+            <InputHidden
+              type="file"
+              onChange={handleChangeImg}
+              accept="image/*,.png,.jpg,.bmp,.gif"
+              $ref={filePicker}
+            />
+            <Button onClick={handleUpload} buttonName="Upload img"></Button>
+            {/* <Button onClick={getUploagegImg} buttonName="getUploagegImg"></Button> */}
+          </ImgUploadButtonContainer>
+           {/* ! СДЕЛАТЬ ТУТ КРАСИВО */}
+          <ImgCodeContainer>
+            {selectedImg && <p>{selectedImg.name}</p>}
+            {imgId && (
+              <>
+                <p>Изображение успешно загружено!</p>{" "}
+                <div>
+                  <p>Photo link:</p>
+                  <h4>{imgId}</h4>
+                </div>
+              </>
+            )}
+
+            {imgId && <UploadedImg alt="" src={photoLink} />}
+          </ImgCodeContainer>
+          <Input
+            id="photo-link-id"
+            name="photoLink"
+            type="text"
+            label="Photo link*"
+            placeholder="Copy here generated photo link"
+            value={formik.values.photoLink}
+            onChange={formik.handleChange}
+            error={formik.errors.photoLink}
           />
-          {uploadedImg && <img alt="" src={uploadedImg} />}
-          <Button onClick={handleUpload} buttonName="Upload img"></Button>
         </InputContainer>
         <ButtonContainer>
           <Button
