@@ -9,7 +9,7 @@
 
 import axios from "axios"
 import { createAppSlice } from "store/createAppSlice"
-import { ProductDescriptionSliceState } from "./types"
+import { ProductDescriptionObject, ProductDescriptionSliceState } from "./types"
 import { PayloadAction } from "@reduxjs/toolkit"
 
 //начальное значение ВСЕГДА объект
@@ -55,11 +55,9 @@ export const oneProductDescriptionSlice = createAppSlice({
       },
     ),
     addProductToDB: create.asyncThunk(
-      async (payload: any) => {
+      async (payload: ProductDescriptionObject) => {
         const response = await axios.post(
-          `
-        //! ПРОПИСАТЬ ПУТЬ ЗАПРОСА 
-        `,
+          `/api/products`,
           {
             title: payload.title,
             price: payload.price,
@@ -69,15 +67,12 @@ export const oneProductDescriptionSlice = createAppSlice({
             photoLink: payload.photoLink,
           },
           {
-            headers: {},
+            headers: { "Content-Type": "application/json",},
           },
         )
         return response.data
       },
-      { pending: () => {}, 
-        fulfilled: () => {}, 
-        rejected: () => {} 
-      },
+      { pending: () => {}, fulfilled: () => {}, rejected: () => {} },
     ),
   }),
   // селекторы, которые дают забирать данные из хранилища в какой то компонент

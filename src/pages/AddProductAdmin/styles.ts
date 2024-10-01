@@ -36,12 +36,17 @@ export const ButtonContainer = styled.div`
   flex-direction: column;
   gap: 20px;
 `
-// export const hidden = styled.input`
-//   opacity: 0;
-//   height: 0;
-//   width: 0;
-//   line-height: 0;
-//   overflow: hidden;
-//   padding: 0;
-//   margin: 0;
-// `
+
+export const ImgUploadButtonContainer = styled.div`
+display: flex;
+gap: 30px;
+padding: 0 40px 0 40px;
+`
+export const ImgCodeContainer = styled.div`
+display: flex;
+flex-direction: column;
+gap: 10px;
+`
+export const UploadedImg = styled.img`
+width: 100px;
+`

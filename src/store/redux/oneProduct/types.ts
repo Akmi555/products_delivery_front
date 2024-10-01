@@ -5,7 +5,7 @@ export interface ProductDescriptionSliceState {
 }
 
 export interface ProductDescriptionObject {
-  id: number
+  id?: number
   title: string
   price: number
   productCode: string
