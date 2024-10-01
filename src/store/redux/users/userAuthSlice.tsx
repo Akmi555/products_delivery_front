@@ -16,13 +16,13 @@ export const userAuthSlice = createAppSlice({
     registrUser: create.asyncThunk(
       async (payload: any) => {
         const response = await axios.post(
-          `/api/users`,
+          `/api/users/register`,
           {
             firstName: payload.firstName,
             lastName: payload.lastName,
             email: payload.email,
             password: payload.password,
-            phoneNumber: payload.phoneNumber,
+            phone: payload.phone,
           },
           {
             headers: {
