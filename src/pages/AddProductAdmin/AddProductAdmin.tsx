@@ -30,20 +30,30 @@ function AddProductAdmin() {
   const [selectedImg, setSelectedImg] = useState<never | null | any>(null) // выбранная картинка на фронтэнде
   const [imgId, setImgId] = useState<string>() // ID картинки для создания карточки
 
+  const quanityRegExp = /^[0-9.]+(\s?(g|kg|ml|l))$/
+
   const validationSchema = Yup.object().shape({
     title: Yup.string()
       .required("Title is required")
       .min(2, "Title should contain minimum 2 symbols")
-      .max(20, "Title should contain maximum 20 symbols"),
+      .max(64, "Title should contain maximum 64 symbols"),
     price: Yup.number()
-      .required("Last name field is required")
-      .min(0.1, "Price cant be less then 0,1 eur"),
-    productCode: Yup.string().required("Product code is required"),
-    minQuantity: Yup.string().required("Min quantity is required"),
+      .required("Price field is required")
+      .min(0.1, "Price cant be less then 0,1€"),
+    productCode: Yup.string()
+      .required("Product code field is required")
+      .min(2, "Product code should contain minimum 2 symbols")
+      .max(32, "Product code should contain maximum 32 symbols"),
+    minQuantity: Yup.string()
+      .required("Quantity field is required")
+      .matches(
+        quanityRegExp,
+        "Quantity field must contain a number followed by a valid unit (g, kg, ml, l).",
+      ),
     description: Yup.string()
       .required("Description is required")
-      .max(1000, "Max 1000 symbols"),
-    photoLink: Yup.string().required("Phone number is required"),
+      .max(255, "Description should contain maximum 255 symbols"),
+    // photoLink: Yup.string().required("Phone number is required"),
   })
 
   const formik = useFormik({
@@ -57,7 +67,7 @@ function AddProductAdmin() {
     },
     validationSchema,
     validateOnChange: false,
-  
+
     onSubmit: (values, helpers) => {
       dispatch(
         productDescriptionAction.addProductToDB({
@@ -157,7 +167,7 @@ function AddProductAdmin() {
             id="min-quantity-id"
             name="minQuantity"
             type="text"
-            label="Min quantity*"
+            label="Quantity*"
             value={formik.values.minQuantity}
             onChange={formik.handleChange}
             error={formik.errors.minQuantity}
