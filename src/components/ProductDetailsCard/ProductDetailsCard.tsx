@@ -21,7 +21,7 @@ function ProductDetailsCard({ productData }: ProductDescriptionProps) {
   const price: number = productData.price
   const minQuantity: string = productData.minQuantity
   const description: string = productData.description
-  const photoLink: string = productData.photoLink
+  const photoLink: string = `http://localhost:8080/api/files/download/${productData.photoLink}`
 
   // ! РЕАЛИЗОВАТЬ ДОБАВЛЕНИЕ В КОРЗИНУ
   // const onAddToCart= () => {
