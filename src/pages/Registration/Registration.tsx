@@ -23,7 +23,7 @@ function Registration() {
   const EMAIL_REGX = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
   const phoneRegExp =
     /^((\+[1-9]{1,4}[ \-]*)|(\([0-9]{2,3}\)[ \-]*)|([0-9]{2,4})[ \-]*)*?[0-9]{3,4}?[ \-]*[0-9]{3,4}?$/
-    
+
   const dispatch = useDispatch<AppDispatch>()
 
   const validationSchema = Yup.object().shape({
@@ -64,8 +64,8 @@ function Registration() {
           lastName: values.lastName,
           email: values.email,
           password: values.password,
-          phoneNumber: values.phoneNumber,
-        })
+          phone: values.phoneNumber,
+        }),
       )
       helpers.resetForm()
       setModalOpen(true)
