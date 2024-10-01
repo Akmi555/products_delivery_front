@@ -21,7 +21,7 @@ function ProductCard({ productData }: ProductCardProps) {
   const navigate = useNavigate()
 
   const productId: number = productData.id
-  const photoLink: string = productData.photoLink
+  const photoLink: string = `http://localhost:8080/api/files/download/${productData.photoLink}`
   const title: string = productData.title
   const minQuantity: string = productData.minQuantity
   const price: number = productData.price

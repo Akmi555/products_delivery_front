@@ -11,5 +11,5 @@ export interface ProductDescriptionObject {
   productCode: string
   minQuantity: string
   description: string
-  photoLink: string
+  photoLink: string | undefined
 }

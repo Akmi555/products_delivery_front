@@ -21,13 +21,13 @@ import {
   UploadedImg,
 } from "./styles"
 import { productDescriptionAction } from "store/redux/oneProduct/oneProductDescriptionSlice"
+import { ImgData } from "./types"
 
 function AddProductAdmin() {
   const [isModalOpen, setModalOpen] = useState<boolean>(false)
   const dispatch = useDispatch<AppDispatch>()
 
   const [selectedImg, setSelectedImg] = useState<never | null | any>(null) // выбранная картинка на фронтэнде
-  // const [uploadedImg, setUploadedImg] = useState() // загруженная картинка - это ответ от сервера (имя файла и путь до файла)
   const [imgId, setImgId] = useState<string>() // ID картинки для создания карточки
 
   const validationSchema = Yup.object().shape({
@@ -53,11 +53,11 @@ function AddProductAdmin() {
       productCode: "",
       minQuantity: "",
       description: "",
-      photoLink: "",
+      // photoLink: "",
     },
     validationSchema,
     validateOnChange: false,
-
+  
     onSubmit: (values, helpers) => {
       dispatch(
         productDescriptionAction.addProductToDB({
@@ -66,7 +66,7 @@ function AddProductAdmin() {
           productCode: values.productCode,
           minQuantity: values.minQuantity,
           description: values.description,
-          photoLink: values.photoLink,
+          photoLink: imgId,
         }),
       )
       helpers.resetForm()
@@ -118,18 +118,8 @@ function AddProductAdmin() {
       console.error(error)
     }
     setSelectedImg(null)
-    // getUploagegImg()
+    setImgId("")
   }
-
-  // для отображения картинки на сайте перед созданием товара
-  // const getUploagegImg = async () => {
-  //   try {
-  //     const response = await axios.get(`/api/files/download/${imgId}`)
-  //     setUploadedImg(response.data)
-  //   } catch (error: any) {
-  //     console.error(error)
-  //   }
-  // }
 
   return (
     <PageWrapper>
@@ -192,7 +182,7 @@ function AddProductAdmin() {
             <Button onClick={handleUpload} buttonName="Upload img"></Button>
             {/* <Button onClick={getUploagegImg} buttonName="getUploagegImg"></Button> */}
           </ImgUploadButtonContainer>
-           {/* ! СДЕЛАТЬ ТУТ КРАСИВО */}
+          {/* ! СДЕЛАТЬ ТУТ КРАСИВО */}
           <ImgCodeContainer>
             {selectedImg && <p>{selectedImg.name}</p>}
             {imgId && (
@@ -207,7 +197,7 @@ function AddProductAdmin() {
 
             {imgId && <UploadedImg alt="" src={photoLink} />}
           </ImgCodeContainer>
-          <Input
+          {/* <Input
             id="photo-link-id"
             name="photoLink"
             type="text"
@@ -216,7 +206,7 @@ function AddProductAdmin() {
             value={formik.values.photoLink}
             onChange={formik.handleChange}
             error={formik.errors.photoLink}
-          />
+          /> */}
         </InputContainer>
         <ButtonContainer>
           <Button
