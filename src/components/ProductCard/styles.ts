@@ -12,6 +12,8 @@ export const ProductWrapper = styled.div`
 export const PhotoNameWrapper = styled.div``
 
 export const ImgContainer = styled.div`
+  display: flex;
+  justify-content: center;
   width: 200px;
   height: 200px;
 `
@@ -23,9 +25,9 @@ export const ImgProduct = styled.img`
 `
 
 export const ProductMainInfo = styled.div`
-display: flex;
-flex-direction: column;
-gap: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 `
 
 export const ProductName = styled.div``

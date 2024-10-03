@@ -80,7 +80,8 @@ function AddProductAdmin() {
         }),
       )
       helpers.resetForm()
-      setModalOpen(true)
+      // setModalOpen(true)
+      setImgId("")
     },
   })
 
@@ -128,8 +129,6 @@ function AddProductAdmin() {
       console.error(error)
     }
     setSelectedImg(null)
-    // из за этого не отправлялись данные о картинки на сервер, тк очищалось поле ImgId , надо подумать куда это поставить чтобы работало корректно 
-    // setImgId("")
   }
 
   return (
