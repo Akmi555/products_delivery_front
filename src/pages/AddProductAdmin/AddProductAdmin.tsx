@@ -100,7 +100,7 @@ function AddProductAdmin() {
     }
   }
 
-  const handleUpload = async () => {
+  const handleImgUpload = async () => {
     // если картинка не выбрана, то выйдет алерт
     if (!selectedImg) {
       alert("Please select img")
@@ -128,7 +128,8 @@ function AddProductAdmin() {
       console.error(error)
     }
     setSelectedImg(null)
-    setImgId("")
+    // из за этого не отправлялись данные о картинки на сервер, тк очищалось поле ImgId , надо подумать куда это поставить чтобы работало корректно 
+    // setImgId("")
   }
 
   return (
@@ -189,7 +190,7 @@ function AddProductAdmin() {
               accept="image/*,.png,.jpg,.bmp,.gif"
               $ref={filePicker}
             />
-            <Button onClick={handleUpload} buttonName="Upload img"></Button>
+            <Button onClick={handleImgUpload} buttonName="Upload img"></Button>
             {/* <Button onClick={getUploagegImg} buttonName="getUploagegImg"></Button> */}
           </ImgUploadButtonContainer>
           {/* ! СДЕЛАТЬ ТУТ КРАСИВО */}
