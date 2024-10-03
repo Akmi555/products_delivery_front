@@ -1,10 +1,13 @@
-import CartComponent from "components/CartComponent/CartComponent"
-import { PageWrapper } from "./styles"
+import { useAppSelector } from "store/hooks"
+import { cartSelectors } from "store/redux/cart/cartSlice"
 
 function Cart() {
-  return <PageWrapper>
-    <CartComponent/>
-  </PageWrapper>
+
+const { allProductsFromCart } = useAppSelector(cartSelectors.cartState)
+
+  // const cartComponents = 
+
+  return <></>
 }
 
 export default Cart

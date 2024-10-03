@@ -13,3 +13,8 @@ export interface ProductObject {
   minQuantity: string
   photoLink: string
 }
+
+export interface CartObject {
+  userId : number | undefined
+  productId: number 
+}

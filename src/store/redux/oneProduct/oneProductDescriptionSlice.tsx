@@ -28,7 +28,7 @@ export const oneProductDescriptionSlice = createAppSlice({
     openProduct: create.asyncThunk(
       async (productId: number) => {
         const response = await axios.get(`/api/products/${productId}`)
-        return response
+        return response.data
       },
       {
         pending: (state: ProductDescriptionSliceState) => {
@@ -43,15 +43,6 @@ export const oneProductDescriptionSlice = createAppSlice({
           state.error = action.error.message
           state.isPending = false
         },
-      },
-    ),
-    // ! реализовать логику добавления в корзину
-    addProductToCart: create.reducer(
-      (state: ProductDescriptionSliceState, action: PayloadAction<number>) => {
-        state.currentProduct = undefined
-        // state.products = state.products.filter((productCard: ProductInfoObject) => {
-        //   return productCard.id !== action.payload
-        // })
       },
     ),
     addProductToDB: create.asyncThunk(

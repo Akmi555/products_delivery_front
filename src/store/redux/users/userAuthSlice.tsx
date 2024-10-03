@@ -42,7 +42,6 @@ export const userAuthSlice = createAppSlice({
 
           state.currentUser = action.payload
           state.accessToken = action.payload.accessToken
-          
         },
         rejected: (state: UserAuthSliceState, action) => {
           state.error = action.error.message
