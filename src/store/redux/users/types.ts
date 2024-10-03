@@ -10,8 +10,8 @@ export interface UserObject {
   firstName: string
   lastName: string
   email: string
-  password: string
-  phoneNumber: string
+  phone: string
+  role: string
 }
 
 export interface LoginData {
