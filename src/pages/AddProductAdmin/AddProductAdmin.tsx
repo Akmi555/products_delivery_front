@@ -85,7 +85,7 @@ function AddProductAdmin() {
   })
 
   // ЗАГРУЗКА ФОТО НА СЕРВЕР
-  const photoLink: string = `http://localhost:8080/api/files/download/${imgId}`
+  const photoLink: string = `/api/files/download/${imgId}`
 
   //! вместо any было ChangeEvent<HTMLInputElement>
   const handleChangeImg = (event: any) => {
