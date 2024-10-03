@@ -17,6 +17,7 @@ export const PageName = styled.h4`
 export const RegistrationContainer = styled.form`
   display: flex;
   flex-direction: column;
+  
   margin: 50px;
   width: 590px;
   min-height: 450px;
@@ -37,4 +38,7 @@ export const ButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+`
+export const GoToLogin = styled.a`
+  cursor: pointer;
 `

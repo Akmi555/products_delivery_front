@@ -10,7 +10,7 @@
 import axios from "axios"
 import { createAppSlice } from "store/createAppSlice"
 import { ProductObject, ProductsSliceState } from "./types"
-import { PayloadAction, isPending } from "@reduxjs/toolkit"
+import { PayloadAction } from "@reduxjs/toolkit"
 
 //начальное значение ВСЕГДА объект
 const productsInitialState: ProductsSliceState = {

@@ -8,7 +8,7 @@ export interface InputProps {
   placeholder?: string
   label: string
   disabled?: boolean
-  error?: string | undefined | FormikErrors<{ imgId: string | undefined }>
+  error?: string | undefined
   value?: string | number
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void
 }

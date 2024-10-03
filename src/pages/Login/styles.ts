@@ -10,8 +10,8 @@ export const PageWrapper = styled.div`
 `
 
 export const PageName = styled.h4`
-font-size: xx-large;
-margin-top: 10px;
+  font-size: xx-large;
+  margin-top: 10px;
 `
 
 export const FormWrapper = styled.form`
@@ -32,3 +32,7 @@ export const InputContainer = styled.div`
   gap: 20px;
 `
 export const ButtonContainer = styled.div``
+
+export const GoToRegistrationLink = styled.a`
+  cursor: pointer;
+`

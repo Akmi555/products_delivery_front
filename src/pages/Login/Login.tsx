@@ -13,14 +13,21 @@ import { userAuthAction } from "store/redux/users/userAuthSlice"
 import {
   ButtonContainer,
   FormWrapper,
+  GoToRegistrationLink,
   InputContainer,
   PageName,
   PageWrapper,
 } from "./styles"
+import { useNavigate } from "react-router-dom"
 
 function Login() {
   const dispatch = useDispatch<AppDispatch>()
   const [isModalOpen, setModalOpen] = useState<boolean>(false)
+  const navigate = useNavigate()
+  const goToRegistrationPage = () => {
+    navigate("/registration")
+  }
+
   let EMAIL_REGX = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
 
   const validationSchema = Yup.object().shape({
@@ -53,7 +60,7 @@ function Login() {
 
   return (
     <PageWrapper>
-       <PageName>Login</PageName>
+      <PageName>Login</PageName>
       <FormWrapper onSubmit={formik.handleSubmit}>
         <InputContainer>
           <Input
@@ -83,6 +90,11 @@ function Login() {
             type="submit"
           />
         </ButtonContainer>
+        <GoToRegistrationLink onClick={goToRegistrationPage}>
+          or register
+        </GoToRegistrationLink>
+
+        <></>
         <Modal open={isModalOpen} onClose={() => setModalOpen(false)}>
           <Alert severity="success">Successful</Alert>
         </Modal>

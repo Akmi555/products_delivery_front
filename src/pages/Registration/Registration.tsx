@@ -15,10 +15,16 @@ import {
   ButtonContainer,
   PageWrapper,
   PageName,
+  GoToLogin,
 } from "./styles"
 import { userAuthAction } from "store/redux/users/userAuthSlice"
+import { useNavigate } from "react-router-dom"
 
 function Registration() {
+  const navigate = useNavigate()
+  const goToLoginPage = () => {
+    navigate("/login")
+  }
   const [isModalOpen, setModalOpen] = useState<boolean>(false)
   const EMAIL_REGX = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
   const phoneRegExp =
@@ -134,11 +140,14 @@ function Registration() {
             type="submit"
           />
         </ButtonContainer>
-
+        <GoToLogin onClick={goToLoginPage}>
+          or login
+        </GoToLogin>
         <Modal open={isModalOpen} onClose={() => setModalOpen(false)}>
           <Alert severity="success">Successful</Alert>
         </Modal>
       </RegistrationContainer>
+      
     </PageWrapper>
   )
 }

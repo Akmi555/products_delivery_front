@@ -21,7 +21,6 @@ import {
   UploadedImg,
 } from "./styles"
 import { productDescriptionAction } from "store/redux/oneProduct/oneProductDescriptionSlice"
-import { ImgData } from "./types"
 
 function AddProductAdmin() {
   const [isModalOpen, setModalOpen] = useState<boolean>(false)
@@ -53,7 +52,6 @@ function AddProductAdmin() {
     description: Yup.string()
       .required("Description is required")
       .max(255, "Description should contain maximum 255 symbols"),
-    // photoLink: Yup.string().required("Phone number is required"),
   })
 
   const formik = useFormik({
@@ -63,7 +61,6 @@ function AddProductAdmin() {
       productCode: "",
       minQuantity: "",
       description: "",
-      // photoLink: "",
     },
     validationSchema,
     validateOnChange: false,
@@ -80,12 +77,14 @@ function AddProductAdmin() {
         }),
       )
       helpers.resetForm()
+      // ! ПОЧИНИТЬ МОДАЛКУ , а то всегда sussecc
       // setModalOpen(true)
       setImgId("")
     },
   })
 
-  // ЗАГРУЗКА ФОТО НА СЕРВЕР
+  // НИЖЕ ЛОГИКА ДЛЯ ЗАГРУЗКИ ФОТО НА СЕРВЕР
+  // useState выше
   const photoLink: string = `/api/files/download/${imgId}`
 
   //! вместо any было ChangeEvent<HTMLInputElement>
@@ -190,33 +189,12 @@ function AddProductAdmin() {
               $ref={filePicker}
             />
             <Button onClick={handleImgUpload} buttonName="Upload img"></Button>
-            {/* <Button onClick={getUploagegImg} buttonName="getUploagegImg"></Button> */}
           </ImgUploadButtonContainer>
-          {/* ! СДЕЛАТЬ ТУТ КРАСИВО */}
           <ImgCodeContainer>
             {selectedImg && <p>{selectedImg.name}</p>}
-            {imgId && (
-              <>
-                <p>Изображение успешно загружено!</p>{" "}
-                <div>
-                  <p>Photo link:</p>
-                  <h4>{imgId}</h4>
-                </div>
-              </>
-            )}
-
+            {imgId && <p>Изображение успешно загружено!</p>}
             {imgId && <UploadedImg alt="" src={photoLink} />}
           </ImgCodeContainer>
-          {/* <Input
-            id="photo-link-id"
-            name="photoLink"
-            type="text"
-            label="Photo link*"
-            placeholder="Copy here generated photo link"
-            value={formik.values.photoLink}
-            onChange={formik.handleChange}
-            error={formik.errors.photoLink}
-          /> */}
         </InputContainer>
         <ButtonContainer>
           <Button
@@ -225,7 +203,6 @@ function AddProductAdmin() {
             type="submit"
           />
         </ButtonContainer>
-
         <Modal open={isModalOpen} onClose={() => setModalOpen(false)}>
           <Alert severity="success">Successful</Alert>
         </Modal>
