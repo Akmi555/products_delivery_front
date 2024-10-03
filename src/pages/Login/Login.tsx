@@ -17,10 +17,12 @@ import {
   PageName,
   PageWrapper,
 } from "./styles"
+import { Link, useNavigate } from "react-router-dom"
 
 function Login() {
   const dispatch = useDispatch<AppDispatch>()
   const [isModalOpen, setModalOpen] = useState<boolean>(false)
+
   let EMAIL_REGX = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
 
   const validationSchema = Yup.object().shape({
@@ -53,7 +55,7 @@ function Login() {
 
   return (
     <PageWrapper>
-       <PageName>Login</PageName>
+      <PageName>Login</PageName>
       <FormWrapper onSubmit={formik.handleSubmit}>
         <InputContainer>
           <Input
@@ -83,6 +85,7 @@ function Login() {
             type="submit"
           />
         </ButtonContainer>
+        <Link to="/registration">or register</Link>
         <Modal open={isModalOpen} onClose={() => setModalOpen(false)}>
           <Alert severity="success">Successful</Alert>
         </Modal>

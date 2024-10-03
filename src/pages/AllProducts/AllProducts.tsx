@@ -11,6 +11,8 @@ import {
 import { ProductObject } from "store/redux/allProducts/types"
 import { v4 } from "uuid"
 import { Container, Pagination, Stack } from "@mui/material"
+import { userAuthSelectors } from "store/redux/users/userAuthSlice"
+import { UserObject } from "store/redux/users/types"
 
 function AllProducts() {
   const dispatch = useAppDispatch()
@@ -25,6 +27,9 @@ function AllProducts() {
     productsSelectors.productsState,
   )
 
+  const { currentUser } = useAppSelector(userAuthSelectors.userAuthState)
+  const currentUserID : number | undefined = currentUser?.id
+  console.log(currentUserID)
   // МАПинг
   const productCards = products.map((productObj: ProductObject) => (
     <ProductCard key={v4()} productData={productObj} />

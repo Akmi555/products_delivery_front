@@ -10,8 +10,8 @@ export const PageWrapper = styled.div`
 `
 
 export const PageName = styled.h4`
-font-size: xx-large;
-margin-top: 10px;
+  font-size: xx-large;
+  margin-top: 10px;
 `
 
 export const FormWrapper = styled.form`

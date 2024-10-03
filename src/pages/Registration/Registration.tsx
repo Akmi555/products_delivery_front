@@ -15,8 +15,10 @@ import {
   ButtonContainer,
   PageWrapper,
   PageName,
+  GoToLogin,
 } from "./styles"
 import { userAuthAction } from "store/redux/users/userAuthSlice"
+import { Link } from "react-router-dom"
 
 function Registration() {
   const [isModalOpen, setModalOpen] = useState<boolean>(false)
@@ -134,11 +136,12 @@ function Registration() {
             type="submit"
           />
         </ButtonContainer>
-
+        <Link to="/login">or login</Link>
         <Modal open={isModalOpen} onClose={() => setModalOpen(false)}>
           <Alert severity="success">Successful</Alert>
         </Modal>
       </RegistrationContainer>
+      
     </PageWrapper>
   )
 }
