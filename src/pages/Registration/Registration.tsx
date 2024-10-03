@@ -18,9 +18,10 @@ import {
   GoToLogin,
 } from "./styles"
 import { userAuthAction } from "store/redux/users/userAuthSlice"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 function Registration() {
+  const navigate = useNavigate()
   const [isModalOpen, setModalOpen] = useState<boolean>(false)
   const EMAIL_REGX = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
   const phoneRegExp =
@@ -71,6 +72,7 @@ function Registration() {
       )
       helpers.resetForm()
       setModalOpen(true)
+      navigate("/")
     },
   })
 

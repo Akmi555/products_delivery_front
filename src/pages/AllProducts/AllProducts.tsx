@@ -26,10 +26,7 @@ function AllProducts() {
   const { products, totalPages } = useAppSelector(
     productsSelectors.productsState,
   )
-
-  const { currentUser } = useAppSelector(userAuthSelectors.userAuthState)
-  const currentUserID : number | undefined = currentUser?.id
-  console.log(currentUserID)
+ 
   // МАПинг
   const productCards = products.map((productObj: ProductObject) => (
     <ProductCard key={v4()} productData={productObj} />

@@ -9,8 +9,10 @@
 
 import axios from "axios"
 import { createAppSlice } from "store/createAppSlice"
-import { ProductObject, ProductsSliceState } from "./types"
+import { CartObject, ProductObject, ProductsSliceState } from "./types"
 import { PayloadAction } from "@reduxjs/toolkit"
+import { UserAuthSliceState } from "../users/types"
+import { stat } from "fs"
 
 //начальное значение ВСЕГДА объект
 const productsInitialState: ProductsSliceState = {
@@ -60,18 +62,24 @@ export const allProductsSlice = createAppSlice({
         },
       },
     ),
-    addProductToCart: create.reducer(
-      (state: ProductsSliceState, action: PayloadAction<number>) => {
-        state.currentProduct = undefined
-        state.products = state.products.filter((productCard: ProductObject) => {
-          return productCard.id !== action.payload
-        })
+    addProductToCart: create.asyncThunk(
+      async (state: CartObject) => {
+        const response = await axios.post(
+          `/api/cart/${state.userId}/${state.productId}`,
+        )
+        return response.data
+      },
+      {
+        pending: () => {},
+        fulfilled: () => {},
+        rejected: () => {},
       },
     ),
+
     openProduct: create.asyncThunk(
       async (productId: number) => {
         const response = await axios.get(`/api/products/${productId}`)
-        return response
+        return response.data
       },
       {
         pending: (state: ProductsSliceState) => {

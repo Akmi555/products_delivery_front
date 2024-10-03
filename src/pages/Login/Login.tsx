@@ -22,6 +22,7 @@ import { Link, useNavigate } from "react-router-dom"
 function Login() {
   const dispatch = useDispatch<AppDispatch>()
   const [isModalOpen, setModalOpen] = useState<boolean>(false)
+  const navigate = useNavigate()
 
   let EMAIL_REGX = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
 
@@ -50,6 +51,7 @@ function Login() {
       )
       helpers.resetForm()
       setModalOpen(true)
+      navigate("/")
     },
   })
 

@@ -11,10 +11,14 @@ import {
 import Button from "components/Button/Button"
 import cartWhite from "assets/shopping-cart-white.png"
 import { ProductCardProps } from "./types"
-import { useAppDispatch } from "store/hooks"
+import { useAppDispatch, useAppSelector } from "store/hooks"
 import { productDescriptionAction } from "store/redux/oneProduct/oneProductDescriptionSlice"
 import ProductButton from "components/ProductButton/ProductButton"
 import { useNavigate } from "react-router-dom"
+
+import { userAuthSelectors } from "store/redux/users/userAuthSlice"
+import { cartAction } from "store/redux/cart/cartSlice"
+import { AddToCartData } from "store/redux/cart/types"
 
 function ProductCard({ productData }: ProductCardProps) {
   const dispatch = useAppDispatch()
@@ -31,22 +35,29 @@ function ProductCard({ productData }: ProductCardProps) {
     navigate("/oneProductCard")
   }
 
-  // ! РЕАЛИЗОВАТЬ ДОБАВЛЕНИЕ В КОРЗИНУ
-  // const onAddToCart= () => {
-  //   dispatch(productsAction.addProductToCart(productData.productData.id))
-  //   // ТУТ МОЖНО ДОБАВИТЬ АЛЕРТ ИЛИ ДРУГОЕ ПОДТВЕРЖДЕНИЕ ЧТО ДЕЙСТВИЕ ПРОШЛО УСПЕШНО
-  // }
+  // получение айди залогиненного пользователя
+  const { currentUser } = useAppSelector(userAuthSelectors.userAuthState)
+  const currentUserID: number | undefined = currentUser?.id
+
+  const addToCartData: AddToCartData = {
+    userId: currentUserID,
+    productId: productId,
+  }
+
+  const onAddToCart = () => {
+    dispatch(cartAction.addProductToCart(addToCartData))
+  }
 
   return (
     <ProductWrapper>
-        <PhotoNameWrapper>
-      <ImgContainer>
-        <ProductButton
-          type="button"
-          imgSrc={photoLink}
-          onClick={openCurrentProduct}
-        ></ProductButton>
-      </ImgContainer>
+      <PhotoNameWrapper>
+        <ImgContainer>
+          <ProductButton
+            type="button"
+            imgSrc={photoLink}
+            onClick={openCurrentProduct}
+          ></ProductButton>
+        </ImgContainer>
       </PhotoNameWrapper>
       <ProductMainInfo>
         <ProductButton
@@ -58,7 +69,7 @@ function ProductCard({ productData }: ProductCardProps) {
         <PriceButtonContainer>
           <ProductPrice>{price} €</ProductPrice>
           <ButtonContainer>
-            <Button imgSrc={cartWhite} type="button" />
+            <Button imgSrc={cartWhite} type="button" onClick={onAddToCart} />
           </ButtonContainer>
         </PriceButtonContainer>
       </ProductMainInfo>
