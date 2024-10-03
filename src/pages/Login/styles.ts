@@ -32,7 +32,3 @@ export const InputContainer = styled.div`
   gap: 20px;
 `
 export const ButtonContainer = styled.div``
-
-export const GoToRegistrationLink = styled.a`
-  cursor: pointer;
-`
