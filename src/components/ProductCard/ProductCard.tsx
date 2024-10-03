@@ -39,14 +39,14 @@ function ProductCard({ productData }: ProductCardProps) {
 
   return (
     <ProductWrapper>
-      <PhotoNameWrapper>
-        <ImgContainer>
-          <ProductButton
-            type="button"
-            imgSrc={photoLink}
-            onClick={openCurrentProduct}
-          ></ProductButton>
-        </ImgContainer>
+        <PhotoNameWrapper>
+      <ImgContainer>
+        <ProductButton
+          type="button"
+          imgSrc={photoLink}
+          onClick={openCurrentProduct}
+        ></ProductButton>
+      </ImgContainer>
       </PhotoNameWrapper>
       <ProductMainInfo>
         <ProductButton
