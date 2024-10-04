@@ -2,10 +2,11 @@ import type { Action, ThunkAction } from "@reduxjs/toolkit"
 import { combineSlices, configureStore } from "@reduxjs/toolkit"
 import { allProductsSlice } from "./redux/allProducts/allProductsSlice"
 import { userAuthSlice } from "./redux/users/userAuthSlice"
-import { oneProductDescriptionSlice } from "./redux/oneProduct/oneProductDescriptionSlice"
+import { oneProductSlice } from "./redux/oneProduct/oneProductDescriptionSlice"
+import { cartSlice } from "./redux/cart/cartSlice"
 
 // сюда добавляются слайсы через запятую
-const rootReducer = combineSlices(allProductsSlice, oneProductDescriptionSlice, userAuthSlice)
+const rootReducer = combineSlices(allProductsSlice, oneProductSlice, userAuthSlice, cartSlice)
 
 export type RootState = ReturnType<typeof rootReducer>
 

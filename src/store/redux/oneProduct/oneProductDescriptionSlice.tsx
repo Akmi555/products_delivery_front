@@ -9,20 +9,20 @@
 
 import axios from "axios"
 import { createAppSlice } from "store/createAppSlice"
-import { ProductDescriptionObject, ProductDescriptionSliceState } from "./types"
+import { OneProductObject, OneProductSliceState } from "./types"
 import { PayloadAction } from "@reduxjs/toolkit"
 
 //начальное значение ВСЕГДА объект
-const productDescriptionInitialState: ProductDescriptionSliceState = {
+const oneProductInitialState: OneProductSliceState = {
   currentProduct: undefined,
   error: undefined,
   isPending: false,
 }
 
 // похоже на формик. Вызываем функцию и передаем туда все настройки
-export const oneProductDescriptionSlice = createAppSlice({
+export const oneProductSlice = createAppSlice({
   name: "PRODUCT",
-  initialState: productDescriptionInitialState,
+  initialState: oneProductInitialState,
   // объект со всеми редьюсерами
   reducers: create => ({
     openProduct: create.asyncThunk(
@@ -31,22 +31,22 @@ export const oneProductDescriptionSlice = createAppSlice({
         return response.data
       },
       {
-        pending: (state: ProductDescriptionSliceState) => {
+        pending: (state: OneProductSliceState) => {
           state.error = undefined
           state.isPending = true
         },
-        fulfilled: (state: ProductDescriptionSliceState, action) => {
+        fulfilled: (state: OneProductSliceState, action) => {
           state.isPending = false
           state.currentProduct = action.payload.data
         },
-        rejected: (state: ProductDescriptionSliceState, action) => {
+        rejected: (state: OneProductSliceState, action) => {
           state.error = action.error.message
           state.isPending = false
         },
       },
     ),
     addProductToDB: create.asyncThunk(
-      async (payload: ProductDescriptionObject) => {
+      async (payload: OneProductObject) => {
         const response = await axios.post(
           `/api/products`,
           {
@@ -68,12 +68,12 @@ export const oneProductDescriptionSlice = createAppSlice({
   }),
   // селекторы, которые дают забирать данные из хранилища в какой то компонент
   selectors: {
-    productState: (state: ProductDescriptionSliceState) => state,
+    productState: (state: OneProductSliceState) => state,
   },
 })
 
 // экспорт экшенов и селекторов чтобы чтобы можно было воспользоваться ими в компонентах приложения
-export const productDescriptionAction = oneProductDescriptionSlice.actions
-export const productDescriptionSelectors = oneProductDescriptionSlice.selectors
+export const productDescriptionAction = oneProductSlice.actions
+export const productDescriptionSelectors = oneProductSlice.selectors
 
 // все остальные действия внутри компонента
