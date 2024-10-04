@@ -1,10 +1,10 @@
-export interface ProductDescriptionSliceState {
-  currentProduct: ProductDescriptionObject | undefined
+export interface OneProductSliceState {
+  currentProduct: OneProductObject | undefined
   error: string | undefined
   isPending: boolean
 }
 
-export interface ProductDescriptionObject {
+export interface OneProductObject {
   id?: number
   title: string
   price: number

@@ -1,5 +1,5 @@
-import { ProductDescriptionObject } from "store/redux/oneProduct/types"
+import { OneProductObject } from "store/redux/oneProduct/types"
 
 export interface ProductDescriptionProps {
-  productData: ProductDescriptionObject 
+  productData: OneProductObject 
 }

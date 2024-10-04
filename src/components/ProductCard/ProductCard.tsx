@@ -17,7 +17,7 @@ import ProductButton from "components/ProductButton/ProductButton"
 import { useNavigate } from "react-router-dom"
 
 import { userAuthSelectors } from "store/redux/users/userAuthSlice"
-import { cartAction } from "store/redux/cart/cartSlice"
+import { cartActions } from "store/redux/cart/cartSlice"
 import { AddToCartData } from "store/redux/cart/types"
 
 function ProductCard({ productData }: ProductCardProps) {
@@ -45,7 +45,8 @@ function ProductCard({ productData }: ProductCardProps) {
   }
 
   const onAddToCart = () => {
-    dispatch(cartAction.addProductToCart(addToCartData))
+    // dispatch(cartActions.addProductToCart(addToCartData))
+    dispatch(cartActions.addProductToCart(addToCartData))
   }
 
   return (
