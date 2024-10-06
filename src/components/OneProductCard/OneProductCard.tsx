@@ -15,19 +15,34 @@ import {
 import Button from "components/Button/Button"
 import cartWhite from "assets/shopping-cart-white.png"
 import { ProductDescriptionProps } from "./types"
+import { useAppDispatch, useAppSelector } from "store/hooks"
+import { cartActions } from "store/redux/cart/cartSlice"
+import { AddToCartData } from "store/redux/cart/types"
+import { userAuthSelectors } from "store/redux/users/userAuthSlice"
 
 function ProductDetailsCard({ productData }: ProductDescriptionProps) {
+  const dispatch = useAppDispatch()
+
+  const productId: number = productData.id
   const title: string = productData.title
   const price: number = productData.price
   const minQuantity: string = productData.minQuantity
   const description: string = productData.description
   const photoLink: string = `/api/files/download/${productData.photoLink}`
 
-  // ! РЕАЛИЗОВАТЬ ДОБАВЛЕНИЕ В КОРЗИНУ
-  // const onAddToCart= () => {
-  //   dispatch(productsAction.addProductToCart(productData.productData.id))
-  //   // ТУТ МОЖНО ДОБАВИТЬ АЛЕРТ ИЛИ ДРУГОЕ ПОДТВЕРЖДЕНИЕ ЧТО ДЕЙСТВИЕ ПРОШЛО УСПЕШНО
-  // }
+  // получение айди залогиненного пользователя, надо чтобы добавлять продукты в корзину
+  const { currentUser } = useAppSelector(userAuthSelectors.userAuthState)
+  const currentUserID: number | undefined = currentUser?.id
+
+  // сбор данных для добавления в корзину в 1 объект, чтобы передать ниже в функцию addProductToCart(...)
+  const addToCartData: AddToCartData = {
+    userId: currentUserID,
+    productId: productId,
+  }
+
+  const onAddToCart = () => {
+    dispatch(cartActions.addProductToCart(addToCartData))
+  }
 
   return (
     <ProductWrapper>
@@ -41,7 +56,7 @@ function ProductDetailsCard({ productData }: ProductDescriptionProps) {
           <PriceButtonContainer>
             <ProductPrice>{price} €</ProductPrice>
             <ButtonContainer>
-              <Button imgSrc={cartWhite} type="button" />
+              <Button imgSrc={cartWhite} type="button" onClick={onAddToCart} />
             </ButtonContainer>
           </PriceButtonContainer>
         </ProductMainInfoContainer>
