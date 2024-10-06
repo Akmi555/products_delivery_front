@@ -12,7 +12,7 @@ import Button from "components/Button/Button"
 import cartWhite from "assets/shopping-cart-white.png"
 import { ProductCardProps } from "./types"
 import { useAppDispatch, useAppSelector } from "store/hooks"
-import { productDescriptionAction } from "store/redux/oneProduct/oneProductSlice"
+import { oneProductAction } from "store/redux/oneProduct/oneProductSlice"
 import ProductButton from "components/ProductButton/ProductButton"
 import { useNavigate } from "react-router-dom"
 
@@ -32,7 +32,7 @@ function ProductCard({ productData }: ProductCardProps) {
 
   // функция которая стоит на картинке и имени товара чтобы открыть этот товар в новом окне
   const openCurrentProduct = () => {
-    dispatch(productDescriptionAction.openProduct(productId))
+    dispatch(oneProductAction.openProduct(productId))
     navigate("/oneProductCard")
   }
 

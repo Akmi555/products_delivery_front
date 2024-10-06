@@ -20,7 +20,7 @@ import {
   ImgCodeContainer,
   UploadedImg,
 } from "./styles"
-import { productDescriptionAction } from "store/redux/oneProduct/oneProductSlice"
+import { oneProductAction } from "store/redux/oneProduct/oneProductSlice"
 
 function AddProductAdmin() {
   const [isModalOpen, setModalOpen] = useState<boolean>(false)
@@ -67,7 +67,7 @@ function AddProductAdmin() {
 
     onSubmit: (values, helpers) => {
       dispatch(
-        productDescriptionAction.addProductToDB({
+        oneProductAction.addProductToDB({
           title: values.title,
           price: values.price,
           productCode: values.productCode,

@@ -1,11 +1,11 @@
-import { productDescriptionSelectors } from "store/redux/oneProduct/oneProductSlice"
+import { oneProductSelectors } from "store/redux/oneProduct/oneProductSlice"
 import { PageWrapper } from "./styles"
 import { useAppSelector } from "store/hooks"
 import ProductDetailsCard from "components/ProductDetailsCard/ProductDetailsCard"
 
 function OneProduct() {
   const { currentProduct } = useAppSelector(
-    productDescriptionSelectors.productState,
+    oneProductSelectors.productState,
   )
 
   return (

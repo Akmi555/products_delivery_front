@@ -1,11 +1,6 @@
-import { CartItemObject } from "store/redux/cart/types"
+import { СartAndProductData } from "pages/Cart/types"
 
 export interface cartObjProps {
-    cartObjData: CartItemObject
-//   id: number 
-//   cartId: number
-//   productId: number
-//   productQuantity: number
-//   sum: number
+    cartObjData: СartAndProductData
 }
 

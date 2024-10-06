@@ -25,7 +25,7 @@ export const oneProductSlice = createAppSlice({
         fulfilled: (state: OneProductSliceState, action) => {
           state.isPending = false
           state.currentProduct = action.payload
-          console.log(`oneProductSlice - openProduct - action.payload: ${action.payload}`)
+          // console.log(action.payload)
         },
         rejected: (state: OneProductSliceState, action) => {
           state.error = action.error.message
@@ -59,5 +59,5 @@ export const oneProductSlice = createAppSlice({
   },
 })
 
-export const productDescriptionAction = oneProductSlice.actions
-export const productDescriptionSelectors = oneProductSlice.selectors
+export const oneProductAction = oneProductSlice.actions
+export const oneProductSelectors = oneProductSlice.selectors
