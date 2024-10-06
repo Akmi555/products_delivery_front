@@ -5,4 +5,5 @@ export interface LinkHeaderCustomizedProps {
     whiteImg?: string
     greenImg?: string
     linkText?: string
+    children?: ReactNode
 }
