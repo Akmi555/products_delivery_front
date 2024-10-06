@@ -2,7 +2,7 @@ import type { Action, ThunkAction } from "@reduxjs/toolkit"
 import { combineSlices, configureStore } from "@reduxjs/toolkit"
 import { allProductsSlice } from "./redux/allProducts/allProductsSlice"
 import { userAuthSlice } from "./redux/users/userAuthSlice"
-import { oneProductSlice } from "./redux/oneProduct/oneProductDescriptionSlice"
+import { oneProductSlice } from "./redux/oneProduct/oneProductSlice"
 import { cartSlice } from "./redux/cart/cartSlice"
 
 // сюда добавляются слайсы через запятую

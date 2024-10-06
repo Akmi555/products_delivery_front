@@ -1,7 +1,6 @@
 import { createAppSlice } from "store/createAppSlice"
 import { CartSliceState, AddToCartData } from "./types"
 import axios from "axios"
-import { stat } from "fs"
 
 const cartInitialState: CartSliceState = {
   currentProductFromCart: undefined,
@@ -25,7 +24,6 @@ export const cartSlice = createAppSlice({
         pending: () => {},
         fulfilled: (state: CartSliceState, action) => {
           state.currentProductFromCart = action.payload
-          // console.log(action.payload)
         },
         rejected: () => {},
       },
@@ -42,8 +40,7 @@ export const cartSlice = createAppSlice({
         },
         fulfilled: (state: CartSliceState, action) => {
           state.isPending = false
-          // state.allProductsFromCart = action.payload
-          state.allProductsFromCart = action.payload.data
+          state.allProductsFromCart = action.payload
         },
         rejected: (state: CartSliceState, action) => {
           state.error = action.error.message
@@ -65,9 +62,7 @@ export const cartSlice = createAppSlice({
   }),
   // селекторы, которые дают забирать данные из хранилища в какой то компонент
   selectors: {
-    cartState: (state: CartSliceState) => {
-      state
-    },
+    cartState: (state: CartSliceState) => state,
   },
 })
 

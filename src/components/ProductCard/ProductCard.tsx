@@ -12,7 +12,7 @@ import Button from "components/Button/Button"
 import cartWhite from "assets/shopping-cart-white.png"
 import { ProductCardProps } from "./types"
 import { useAppDispatch, useAppSelector } from "store/hooks"
-import { productDescriptionAction } from "store/redux/oneProduct/oneProductDescriptionSlice"
+import { productDescriptionAction } from "store/redux/oneProduct/oneProductSlice"
 import ProductButton from "components/ProductButton/ProductButton"
 import { useNavigate } from "react-router-dom"
 
@@ -30,22 +30,23 @@ function ProductCard({ productData }: ProductCardProps) {
   const minQuantity: string = productData.minQuantity
   const price: number = productData.price
 
+  // функция которая стоит на картинке и имени товара чтобы открыть этот товар в новом окне
   const openCurrentProduct = () => {
     dispatch(productDescriptionAction.openProduct(productId))
     navigate("/oneProductCard")
   }
 
-  // получение айди залогиненного пользователя
+  // получение айди залогиненного пользователя, надо чтобы добавлять продукты в корзину
   const { currentUser } = useAppSelector(userAuthSelectors.userAuthState)
   const currentUserID: number | undefined = currentUser?.id
-
+  
+  // сбор данных для добавления в корзину в 1 объект, чтобы передать ниже в функцию addProductToCart(...)
   const addToCartData: AddToCartData = {
     userId: currentUserID,
     productId: productId,
   }
 
   const onAddToCart = () => {
-    // dispatch(cartActions.addProductToCart(addToCartData))
     dispatch(cartActions.addProductToCart(addToCartData))
   }
 

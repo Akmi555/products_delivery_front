@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import { PageWrapper, PaginatorWrapper, ProductCardsWrapper } from "./styles"
 import ProductCard from "components/ProductCard/ProductCard"
-// импорт для работы слайса
 import { useAppDispatch, useAppSelector } from "store/hooks"
 import {
   productsAction,
@@ -11,8 +10,6 @@ import {
 import { ProductObject } from "store/redux/allProducts/types"
 import { v4 } from "uuid"
 import { Container, Pagination, Stack } from "@mui/material"
-import { userAuthSelectors } from "store/redux/users/userAuthSlice"
-import { UserObject } from "store/redux/users/types"
 
 function AllProducts() {
   const dispatch = useAppDispatch()
