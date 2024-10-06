@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { PageWrapper, PaginatorWrapper, ProductCardsWrapper } from "./styles"
-import ProductCard from "components/ProductCard/ProductCard"
+import OneProductCard from "components/ProductCard/ProductCard"
 import { useAppDispatch, useAppSelector } from "store/hooks"
 import {
   productsAction,
@@ -26,7 +26,7 @@ function AllProducts() {
  
   // МАПинг
   const productCards = products.map((productObj: ProductObject) => (
-    <ProductCard key={v4()} productData={productObj} />
+    <OneProductCard key={v4()} productData={productObj} />
   ))
 
   // пагинация

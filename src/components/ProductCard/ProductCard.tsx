@@ -20,7 +20,7 @@ import { userAuthSelectors } from "store/redux/users/userAuthSlice"
 import { cartActions } from "store/redux/cart/cartSlice"
 import { AddToCartData } from "store/redux/cart/types"
 
-function ProductCard({ productData }: ProductCardProps) {
+function OneProductCard({ productData }: ProductCardProps) {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
@@ -39,7 +39,7 @@ function ProductCard({ productData }: ProductCardProps) {
   // получение айди залогиненного пользователя, надо чтобы добавлять продукты в корзину
   const { currentUser } = useAppSelector(userAuthSelectors.userAuthState)
   const currentUserID: number | undefined = currentUser?.id
-  
+
   // сбор данных для добавления в корзину в 1 объект, чтобы передать ниже в функцию addProductToCart(...)
   const addToCartData: AddToCartData = {
     userId: currentUserID,
@@ -79,4 +79,4 @@ function ProductCard({ productData }: ProductCardProps) {
   )
 }
 
-export default ProductCard
+export default OneProductCard
