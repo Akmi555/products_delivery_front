@@ -1,4 +1,4 @@
-import { productDescriptionSelectors } from "store/redux/oneProduct/oneProductDescriptionSlice"
+import { productDescriptionSelectors } from "store/redux/oneProduct/oneProductSlice"
 import { PageWrapper } from "./styles"
 import { useAppSelector } from "store/hooks"
 import ProductDetailsCard from "components/ProductDetailsCard/ProductDetailsCard"

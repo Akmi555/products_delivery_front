@@ -20,7 +20,7 @@ import {
   ImgCodeContainer,
   UploadedImg,
 } from "./styles"
-import { productDescriptionAction } from "store/redux/oneProduct/oneProductDescriptionSlice"
+import { productDescriptionAction } from "store/redux/oneProduct/oneProductSlice"
 
 function AddProductAdmin() {
   const [isModalOpen, setModalOpen] = useState<boolean>(false)
