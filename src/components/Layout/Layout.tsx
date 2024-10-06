@@ -20,9 +20,29 @@ import cartGreen from "assets/shopping-cart-green.png"
 import { LayoutProps } from "./types"
 import LinkHeaderCustomized from "components/LinkHeaderIcon/LinkHeaderCustomized"
 import { useMatch } from "react-router-dom"
+import * as React from "react"
+import Badge, { BadgeProps } from "@mui/material/Badge"
+import { styled } from "@mui/material/styles"
+import IconButton from "@mui/material/IconButton"
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
+import { useAppSelector } from "store/hooks"
+import { cartActions, cartSelectors } from "store/redux/cart/cartSlice"
 
 function Layout({ children }: LayoutProps) {
   const match = useMatch("/")
+
+  const {allProductsFromCart} = useAppSelector(cartSelectors.cartState)
+
+  const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
+    "& .MuiBadge-badge": {
+      right: -3,
+      top: -20,
+      border: `2px solid ${theme.palette.background.paper}`,
+      padding: "0 4px",
+    },
+  }))
+
+
 
   const header = () => {
     return (
@@ -33,7 +53,7 @@ function Layout({ children }: LayoutProps) {
           </NavLinkStyled>
         </HeaderLogoContainer>
         <NavigationContainer>
-        <LinkHeaderCustomized to="/addProduct" linkText="addProduct" />
+          <LinkHeaderCustomized to="/addProduct" linkText="addProduct" />
           <LinkHeaderCustomized to="/login" linkText="login" />
           <LinkHeaderCustomized to="/registration" linkText="registration" />
           <LinkHeaderCustomized
@@ -45,7 +65,9 @@ function Layout({ children }: LayoutProps) {
             to="/cart"
             whiteImg={cartWhite}
             greenImg={cartGreen}
-          />
+          >
+            <StyledBadge badgeContent={allProductsFromCart.length} color="error"></StyledBadge>
+          </LinkHeaderCustomized>
         </NavigationContainer>
       </>
     )

@@ -8,6 +8,7 @@ function LinkHeaderCustomized({
   whiteImg,
   greenImg,
   linkText,
+  children
 }: LinkHeaderCustomizedProps) {
   const match = useMatch(to)
 
@@ -16,6 +17,7 @@ function LinkHeaderCustomized({
       {!linkText && <LinkImg src={match ? greenImg : whiteImg} />}
       {linkText && <LinkText> {linkText}</LinkText>}
       {/* <LinkImg src={({match})=>({match? greenImg : whiteImg})} /> */}
+      {children && children}
     </Link>
   )
 }

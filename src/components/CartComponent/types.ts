@@ -1,6 +1,6 @@
-import { СartAndProductData } from "pages/Cart/types"
+import { CartAndProductData } from "pages/Cart/types"
 
 export interface cartObjProps {
-    cartObjData: СartAndProductData
+    cartObjData: CartAndProductData
 }
 
