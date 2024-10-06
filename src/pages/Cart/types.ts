@@ -1,4 +1,4 @@
-export interface СartAndProductData {
+export interface CartAndProductData {
   id: number
   title: string
   price: number

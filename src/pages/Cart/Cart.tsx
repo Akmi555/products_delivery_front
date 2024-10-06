@@ -7,7 +7,7 @@ import { v4 } from "uuid"
 import { CartItemsWrapper, PageWrapper } from "./styles"
 import { useEffect, useState } from "react"
 import { oneProductAction } from "store/redux/oneProduct/oneProductSlice"
-import { СartAndProductData } from "./types"
+import { CartAndProductData } from "./types"
 import { OneProductObject } from "store/redux/oneProduct/types"
 
 function Cart() {
@@ -22,7 +22,7 @@ function Cart() {
   const { allProductsFromCart } = useAppSelector(cartSelectors.cartState)
 
   // соединили products и allProductsFromCart в один объект и один массив
-  const cartAndProductDat: СartAndProductData[] = products
+  const cartAndProductDat: CartAndProductData[] = products
     .map(product => {
       const cartItem = allProductsFromCart.find(
         item => item.productId === product.id,
@@ -36,7 +36,7 @@ function Cart() {
     .filter(item => item.productQuantity > 0)
 
     // отображение элементов корзины 
-  const cartsAllProducts = cartAndProductDat.map((obj: СartAndProductData) => (
+  const cartsAllProducts = cartAndProductDat.map((obj: CartAndProductData) => (
     <CartComponent key={v4()} cartObjData={obj} />
   ))
 
