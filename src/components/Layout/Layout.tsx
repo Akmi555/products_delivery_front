@@ -40,6 +40,11 @@ function Layout({ children }: LayoutProps) {
     },
   }))
 
+  let totalQuantity: number = 0
+  for (let i = 0; i <= allProductsFromCart.length - 1; i++) {
+    totalQuantity = totalQuantity + allProductsFromCart[i].productQuantity
+  }
+
   const header = () => {
     return (
       <>
@@ -63,7 +68,7 @@ function Layout({ children }: LayoutProps) {
             greenImg={cartGreen}
           >
             <StyledBadge
-              badgeContent={allProductsFromCart.length}
+              badgeContent={totalQuantity}
               color="error"
             ></StyledBadge>
           </LinkHeaderCustomized>
