@@ -5,7 +5,7 @@ export interface OneProductSliceState {
 }
 
 export interface OneProductObject {
-  id: number
+  id?: number | undefined
   title: string
   price: number
   productCode: string

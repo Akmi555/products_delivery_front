@@ -48,6 +48,26 @@ export const cartSlice = createAppSlice({
         },
       },
     ),
+    // showCart: create.asyncThunk(
+    //   async (userId: number | undefined) => {
+    //     const response = await axios.get(`/api/cart/${userId}`)
+    //     return response.data
+    //   },
+    //   {
+    //     pending: (state: CartSliceState) => {
+    //       state.error = undefined
+    //       state.isPending = true
+    //     },
+    //     fulfilled: (state: CartSliceState, action) => {
+    //       state.isPending = false
+    //       state.allProductsFromCart = action.payload
+    //     },
+    //     rejected: (state: CartSliceState, action) => {
+    //       state.error = action.error.message
+    //       state.isPending = false
+    //     },
+    //   },
+    // ),
     // deleteProductFromCart: create.asyncThunk(
     //   async () => {
     //     const response = await axios.delete(``)
