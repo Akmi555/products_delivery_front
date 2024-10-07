@@ -13,7 +13,7 @@ export const oneProductSlice = createAppSlice({
   initialState: oneProductInitialState,
   reducers: create => ({
     openProduct: create.asyncThunk(
-      async (productId: number) => {
+      async (productId: number | undefined) => {
         const response = await axios.get(`/api/products/${productId}`)
         return response.data
       },

@@ -31,7 +31,7 @@ import DeleteIcon from "@mui/icons-material/Delete"
 function CartComponent({ cartObjData }: cartObjProps) {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
-  const productId: number = cartObjData.id
+  const productId: number | undefined = cartObjData.id
   const productQuantity: number = cartObjData.productQuantity
   const sum: number = cartObjData.sum
 

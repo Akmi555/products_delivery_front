@@ -1,6 +1,8 @@
 import { createAppSlice } from "store/createAppSlice"
-import { CartSliceState, AddToCartData } from "./types"
+import { CartSliceState, AddToCartData, ShowCartData } from "./types"
 import axios from "axios"
+import { useAppSelector } from "store/hooks"
+import { userAuthSelectors } from "../users/userAuthSlice"
 
 const cartInitialState: CartSliceState = {
   currentProductFromCart: undefined,
@@ -8,6 +10,9 @@ const cartInitialState: CartSliceState = {
   error: undefined,
   isPending: false,
 }
+
+// получение айди залогиненного пользователя для отображения корзины (запрос находится в useEffect ниже)
+//  const { accessToken } = useAppSelector(userAuthSelectors.userAuthState)
 
 export const cartSlice = createAppSlice({
   name: "CART",
@@ -29,8 +34,13 @@ export const cartSlice = createAppSlice({
       },
     ),
     showCart: create.asyncThunk(
-      async (userId: number | undefined) => {
-        const response = await axios.get(`/api/cart/${userId}`)
+      async (payload: ShowCartData) => {
+        const response: any = await axios.get(`/api/cart/${payload.userId}`, {
+          headers: {
+            Authorization: `Bearer ${payload.accessToken}`,
+          },
+        })
+        console.log(response)
         return response.data
       },
       {
