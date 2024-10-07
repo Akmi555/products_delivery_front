@@ -26,7 +26,7 @@ function Cart() {
   const navigate = useNavigate()
 
   // получение айди залогиненного пользователя для отображения корзины (запрос находится в useEffect ниже)
-  const { currentUser } = useAppSelector(userAuthSelectors.userAuthState)
+  const { currentUser, accessToken } = useAppSelector(userAuthSelectors.userAuthState)
   const currentUserID: number | undefined = currentUser?.id
 
   // получение доступа к стейте со всеми продуктами ИЗ КОРЗИНЫ
@@ -66,7 +66,8 @@ function Cart() {
   if (currentUserID) {
     useEffect(() => {
       // положили в стейт массив из элементов корзины
-      dispatch(cartActions.showCart(currentUserID))
+      // ! новый вариант отправки запроса с токеном юзера, с нормальной защитой 
+      dispatch(cartActions.showCart({userId: currentUserID , accessToken : accessToken }))
 
       // вытащили в массив айди тех продуктов, которые в корзине
       const productIds = allProductsFromCart.map(item => item.productId)

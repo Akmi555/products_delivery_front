@@ -17,3 +17,8 @@ export interface AddToCartData {
   userId: number | undefined
   productId: number | undefined
 }
+
+export interface ShowCartData {
+  userId: number | undefined
+  accessToken: string | undefined
+}
