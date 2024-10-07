@@ -31,13 +31,14 @@ function ProductDetailsCard({ productData }: ProductDescriptionProps) {
   const photoLink: string = `/api/files/download/${productData.photoLink}`
 
   // получение айди залогиненного пользователя, надо чтобы добавлять продукты в корзину
-  const { currentUser } = useAppSelector(userAuthSelectors.userAuthState)
+  const { currentUser, accessToken } = useAppSelector(userAuthSelectors.userAuthState)
   const currentUserID: number | undefined = currentUser?.id
 
   // сбор данных для добавления в корзину в 1 объект, чтобы передать ниже в функцию addProductToCart(...)
   const addToCartData: AddToCartData = {
     userId: currentUserID,
     productId: productId,
+    accessToken: accessToken,
   }
 
   const onAddToCart = () => {
