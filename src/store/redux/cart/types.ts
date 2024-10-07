@@ -15,5 +15,5 @@ export interface CartItemObject {
 
 export interface AddToCartData {
   userId: number | undefined
-  productId: number
+  productId: number | undefined
 }

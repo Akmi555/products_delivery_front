@@ -1,5 +1,5 @@
 export interface CartAndProductData {
-  id: number
+  id?: number
   title: string
   price: number
   productCode: string

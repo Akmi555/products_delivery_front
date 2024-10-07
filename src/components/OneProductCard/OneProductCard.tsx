@@ -23,7 +23,7 @@ import { userAuthSelectors } from "store/redux/users/userAuthSlice"
 function ProductDetailsCard({ productData }: ProductDescriptionProps) {
   const dispatch = useAppDispatch()
 
-  const productId: number = productData.id
+  const productId: number | undefined = productData.id
   const title: string = productData.title
   const price: number = productData.price
   const minQuantity: string = productData.minQuantity
