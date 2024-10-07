@@ -11,9 +11,6 @@ const cartInitialState: CartSliceState = {
   isPending: false,
 }
 
-// получение айди залогиненного пользователя для отображения корзины (запрос находится в useEffect ниже)
-//  const { accessToken } = useAppSelector(userAuthSelectors.userAuthState)
-
 export const cartSlice = createAppSlice({
   name: "CART",
   initialState: cartInitialState,
@@ -22,15 +19,24 @@ export const cartSlice = createAppSlice({
       async (payload: AddToCartData) => {
         const response = await axios.post(
           `/api/cart/${payload.userId}/${payload.productId}`,
+          {
+            Authorization: `Bearer ${payload.accessToken}`,
+          },
         )
         return response.data
       },
       {
-        pending: () => {},
+        pending: (state: CartSliceState) => {
+          state.error = undefined
+          state.isPending = true
+        },
         fulfilled: (state: CartSliceState, action) => {
           state.currentProductFromCart = action.payload
         },
-        rejected: () => {},
+        rejected: (state: CartSliceState, action) => {
+          state.error = action.error.message
+          state.isPending = false
+        },
       },
     ),
     showCart: create.asyncThunk(
