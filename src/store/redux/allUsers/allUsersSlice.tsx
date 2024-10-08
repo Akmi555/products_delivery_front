@@ -17,11 +17,9 @@ export const allUsersSlice = createAppSlice({
     getUsers: create.asyncThunk(
       async (payload: any) => {
         const response = await axios.get(
-          `/api/users/page?page=${payload.currentPage - 1}&size=${payload.pageSize}`,
+          `/api/users`,
           {
-            headers: {
-              "Content-Type": "application/json",
-            },
+            headers: { Authorization: `Bearer ${payload.accessToken}`  },
           },
         )
         return response.data

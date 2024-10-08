@@ -1,6 +1,7 @@
 export interface UserAuthSliceState {
   currentUser: UserObject | undefined
   accessToken: string | undefined
+  role: string | undefined
   error: string | undefined
   isPending: boolean
 }
