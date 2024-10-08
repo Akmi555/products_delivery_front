@@ -43,11 +43,11 @@ function CartComponent({ cartObjData }: cartObjProps) {
     `/api/files/download/${cartObjData.photoLink}`
 
   // получение айди залогиненного пользователя чтобы мочь добавлять товар в корзину
-  const { currentUser } = useAppSelector(userAuthSelectors.userAuthState)
+  const { currentUser, accessToken } = useAppSelector(userAuthSelectors.userAuthState)
   const userId: number | undefined = currentUser?.id
   // увеличить количество товара в корзине
   const onAddToCart = () => {
-    dispatch(cartActions.addProductToCart({ userId, productId }))
+    dispatch(cartActions.addProductToCart({ userId, productId, accessToken }))
   }
 
   // открыть страницу продукта
