@@ -23,8 +23,11 @@ import { useMatch } from "react-router-dom"
 
 import Badge, { BadgeProps } from "@mui/material/Badge"
 import { styled } from "@mui/material/styles"
-import { useAppSelector } from "store/hooks"
-import { cartSelectors } from "store/redux/cart/cartSlice"
+import { useAppDispatch, useAppSelector } from "store/hooks"
+import { cartActions, cartSelectors } from "store/redux/cart/cartSlice"
+import { useEffect } from "react"
+import { productsAction } from "store/redux/allProducts/allProductsSlice"
+import { userAuthSelectors } from "store/redux/users/userAuthSlice"
 
 function Layout({ children }: LayoutProps) {
   const match = useMatch("/")
@@ -40,9 +43,10 @@ function Layout({ children }: LayoutProps) {
     },
   }))
 
-  // вынести в useEffect 
-  // или сделать отдельное свойство в стейте корзины 
+  // вынести в useEffect
+  // или сделать отдельное свойство в стейте корзины
   let totalQuantity: number = 0
+
   for (let i = 0; i <= allProductsFromCart.length - 1; i++) {
     totalQuantity = totalQuantity + allProductsFromCart[i].productQuantity
   }
