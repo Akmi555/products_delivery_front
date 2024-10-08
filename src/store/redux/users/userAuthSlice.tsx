@@ -5,6 +5,7 @@ import { UserAuthSliceState, LoginData } from "./types"
 const userAuthInitialState: UserAuthSliceState = {
   currentUser: undefined,
   accessToken: undefined,
+  role: undefined,
   error: undefined,
   isPending: false,
 }
@@ -39,7 +40,6 @@ export const userAuthSlice = createAppSlice({
         },
         fulfilled: (state: UserAuthSliceState, action) => {
           state.isPending = false
-
           state.currentUser = action.payload
           state.accessToken = action.payload.accessToken
         },
@@ -51,13 +51,10 @@ export const userAuthSlice = createAppSlice({
     ),
     loginUser: create.asyncThunk(
       async (payload: LoginData) => {
-        const response = await axios.post(
-          `/api/auth/login`,
-          {
-            username: payload.email,
-            password: payload.password,
-          }
-        )
+        const response = await axios.post(`/api/auth/login`, {
+          username: payload.email,
+          password: payload.password,
+        })
         return response.data
       },
       {
@@ -69,7 +66,7 @@ export const userAuthSlice = createAppSlice({
           state.isPending = false
           state.currentUser = action.payload.user
           state.accessToken = action.payload.token.accessToken
-
+          state.role = action.payload.user.roles[0]
         },
         rejected: (state: UserAuthSliceState, action) => {
           state.error = action.error.message
@@ -95,6 +92,7 @@ export const userAuthSlice = createAppSlice({
           state.isPending = false
           //   указать правильные пути!!!
           state.currentUser = action.payload
+          state.role = action.payload.user.roles[0]
         },
         rejected: (state: UserAuthSliceState, action) => {
           state.error = action.error.message

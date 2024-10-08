@@ -51,7 +51,7 @@ function AllProducts() {
       }),
     ),
       dispatch(
-        cartActions.сart({ userId: currentUserID, accessToken: accessToken }),
+        cartActions.cart({ userId: currentUserID, accessToken: accessToken }),
       )
   }, [currentPage, pageQuantity])
 

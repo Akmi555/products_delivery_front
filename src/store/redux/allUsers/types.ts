@@ -8,10 +8,16 @@ export interface UsersSliceState {
 
   export interface UserObject{
     id: number
-    first_name: string
-    last_name: string
+    firstName: string
+    lastName: string
     email: string
     password: string
     phone: string
-    roles: string
+    roles: Role[]
+  }
+
+  export interface Role {
+    id: number
+    title: string
+    authority: string
   }

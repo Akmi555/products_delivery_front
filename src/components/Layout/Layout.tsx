@@ -57,6 +57,7 @@ function Layout({ children }: LayoutProps) {
         </HeaderLogoContainer>
         <NavigationContainer>
           <LinkHeaderCustomized to="/addProduct" linkText="addProduct" />
+          <LinkHeaderCustomized to="/allUsers" linkText="allUsers" />
           <LinkHeaderCustomized
             to="/userProfile"
             whiteImg={userWhite}
