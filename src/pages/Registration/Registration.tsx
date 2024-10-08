@@ -17,8 +17,9 @@ import {
   PageName,
   GoToLogin,
 } from "./styles"
-import { userAuthAction } from "store/redux/users/userAuthSlice"
+import { userAuthAction, userAuthSelectors } from "store/redux/users/userAuthSlice"
 import { Link, useNavigate } from "react-router-dom"
+import { useAppSelector } from "store/hooks"
 
 function Registration() {
   const navigate = useNavigate()
@@ -28,6 +29,7 @@ function Registration() {
     /^((\+[1-9]{1,4}[ \-]*)|(\([0-9]{2,3}\)[ \-]*)|([0-9]{2,4})[ \-]*)*?[0-9]{3,4}?[ \-]*[0-9]{3,4}?$/
 
   const dispatch = useDispatch<AppDispatch>()
+  const {error} = useAppSelector(userAuthSelectors.userAuthState)
 
   const validationSchema = Yup.object().shape({
     firstName: Yup.string()
@@ -140,7 +142,7 @@ function Registration() {
         </ButtonContainer>
         <Link to="/login">or login</Link>
         <Modal open={isModalOpen} onClose={() => setModalOpen(false)}>
-          <Alert severity="success">Successful</Alert>
+          <Alert severity="success">{error}</Alert>
         </Modal>
       </RegistrationContainer>
       

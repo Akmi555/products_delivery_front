@@ -10,9 +10,17 @@ import {
 import { ProductObject } from "store/redux/allProducts/types"
 import { v4 } from "uuid"
 import { Container, Pagination, Stack } from "@mui/material"
+import { cartActions } from "store/redux/cart/cartSlice"
+import { userAuthSelectors } from "store/redux/users/userAuthSlice"
 
 function AllProducts() {
   const dispatch = useAppDispatch()
+
+  // получение айди залогиненного пользователя для отображения корзины (запрос находится в useEffect ниже)
+  const { currentUser, accessToken } = useAppSelector(
+    userAuthSelectors.userAuthState,
+  )
+  const currentUserID: number | undefined = currentUser?.id
 
   // для пагинации:
   const [currentPage, setCurrentPage] = useState<number>(1)
@@ -23,7 +31,7 @@ function AllProducts() {
   const { products, totalPages } = useAppSelector(
     productsSelectors.productsState,
   )
- 
+
   // МАПинг
   const productCards = products.map((productObj: ProductObject) => (
     <OneProductCard key={v4()} productData={productObj} />
@@ -41,7 +49,10 @@ function AllProducts() {
         currentPage: currentPage,
         pageSize: pageSize,
       }),
-    )
+    ),
+      dispatch(
+        cartActions.сart({ userId: currentUserID, accessToken: accessToken }),
+      )
   }, [currentPage, pageQuantity])
 
   return (

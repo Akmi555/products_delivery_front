@@ -3,11 +3,9 @@ import { ModalProps } from "./types"
 
 function Modal({ open, onClose, children }: ModalProps) {
   return (
-    <>
-      <StyledModalWrapper open={open} onClose={onClose}>
-        {children}
-      </StyledModalWrapper>
-    </>
+    <StyledModalWrapper open={open} onClose={onClose}>
+      {children}
+    </StyledModalWrapper>
   )
 }
 

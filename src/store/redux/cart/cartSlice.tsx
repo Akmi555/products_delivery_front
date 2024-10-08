@@ -31,6 +31,7 @@ export const cartSlice = createAppSlice({
         },
         fulfilled: (state: CartSliceState, action) => {
           state.currentProductFromCart = action.payload
+          state.allProductsFromCart.push(action.payload)
         },
         rejected: (state: CartSliceState, action) => {
           state.error = action.error.message
@@ -38,7 +39,7 @@ export const cartSlice = createAppSlice({
         },
       },
     ),
-    showCart: create.asyncThunk(
+    сart: create.asyncThunk(
       async (payload: ShowCartData) => {
         const response: any = await axios.get(`/api/cart/${payload.userId}`, {
           headers: {
