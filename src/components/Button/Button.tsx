@@ -38,7 +38,7 @@ const theme = createTheme({
 
 function ButtonMain({
   imgSrc = undefined,
-  // type = "button",
+  type = "button",
   buttonName,
   onClick,
 }: ButtonStyledProps) {
@@ -51,7 +51,13 @@ function ButtonMain({
 
     <Stack spacing={2} direction="row">
       <ThemeProvider theme={theme}>
-        <Button variant="contained" onClick={onClick} color="main_green" style={{ borderRadius: 50, width: "100%"}}>
+        <Button
+          type={type}
+          variant="contained"
+          onClick={onClick}
+          color="main_green"
+          style={{ borderRadius: 50, width: "100%" }}
+        >
           {buttonName}
           {imgSrc && <ButtonImg src={imgSrc}></ButtonImg>}
         </Button>

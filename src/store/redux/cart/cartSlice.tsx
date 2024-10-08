@@ -19,9 +19,8 @@ export const cartSlice = createAppSlice({
       async (payload: AddToCartData) => {
         const response = await axios.post(
           `/api/cart/${payload.userId}/${payload.productId}`,
-          {
-            Authorization: `Bearer ${payload.accessToken}`,
-          },
+          {},
+          { headers: { Authorization: `Bearer ${payload.accessToken}` } },
         )
         return response.data
       },
@@ -46,7 +45,6 @@ export const cartSlice = createAppSlice({
             Authorization: `Bearer ${payload.accessToken}`,
           },
         })
-        console.log(response)
         return response.data
       },
       {
