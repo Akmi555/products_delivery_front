@@ -1,7 +1,7 @@
 import { useFormik } from "formik"
 import * as Yup from "yup"
 import { Alert } from "@mui/material"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import { AppDispatch } from "store/store"
 
@@ -22,12 +22,15 @@ import {
 } from "./styles"
 import { Link, useNavigate } from "react-router-dom"
 import { useAppSelector } from "store/hooks"
+import { cartActions } from "store/redux/cart/cartSlice"
 
 function Login() {
   const dispatch = useDispatch<AppDispatch>()
   const [isModalOpen, setModalOpen] = useState<boolean>(false)
   const navigate = useNavigate()
-  const { currentUser, error } = useAppSelector(userAuthSelectors.userAuthState)
+  const { currentUser, error, accessToken } = useAppSelector(
+    userAuthSelectors.userAuthState,
+  )
 
   let EMAIL_REGX = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
 
@@ -56,8 +59,8 @@ function Login() {
       )
       helpers.resetForm()
       navigate("/")
-      
-      // доделать логику отображения модального окна или переадресации на главную страницу в случае успеха 
+
+      // доделать логику отображения модального окна или переадресации на главную страницу в случае успеха
       // if (currentUser) {
       //   navigate("/")
       // } else if (!currentUser) {

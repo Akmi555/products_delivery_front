@@ -66,7 +66,7 @@ function Cart() {
     useEffect(() => {
       // положили в стейт массив из элементов корзины
       // ! новый вариант отправки запроса с токеном юзера, с нормальной защитой 
-      dispatch(cartActions.сart({userId: currentUserID , accessToken: accessToken }))
+      dispatch(cartActions.cart({userId: currentUserID , accessToken: accessToken }))
 
       // вытащили в массив айди тех продуктов, которые в корзине
       const productIds = allProductsFromCart.map(item => item.productId)

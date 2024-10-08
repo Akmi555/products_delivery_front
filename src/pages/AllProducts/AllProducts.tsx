@@ -49,10 +49,7 @@ function AllProducts() {
         currentPage: currentPage,
         pageSize: pageSize,
       }),
-    ),
-      dispatch(
-        cartActions.сart({ userId: currentUserID, accessToken: accessToken }),
-      )
+    )
   }, [currentPage, pageQuantity])
 
   return (

@@ -9,10 +9,8 @@
 
 import axios from "axios"
 import { createAppSlice } from "store/createAppSlice"
-import { CartObject, ProductObject, ProductsSliceState } from "./types"
-import { PayloadAction } from "@reduxjs/toolkit"
-import { UserAuthSliceState } from "../users/types"
-import { stat } from "fs"
+import { CartObject, ProductsSliceState } from "./types"
+
 
 //начальное значение ВСЕГДА объект
 const productsInitialState: ProductsSliceState = {
@@ -52,8 +50,8 @@ export const allProductsSlice = createAppSlice({
         },
         fulfilled: (state: ProductsSliceState, action) => {
           state.isPending = false
-          //!!!!
           state.products = action.payload.content
+          //!!!!
           state.totalPages = action.payload.totalPages
         },
         rejected: (state: ProductsSliceState, action) => {
