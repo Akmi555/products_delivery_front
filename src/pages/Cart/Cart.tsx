@@ -17,7 +17,7 @@ import { useEffect, useState } from "react"
 import { oneProductAction } from "store/redux/oneProduct/oneProductSlice"
 import { CartAndProductData } from "./types"
 import { OneProductObject } from "store/redux/oneProduct/types"
-import Button from "components/Button/Button"
+import ButtonMain from "components/Button/Button"
 import { Link, useNavigate } from "react-router-dom"
 
 function Cart() {
@@ -101,7 +101,7 @@ function Cart() {
             <Amount> € {totalAmount} </Amount>
           </PriceContainer>
 
-          <Button buttonName="Proceed to checkout" />
+          <ButtonMain buttonName="Proceed to checkout" />
         </TotalAmountContainer>
       )}
       {!currentUserID && (

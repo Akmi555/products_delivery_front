@@ -8,7 +8,7 @@ import {
   ProductWeight,
   ProductWrapper,
 } from "./styles"
-import Button from "components/Button/Button"
+import ButtonMain from "components/Button/Button"
 import cartWhite from "assets/shopping-cart-white.png"
 import { ProductCardProps } from "./types"
 import { useAppDispatch, useAppSelector } from "store/hooks"
@@ -72,7 +72,7 @@ function OneProductCard({ productData }: ProductCardProps) {
         <PriceButtonContainer>
           <ProductPrice>{price} €</ProductPrice>
           <ButtonContainer>
-            <Button imgSrc={cartWhite} type="button" onClick={onAddToCart} />
+            <ButtonMain imgSrc={cartWhite} type="button" onClick={onAddToCart} />
           </ButtonContainer>
         </PriceButtonContainer>
       </ProductMainInfo>

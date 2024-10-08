@@ -5,7 +5,7 @@ import { useState } from "react"
 import { Alert } from "@mui/material"
 import { AppDispatch } from "store/store"
 
-import Button from "components/Button/Button"
+import ButtonMain from "components/Button/Button"
 import Input from "components/Input/Input"
 import Modal from "components/Modal/Modal"
 
@@ -132,7 +132,7 @@ function Registration() {
           />
         </InputContainer>
         <ButtonContainer>
-          <Button
+          <ButtonMain
             disabled={!formik.dirty || formik.isSubmitting}
             buttonName="Registration"
             type="submit"

@@ -7,7 +7,7 @@ import { AppDispatch } from "store/store"
 
 import Input from "components/Input/Input"
 import Modal from "components/Modal/Modal"
-import Button from "components/Button/Button"
+import ButtonMain from "components/Button/Button"
 import { userAuthAction } from "store/redux/users/userAuthSlice"
 
 import {
@@ -81,7 +81,7 @@ function Login() {
           />
         </InputContainer>
         <ButtonContainer>
-          <Button
+          <ButtonMain
             disabled={!formik.dirty || formik.isSubmitting}
             buttonName="Login"
             type="submit"

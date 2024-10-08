@@ -15,7 +15,7 @@ export const ButtonStyled = styled("button")<ButtonStyledProps>`
   font-style: normal;
   font-size: 16px;
   color: white;
-
+/* 
   &:hover {
     box-shadow:
       0 0.5em 1em 0 rgba(0, 0, 0, 0.15),
@@ -57,7 +57,7 @@ export const ButtonStyled = styled("button")<ButtonStyledProps>`
       box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.1);
       transform: scale3d(1.2, 1.2, 1);
     }
-  }
+  } */
 `
 
 export const ButtonImg = styled.img`

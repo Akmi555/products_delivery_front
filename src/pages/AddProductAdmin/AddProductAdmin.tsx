@@ -5,7 +5,7 @@ import { useState, useRef } from "react"
 import { Alert } from "@mui/material"
 import { AppDispatch } from "store/store"
 
-import Button from "components/Button/Button"
+import ButtonMain from "components/Button/Button"
 import Input from "components/Input/Input"
 import Modal from "components/Modal/Modal"
 import InputHidden from "components/InputHidden/InputHidden"
@@ -181,14 +181,14 @@ function AddProductAdmin() {
             error={formik.errors.description}
           />
           <ImgUploadButtonContainer>
-            <Button onClick={handlePick} buttonName="Choose img"></Button>
+            <ButtonMain onClick={handlePick} buttonName="Choose img"></ButtonMain>
             <InputHidden
               type="file"
               onChange={handleChangeImg}
               accept="image/*,.png,.jpg,.bmp,.gif"
               $ref={filePicker}
             />
-            <Button onClick={handleImgUpload} buttonName="Upload img"></Button>
+            <ButtonMain onClick={handleImgUpload} buttonName="Upload img"></ButtonMain>
           </ImgUploadButtonContainer>
           <ImgCodeContainer>
             {selectedImg && <p>{selectedImg.name}</p>}
@@ -197,7 +197,7 @@ function AddProductAdmin() {
           </ImgCodeContainer>
         </InputContainer>
         <ButtonContainer>
-          <Button
+          <ButtonMain
             disabled={!formik.dirty || formik.isSubmitting}
             buttonName="Add product to DB"
             type="submit"
