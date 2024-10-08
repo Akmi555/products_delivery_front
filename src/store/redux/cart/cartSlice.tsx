@@ -39,7 +39,7 @@ export const cartSlice = createAppSlice({
         },
       },
     ),
-    сart: create.asyncThunk(
+    cart: create.asyncThunk(
       async (payload: ShowCartData) => {
         const response: any = await axios.get(`/api/cart/${payload.userId}`, {
           headers: {
