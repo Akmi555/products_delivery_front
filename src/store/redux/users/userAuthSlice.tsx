@@ -56,14 +56,8 @@ export const userAuthSlice = createAppSlice({
           {
             username: payload.email,
             password: payload.password,
-          },
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          },
+          }
         )
-
         return response.data
       },
       {
@@ -75,12 +69,11 @@ export const userAuthSlice = createAppSlice({
           state.isPending = false
           state.currentUser = action.payload.user
           state.accessToken = action.payload.token.accessToken
-          
+
         },
         rejected: (state: UserAuthSliceState, action) => {
           state.error = action.error.message
           state.isPending = false
-          console.log(action.payload)
         },
       },
     ),

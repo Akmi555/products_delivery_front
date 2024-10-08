@@ -17,13 +17,12 @@ import { useEffect, useState } from "react"
 import { oneProductAction } from "store/redux/oneProduct/oneProductSlice"
 import { CartAndProductData } from "./types"
 import { OneProductObject } from "store/redux/oneProduct/types"
-import Button from "components/Button/Button"
+import ButtonMain from "components/Button/Button"
 import { Link, useNavigate } from "react-router-dom"
 
 function Cart() {
   const [products, setProducts] = useState<OneProductObject[]>([])
   const dispatch = useAppDispatch()
-  const navigate = useNavigate()
 
   // получение айди залогиненного пользователя для отображения корзины (запрос находится в useEffect ниже)
   const { currentUser, accessToken } = useAppSelector(userAuthSelectors.userAuthState)
@@ -67,7 +66,7 @@ function Cart() {
     useEffect(() => {
       // положили в стейт массив из элементов корзины
       // ! новый вариант отправки запроса с токеном юзера, с нормальной защитой 
-      dispatch(cartActions.showCart({userId: currentUserID , accessToken : accessToken }))
+      dispatch(cartActions.сart({userId: currentUserID , accessToken: accessToken }))
 
       // вытащили в массив айди тех продуктов, которые в корзине
       const productIds = allProductsFromCart.map(item => item.productId)
@@ -101,7 +100,7 @@ function Cart() {
             <Amount> € {totalAmount} </Amount>
           </PriceContainer>
 
-          <Button buttonName="Proceed to checkout" />
+          <ButtonMain buttonName="Proceed to checkout" />
         </TotalAmountContainer>
       )}
       {!currentUserID && (

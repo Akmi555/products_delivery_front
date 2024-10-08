@@ -40,6 +40,8 @@ function Layout({ children }: LayoutProps) {
     },
   }))
 
+  // вынести в useEffect 
+  // или сделать отдельное свойство в стейте корзины 
   let totalQuantity: number = 0
   for (let i = 0; i <= allProductsFromCart.length - 1; i++) {
     totalQuantity = totalQuantity + allProductsFromCart[i].productQuantity
@@ -55,8 +57,6 @@ function Layout({ children }: LayoutProps) {
         </HeaderLogoContainer>
         <NavigationContainer>
           <LinkHeaderCustomized to="/addProduct" linkText="addProduct" />
-          <LinkHeaderCustomized to="/login" linkText="login" />
-          <LinkHeaderCustomized to="/registration" linkText="registration" />
           <LinkHeaderCustomized
             to="/userProfile"
             whiteImg={userWhite}

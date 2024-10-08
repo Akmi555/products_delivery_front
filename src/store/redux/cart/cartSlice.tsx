@@ -19,9 +19,8 @@ export const cartSlice = createAppSlice({
       async (payload: AddToCartData) => {
         const response = await axios.post(
           `/api/cart/${payload.userId}/${payload.productId}`,
-          {
-            Authorization: `Bearer ${payload.accessToken}`,
-          },
+          {},
+          { headers: { Authorization: `Bearer ${payload.accessToken}` } },
         )
         return response.data
       },
@@ -32,6 +31,7 @@ export const cartSlice = createAppSlice({
         },
         fulfilled: (state: CartSliceState, action) => {
           state.currentProductFromCart = action.payload
+          state.allProductsFromCart.push(action.payload)
         },
         rejected: (state: CartSliceState, action) => {
           state.error = action.error.message
@@ -39,14 +39,13 @@ export const cartSlice = createAppSlice({
         },
       },
     ),
-    showCart: create.asyncThunk(
+    сart: create.asyncThunk(
       async (payload: ShowCartData) => {
         const response: any = await axios.get(`/api/cart/${payload.userId}`, {
           headers: {
             Authorization: `Bearer ${payload.accessToken}`,
           },
         })
-        console.log(response)
         return response.data
       },
       {

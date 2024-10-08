@@ -8,7 +8,7 @@ import {
   ProductWeight,
   ProductWrapper,
 } from "./styles"
-import Button from "components/Button/Button"
+import ButtonMain from "components/Button/Button"
 import cartWhite from "assets/shopping-cart-white.png"
 import { ProductCardProps } from "./types"
 import { useAppDispatch, useAppSelector } from "store/hooks"
@@ -19,6 +19,8 @@ import { useNavigate } from "react-router-dom"
 import { userAuthSelectors } from "store/redux/users/userAuthSlice"
 import { cartActions } from "store/redux/cart/cartSlice"
 import { AddToCartData } from "store/redux/cart/types"
+import { Alert } from "@mui/material"
+import CheckIcon from "@mui/icons-material/Check"
 
 function OneProductCard({ productData }: ProductCardProps) {
   const dispatch = useAppDispatch()
@@ -37,7 +39,9 @@ function OneProductCard({ productData }: ProductCardProps) {
   }
 
   // получение айди залогиненного пользователя, надо чтобы добавлять продукты в корзину
-  const { currentUser, accessToken } = useAppSelector(userAuthSelectors.userAuthState)
+  const { currentUser, accessToken } = useAppSelector(
+    userAuthSelectors.userAuthState,
+  )
   const currentUserID: number | undefined = currentUser?.id
 
   // сбор данных для добавления в корзину в 1 объект, чтобы передать ниже в функцию addProductToCart(...)
@@ -72,7 +76,11 @@ function OneProductCard({ productData }: ProductCardProps) {
         <PriceButtonContainer>
           <ProductPrice>{price} €</ProductPrice>
           <ButtonContainer>
-            <Button imgSrc={cartWhite} type="button" onClick={onAddToCart} />
+            <ButtonMain
+              imgSrc={cartWhite}
+              type="button"
+              onClick={onAddToCart}
+            />
           </ButtonContainer>
         </PriceButtonContainer>
       </ProductMainInfo>
