@@ -8,6 +8,7 @@ import OneProduct from "pages/OneProduct/OneProduct"
 import Registration from "pages/Registration/Registration"
 import Login from "pages/Login/Login"
 import AddProductAdmin from "pages/AddProductAdmin/AddProductAdmin"
+import AllUsers from "pages/AllUsersAdmin/AllUsersAdmin"
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/registration" element={<Registration/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/addProduct" element={<AddProductAdmin/>}/>
+          <Route path="/allUsers" element={<AllUsers/>}/>
           <Route path="*" element={"error 404 - Page not found"}/>
         </Routes>
       </Layout>

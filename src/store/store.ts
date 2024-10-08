@@ -4,9 +4,10 @@ import { allProductsSlice } from "./redux/allProducts/allProductsSlice"
 import { userAuthSlice } from "./redux/users/userAuthSlice"
 import { oneProductSlice } from "./redux/oneProduct/oneProductSlice"
 import { cartSlice } from "./redux/cart/cartSlice"
+import { allUsersSlice } from "./redux/allUsers/allUsersSlice"
 
 // сюда добавляются слайсы через запятую
-const rootReducer = combineSlices(allProductsSlice, oneProductSlice, userAuthSlice, cartSlice)
+const rootReducer = combineSlices(allProductsSlice, oneProductSlice, userAuthSlice, cartSlice, allUsersSlice)
 
 export type RootState = ReturnType<typeof rootReducer>
 
