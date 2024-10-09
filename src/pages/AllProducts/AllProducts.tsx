@@ -42,6 +42,7 @@ function AllProducts() {
     setCurrentPage(value)
     setPageQuantity(totalPages)
   }
+  
   // и тут добавили для пагинации, до этого был вызов при маунтинге
   useEffect(() => {
     dispatch(

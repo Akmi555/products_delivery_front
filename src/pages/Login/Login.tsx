@@ -32,6 +32,7 @@ function Login() {
     userAuthSelectors.userAuthState,
   )
 
+
   let EMAIL_REGX = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
 
   const validationSchema = Yup.object().shape({
@@ -52,22 +53,30 @@ function Login() {
     validateOnChange: false,
     onSubmit: (values, helpers) => {
       dispatch(
-        userAuthAction.loginUser({
+        userAuthAction.login({
           email: values.email,
           password: values.password,
         }),
       )
       helpers.resetForm()
-      navigate("/")
-
-      // доделать логику отображения модального окна или переадресации на главную страницу в случае успеха
-      // if (currentUser) {
-      //   navigate("/")
-      // } else if (!currentUser) {
-      //   setModalOpen(true)
-      // }
+      setIsLoggedIn(currentUser?.id)
     },
   })
+// нужна помощь чтобы сделать навигацию на другую страниук или выброс ошибки после логина 
+
+const [isLoggedIn, setIsLoggedIn] = useState<number | undefined>()
+
+  // if (!isLoggedIn) {
+  //   setModalOpen(true)
+  // } 
+  
+  // if (isLoggedIn) {
+  //   navigate("/")
+  // }
+
+  useEffect(() => {
+    console.log(isLoggedIn)
+  }, [isLoggedIn])
 
   return (
     <PageWrapper>
