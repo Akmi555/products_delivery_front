@@ -32,7 +32,6 @@ function Login() {
     userAuthSelectors.userAuthState,
   )
 
-
   let EMAIL_REGX = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
 
   const validationSchema = Yup.object().shape({
@@ -51,33 +50,23 @@ function Login() {
     },
     validationSchema,
     validateOnChange: false,
-    onSubmit: (values, helpers) => {
-      dispatch(
+    onSubmit: async (values, helpers) => {
+      const dispatchResult = await dispatch(
         userAuthAction.login({
           email: values.email,
           password: values.password,
         }),
       )
+      if ( userAuthAction.login.fulfilled.match(dispatchResult)) {
+        dispatch(userAuthAction.getUser());
+        navigate('/');
+      } 
+      // ! в span поверх логина(формика) вывести просто текст ошибки, alert плохая практика 
       helpers.resetForm()
-      setIsLoggedIn(currentUser?.id)
+      
     },
   })
-// нужна помощь чтобы сделать навигацию на другую страниук или выброс ошибки после логина 
-
-const [isLoggedIn, setIsLoggedIn] = useState<number | undefined>()
-
-  // if (!isLoggedIn) {
-  //   setModalOpen(true)
-  // } 
   
-  // if (isLoggedIn) {
-  //   navigate("/")
-  // }
-
-  useEffect(() => {
-    console.log(isLoggedIn)
-  }, [isLoggedIn])
-
   return (
     <PageWrapper>
       <PageName>Login</PageName>

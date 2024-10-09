@@ -9,22 +9,47 @@ import Registration from "pages/Registration/Registration"
 import Login from "pages/Login/Login"
 import AddProductAdmin from "pages/AddProductAdmin/AddProductAdmin"
 import AllUsers from "pages/AllUsersAdmin/AllUsersAdmin"
+import { useEffect } from "react"
+import { useAppDispatch, useAppSelector } from "store/hooks"
+import {
+  userAuthAction,
+  userAuthSelectors,
+} from "store/redux/users/userAuthSlice"
+import { cartActions } from "store/redux/cart/cartSlice"
 
 function App() {
+  const { currentUser } = useAppSelector(userAuthSelectors.userAuthState)
+
+  const dispatch = useAppDispatch()
+  useEffect(() => {
+    dispatch(userAuthAction.getUser())
+  }, [])
+
+  useEffect(() => {
+    if (currentUser) {
+      dispatch(
+        cartActions.cart({
+          userId: currentUser.id,
+          // ! это надо будет убрать когда сделают на бэке подгрузку айди из токена
+          accessToken: localStorage.getItem("accessToken") ?? undefined,
+        }),
+      )
+    }
+  }, [currentUser])
   return (
     <>
       <GlobalStyles />
       <Layout>
         <Routes>
-          <Route path="/" element={<AllProducts/>}/>
-          <Route path="/cart" element={<Cart/>}/>
-          <Route path="/user-profile" element={<UserProfile/>}/>
-          <Route path="/one-product-card" element={<OneProduct/>}/>
-          <Route path="/registration" element={<Registration/>}/>
-          <Route path="/login" element={<Login/>}/>
-          <Route path="/add-product" element={<AddProductAdmin/>}/>
-          <Route path="/all-users" element={<AllUsers/>}/>
-          <Route path="*" element={"error 404 - Page not found"}/>
+          <Route path="/" element={<AllProducts />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/user-profile" element={<UserProfile />} />
+          <Route path="/one-product-card" element={<OneProduct />} />
+          <Route path="/registration" element={<Registration />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/add-product" element={<AddProductAdmin />} />
+          <Route path="/all-users" element={<AllUsers />} />
+          <Route path="*" element={"error 404 - Page not found"} />
         </Routes>
       </Layout>
     </>
