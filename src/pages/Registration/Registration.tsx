@@ -64,7 +64,7 @@ function Registration() {
 
     onSubmit: (values, helpers) => {
       dispatch(
-        userAuthAction.registrUser({
+        userAuthAction.register({
           firstName: values.firstName,
           lastName: values.lastName,
           email: values.email,

@@ -14,7 +14,7 @@ export const userAuthSlice = createAppSlice({
   name: "USERAUTH",
   initialState: userAuthInitialState,
   reducers: create => ({
-    registrUser: create.asyncThunk(
+    register: create.asyncThunk(
       async (payload: any) => {
         const response = await axios.post(
           `/api/users/register`,
@@ -49,9 +49,10 @@ export const userAuthSlice = createAppSlice({
         },
       },
     ),
-    loginUser: create.asyncThunk(
+    login: create.asyncThunk(
       async (payload: LoginData) => {
-        const response = await axios.post(`/api/auth/login`, {
+        const response = await axios.post(`/api/auth/login`, 
+        {
           username: payload.email,
           password: payload.password,
         })
@@ -67,7 +68,6 @@ export const userAuthSlice = createAppSlice({
           state.currentUser = action.payload.user
           state.accessToken = action.payload.token.accessToken
           state.role = action.payload.user.roles[0].authority
-          
         },
         rejected: (state: UserAuthSliceState, action) => {
           state.error = action.error.message
@@ -75,7 +75,7 @@ export const userAuthSlice = createAppSlice({
         },
       },
     ),
-    getUserProfile: create.asyncThunk(
+    getUser: create.asyncThunk(
       async (state: UserAuthSliceState) => {
         const response = await axios.get(`/api/auth/profile`, {
           headers: {

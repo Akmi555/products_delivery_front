@@ -53,7 +53,7 @@ function CartComponent({ cartObjData }: cartObjProps) {
   // открыть страницу продукта
   const openCurrentProduct = () => {
     dispatch(oneProductAction.openProduct(productId))
-    navigate("/oneProductCard")
+    navigate("/one-product-card")
   }
   return (
     <ProductWrapper>

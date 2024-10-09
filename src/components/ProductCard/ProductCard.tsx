@@ -35,7 +35,7 @@ function OneProductCard({ productData }: ProductCardProps) {
   // функция которая стоит на картинке и имени товара чтобы открыть этот товар в новом окне
   const openCurrentProduct = () => {
     dispatch(oneProductAction.openProduct(productId))
-    navigate("/oneProductCard")
+    navigate("/one-product-card")
   }
 
   // получение айди залогиненного пользователя, надо чтобы добавлять продукты в корзину

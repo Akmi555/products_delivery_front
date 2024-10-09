@@ -18,12 +18,12 @@ function App() {
         <Routes>
           <Route path="/" element={<AllProducts/>}/>
           <Route path="/cart" element={<Cart/>}/>
-          <Route path="/userProfile" element={<UserProfile/>}/>
-          <Route path="/oneProductCard" element={<OneProduct/>}/>
+          <Route path="/user-profile" element={<UserProfile/>}/>
+          <Route path="/one-product-card" element={<OneProduct/>}/>
           <Route path="/registration" element={<Registration/>}/>
           <Route path="/login" element={<Login/>}/>
-          <Route path="/addProduct" element={<AddProductAdmin/>}/>
-          <Route path="/allUsers" element={<AllUsers/>}/>
+          <Route path="/add-product" element={<AddProductAdmin/>}/>
+          <Route path="/all-users" element={<AllUsers/>}/>
           <Route path="*" element={"error 404 - Page not found"}/>
         </Routes>
       </Layout>

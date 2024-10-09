@@ -60,10 +60,10 @@ function Layout({ children }: LayoutProps) {
           </NavLinkStyled>
         </HeaderLogoContainer>
         <NavigationContainer>
-          <LinkHeaderCustomized to="/addProduct" linkText="addProduct" />
-          <LinkHeaderCustomized to="/allUsers" linkText="allUsers" />
+          <LinkHeaderCustomized to="/add-product" linkText="add Product" />
+          <LinkHeaderCustomized to="/all-users" linkText="all Users" />
           <LinkHeaderCustomized
-            to="/userProfile"
+            to="/user-profile"
             whiteImg={userWhite}
             greenImg={userGreen}
           />
