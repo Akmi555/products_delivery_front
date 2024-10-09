@@ -2,12 +2,13 @@ import { useAppDispatch, useAppSelector } from "store/hooks"
 import { usersAction, usersSelectors } from "store/redux/allUsers/allUsersSlice"
 import { userAuthSelectors } from "store/redux/users/userAuthSlice"
 
-import { DataGrid, GridColDef } from "@mui/x-data-grid"
+import { DataGrid, GridColDef, GridDeleteIcon } from "@mui/x-data-grid"
 import Paper from "@mui/material/Paper"
 
 import { UserObject } from "store/redux/allUsers/types"
 import { useEffect, useState } from "react"
 import { PageWrapper } from "./styles"
+import { IconButton } from "@mui/material"
 
 function AllUsers() {
   const [allUsers, setAllUsers] = useState([])
@@ -57,6 +58,24 @@ function AllUsers() {
       type: "string",
       width: 200,
     },
+    {
+      field: "action",
+      headerName: "Delete",
+      type: "actions",
+      width: 200,
+      renderCell(params) {
+        const onClick = (e: React.MouseEvent) => {
+          e.stopPropagation()
+          // здесь вставить функцию удаления пользователя
+          alert("User deleted")
+        }
+        return (
+          <IconButton aria-label="delete">
+            <GridDeleteIcon onClick={onClick} />
+          </IconButton>
+        )
+      },
+    },
   ]
 
   const [currentPage, setCurrentPage] = useState<number>(1)
@@ -93,16 +112,16 @@ function AllUsers() {
   const paginationModel = { page: 0, pageSize: 10 }
   return (
     <PageWrapper>
-    <Paper sx={{ height: "100%", width: "100%" }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        initialState={{ pagination: { paginationModel } }}
-        pageSizeOptions={[5, 10]}
-        checkboxSelection
-        sx={{ border: 0 }}
-      />
-    </Paper>
+      <Paper sx={{ height: "100%", width: "100%" }}>
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          initialState={{ pagination: { paginationModel } }}
+          pageSizeOptions={[5, 10]}
+          checkboxSelection
+          sx={{ border: 0 }}
+        />
+      </Paper>
     </PageWrapper>
   )
 }
