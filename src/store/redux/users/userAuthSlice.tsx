@@ -91,9 +91,8 @@ export const userAuthSlice = createAppSlice({
         },
         fulfilled: (state: UserAuthSliceState, action) => {
           state.isPending = false
-          //   указать правильные пути!!!
           state.currentUser = action.payload
-          state.role = action.payload.user.roles[0]
+          state.role = action.payload.roles[0].authority
         },
         rejected: (state: UserAuthSliceState, action) => {
           state.error = action.error.message
