@@ -66,7 +66,8 @@ export const userAuthSlice = createAppSlice({
           state.isPending = false
           state.currentUser = action.payload.user
           state.accessToken = action.payload.token.accessToken
-          state.role = action.payload.user.roles[0]
+          state.role = action.payload.user.roles[0].authority
+          
         },
         rejected: (state: UserAuthSliceState, action) => {
           state.error = action.error.message
