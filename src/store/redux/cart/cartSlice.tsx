@@ -31,7 +31,18 @@ export const cartSlice = createAppSlice({
         },
         fulfilled: (state: CartSliceState, action) => {
           state.currentProductFromCart = action.payload
-          state.allProductsFromCart.push(action.payload)
+          // сделать более быстрым способом (методами или for)
+          if (
+            state.allProductsFromCart.some(
+              product => product.productId === action.payload.productId,
+            )
+          ) {
+            state.allProductsFromCart = state.allProductsFromCart.map(p => 
+              p.productId === action.payload.productId ? action.payload : p
+            )
+          } else {
+            state.allProductsFromCart.push(action.payload)
+          }
         },
         rejected: (state: CartSliceState, action) => {
           state.error = action.error.message

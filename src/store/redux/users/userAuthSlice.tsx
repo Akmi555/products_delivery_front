@@ -4,7 +4,7 @@ import { UserAuthSliceState, LoginData } from "./types"
 
 const userAuthInitialState: UserAuthSliceState = {
   currentUser: undefined,
-  accessToken: undefined,
+  accessToken: localStorage.getItem("accessToken") ?? undefined ,
   role: undefined,
   error: undefined,
   isPending: false,
@@ -67,6 +67,8 @@ export const userAuthSlice = createAppSlice({
           state.isPending = false
           state.currentUser = action.payload.user
           state.accessToken = action.payload.token.accessToken
+          // !
+          localStorage.setItem("accessToken", action.payload.token.accessToken)
           state.role = action.payload.user.roles[0].authority
         },
         rejected: (state: UserAuthSliceState, action) => {
@@ -76,10 +78,10 @@ export const userAuthSlice = createAppSlice({
       },
     ),
     getUser: create.asyncThunk(
-      async (state: UserAuthSliceState) => {
+      async () => {
         const response = await axios.get(`/api/auth/profile`, {
           headers: {
-            Authorization: `Bearer ${state.accessToken}`,
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
         })
         return response.data
