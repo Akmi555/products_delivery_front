@@ -23,21 +23,18 @@ import { Link, useNavigate } from "react-router-dom"
 function Cart() {
   const [products, setProducts] = useState<OneProductObject[]>([])
   const dispatch = useAppDispatch()
-
-  // получение айди залогиненного пользователя для отображения корзины (запрос находится в useEffect ниже)
-  const { currentUser, accessToken } = useAppSelector(userAuthSelectors.userAuthState)
-  const currentUserID: number | undefined = currentUser?.id
-
-  // получение доступа к стейте со всеми продуктами ИЗ КОРЗИНЫ
+  const { currentUser, accessToken } = useAppSelector(
+    userAuthSelectors.userAuthState,
+  )
   const { allProductsFromCart } = useAppSelector(cartSelectors.cartState)
-
   let totalAmount: number = 0
   let totalQuantity: number = 0
+  // получение айди залогиненного пользователя для отображения корзины (запрос находится в useEffect ниже)
+  const currentUserID: number | undefined = currentUser?.id
 
   for (let i = 0; i <= allProductsFromCart.length - 1; i++) {
     totalAmount = totalAmount + allProductsFromCart[i].sum
   }
-
   for (let i = 0; i <= allProductsFromCart.length - 1; i++) {
     totalQuantity = totalQuantity + allProductsFromCart[i].productQuantity
   }
@@ -65,8 +62,10 @@ function Cart() {
   if (currentUserID) {
     useEffect(() => {
       // положили в стейт массив из элементов корзины
-      // ! новый вариант отправки запроса с токеном юзера, с нормальной защитой 
-      dispatch(cartActions.cart({userId: currentUserID , accessToken: accessToken }))
+      // ! новый вариант отправки запроса с токеном юзера, с нормальной защитой
+      dispatch(
+        cartActions.cart({ userId: currentUserID, accessToken: accessToken }),
+      )
 
       // вытащили в массив айди тех продуктов, которые в корзине
       const productIds = allProductsFromCart.map(item => item.productId)
