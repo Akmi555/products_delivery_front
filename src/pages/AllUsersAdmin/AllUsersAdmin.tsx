@@ -25,7 +25,7 @@ function AllUsers() {
       field: "id",
       headerName: "Id",
       type: "number",
-      width: 200,
+      width: 80,
     },
     {
       field: "firstName",
@@ -51,12 +51,12 @@ function AllUsers() {
       type: "string",
       width: 200,
     },
-    // {
-    //   field: "roles",
-    //   headerName: "Roles",
-    //   type: "string",
-    //   width: 200,
-    // },
+    {
+      field: "roles",
+      headerName: "Roles",
+      type: "string",
+      width: 200,
+    },
   ]
 
   const [currentPage, setCurrentPage] = useState<number>(1)
@@ -70,7 +70,7 @@ function AllUsers() {
       lastName: obj.lastName,
       email: obj.email,
       phone: obj.phone,
-      // roles: obj.roles[0].title,
+      roles: obj.roles[0].authority,
     }
   })
 
