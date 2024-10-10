@@ -99,14 +99,7 @@ function AllUsers() {
   // }
 
   useEffect(() => {
-    dispatch(
-      usersAction.getUsers({
-        currentPage: currentPage,
-        pageSize: pageSize,
-        userId: currentUserID,
-        accessToken: accessToken,
-      }),
-    )
+    dispatch(usersAction.getUsers())
   }, [currentPage, pageQuantity])
 
   const paginationModel = { page: 0, pageSize: 10 }
