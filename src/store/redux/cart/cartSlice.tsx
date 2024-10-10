@@ -1,8 +1,6 @@
 import { createAppSlice } from "store/createAppSlice"
-import { CartSliceState, AddToCartData, ShowCartData } from "./types"
-import axios from "axios"
-import { useAppSelector } from "store/hooks"
-import { userAuthSelectors } from "../users/userAuthSlice"
+import { CartSliceState } from "./types"
+import axiosConfig from "../../../../axiosConfig"
 
 const cartInitialState: CartSliceState = {
   currentProductFromCart: undefined,
@@ -16,12 +14,8 @@ export const cartSlice = createAppSlice({
   initialState: cartInitialState,
   reducers: create => ({
     addProductToCart: create.asyncThunk(
-      async (payload: AddToCartData) => {
-        const response = await axios.post(
-          `/api/cart/${payload.userId}/${payload.productId}`,
-          {},
-          { headers: { Authorization: `Bearer ${payload.accessToken}` } },
-        )
+      async (productId: number) => {
+        const response = await axiosConfig.post(`/api/cart/${productId}`,)
         return response.data
       },
       {
@@ -31,14 +25,14 @@ export const cartSlice = createAppSlice({
         },
         fulfilled: (state: CartSliceState, action) => {
           state.currentProductFromCart = action.payload
-          // сделать более быстрым способом (методами или for)
+          // ! сделать более быстрым способом (методами или for)
           if (
             state.allProductsFromCart.some(
               product => product.productId === action.payload.productId,
             )
           ) {
-            state.allProductsFromCart = state.allProductsFromCart.map(p => 
-              p.productId === action.payload.productId ? action.payload : p
+            state.allProductsFromCart = state.allProductsFromCart.map(p =>
+              p.productId === action.payload.productId ? action.payload : p,
             )
           } else {
             state.allProductsFromCart.push(action.payload)
@@ -50,13 +44,9 @@ export const cartSlice = createAppSlice({
         },
       },
     ),
-    cart: create.asyncThunk(
-      async (payload: ShowCartData) => {
-        const response: any = await axios.get(`/api/cart/${payload.userId}`, {
-          headers: {
-            Authorization: `Bearer ${payload.accessToken}`,
-          },
-        })
+    openCart: create.asyncThunk(
+      async () => {
+        const response: any = await axiosConfig.get("/api/cart",)
         return response.data
       },
       {
@@ -74,39 +64,8 @@ export const cartSlice = createAppSlice({
         },
       },
     ),
-    // showCart: create.asyncThunk(
-    //   async (userId: number | undefined) => {
-    //     const response = await axios.get(`/api/cart/${userId}`)
-    //     return response.data
-    //   },
-    //   {
-    //     pending: (state: CartSliceState) => {
-    //       state.error = undefined
-    //       state.isPending = true
-    //     },
-    //     fulfilled: (state: CartSliceState, action) => {
-    //       state.isPending = false
-    //       state.allProductsFromCart = action.payload
-    //     },
-    //     rejected: (state: CartSliceState, action) => {
-    //       state.error = action.error.message
-    //       state.isPending = false
-    //     },
-    //   },
-    // ),
-    // deleteProductFromCart: create.asyncThunk(
-    //   async () => {
-    //     const response = await axios.delete(``)
-    //     return response
-    //   },
-    //   {
-    //     pending: () => {},
-    //     fulfilled: () => {},
-    //     rejected: () => {},
-    //   },
-    // ),
+    clearCartLogOut:  create.reducer(() => cartInitialState),
   }),
-  // селекторы, которые дают забирать данные из хранилища в какой то компонент
   selectors: {
     cartState: (state: CartSliceState) => state,
   },

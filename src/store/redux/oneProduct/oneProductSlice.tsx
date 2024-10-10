@@ -1,6 +1,6 @@
 import axios from "axios"
 import { createAppSlice } from "store/createAppSlice"
-import { OneProductObject, OneProductSliceState } from "./types"
+import { AddDBObject, OneProductObject, OneProductSliceState } from "./types"
 
 const oneProductInitialState: OneProductSliceState = {
   currentProduct: undefined,
@@ -34,7 +34,7 @@ export const oneProductSlice = createAppSlice({
       },
     ),
     addProductToDB: create.asyncThunk(
-      async (payload: OneProductObject) => {
+      async (payload: AddDBObject) => {
         const response = await axios.post(
           `/api/products`,
           {

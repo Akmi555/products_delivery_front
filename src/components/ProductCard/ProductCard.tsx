@@ -10,19 +10,16 @@ import {
 } from "./styles"
 import ButtonMain from "components/Button/Button"
 import cartWhite from "assets/shopping-cart-white.png"
-import { ProductCardProps } from "./types"
-import { useAppDispatch, useAppSelector } from "store/hooks"
+import { useAppDispatch } from "store/hooks"
 import { oneProductAction } from "store/redux/oneProduct/oneProductSlice"
 import ProductButton from "components/ProductButton/ProductButton"
 import { useNavigate } from "react-router-dom"
 
-import { userAuthSelectors } from "store/redux/users/userAuthSlice"
 import { cartActions } from "store/redux/cart/cartSlice"
-import { AddToCartData } from "store/redux/cart/types"
-import { Alert } from "@mui/material"
-import CheckIcon from "@mui/icons-material/Check"
+import { ProductCardProps } from "./types"
 
-function OneProductCard({ productData }: ProductCardProps) {
+
+function OneProductCard( {productData} : ProductCardProps) {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
@@ -38,21 +35,8 @@ function OneProductCard({ productData }: ProductCardProps) {
     navigate("/one-product-card")
   }
 
-  // получение айди залогиненного пользователя, надо чтобы добавлять продукты в корзину
-  const { currentUser, accessToken } = useAppSelector(
-    userAuthSelectors.userAuthState,
-  )
-  const currentUserID: number | undefined = currentUser?.id
-
-  // сбор данных для добавления в корзину в 1 объект, чтобы передать ниже в функцию addProductToCart(...)
-  const addToCartData: AddToCartData = {
-    userId: currentUserID,
-    productId: productId,
-    accessToken: accessToken,
-  }
-
   const onAddToCart = () => {
-    dispatch(cartActions.addProductToCart(addToCartData))
+    dispatch(cartActions.addProductToCart(productId))
   }
 
   return (

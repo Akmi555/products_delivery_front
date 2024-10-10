@@ -31,7 +31,7 @@ import DeleteIcon from "@mui/icons-material/Delete"
 function CartComponent({ cartObjData }: cartObjProps) {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
-  const productId: number | undefined = cartObjData.id
+  const productId: number = cartObjData.id
   const productQuantity: number = cartObjData.productQuantity
   const sum: number = cartObjData.sum
 
@@ -42,12 +42,9 @@ function CartComponent({ cartObjData }: cartObjProps) {
   const photoLink: string | undefined =
     `/api/files/download/${cartObjData.photoLink}`
 
-  // получение айди залогиненного пользователя чтобы мочь добавлять товар в корзину
-  const { currentUser, accessToken } = useAppSelector(userAuthSelectors.userAuthState)
-  const userId: number | undefined = currentUser?.id
   // увеличить количество товара в корзине
   const onAddToCart = () => {
-    dispatch(cartActions.addProductToCart({ userId, productId, accessToken }))
+    dispatch(cartActions.addProductToCart(productId))
   }
 
   // открыть страницу продукта

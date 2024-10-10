@@ -5,7 +5,16 @@ export interface OneProductSliceState {
 }
 
 export interface OneProductObject {
-  id?: number | undefined
+  id: number 
+  title: string
+  price: number
+  productCode: string
+  minQuantity: string
+  description: string
+  photoLink: string | undefined
+}
+
+export interface AddDBObject {
   title: string
   price: number
   productCode: string

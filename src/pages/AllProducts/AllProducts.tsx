@@ -10,18 +10,11 @@ import {
 import { ProductObject } from "store/redux/allProducts/types"
 import { v4 } from "uuid"
 import { Container, Pagination, Stack } from "@mui/material"
-import { cartActions } from "store/redux/cart/cartSlice"
 import { userAuthSelectors } from "store/redux/users/userAuthSlice"
 
 function AllProducts() {
   const dispatch = useAppDispatch()
-
-  // получение айди залогиненного пользователя для отображения корзины (запрос находится в useEffect ниже)
-  const { currentUser, accessToken } = useAppSelector(
-    userAuthSelectors.userAuthState,
-  )
-  const currentUserID: number | undefined = currentUser?.id
-
+  
   // для пагинации:
   const [currentPage, setCurrentPage] = useState<number>(1)
   // ! ТУТ СТАВИТСЯ КОЛ-ВО ПРОДУКТОВ НА СТРАНИЦЕ

@@ -1,6 +1,6 @@
-import axios from "axios"
 import { createAppSlice } from "store/createAppSlice"
-import { UserObject, UsersSliceState } from "./types"
+import { UsersSliceState } from "./types"
+import axiosConfig from "../../../../axiosConfig"
 
 const usersInitialState: UsersSliceState = {
   currentUser: undefined,
@@ -15,13 +15,8 @@ export const allUsersSlice = createAppSlice({
   initialState: usersInitialState,
   reducers: create => ({
     getUsers: create.asyncThunk(
-      async (payload: any) => {
-        const response = await axios.get(
-          `/api/users`,
-          {
-            headers: { Authorization: `Bearer ${payload.accessToken}`  },
-          },
-        )
+      async () => {
+        const response = await axiosConfig.get(`/api/users`)
         return response.data
       },
       {

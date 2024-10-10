@@ -1,10 +1,11 @@
 import axios from "axios"
 import { createAppSlice } from "store/createAppSlice"
 import { UserAuthSliceState, LoginData } from "./types"
+import axiosConfig from "../../../../axiosConfig"
 
 const userAuthInitialState: UserAuthSliceState = {
   currentUser: undefined,
-  accessToken: localStorage.getItem("accessToken") ?? undefined ,
+  accessToken: localStorage.getItem("accessToken") ?? undefined,
   role: undefined,
   error: undefined,
   isPending: false,
@@ -51,8 +52,7 @@ export const userAuthSlice = createAppSlice({
     ),
     login: create.asyncThunk(
       async (payload: LoginData) => {
-        const response = await axios.post(`/api/auth/login`, 
-        {
+        const response = await axios.post(`/api/auth/login`, {
           username: payload.email,
           password: payload.password,
         })
@@ -79,11 +79,7 @@ export const userAuthSlice = createAppSlice({
     ),
     getUser: create.asyncThunk(
       async () => {
-        const response = await axios.get(`/api/auth/profile`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        })
+        const response = await axiosConfig.get(`/api/auth/profile`)
         return response.data
       },
       {
@@ -102,6 +98,7 @@ export const userAuthSlice = createAppSlice({
         },
       },
     ),
+    logOut: create.reducer(() => userAuthInitialState),
   }),
   selectors: {
     userAuthState: (state: UserAuthSliceState) => state,
