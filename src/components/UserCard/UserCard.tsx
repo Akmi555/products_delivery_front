@@ -9,17 +9,19 @@ import {
   UserCardWrapper,
 } from "./styles"
 import { ProductCardProps } from "./types"
-import { useAppDispatch } from "store/hooks"
+import { useAppDispatch, useAppSelector } from "store/hooks"
 import { cartActions, cartSelectors } from "store/redux/cart/cartSlice"
-import { userAuthAction } from "store/redux/users/userAuthSlice"
+import { userAuthAction, userAuthSelectors } from "store/redux/users/userAuthSlice"
 
-function UserCard({ userData }: ProductCardProps) {
+function UserCard() {
+
+  const {currentUser} = useAppSelector(userAuthSelectors.userAuthState)
   const dispatch = useAppDispatch()
-  const firstName: string | undefined = userData?.firstName
-  const lastName: string | undefined  = userData?.lastName
-  const email: string | undefined  = userData?.email
-  const phone: string | undefined  = userData?.phone
-  const role: string | undefined  = userData?.roles[0].title
+  const firstName: string | undefined = currentUser?.firstName
+  const lastName: string | undefined  = currentUser?.lastName
+  const email: string | undefined  = currentUser?.email
+  const phone: string | undefined  = currentUser?.phone
+  const role: string | undefined  = currentUser?.roles[0].authority
 
   const logOut = () => {
     localStorage.clear()

@@ -98,7 +98,13 @@ export const userAuthSlice = createAppSlice({
         },
       },
     ),
-    logOut: create.reducer(() => userAuthInitialState),
+    logOut: create.reducer((state: UserAuthSliceState) => {
+      state.currentUser = undefined
+      state.accessToken = undefined
+      state.role = undefined
+      state.error = undefined
+    }
+      ),
   }),
   selectors: {
     userAuthState: (state: UserAuthSliceState) => state,
