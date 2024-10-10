@@ -1,30 +1,34 @@
-import { useAppSelector } from "store/hooks"
+import { useAppDispatch, useAppSelector } from "store/hooks"
 import { PageWrapper, UseProfileWrapper } from "./styles"
-import { userAuthSelectors } from "store/redux/users/userAuthSlice"
+import {
+  userAuthAction,
+  userAuthSelectors,
+} from "store/redux/users/userAuthSlice"
 import { LoginMistakeContainer } from "pages/Cart/styles"
 import { Link } from "react-router-dom"
-import { Box, CircularProgress } from "@mui/material"
+import { useEffect } from "react"
+import UserCard from "components/UserCard/UserCard"
 
 function UserProfile() {
   // получение айди залогиненного пользователя для отображения корзины (запрос находится в useEffect ниже)
-  const { currentUser, accessToken } = useAppSelector(
-    userAuthSelectors.userAuthState,
-  )
-  const currentUserID: number | undefined = currentUser?.id
+  const { currentUser } = useAppSelector(userAuthSelectors.userAuthState)
+
+  const dispatch = useAppDispatch()
+  useEffect(() => {
+    dispatch(userAuthAction.getUser())
+  }, [])
+
   return (
     <PageWrapper>
-      {!currentUserID && (
+      {!localStorage.getItem("accessToken") && (
         <LoginMistakeContainer>
           <h4>Oops!</h4> <p> You are not logged in</p>
           <Link to="/login">login</Link>
         </LoginMistakeContainer>
       )}
-      {currentUserID && (
+      {localStorage.getItem("accessToken") && (
         <UseProfileWrapper>
-          <>User profile page is coming in close future</>
-          <Box sx={{ display: "flex" }}>
-            <CircularProgress />
-          </Box>
+          <UserCard userData={currentUser}/>
         </UseProfileWrapper>
       )}
     </PageWrapper>

@@ -64,6 +64,7 @@ export const cartSlice = createAppSlice({
         },
       },
     ),
+    clearCartLogOut:  create.reducer(() => cartInitialState),
   }),
   selectors: {
     cartState: (state: CartSliceState) => state,

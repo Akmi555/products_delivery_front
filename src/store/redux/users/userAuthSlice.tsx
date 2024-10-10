@@ -98,6 +98,7 @@ export const userAuthSlice = createAppSlice({
         },
       },
     ),
+    logOut: create.reducer(() => userAuthInitialState),
   }),
   selectors: {
     userAuthState: (state: UserAuthSliceState) => state,

@@ -2,7 +2,6 @@ import CartComponent from "components/CartComponent/CartComponent"
 import { useAppDispatch, useAppSelector } from "store/hooks"
 import { cartActions, cartSelectors } from "store/redux/cart/cartSlice"
 
-import { userAuthSelectors } from "store/redux/users/userAuthSlice"
 import { v4 } from "uuid"
 import {
   Amount,
@@ -23,12 +22,10 @@ import { Link } from "react-router-dom"
 function Cart() {
   const [products, setProducts] = useState<OneProductObject[]>([])
   const dispatch = useAppDispatch()
-  const { currentUser } = useAppSelector(userAuthSelectors.userAuthState)
   const { allProductsFromCart } = useAppSelector(cartSelectors.cartState)
   let totalAmount: number = 0
   let totalQuantity: number = 0
-  // получение айди залогиненного пользователя для отображения корзины (запрос находится в useEffect ниже)
-  const currentUserID: number | undefined = currentUser?.id
+  const accessToken : string | null = localStorage.getItem("accessToken")
 
   for (let i = 0; i <= allProductsFromCart.length - 1; i++) {
     totalAmount = totalAmount + allProductsFromCart[i].sum
@@ -57,7 +54,7 @@ function Cart() {
   ))
 
   // проверка на залогиненного пользователя
-  if (currentUserID) {
+  if (accessToken) {
     useEffect(() => {
       // положили в стейт массив из элементов корзины
       dispatch(cartActions.openCart())
@@ -87,7 +84,7 @@ function Cart() {
   return (
     <PageWrapper>
       <CartItemsWrapper>{cartsAllProducts}</CartItemsWrapper>
-      {currentUserID && (
+      {accessToken && (
         <TotalAmountContainer>
           <PriceContainer>
             <Text>Subtotal ({totalQuantity} items):</Text>
@@ -97,7 +94,7 @@ function Cart() {
           <ButtonMain buttonName="Proceed to checkout" />
         </TotalAmountContainer>
       )}
-      {!currentUserID && (
+      {!accessToken && (
         <LoginMistakeContainer>
           <h4>Oops!</h4> <p> You are not logged in</p>
           <Link to="/login">login</Link>
