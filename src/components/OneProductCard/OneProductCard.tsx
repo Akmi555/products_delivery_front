@@ -14,35 +14,22 @@ import {
 } from "./styles"
 import ButtonMain from "components/Button/Button"
 import cartWhite from "assets/shopping-cart-white.png"
-import { ProductDescriptionProps } from "./types"
-import { useAppDispatch, useAppSelector } from "store/hooks"
+import { useAppDispatch } from "store/hooks"
 import { cartActions } from "store/redux/cart/cartSlice"
-import { AddToCartData } from "store/redux/cart/types"
-import { userAuthSelectors } from "store/redux/users/userAuthSlice"
+import { ProductDescriptionProps } from "./types"
 
-function ProductDetailsCard({ productData }: ProductDescriptionProps) {
+function ProductDetailsCard( {productData} : ProductDescriptionProps) {
   const dispatch = useAppDispatch()
 
-  const productId: number | undefined = productData.id
+  const productId: number= productData.id
   const title: string = productData.title
   const price: number = productData.price
   const minQuantity: string = productData.minQuantity
   const description: string = productData.description
   const photoLink: string = `/api/files/download/${productData.photoLink}`
 
-  // получение айди залогиненного пользователя, надо чтобы добавлять продукты в корзину
-  const { currentUser, accessToken } = useAppSelector(userAuthSelectors.userAuthState)
-  const currentUserID: number | undefined = currentUser?.id
-
-  // сбор данных для добавления в корзину в 1 объект, чтобы передать ниже в функцию addProductToCart(...)
-  const addToCartData: AddToCartData = {
-    userId: currentUserID,
-    productId: productId,
-    accessToken: accessToken,
-  }
-
   const onAddToCart = () => {
-    dispatch(cartActions.addProductToCart(addToCartData))
+    dispatch(cartActions.addProductToCart(productId))
   }
 
   return (

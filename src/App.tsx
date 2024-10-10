@@ -28,7 +28,7 @@ function App() {
   useEffect(() => {
     if (currentUser) {
       dispatch(
-        cartActions.cart({
+        cartActions.openCart({
           userId: currentUser.id,
           // ! это надо будет убрать когда сделают на бэке подгрузку айди из токена
           accessToken: localStorage.getItem("accessToken") ?? undefined,

@@ -1,18 +1,7 @@
-// здесь будет : как должны храниться данные, как они должны обрабатываться,
-// что есть initial state, как это все потом передать в компонент
-// в этом файле главная настройка store, которая касается отображения списка всех продуктов
-
-// стор - отвечает за данные всего приложения и в нем есть слайсы-кусочки которые отвечают за какие то отдельные части программы
-// эту логику надо разделять чтобы не путаться в куче данных
-
-// после создания слайса идем в store.ts и там в combineSlices через запятую добавляем новые слайсы
-
 import axios from "axios"
 import { createAppSlice } from "store/createAppSlice"
 import { CartObject, ProductsSliceState } from "./types"
 
-
-//начальное значение ВСЕГДА объект
 const productsInitialState: ProductsSliceState = {
   currentProduct: undefined,
   products: [],
@@ -21,13 +10,9 @@ const productsInitialState: ProductsSliceState = {
   isPending: false,
 }
 
-// похоже на формик. Вызываем функцию и передаем туда все настройки
 export const allProductsSlice = createAppSlice({
-  // имя под которым будет храниться бъект со значениями всех продуктов в глобальном стейте
   name: "PRODUCTS",
-  //изначальное состояние
   initialState: productsInitialState,
-  // объект со всеми редьюсерами
   reducers: create => ({
     getProducts: create.asyncThunk(
       // !!!!
@@ -95,14 +80,10 @@ export const allProductsSlice = createAppSlice({
       },
     ),
   }),
-  // селекторы, которые дают забирать данные из хранилища в какой то компонент
   selectors: {
     productsState: (state: ProductsSliceState) => state,
   },
 })
 
-// экспорт экшенов и селекторов чтобы чтобы можно было воспользоваться ими в компонентах приложения
 export const productsAction = allProductsSlice.actions
 export const productsSelectors = allProductsSlice.selectors
-
-// все остальные действия внутри компонента

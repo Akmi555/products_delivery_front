@@ -13,11 +13,11 @@ export interface CartItemObject {
   sum: number
 }
 
-export interface AddToCartData {
-  userId: number | undefined
-  productId: number | undefined
-  accessToken: string | undefined
-}
+// export interface AddToCartData {
+//   userId: number | undefined
+//   productId: number | undefined
+//   accessToken: string | undefined
+// }
 
 export interface ShowCartData {
   userId: number | undefined

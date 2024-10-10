@@ -18,14 +18,12 @@ import { oneProductAction } from "store/redux/oneProduct/oneProductSlice"
 import { CartAndProductData } from "./types"
 import { OneProductObject } from "store/redux/oneProduct/types"
 import ButtonMain from "components/Button/Button"
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 function Cart() {
   const [products, setProducts] = useState<OneProductObject[]>([])
   const dispatch = useAppDispatch()
-  const { currentUser, accessToken } = useAppSelector(
-    userAuthSelectors.userAuthState,
-  )
+  const { currentUser } = useAppSelector(userAuthSelectors.userAuthState)
   const { allProductsFromCart } = useAppSelector(cartSelectors.cartState)
   let totalAmount: number = 0
   let totalQuantity: number = 0
@@ -62,10 +60,7 @@ function Cart() {
   if (currentUserID) {
     useEffect(() => {
       // положили в стейт массив из элементов корзины
-      // ! новый вариант отправки запроса с токеном юзера, с нормальной защитой
-      dispatch(
-        cartActions.cart({ userId: currentUserID, accessToken: accessToken }),
-      )
+      dispatch(cartActions.openCart())
 
       // вытащили в массив айди тех продуктов, которые в корзине
       const productIds = allProductsFromCart.map(item => item.productId)
@@ -96,7 +91,7 @@ function Cart() {
         <TotalAmountContainer>
           <PriceContainer>
             <Text>Subtotal ({totalQuantity} items):</Text>
-            <Amount> € {totalAmount} </Amount>
+            <Amount> € {totalAmount.toFixed(2)} </Amount>
           </PriceContainer>
 
           <ButtonMain buttonName="Proceed to checkout" />
