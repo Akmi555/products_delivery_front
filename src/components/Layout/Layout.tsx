@@ -33,6 +33,7 @@ function Layout({ children }: LayoutProps) {
   const match = useMatch("/")
 
   const { allProductsFromCart } = useAppSelector(cartSelectors.cartState)
+  const { currentUser } = useAppSelector(userAuthSelectors.userAuthState)
 
   const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
     "& .MuiBadge-badge": {
@@ -47,8 +48,10 @@ function Layout({ children }: LayoutProps) {
   // или сделать отдельное свойство в стейте корзины
   let totalQuantity: number = 0
 
-  for (let i = 0; i <= allProductsFromCart.length - 1; i++) {
-    totalQuantity = totalQuantity + allProductsFromCart[i].productQuantity
+  if (currentUser) {
+    for (let i = 0; i <= allProductsFromCart.length - 1; i++) {
+      totalQuantity = totalQuantity + allProductsFromCart[i].productQuantity
+    }
   }
 
   const header = () => {

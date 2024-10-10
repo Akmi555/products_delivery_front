@@ -15,9 +15,10 @@ function UserProfile() {
 
   const dispatch = useAppDispatch()
   useEffect(() => {
-    dispatch(userAuthAction.getUser())
+    // dispatch(userAuthAction.getUser())
   }, [])
 
+  
   return (
     <PageWrapper>
       {!localStorage.getItem("accessToken") && (
@@ -28,7 +29,7 @@ function UserProfile() {
       )}
       {localStorage.getItem("accessToken") && (
         <UseProfileWrapper>
-          <UserCard userData={currentUser}/>
+          <UserCard />
         </UseProfileWrapper>
       )}
     </PageWrapper>

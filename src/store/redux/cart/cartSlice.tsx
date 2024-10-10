@@ -15,7 +15,7 @@ export const cartSlice = createAppSlice({
   reducers: create => ({
     addProductToCart: create.asyncThunk(
       async (productId: number) => {
-        const response = await axiosConfig.post(`/api/cart/${productId}`,)
+        const response = await axiosConfig.post(`/api/cart/${productId}`)
         return response.data
       },
       {
@@ -46,7 +46,7 @@ export const cartSlice = createAppSlice({
     ),
     openCart: create.asyncThunk(
       async () => {
-        const response: any = await axiosConfig.get("/api/cart",)
+        const response: any = await axiosConfig.get("/api/cart")
         return response.data
       },
       {
@@ -64,7 +64,7 @@ export const cartSlice = createAppSlice({
         },
       },
     ),
-    clearCartLogOut:  create.reducer(() => cartInitialState),
+    clearCartLogOut: create.reducer(() => cartInitialState),
   }),
   selectors: {
     cartState: (state: CartSliceState) => state,
