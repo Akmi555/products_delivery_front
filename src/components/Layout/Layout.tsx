@@ -65,6 +65,7 @@ function Layout({ children }: LayoutProps) {
         <NavigationContainer>
           <LinkHeaderCustomized to="/add-product" linkText="add Product" />
           <LinkHeaderCustomized to="/all-users" linkText="all Users" />
+          <LinkHeaderCustomized to="/orders" linkText="orders" />
           <LinkHeaderCustomized
             to="/user-profile"
             whiteImg={userWhite}
