@@ -16,7 +16,9 @@ import {
   userAuthSelectors,
 } from "store/redux/users/userAuthSlice"
 import { cartActions } from "store/redux/cart/cartSlice"
+import Orders from "pages/Orders/Orders"
 import AllProductsAdmin from "pages/AllProductsAdmin/AllProductsAdmin"
+
 
 function App() {
   const { currentUser } = useAppSelector(userAuthSelectors.userAuthState)
@@ -44,6 +46,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/add-product" element={<AddProductAdmin />} />
           <Route path="/all-users" element={<AllUsers />} />
+          <Route path="/orders" element={<Orders />} />
           <Route path="/all-products-admin" element={<AllProductsAdmin />} />
           <Route path="*" element={"error 404 - Page not found"} />
         </Routes>
