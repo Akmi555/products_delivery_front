@@ -45,20 +45,6 @@ export const allProductsSlice = createAppSlice({
         },
       },
     ),
-    addProductToCart: create.asyncThunk(
-      async (state: CartObject) => {
-        const response = await axios.post(
-          `/api/cart/${state.userId}/${state.productId}`,
-        )
-        return response.data
-      },
-      {
-        pending: () => {},
-        fulfilled: () => {},
-        rejected: () => {},
-      },
-    ),
-
     openProduct: create.asyncThunk(
       async (productId: number) => {
         const response = await axios.get(`/api/products/${productId}`)

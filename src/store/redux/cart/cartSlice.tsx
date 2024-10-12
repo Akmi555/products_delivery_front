@@ -80,6 +80,15 @@ export const cartSlice = createAppSlice({
         fulfilled: (state: CartSliceState, action) => {
           state.isPending = false
           state.currentProductFromCart = action.payload
+          if (
+            state.allProductsFromCart.some(
+              product => product.productId === action.payload.productId,
+            )
+          ) {
+            state.allProductsFromCart = state.allProductsFromCart.map(p =>
+              p.productId === action.payload.productId ? action.payload : p,
+            )
+          }
         },
         rejected: (state: CartSliceState, action) => {
           state.error = action.error.message
