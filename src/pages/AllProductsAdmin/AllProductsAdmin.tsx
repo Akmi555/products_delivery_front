@@ -8,6 +8,7 @@ import { ProductObject } from "store/redux/allProducts/types";
 import { useEffect, useState } from "react";
 import { PageWrapper } from "./styles";
 import { IconButton } from "@mui/material"
+import { oneProductAction } from "store/redux/oneProduct/oneProductSlice";
 
 function AllProductsAdmin() {
     const [allProducts, setAllProducts] = useState([])
@@ -50,7 +51,8 @@ function AllProductsAdmin() {
             renderCell(params) {
                 const onClick = (e: React.MouseEvent) => {
                     e.stopPropagation()
-                    alert("Product deleted")
+                    dispatch(oneProductAction.deleteProductFromDB(params.row.id))
+                    
                 }
                 return (
                     <IconButton>
