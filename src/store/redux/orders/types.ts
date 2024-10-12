@@ -1,6 +1,7 @@
 export interface OrderSliceState {
   currentOrder: orderObject | undefined
   orders: orderObject[]
+  ordersAdmin: orderObject[]
   error: string | undefined
   isPending: boolean
 }

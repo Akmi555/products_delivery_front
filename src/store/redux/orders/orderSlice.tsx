@@ -5,12 +5,13 @@ import axiosConfig from "../../../../axiosConfig"
 const orderInitialState: OrderSliceState = {
   currentOrder: undefined,
   orders: [],
+  ordersAdmin: [],
   error: undefined,
   isPending: false,
 }
 
 export const orderSlice = createAppSlice({
-  name: "ORDER",
+  name: "ORDERS",
   initialState: orderInitialState,
   reducers: create => ({
     createOrder: create.asyncThunk(
@@ -44,7 +45,10 @@ export const orderSlice = createAppSlice({
           state.error = undefined
           state.isPending = true
         },
-        fulfilled: (state: OrderSliceState, action) => {},
+        fulfilled: (state: OrderSliceState, action) => {
+          state.orders = action.payload
+          state.isPending = false
+        },
         rejected: (state: OrderSliceState, action) => {
           state.error = action.error.message
           state.isPending = false
@@ -61,7 +65,10 @@ export const orderSlice = createAppSlice({
           state.error = undefined
           state.isPending = true
         },
-        fulfilled: (state: OrderSliceState, action) => {},
+        fulfilled: (state: OrderSliceState, action) => {
+          state.ordersAdmin = action.payload
+          state.isPending = false
+        },
         rejected: (state: OrderSliceState, action) => {
           state.error = action.error.message
           state.isPending = false
@@ -83,7 +90,10 @@ export const orderSlice = createAppSlice({
           state.error = undefined
           state.isPending = true
         },
-        fulfilled: (state: OrderSliceState, action) => {},
+        fulfilled: (state: OrderSliceState, action) => {
+          state.currentOrder = action.payload
+          state.isPending = false
+        },
         rejected: (state: OrderSliceState, action) => {
           state.error = action.error.message
           state.isPending = false
