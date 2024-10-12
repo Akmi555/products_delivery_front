@@ -1,5 +1,5 @@
 import { createAppSlice } from "store/createAppSlice"
-import { CartSliceState } from "./types"
+import { CartSliceState, ChangeProductAmountData } from "./types"
 import axiosConfig from "../../../../axiosConfig"
 
 const cartInitialState: CartSliceState = {
@@ -65,6 +65,67 @@ export const cartSlice = createAppSlice({
       },
     ),
     clearCartLogOut: create.reducer(() => cartInitialState),
+    changeAmountInCart: create.asyncThunk(
+      async (data: ChangeProductAmountData) => {
+        const response = await axiosConfig.put(
+          `/api/cart/${data.productId}/${data.newAmount}`,
+        )
+        return response.data
+      },
+      {
+        pending: (state: CartSliceState) => {
+          state.error = undefined
+          state.isPending = true
+        },
+        fulfilled: (state: CartSliceState, action) => {
+          state.isPending = false
+          state.currentProductFromCart = action.payload
+        },
+        rejected: (state: CartSliceState, action) => {
+          state.error = action.error.message
+          state.isPending = false
+        },
+      },
+    ),
+    deleteProductFromCart: create.asyncThunk(
+      async (productId: number) => {
+        const response = await axiosConfig.delete(`api/cart/${productId}
+        `)
+        return response.data
+      },
+      {
+        pending: (state: CartSliceState) => {
+          state.error = undefined
+          state.isPending = true
+        },
+        fulfilled: (state: CartSliceState) => {
+          state.isPending = false
+        },
+        rejected: (state: CartSliceState, action) => {
+          state.error = action.error.message
+          state.isPending = false
+        },
+      },
+    ),
+    deleteCart: create.asyncThunk(
+      async () => {
+        const response = await axiosConfig.delete("api/cart")
+        return response.data
+      },
+      {
+        pending: (state: CartSliceState) => {
+          state.error = undefined
+          state.isPending = true
+        },
+        fulfilled: (state: CartSliceState) => {
+          state.isPending = false
+        },
+        rejected: (state: CartSliceState, action) => {
+          state.error = action.error.message
+          state.isPending = false
+        },
+      },
+    ),
   }),
   selectors: {
     cartState: (state: CartSliceState) => state,
