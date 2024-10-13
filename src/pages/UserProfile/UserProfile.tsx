@@ -1,7 +1,6 @@
 import { useAppDispatch, useAppSelector } from "store/hooks"
 import { PageWrapper, UseProfileWrapper } from "./styles"
 import {
-  userAuthAction,
   userAuthSelectors,
 } from "store/redux/users/userAuthSlice"
 import { LoginMistakeContainer } from "pages/Cart/styles"

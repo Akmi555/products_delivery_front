@@ -3,7 +3,7 @@ import { globalPageStyles } from "styles/GlobalStyles"
 
 export const PageWrapper = styled.div`
   ${globalPageStyles}
-  padding: 80px;
+  padding: 30px 0px 40px 80px;
   justify-content: center;
   gap: 40px;
 `
@@ -41,4 +41,9 @@ display: flex;
 flex-direction: column;
 align-items: center;
 gap: 20px;
+`
+export const GoBackButtonWrapper = styled.div`
+  display: flex;
+ flex-direction: column;
+ justify-content: flex-end;
 `

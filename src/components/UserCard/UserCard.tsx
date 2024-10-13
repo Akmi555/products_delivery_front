@@ -39,6 +39,7 @@ function UserCard() {
     localStorage.clear()
     dispatch(cartActions.clearCartLogOut())
     dispatch(userAuthAction.logOut())
+    // dispatch(cartActions.deleteCart())
     // ! СДЕЛАТЬ ЧТОБЫ ОБНОВИЛАСЬ СТРАНИЦА
   }
   return (
@@ -63,10 +64,11 @@ function UserCard() {
             <Description>Phone:</Description>
             <Phone>{phone}</Phone>
           </div>
+          {roleID === 2 && 
           <div>
             <Description>Role:</Description>
             <Role>{role}</Role>
-          </div>
+          </div>}
         </DataWrapper>
       </UserDataWrapper>
       <ButtonsContainer>

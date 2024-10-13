@@ -6,6 +6,8 @@ export interface COLORS {
   PLACEHOLDER: string
   LABEL: string
   DISABLED: string
+  BACKGROUND_GRAY: string
+  BACKGROUND_GRAY_TRANSPARENT: string
 }
 
 export const colors: COLORS = {
@@ -16,4 +18,8 @@ export const colors: COLORS = {
   PLACEHOLDER: "#6f6f6f",
   LABEL: "#615c5c",
   DISABLED: "#3f3f3f",
+  BACKGROUND_GRAY: "#e8e8e8",
+  BACKGROUND_GRAY_TRANSPARENT: "rgba(232, 232, 232, 0.6)",
 }
+
+

@@ -1,5 +1,5 @@
 import Layout from "components/Layout/Layout"
-import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { BrowserRouter, Route, Routes, useParams } from "react-router-dom"
 import GlobalStyles from "styles/GlobalStyles"
 import Cart from "pages/Cart/Cart"
 import AllProducts from "pages/AllProducts/AllProducts"
@@ -20,7 +20,6 @@ import Orders from "pages/Orders/Orders"
 import AllProductsAdmin from "pages/AllProductsAdmin/AllProductsAdmin"
 import OrderForm from "pages/OrderForm/OrderForm"
 
-
 function App() {
   const { currentUser } = useAppSelector(userAuthSelectors.userAuthState)
 
@@ -34,6 +33,7 @@ function App() {
       dispatch(cartActions.openCart())
     }
   }, [currentUser])
+
   return (
     <>
       <GlobalStyles />
@@ -42,7 +42,8 @@ function App() {
           <Route path="/" element={<AllProducts />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/user-profile" element={<UserProfile />} />
-          <Route path="/one-product-card" element={<OneProduct />} />
+          {/* <Route path="/one-product-card" element={<OneProduct />} /> */}
+          <Route path="/:id" element={<OneProduct />} />
           <Route path="/registration" element={<Registration />} />
           <Route path="/login" element={<Login />} />
           <Route path="/add-product" element={<AddProductAdmin />} />

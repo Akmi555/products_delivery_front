@@ -1,4 +1,5 @@
 import { Global, css } from "@emotion/react"
+import { colors } from "./colors"
 
 const globalAppStyles = css`
   * {
@@ -38,7 +39,7 @@ export default GlobalStyles
 export const globalPageStyles = css`
   display: flex;
   flex: 1;
-  background-color: #e8e8e8;
+  background-color: ${colors.BACKGROUND_GRAY};
   border-radius: 50px;
   padding: 30px;
 `

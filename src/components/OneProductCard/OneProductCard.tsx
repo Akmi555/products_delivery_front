@@ -1,5 +1,6 @@
 import {
   ButtonContainer,
+  GoBackButtonWrapper,
   ImgContainer,
   ImgProduct,
   MainInfoAndImgContainer,
@@ -17,11 +18,14 @@ import cartWhite from "assets/shopping-cart-white.png"
 import { useAppDispatch } from "store/hooks"
 import { cartActions } from "store/redux/cart/cartSlice"
 import { ProductDescriptionProps } from "./types"
+import ArrowBackIosRoundedIcon from "@mui/icons-material/ArrowBackIosRounded"
+import Grid from "@mui/material/Grid"
+import { IconButton, Tooltip } from "@mui/material"
 
-function ProductDetailsCard( {productData} : ProductDescriptionProps) {
+function ProductDetailsCard({ productData }: ProductDescriptionProps) {
   const dispatch = useAppDispatch()
 
-  const productId: number= productData.id
+  const productId: number = productData.id
   const title: string = productData.title
   const price: number = productData.price
   const minQuantity: string = productData.minQuantity
@@ -34,6 +38,18 @@ function ProductDetailsCard( {productData} : ProductDescriptionProps) {
 
   return (
     <ProductWrapper>
+      <GoBackButtonWrapper>
+        <Tooltip title="Go back">
+          <IconButton
+            aria-label="back"
+            onClick={() => {
+              window.history.back()
+            }}
+          >
+            <ArrowBackIosRoundedIcon />
+          </IconButton>
+        </Tooltip>
+      </GoBackButtonWrapper>
       <MainInfoAndImgContainer>
         <ImgContainer>
           <ImgProduct src={photoLink} />
@@ -44,7 +60,11 @@ function ProductDetailsCard( {productData} : ProductDescriptionProps) {
           <PriceButtonContainer>
             <ProductPrice>{price} €</ProductPrice>
             <ButtonContainer>
-              <ButtonMain imgSrc={cartWhite} type="button" onClick={onAddToCart} />
+              <ButtonMain
+                imgSrc={cartWhite}
+                type="button"
+                onClick={onAddToCart}
+              />
             </ButtonContainer>
           </PriceButtonContainer>
         </ProductMainInfoContainer>

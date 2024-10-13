@@ -10,16 +10,25 @@ import {
 } from "./styles"
 import ButtonMain from "components/ButtonMain/ButtonMain"
 import cartWhite from "assets/shopping-cart-white.png"
-import { useAppDispatch } from "store/hooks"
-import { oneProductAction } from "store/redux/oneProduct/oneProductSlice"
+import { useAppDispatch, useAppSelector } from "store/hooks"
 import ProductButton from "components/ProductButton/ProductButton"
 import { useNavigate } from "react-router-dom"
 
 import { cartActions } from "store/redux/cart/cartSlice"
 import { ProductCardProps } from "./types"
+import { Tooltip } from "@mui/material"
+import { useState } from "react"
 
+import Dialog from "@mui/material/Dialog"
+import DialogActions from "@mui/material/DialogActions"
+import DialogContent from "@mui/material/DialogContent"
+import DialogContentText from "@mui/material/DialogContentText"
+import DialogTitle from "@mui/material/DialogTitle"
+import useMediaQuery from "@mui/material/useMediaQuery"
+import { useTheme } from "@mui/material/styles"
+import { productsSelectors } from "store/redux/allProducts/allProductsSlice"
 
-function OneProductCard( {productData} : ProductCardProps) {
+function ProductCard({ productData }: ProductCardProps) {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
@@ -29,47 +38,111 @@ function OneProductCard( {productData} : ProductCardProps) {
   const minQuantity: string = productData.minQuantity
   const price: number = productData.price
 
+  const { error } = useAppSelector(productsSelectors.productsState)
+
   // функция которая стоит на картинке и имени товара чтобы открыть этот товар в новом окне
   const openCurrentProduct = () => {
-    dispatch(oneProductAction.openProduct(productId))
-    navigate("/one-product-card")
+    // dispatch(oneProductAction.openProduct(productId))
+    navigate(`/${productId}`)
   }
 
-  const onAddToCart = () => {
-    dispatch(cartActions.addProductToCart(productId))
+  // const onAddToCart = () => {
+  //   dispatch(cartActions.addProductToCart(productId))
+  // }
+
+  // для всплывающего окна
+  const [open, setOpen] = useState(false)
+  const theme = useTheme()
+  const fullScreen = useMediaQuery(theme.breakpoints.down("md"))
+
+  const handleClick = () => {
+    if (localStorage.getItem("accessToken")) {
+      dispatch(cartActions.addProductToCart(productId))
+    } else if (!localStorage.getItem("accessToken")) {
+      setOpen(true)
+    }
+  }
+
+  const handleClose = () => {
+    setOpen(false)
   }
 
   return (
     <ProductWrapper>
       <PhotoNameWrapper>
-        <ImgContainer>
-          <ProductButton
-            type="button"
-            imgSrc={photoLink}
-            onClick={openCurrentProduct}
-          ></ProductButton>
-        </ImgContainer>
+        <Tooltip title="Open product">
+          <ImgContainer>
+            <ProductButton
+              type="button"
+              imgSrc={photoLink}
+              onClick={openCurrentProduct}
+            ></ProductButton>
+          </ImgContainer>
+        </Tooltip>
       </PhotoNameWrapper>
       <ProductMainInfo>
-        <ProductButton
-          type="button"
-          buttonName={title}
-          onClick={openCurrentProduct}
-        ></ProductButton>
+        <Tooltip title="Open product">
+          <ProductButton
+            type="button"
+            buttonName={title}
+            onClick={openCurrentProduct}
+          ></ProductButton>
+        </Tooltip>
         <ProductWeight>{minQuantity}</ProductWeight>
         <PriceButtonContainer>
           <ProductPrice>{price} €</ProductPrice>
-          <ButtonContainer>
-            <ButtonMain
-              imgSrc={cartWhite}
-              type="button"
-              onClick={onAddToCart}
-            />
-          </ButtonContainer>
+
+          <Tooltip title="Add to cart">
+            <ButtonContainer>
+              <ButtonMain
+                imgSrc={cartWhite}
+                type="button"
+                onClick={handleClick}
+              />
+              <Dialog
+                fullScreen={fullScreen}
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="responsive-dialog-title"
+              >
+                <DialogTitle id="responsive-dialog-title">
+                  {"Oops!"}
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText>
+                    {!error && (
+                      <>
+                        You are not logged in at the moment. To use cart you
+                        need to have an account.
+                      </>
+                    )}
+                    {error && <>{error}</>}
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  {/* <Button
+                    autoFocus
+                    onClick={() => {
+                      navigate("/login")
+                    }}
+                  >
+                    Log in
+                  </Button> */}
+                  <ButtonMain
+                    buttonName="Log in"
+                    type="button"
+                    onClick={() => {
+                      navigate("/login")
+                    }}
+                  />
+                </DialogActions>
+              </Dialog>
+            </ButtonContainer>
+          </Tooltip>
         </PriceButtonContainer>
       </ProductMainInfo>
     </ProductWrapper>
   )
 }
 
-export default OneProductCard
+export default ProductCard
