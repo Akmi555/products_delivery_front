@@ -109,6 +109,7 @@ export const cartSlice = createAppSlice({
         },
         fulfilled: (state: CartSliceState) => {
           state.isPending = false
+          
         },
         rejected: (state: CartSliceState, action) => {
           state.error = action.error.message
