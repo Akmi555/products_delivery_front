@@ -105,39 +105,43 @@ function Layout({ children }: LayoutProps) {
           </NavigationContainer>
           {/* <CarouselMui /> */}
         </LogoLinksWrapper>
-        <ShortInfoContainer>
-          <Info>
-            <AccessTimeIcon sx={{ color: "black" }} fontSize="large" />
-            <Text>
-              <TextBold>up to 90 min</TextBold>
-              <TextNormal>delivery time</TextNormal>
-            </Text>
-          </Info>
-          <Info>
-            <AccountBalanceWalletIcon
-              sx={{ color: "black" }}
-              fontSize="large"
-            />
-            <Text>
-              <TextBold>10 €</TextBold>
-              <TextNormal>min order sum</TextNormal>
-            </Text>
-          </Info>
-          <Info>
-            <LocalShippingIcon sx={{ color: "black" }} fontSize="large" />
-            <Text>
-              <TextBold>5 €</TextBold>
-              <TextNormal>cost of delivery</TextNormal>
-            </Text>
-          </Info>
-          <Info>
-            <WorkspacePremiumIcon sx={{ color: "black" }} fontSize="large" />
-            <Text>
-              <TextBold>from 50 €</TextBold>
-              <TextNormal>free delivery</TextNormal>
-            </Text>
-          </Info>
-        </ShortInfoContainer>
+        {match ? (
+          <ShortInfoContainer>
+            <Info>
+              <AccessTimeIcon sx={{ color: "black" }} fontSize="large" />
+              <Text>
+                <TextBold>up to 90 min</TextBold>
+                <TextNormal>delivery time</TextNormal>
+              </Text>
+            </Info>
+            <Info>
+              <AccountBalanceWalletIcon
+                sx={{ color: "black" }}
+                fontSize="large"
+              />
+              <Text>
+                <TextBold>10 €</TextBold>
+                <TextNormal>min order sum</TextNormal>
+              </Text>
+            </Info>
+            <Info>
+              <LocalShippingIcon sx={{ color: "black" }} fontSize="large" />
+              <Text>
+                <TextBold>5 €</TextBold>
+                <TextNormal>cost of delivery</TextNormal>
+              </Text>
+            </Info>
+            <Info>
+              <WorkspacePremiumIcon sx={{ color: "black" }} fontSize="large" />
+              <Text>
+                <TextBold>from 50 €</TextBold>
+                <TextNormal>free delivery</TextNormal>
+              </Text>
+            </Info>
+          </ShortInfoContainer>
+        ) : (
+          <></>
+        )}
       </>
     )
   }
