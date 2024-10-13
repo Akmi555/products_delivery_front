@@ -11,32 +11,48 @@ import {
 } from "./styles"
 import Input from "components/Input/Input"
 import ButtonMain from "components/Button/Button"
+import {
+  Box,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+} from "@mui/material"
+import { PaymentMethod } from "store/redux/orders/types"
+import { useState } from "react"
 
 function OrderForm() {
   const dispatch = useAppDispatch()
 
+  const [payment, setPayment] = useState<string>("CREDIT_CARD")
+  const handleChange = (event: SelectChangeEvent) => {
+    setPayment(event.target.value)
+  }
+
   const validationSchema = Yup.object().shape({
     address: Yup.string().required().max(100),
     deliveryTime: Yup.string().required().max(20),
-    paymentMethod: Yup.string().required().max(20),
   })
 
   const formik = useFormik({
     initialValues: {
       address: "",
       deliveryTime: "",
-      paymentMethod: "",
+      paymentMethod: payment,
     },
     validationSchema,
     validateOnChange: false,
+
     onSubmit(values, helpers) {
       dispatch(
         ordersAction.createOrder({
           address: values.address,
           deliveryTime: values.deliveryTime,
-          paymentMethod: values.paymentMethod,
+          paymentMethod: payment,
         }),
       )
+
       helpers.resetForm()
     },
   })
@@ -66,16 +82,22 @@ function OrderForm() {
             onChange={formik.handleChange}
             error={formik.errors.deliveryTime}
           />
-          <Input
-            id="paymentMethod-id"
-            name="paymentMethod"
-            type="text"
-            placeholder="Here your payment method"
-            label="Payment method*"
-            value={formik.values.paymentMethod}
-            onChange={formik.handleChange}
-            error={formik.errors.paymentMethod}
-          />
+          <Box sx={{ minWidth: 120 }}>
+            <FormControl fullWidth>
+              <InputLabel id="payment-method">Payment Method</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="paymentMethod"
+                value={payment}
+                label="Payment Method"
+                onChange={handleChange}
+              >
+                <MenuItem value={"CREDIT_CARD"}>Credit card</MenuItem>
+                <MenuItem value={"PAYPAL"}>Pay-Pal</MenuItem>
+                <MenuItem value={"BANK_TRANSFER"}>Bank Transfer</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
         </InputContainer>
         <ButtonContainer>
           <ButtonMain

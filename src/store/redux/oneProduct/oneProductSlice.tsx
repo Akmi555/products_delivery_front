@@ -36,7 +36,7 @@ export const oneProductSlice = createAppSlice({
     ),
     addProductToDB: create.asyncThunk(
       async (payload: AddDBObject) => {
-        const response = await axios.post(
+        const response = await axiosConfig.post(
           `/api/products`,
           {
             title: payload.title,

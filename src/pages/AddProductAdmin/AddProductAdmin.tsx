@@ -115,7 +115,8 @@ function AddProductAdmin() {
       const res = await fetch("/api/files/upload", {
         method: "POST",
         body: formData,
-      })
+        headers: { "Authorization": `Bearer ${localStorage.getItem("accessToken")}` }
+      } )
 
       if (!res.ok) {
         throw new Error(`Response status: ${res.status}`)

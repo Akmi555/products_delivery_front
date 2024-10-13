@@ -25,13 +25,13 @@ export interface orderProduct {
   productSum: number
 }
 
-export enum OrderStatus {
+export enum PaymentMethod  {
   CREDIT_CARD,
   PAYPAL,
   BANK_TRANSFER,
 }
 
-export enum PaymentMethod {
+export enum OrderStatus {
   PENDING, //ожидает оплаты или подтверждения.
   PAID, //  оплачен.
   PROCESSING, //в процессе обработки.
