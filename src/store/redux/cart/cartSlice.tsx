@@ -1,6 +1,7 @@
 import { createAppSlice } from "store/createAppSlice"
 import { CartSliceState, ChangeProductAmountData } from "./types"
 import axiosConfig from "../../../../axiosConfig"
+import { isAction } from "@reduxjs/toolkit"
 
 const cartInitialState: CartSliceState = {
   currentProductFromCart: undefined,
@@ -107,9 +108,18 @@ export const cartSlice = createAppSlice({
           state.error = undefined
           state.isPending = true
         },
-        fulfilled: (state: CartSliceState) => {
+        fulfilled: (state: CartSliceState, action) => {
           state.isPending = false
-          
+          // if (
+          //   state.allProductsFromCart.some(
+          //     p => p.productId === action.payload.productId,
+          //   )
+          // ) 
+          state.allProductsFromCart = state.allProductsFromCart.filter(
+            p => p.productId !== action.payload.productId,
+          )
+          console.log("продукты из корзины переписались в стейте ")
+        
         },
         rejected: (state: CartSliceState, action) => {
           state.error = action.error.message
@@ -129,6 +139,7 @@ export const cartSlice = createAppSlice({
         },
         fulfilled: (state: CartSliceState) => {
           state.isPending = false
+          state.allProductsFromCart = []
         },
         rejected: (state: CartSliceState, action) => {
           state.error = action.error.message

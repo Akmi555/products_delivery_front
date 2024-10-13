@@ -1,4 +1,4 @@
-import { useAppDispatch } from "store/hooks"
+import { useAppDispatch, useAppSelector } from "store/hooks"
 import { cartObjProps } from "./types"
 import { useNavigate } from "react-router-dom"
 import {
@@ -13,15 +13,17 @@ import {
   SelectContainer,
   Amount,
 } from "./styles"
-import { IconButton, Stack } from "@mui/material"
+import { IconButton, Stack, Tooltip } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
 import { useState } from "react"
 import ButtonMain from "components/Button/Button"
-import { cartActions } from "store/redux/cart/cartSlice"
+import { cartActions, cartSelectors } from "store/redux/cart/cartSlice"
 
 function CartComponent({ cartObjData }: cartObjProps) {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
+
+  const { allProductsFromCart } = useAppSelector(cartSelectors.cartState)
 
   const productId: number = cartObjData.id
   // const productQuantity: number = cartObjData.productQuantity
@@ -54,7 +56,13 @@ function CartComponent({ cartObjData }: cartObjProps) {
 
   // удалить продукт из корзины
   const deleteProduct = () => {
-    dispatch(cartActions.deleteProductFromCart(productId))
+    if (allProductsFromCart.length === 1) {
+      dispatch(cartActions.deleteCart())
+    } else {
+      dispatch(cartActions.deleteProductFromCart(productId)).then(() => {
+        dispatch(cartActions.openCart())
+      })
+    }
   }
   return (
     <ProductWrapper>
@@ -74,9 +82,11 @@ function CartComponent({ cartObjData }: cartObjProps) {
       <PriceContainer>
         <Price>€ {price}</Price>
         <Stack direction="row" spacing={1}>
-          <IconButton aria-label="delete" onClick={deleteProduct}>
-            <DeleteIcon />
-          </IconButton>
+          <Tooltip title="Delete product">
+            <IconButton aria-label="delete" onClick={deleteProduct}>
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
         </Stack>
       </PriceContainer>
     </ProductWrapper>
