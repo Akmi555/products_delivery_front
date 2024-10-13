@@ -1,6 +1,7 @@
 import axios from "axios"
 import { createAppSlice } from "store/createAppSlice"
 import { AddDBObject, OneProductObject, OneProductSliceState } from "./types"
+import axiosConfig from "../../../../axiosConfig"
 
 const oneProductInitialState: OneProductSliceState = {
   currentProduct: undefined,
@@ -52,6 +53,26 @@ export const oneProductSlice = createAppSlice({
         return response.data
       },
       { pending: () => {}, fulfilled: () => {}, rejected: () => {} },
+    ),
+    deleteProductFromDB: create.asyncThunk(
+      async (productId: number | undefined) => {
+        const response = await axiosConfig.delete(`/api/products/${productId}`)
+        return response.data
+      },
+      {
+        pending: (state: OneProductSliceState) => {
+          state.error = undefined
+          state.isPending = true
+        },
+        fulfilled: (state: OneProductSliceState, action) => {
+          state.isPending = false
+          state.currentProduct = undefined
+        },
+        rejected: (state: OneProductSliceState, action) => {
+          state.error = action.error.message
+          state.isPending = false
+        },
+      },
     ),
   }),
   selectors: {
