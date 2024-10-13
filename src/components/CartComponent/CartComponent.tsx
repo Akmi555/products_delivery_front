@@ -16,7 +16,7 @@ import {
 import { IconButton, Stack, Tooltip } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
 import { useState } from "react"
-import ButtonMain from "components/Button/Button"
+import ButtonMain from "components/ButtonMain/ButtonMain"
 import { cartActions, cartSelectors } from "store/redux/cart/cartSlice"
 
 function CartComponent({ cartObjData }: cartObjProps) {

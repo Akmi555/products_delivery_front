@@ -64,11 +64,11 @@ function Layout({ children }: LayoutProps) {
           </NavLinkStyled>
         </HeaderLogoContainer>
         <NavigationContainer>
-          <LinkHeaderCustomized to="/add-product" linkText="add Product" />
-          <LinkHeaderCustomized to="/all-users" linkText="all Users" />
-          <LinkHeaderCustomized to="/all-products-admin" linkText="all products" />
-          <LinkHeaderCustomized to="/orders" linkText="orders" />
-          <LinkHeaderCustomized to="/order-form" linkText="order form" />
+          {/* <LinkHeaderCustomized to="/add-product" linkText="add Product" /> */}
+          {/* <LinkHeaderCustomized to="/all-users" linkText="all Users" /> */}
+          {/* <LinkHeaderCustomized to="/all-products-admin" linkText="all products" /> */}
+          {/* <LinkHeaderCustomized to="/orders" linkText="orders" /> */}
+          {/* <LinkHeaderCustomized to="/order-form" linkText="order form" /> */}
           <LinkHeaderCustomized
             to="/user-profile"
             whiteImg={userWhite}

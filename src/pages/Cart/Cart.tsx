@@ -16,7 +16,7 @@ import { useEffect, useState } from "react"
 import { oneProductAction } from "store/redux/oneProduct/oneProductSlice"
 import { CartAndProductData } from "./types"
 import { OneProductObject } from "store/redux/oneProduct/types"
-import ButtonMain from "components/Button/Button"
+import ButtonMain from "components/ButtonMain/ButtonMain"
 import { Link, useNavigate } from "react-router-dom"
 import { IconButton, Stack, Tooltip } from "@mui/material"
 import { GridDeleteIcon } from "@mui/x-data-grid"
@@ -111,7 +111,7 @@ function Cart() {
           </PriceContainer>
 
           {allProductsFromCart.length >= 1 && (
-            <ButtonMain buttonName="Proceed to checkout" />
+            <ButtonMain buttonName="Proceed to checkout" onClick={()=> navigate('/order-form')} />
           )}
           {allProductsFromCart.length === 0 && (
             <ButtonMain

@@ -8,7 +8,7 @@ import {
   ProductWeight,
   ProductWrapper,
 } from "./styles"
-import ButtonMain from "components/Button/Button"
+import ButtonMain from "components/ButtonMain/ButtonMain"
 import cartWhite from "assets/shopping-cart-white.png"
 import { useAppDispatch } from "store/hooks"
 import { oneProductAction } from "store/redux/oneProduct/oneProductSlice"

@@ -7,7 +7,7 @@ import { AppDispatch } from "store/store"
 
 import Input from "components/Input/Input"
 import Modal from "components/Modal/Modal"
-import ButtonMain from "components/Button/Button"
+import ButtonMain from "components/ButtonMain/ButtonMain"
 import {
   userAuthAction,
   userAuthSelectors,
