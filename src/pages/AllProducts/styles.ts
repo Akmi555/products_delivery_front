@@ -27,3 +27,9 @@ export const ButtonContainer = styled.div`
   flex: 1;
   width: 40px;
 `
+
+export const GoBackButtonWrapper = styled.div`
+  display: flex;
+ /* flex-direction: column; */
+ justify-content: end ;
+`

@@ -11,6 +11,11 @@ export const ProductWrapper = styled.div`
   margin: 40px;
   gap: 30px;
 `
+
+export const GoBackButtonWrapper = styled.div`
+  display: flex;
+ 
+`
 export const MainInfoAndImgContainer = styled.div`
   display: flex;
   justify-content: space-between;

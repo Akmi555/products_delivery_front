@@ -6,6 +6,7 @@ export const ButtonStyled = styled("button")`
   cursor: pointer;
   border: none;
   background-color: white;
+  font-size: 18px;
 `
 
 export const ButtonImg = styled.img`

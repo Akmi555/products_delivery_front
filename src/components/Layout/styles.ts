@@ -1,6 +1,7 @@
 import styled from "@emotion/styled"
 import { NavLink } from "react-router-dom"
 import mainPicGradient from "assets/header-black.jpg"
+import { colors } from "styles/colors"
 
 const getHeaderHeight = () => {}
 
@@ -17,8 +18,10 @@ export const LayoutWrapper = styled.div`
 
 export const HeaderMainPaige = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: flex-start;
+
+  /* align-items: flex-start; */
   width: 100%;
   padding: 30px;
   height: fit-content;
@@ -37,6 +40,36 @@ export const HeaderSimplePage = styled.div`
   height: fit-content;
   background-color: black;
   background-size: cover;
+`
+
+export const LogoLinksWrapper = styled.div`
+  display: flex;
+  flex: 1;
+  width: 100%;
+  justify-content: space-between;
+  align-items: flex-start;
+`
+export const ShortInfoContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  background-color: ${colors.BACKGROUND_GRAY_TRANSPARENT};
+  padding: 30px;
+  border-radius: 30px;
+  gap: 40px;
+`
+export const Info = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 15px;
+`
+
+export const TextBold = styled.h3``
+
+export const TextNormal = styled.p``
+
+export const Text = styled.div`
+  display: flex;
+  flex-direction: column;
 `
 
 export const HeaderLogoContainer = styled.div`

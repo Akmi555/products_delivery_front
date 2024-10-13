@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react"
-import { PageWrapper, PaginatorWrapper, ProductCardsWrapper } from "./styles"
-import OneProductCard from "components/ProductCard/ProductCard"
+import {
+  GoBackButtonWrapper,
+  PageWrapper,
+  PaginatorWrapper,
+  ProductCardsWrapper,
+} from "./styles"
+import ProductCard from "components/ProductCard/ProductCard"
 import { useAppDispatch, useAppSelector } from "store/hooks"
 import {
   productsAction,
@@ -9,12 +14,18 @@ import {
 
 import { ProductObject } from "store/redux/allProducts/types"
 import { v4 } from "uuid"
-import { Container, Pagination, Stack } from "@mui/material"
-import { userAuthSelectors } from "store/redux/users/userAuthSlice"
+import {
+  Container,
+  IconButton,
+  Pagination,
+  Stack,
+  Tooltip,
+} from "@mui/material"
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward"
 
 function AllProducts() {
   const dispatch = useAppDispatch()
-  
+
   // для пагинации:
   const [currentPage, setCurrentPage] = useState<number>(1)
   // ! ТУТ СТАВИТСЯ КОЛ-ВО ПРОДУКТОВ НА СТРАНИЦЕ
@@ -27,7 +38,7 @@ function AllProducts() {
 
   // МАПинг
   const productCards = products.map((productObj: ProductObject) => (
-    <OneProductCard key={v4()} productData={productObj} />
+    <ProductCard key={v4()} productData={productObj} />
   ))
 
   // пагинация
@@ -35,7 +46,7 @@ function AllProducts() {
     setCurrentPage(value)
     setPageQuantity(totalPages)
   }
-  
+
   // и тут добавили для пагинации, до этого был вызов при маунтинге
   useEffect(() => {
     dispatch(
@@ -60,6 +71,18 @@ function AllProducts() {
           </Stack>
         </PaginatorWrapper>
       </Container>
+      <GoBackButtonWrapper>
+        <Tooltip title="Scroll up">
+          <IconButton
+            aria-label="back"
+            onClick={() => {
+              window.scroll(0, 0)
+            }}
+          >
+            <ArrowUpwardIcon />
+          </IconButton>
+        </Tooltip>
+      </GoBackButtonWrapper>
     </PageWrapper>
   )
 }

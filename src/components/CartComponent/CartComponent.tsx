@@ -18,6 +18,7 @@ import DeleteIcon from "@mui/icons-material/Delete"
 import { useState } from "react"
 import ButtonMain from "components/ButtonMain/ButtonMain"
 import { cartActions, cartSelectors } from "store/redux/cart/cartSlice"
+import ProductButton from "components/ProductButton/ProductButton"
 
 function CartComponent({ cartObjData }: cartObjProps) {
   const dispatch = useAppDispatch()
@@ -49,10 +50,10 @@ function CartComponent({ cartObjData }: cartObjProps) {
   }
 
   // открыть страницу продукта
-  // const openCurrentProduct = () => {
-  //   dispatch(oneProductAction.openProduct(productId))
-  //   navigate("/one-product-card")
-  // }
+  const openCurrentProduct = () => {
+    // dispatch(oneProductAction.openProduct(productId))
+    navigate(`/${productId}`)
+  }
 
   // удалить продукт из корзины
   const deleteProduct = () => {
@@ -67,10 +68,20 @@ function CartComponent({ cartObjData }: cartObjProps) {
   return (
     <ProductWrapper>
       <ImgContainer>
-        <Img src={photoLink}></Img>
+      <ProductButton
+            type="button"
+            imgSrc={photoLink}
+            onClick={openCurrentProduct}
+          ></ProductButton>
+        {/* <Img src={photoLink}></Img> */}
       </ImgContainer>
       <InfoContainer>
-        <Name>{title}</Name>
+      <ProductButton
+          type="button"
+          buttonName={title}
+          onClick={openCurrentProduct}
+        ></ProductButton>
+        {/* <Name>{title}</Name> */}
         <SelectContainer>
           <Counter>
             <ButtonMain buttonName="-" onClick={onMinus} />

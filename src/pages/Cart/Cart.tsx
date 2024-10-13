@@ -11,6 +11,7 @@ import {
   Text,
   PriceContainer,
   LoginMistakeContainer,
+  GoBackButtonWrapper,
 } from "./styles"
 import { useEffect, useState } from "react"
 import { oneProductAction } from "store/redux/oneProduct/oneProductSlice"
@@ -20,6 +21,7 @@ import ButtonMain from "components/ButtonMain/ButtonMain"
 import { Link, useNavigate } from "react-router-dom"
 import { IconButton, Stack, Tooltip } from "@mui/material"
 import { GridDeleteIcon } from "@mui/x-data-grid"
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward"
 
 function Cart() {
   const dispatch = useAppDispatch()
@@ -111,7 +113,10 @@ function Cart() {
           </PriceContainer>
 
           {allProductsFromCart.length >= 1 && (
-            <ButtonMain buttonName="Proceed to checkout" onClick={()=> navigate('/order-form')} />
+            <ButtonMain
+              buttonName="Proceed to checkout"
+              onClick={() => navigate("/order-form")}
+            />
           )}
           {allProductsFromCart.length === 0 && (
             <ButtonMain
@@ -126,6 +131,20 @@ function Cart() {
           <h4>Oops!</h4> <p> You are not logged in</p>
           <Link to="/login">login</Link>
         </LoginMistakeContainer>
+      )}
+      {allProductsFromCart.length >= 1 && (
+        <GoBackButtonWrapper>
+          <Tooltip title="Scroll up">
+            <IconButton
+              aria-label="back"
+              onClick={() => {
+                window.scroll(0, 0)
+              }}
+            >
+              <ArrowUpwardIcon />
+            </IconButton>
+          </Tooltip>
+        </GoBackButtonWrapper>
       )}
     </PageWrapper>
   )

@@ -11,6 +11,12 @@ import {
   HeaderLogoContainer,
   HeaderMainPaige,
   HeaderSimplePage,
+  ShortInfoContainer,
+  LogoLinksWrapper,
+  Info,
+  Text,
+  TextBold,
+  TextNormal,
 } from "./styles"
 import logoWhite from "assets/logo-white.png"
 import userWhite from "assets/user-white.png"
@@ -23,12 +29,15 @@ import { useMatch } from "react-router-dom"
 
 import Badge, { BadgeProps } from "@mui/material/Badge"
 import { styled } from "@mui/material/styles"
-import { useAppDispatch, useAppSelector } from "store/hooks"
-import { cartActions, cartSelectors } from "store/redux/cart/cartSlice"
-import { useEffect } from "react"
-import { productsAction } from "store/redux/allProducts/allProductsSlice"
+import { useAppSelector } from "store/hooks"
+import { cartSelectors } from "store/redux/cart/cartSlice"
 import { userAuthSelectors } from "store/redux/users/userAuthSlice"
 import CarouselMui from "components/Carousel/Carousel"
+import { colors } from "styles/colors"
+import AccessTimeIcon from "@mui/icons-material/AccessTime"
+import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet"
+import LocalShippingIcon from "@mui/icons-material/LocalShipping"
+import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium"
 
 function Layout({ children }: LayoutProps) {
   const match = useMatch("/")
@@ -40,7 +49,7 @@ function Layout({ children }: LayoutProps) {
     "& .MuiBadge-badge": {
       right: -3,
       top: -20,
-      border: `2px solid ${theme.palette.background.paper}`,
+      // border: `2px solid ${theme.palette.background.paper}`,
       padding: "0 4px",
     },
   }))
@@ -55,37 +64,80 @@ function Layout({ children }: LayoutProps) {
     }
   }
 
+  const StyledSircle = styled(Badge)<BadgeProps>(({ theme }) => ({
+    "& .MuiBadge-badge": {
+      right: -3,
+      top: -20,
+      colors: "pink",
+      padding: "0 4px",
+    },
+  }))
+
   const header = () => {
     return (
       <>
-        <HeaderLogoContainer>
-          <NavLinkStyled to="/">
-            <Logo src={logoWhite} />
-          </NavLinkStyled>
-        </HeaderLogoContainer>
-        <NavigationContainer>
-          {/* <LinkHeaderCustomized to="/add-product" linkText="add Product" /> */}
-          {/* <LinkHeaderCustomized to="/all-users" linkText="all Users" /> */}
-          {/* <LinkHeaderCustomized to="/all-products-admin" linkText="all products" /> */}
-          {/* <LinkHeaderCustomized to="/orders" linkText="orders" /> */}
-          {/* <LinkHeaderCustomized to="/order-form" linkText="order form" /> */}
-          <LinkHeaderCustomized
-            to="/user-profile"
-            whiteImg={userWhite}
-            greenImg={userGreen}
-          />
-          <LinkHeaderCustomized
-            to="/cart"
-            whiteImg={cartWhite}
-            greenImg={cartGreen}
-          >
-            <StyledBadge
-              badgeContent={totalQuantity}
-              color="error"
-            ></StyledBadge>
-          </LinkHeaderCustomized>
-        </NavigationContainer>
-        {/* <CarouselMui /> */}
+        <LogoLinksWrapper>
+          <HeaderLogoContainer>
+            <NavLinkStyled to="/">
+              <Logo src={logoWhite} />
+            </NavLinkStyled>
+          </HeaderLogoContainer>
+          <NavigationContainer>
+            <LinkHeaderCustomized
+              to="/user-profile"
+              whiteImg={userWhite}
+              greenImg={userGreen}
+            >
+              {currentUser && (
+                <StyledSircle color="success" variant="dot"></StyledSircle>
+              )}
+            </LinkHeaderCustomized>
+            <LinkHeaderCustomized
+              to="/cart"
+              whiteImg={cartWhite}
+              greenImg={cartGreen}
+            >
+              <StyledBadge
+                badgeContent={totalQuantity}
+                color="error"
+              ></StyledBadge>
+            </LinkHeaderCustomized>
+          </NavigationContainer>
+          {/* <CarouselMui /> */}
+        </LogoLinksWrapper>
+        <ShortInfoContainer>
+          <Info>
+            <AccessTimeIcon sx={{ color: "black" }} fontSize="large" />
+            <Text>
+              <TextBold>up to 90 min</TextBold>
+              <TextNormal>delivery time</TextNormal>
+            </Text>
+          </Info>
+          <Info>
+            <AccountBalanceWalletIcon
+              sx={{ color: "black" }}
+              fontSize="large"
+            />
+            <Text>
+              <TextBold>10 €</TextBold>
+              <TextNormal>min order sum</TextNormal>
+            </Text>
+          </Info>
+          <Info>
+            <LocalShippingIcon sx={{ color: "black" }} fontSize="large" />
+            <Text>
+              <TextBold>5 €</TextBold>
+              <TextNormal>cost of delivery</TextNormal>
+            </Text>
+          </Info>
+          <Info>
+            <WorkspacePremiumIcon sx={{ color: "black" }} fontSize="large" />
+            <Text>
+              <TextBold>from 50 €</TextBold>
+              <TextNormal>free delivery</TextNormal>
+            </Text>
+          </Info>
+        </ShortInfoContainer>
       </>
     )
   }
