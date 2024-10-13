@@ -10,7 +10,6 @@ import {
   RegistrationContainer,
 } from "./styles"
 import Input from "components/Input/Input"
-import ButtonMain from "components/Button/Button"
 import {
   Box,
   FormControl,
@@ -21,6 +20,7 @@ import {
 } from "@mui/material"
 import { PaymentMethod } from "store/redux/orders/types"
 import { useState } from "react"
+import ButtonMain from "components/ButtonMain/ButtonMain"
 
 function OrderForm() {
   const dispatch = useAppDispatch()

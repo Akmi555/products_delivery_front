@@ -40,6 +40,7 @@ export const ButtonContainer = styled.div`
 export const ImgUploadButtonContainer = styled.div`
 display: flex;
 gap: 30px;
+justify-content: center;
 padding: 0 40px 0 40px;
 `
 export const ImgCodeContainer = styled.div`

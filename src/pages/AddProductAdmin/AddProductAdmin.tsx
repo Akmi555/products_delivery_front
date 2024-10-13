@@ -5,7 +5,7 @@ import { useState, useRef } from "react"
 import { Alert } from "@mui/material"
 import { AppDispatch } from "store/store"
 
-import ButtonMain from "components/Button/Button"
+import ButtonMain from "components/ButtonMain/ButtonMain"
 import Input from "components/Input/Input"
 import Modal from "components/Modal/Modal"
 import InputHidden from "components/InputHidden/InputHidden"
@@ -182,14 +182,14 @@ function AddProductAdmin() {
             error={formik.errors.description}
           />
           <ImgUploadButtonContainer>
-            <ButtonMain onClick={handlePick} buttonName="Choose img"></ButtonMain>
+            <ButtonMain onClick={handlePick} buttonName=" 1 - Choose img"></ButtonMain>
             <InputHidden
               type="file"
               onChange={handleChangeImg}
               accept="image/*,.png,.jpg,.bmp,.gif"
               $ref={filePicker}
             />
-            <ButtonMain onClick={handleImgUpload} buttonName="Upload img"></ButtonMain>
+            <ButtonMain onClick={handleImgUpload} buttonName="2 - Upload img"></ButtonMain>
           </ImgUploadButtonContainer>
           <ImgCodeContainer>
             {selectedImg && <p>{selectedImg.name}</p>}
