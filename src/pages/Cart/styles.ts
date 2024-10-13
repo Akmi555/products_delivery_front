@@ -23,6 +23,7 @@ export const TotalAmountContainer = styled.div`
   justify-content: center;
   gap: 30px;
   padding: 20px ;
+  margin-top: 60px;
   width: 300px;
   height: 200px;
   background-color: white;

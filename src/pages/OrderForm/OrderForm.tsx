@@ -10,7 +10,7 @@ import {
   RegistrationContainer,
 } from "./styles"
 import Input from "components/Input/Input"
-import ButtonMain from "components/Button/Button"
+import ButtonMain from "components/ButtonMain/ButtonMain"
 
 function OrderForm() {
   const dispatch = useAppDispatch()

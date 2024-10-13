@@ -5,7 +5,7 @@ import { useState } from "react"
 import { Alert } from "@mui/material"
 import { AppDispatch } from "store/store"
 
-import ButtonMain from "components/Button/Button"
+import ButtonMain from "components/ButtonMain/ButtonMain"
 import Input from "components/Input/Input"
 import Modal from "components/Modal/Modal"
 

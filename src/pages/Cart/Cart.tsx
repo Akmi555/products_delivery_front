@@ -16,16 +16,19 @@ import { useEffect, useState } from "react"
 import { oneProductAction } from "store/redux/oneProduct/oneProductSlice"
 import { CartAndProductData } from "./types"
 import { OneProductObject } from "store/redux/oneProduct/types"
-import ButtonMain from "components/Button/Button"
-import { Link } from "react-router-dom"
+import ButtonMain from "components/ButtonMain/ButtonMain"
+import { Link, useNavigate } from "react-router-dom"
+import { IconButton, Stack, Tooltip } from "@mui/material"
+import { GridDeleteIcon } from "@mui/x-data-grid"
 
 function Cart() {
-  const [products, setProducts] = useState<OneProductObject[]>([])
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+  const [products, setProducts] = useState<OneProductObject[]>([])
   const { allProductsFromCart } = useAppSelector(cartSelectors.cartState)
   let totalAmount: number = 0
   let totalQuantity: number = 0
-  const accessToken : string | null = localStorage.getItem("accessToken")
+  const accessToken: string | null = localStorage.getItem("accessToken")
 
   for (let i = 0; i <= allProductsFromCart.length - 1; i++) {
     totalAmount = totalAmount + allProductsFromCart[i].sum
@@ -81,9 +84,25 @@ function Cart() {
     console.log("user is not logged in")
   }
 
+  const clearCart = () => {
+    dispatch(cartActions.deleteCart())
+  }
+
   return (
     <PageWrapper>
-      <CartItemsWrapper>{cartsAllProducts}</CartItemsWrapper>
+      <CartItemsWrapper>
+        {allProductsFromCart.length >= 1 && (
+          <Stack direction="row" spacing={1}>
+            <Tooltip title="Clear all cart">
+              <IconButton aria-label="delete" onClick={clearCart}>
+                <GridDeleteIcon />
+              </IconButton>
+            </Tooltip>
+          </Stack>
+        )}
+
+        {cartsAllProducts}
+      </CartItemsWrapper>
       {accessToken && (
         <TotalAmountContainer>
           <PriceContainer>
@@ -91,7 +110,15 @@ function Cart() {
             <Amount> € {totalAmount.toFixed(2)} </Amount>
           </PriceContainer>
 
-          <ButtonMain buttonName="Proceed to checkout" />
+          {allProductsFromCart.length >= 1 && (
+            <ButtonMain buttonName="Proceed to checkout" onClick={()=> navigate('/order-form')} />
+          )}
+          {allProductsFromCart.length === 0 && (
+            <ButtonMain
+              buttonName="Go shopping"
+              onClick={() => navigate("/")}
+            ></ButtonMain>
+          )}
         </TotalAmountContainer>
       )}
       {!accessToken && (
