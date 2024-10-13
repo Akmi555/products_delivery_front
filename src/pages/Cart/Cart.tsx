@@ -93,10 +93,10 @@ function Cart() {
       <CartItemsWrapper>
         {allProductsFromCart.length >= 1 && (
           <Stack direction="row" spacing={1}>
-             <Tooltip title="Clear all cart">
-            <IconButton aria-label="delete" onClick={clearCart}>
-              <GridDeleteIcon />
-            </IconButton>
+            <Tooltip title="Clear all cart">
+              <IconButton aria-label="delete" onClick={clearCart}>
+                <GridDeleteIcon />
+              </IconButton>
             </Tooltip>
           </Stack>
         )}
