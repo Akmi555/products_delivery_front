@@ -1,9 +1,10 @@
 import styled from "@emotion/styled";
+import { FormikErrors } from "formik";
 
 import { colors } from "styles/colors";
 
 interface StyledInputProps {
-  $error: string | undefined;
+  $error: string | undefined | FormikErrors<Date> ;
 }
 
 export const InputWrapper = styled.div`
@@ -19,7 +20,7 @@ export const InputLabel = styled.label`
 
 const getStyledInputBorder = (
   disabled: boolean | undefined,
-  error: string | undefined
+  error: string | undefined | FormikErrors<Date>
 ) => {
   if (typeof error === "string") {
     return colors.ERROR;

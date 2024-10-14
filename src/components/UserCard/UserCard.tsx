@@ -98,7 +98,7 @@ function UserCard() {
             <p>Customer menu:</p>
           </>
         )}
-        <ButtonMain type="button" onClick={() => {}} buttonName="My orders" />
+        {/* <ButtonMain type="button" onClick={() => {}} buttonName="My orders" /> */}
         <Button
           variant="contained"
           onClick={logOut}

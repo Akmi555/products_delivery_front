@@ -57,6 +57,7 @@ function Login() {
           password: values.password,
         }),
       )
+      // пример как выполнить что то при fulfilled 
       if ( userAuthAction.login.fulfilled.match(dispatchResult)) {
         dispatch(userAuthAction.getUser());
         navigate('/');

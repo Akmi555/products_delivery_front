@@ -22,6 +22,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { IconButton, Stack, Tooltip } from "@mui/material"
 import { GridDeleteIcon } from "@mui/x-data-grid"
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward"
+import { orderAction } from "store/redux/order/orderSlice"
 
 function Cart() {
   const dispatch = useAppDispatch()
@@ -90,6 +91,34 @@ function Cart() {
     dispatch(cartActions.deleteCart())
   }
 
+  // navigate("/order-form")
+  // dispatch(orderAction.createOrder())
+
+  // onSubmit: async (values, helpers) => {
+  //   const dispatchResult = await dispatch(
+  //     userAuthAction.login({
+  //       email: values.email,
+  //       password: values.password,
+  //     }),
+  //   )
+  //   // пример как выполнить что то при fulfilled
+  //   if ( userAuthAction.login.fulfilled.match(dispatchResult)) {
+  //     dispatch(userAuthAction.getUser());
+  //     navigate('/');
+  //   }
+  //   // ! в span поверх логина(формика) вывести просто текст ошибки, alert плохая практика
+  //   helpers.resetForm()
+  // },
+
+  const createOrder = async () => {
+    const dispatchResult = await dispatch(orderAction.createOrder())
+
+    if (orderAction.createOrder.fulfilled.match(dispatchResult)) {
+      dispatch(cartActions.deleteCart())
+      navigate("/order-form")
+    }
+  }
+
   return (
     <PageWrapper>
       <CartItemsWrapper>
@@ -113,10 +142,7 @@ function Cart() {
           </PriceContainer>
 
           {allProductsFromCart.length >= 1 && (
-            <ButtonMain
-              buttonName="Proceed to checkout"
-              onClick={() => navigate("/order-form")}
-            />
+            <ButtonMain buttonName="Proceed to checkout" onClick={createOrder} />
           )}
           {allProductsFromCart.length === 0 && (
             <ButtonMain

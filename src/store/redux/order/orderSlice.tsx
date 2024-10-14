@@ -1,5 +1,5 @@
 import { createAppSlice } from "store/createAppSlice"
-import { OrderSliceState } from "./types"
+import { OrderSliceState, confirmOrder, orderObject } from "./types"
 import axiosConfig from "../../../../axiosConfig"
 
 const orderInitialState: OrderSliceState = {
@@ -15,8 +15,30 @@ export const orderSlice = createAppSlice({
   initialState: orderInitialState,
   reducers: create => ({
     createOrder: create.asyncThunk(
-      async (payload: any) => {
-        const response = await axiosConfig.post(`/api/orders`, {
+      async () => {
+        const response = await axiosConfig.post(`/api/order`)
+        return response.data
+      },
+      {
+        pending: (state: OrderSliceState) => {
+          state.error = undefined
+          state.isPending = true
+        },
+        fulfilled: (state: OrderSliceState, action) => {
+          state.isPending = false
+          state.currentOrder = action.payload
+          // очищать корзину , вызвать на странице где это происходит через диспатч
+        },
+        rejected: (state: OrderSliceState, action) => {
+          state.error = action.error.message
+          state.isPending = false
+        },
+      },
+    ),
+    confirmOrder: create.asyncThunk(
+      async (payload: confirmOrder ) => {
+        const response = await axiosConfig.put(`/api/order/confirmed`, {
+          id: payload.id,
           address: payload.address,
           deliveryTime: payload.deliveryTime,
           paymentMethod: payload.paymentMethod,
@@ -28,7 +50,16 @@ export const orderSlice = createAppSlice({
           state.error = undefined
           state.isPending = true
         },
-        fulfilled: (state: OrderSliceState, action) => {},
+        fulfilled: (state: OrderSliceState, action) => {
+          state.isPending = false
+          if (state.currentOrder) {
+            state.currentOrder.address = action.payload.address
+            state.currentOrder.deliveryTime = action.payload.deliveryTime
+            state.currentOrder.orderStatus = action.payload.orderStatus
+            state.currentOrder.paymentMethod = action.payload.paymentMethod
+          }
+
+        },
         rejected: (state: OrderSliceState, action) => {
           state.error = action.error.message
           state.isPending = false
@@ -37,7 +68,7 @@ export const orderSlice = createAppSlice({
     ),
     getOrders: create.asyncThunk(
       async () => {
-        const response = await axiosConfig.get(`/api/orders/my`)
+        const response = await axiosConfig.get(`/api/order/my`)
         return response.data
       },
       {
@@ -102,9 +133,9 @@ export const orderSlice = createAppSlice({
     ),
   }),
   selectors: {
-    ordersState: (state: OrderSliceState) => state,
+    orderState: (state: OrderSliceState) => state,
   },
 })
 
-export const ordersAction = orderSlice.actions
-export const ordersSelector = orderSlice.selectors
+export const orderAction = orderSlice.actions
+export const orderSelector = orderSlice.selectors

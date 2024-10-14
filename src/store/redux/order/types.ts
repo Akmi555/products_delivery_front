@@ -1,3 +1,5 @@
+import { FormikErrors } from "formik"
+
 export interface OrderSliceState {
   currentOrder: orderObject | undefined
   orders: orderObject[]
@@ -11,11 +13,18 @@ export interface orderObject {
   userId: number
   orderTime: string
   address: string
-  deliveryTime: string
+  deliveryTime: Date
   productList: orderProduct[]
   orderStatus: OrderStatus
-  paymentMethod: PaymentMethod
+  paymentMethod: string
   totalSum: number
+}
+
+export interface confirmOrder {
+  id: number
+  address: string
+  deliveryTime: Date
+  paymentMethod: string
 }
 
 export interface orderProduct {
@@ -25,7 +34,7 @@ export interface orderProduct {
   productSum: number
 }
 
-export enum PaymentMethod  {
+export enum PaymentMethod {
   CREDIT_CARD,
   PAYPAL,
   BANK_TRANSFER,

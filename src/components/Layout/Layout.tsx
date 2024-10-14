@@ -89,7 +89,7 @@ function Layout({ children }: LayoutProps) {
               greenImg={userGreen}
             >
               {currentUser && (
-                <StyledSircle color="success" variant="dot"></StyledSircle>
+              <StyledSircle color="success" variant="dot"></StyledSircle>
               )}
             </LinkHeaderCustomized>
             <LinkHeaderCustomized

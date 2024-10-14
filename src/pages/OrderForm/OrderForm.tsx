@@ -1,7 +1,7 @@
 import { useFormik } from "formik"
 import * as Yup from "yup"
-import { useAppDispatch } from "store/hooks"
-import { ordersAction } from "store/redux/orders/orderSlice"
+import { useAppDispatch, useAppSelector } from "store/hooks"
+import { orderAction, orderSelector } from "store/redux/order/orderSlice"
 import {
   ButtonContainer,
   InputContainer,
@@ -18,13 +18,41 @@ import {
   Select,
   SelectChangeEvent,
 } from "@mui/material"
-import { PaymentMethod } from "store/redux/orders/types"
+import { PaymentMethod } from "store/redux/order/types"
 import { useState } from "react"
 import ButtonMain from "components/ButtonMain/ButtonMain"
+// для окна об успешном заказе
+
+import { styled } from "@mui/material/styles"
+import Dialog from "@mui/material/Dialog"
+import DialogTitle from "@mui/material/DialogTitle"
+import DialogContent from "@mui/material/DialogContent"
+import IconButton from "@mui/material/IconButton"
+import CloseIcon from "@mui/icons-material/Close"
+import Typography from "@mui/material/Typography"
 
 function OrderForm() {
   const dispatch = useAppDispatch()
+  const { currentOrder } = useAppSelector(orderSelector.orderState)
+  const currentOrderID: number = currentOrder ? currentOrder.id : 0
+  let date = new Date(Date.now())
 
+  // для окна об успешном создании заказа
+  const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+    "& .MuiDialogContent-root": {
+      padding: theme.spacing(2),
+    },
+    "& .MuiDialogActions-root": {
+      padding: theme.spacing(1),
+    },
+  }))
+
+  const [open, setOpen] = useState(false)
+  const handleClose = () => {
+    setOpen(false)
+  }
+
+  // для формика
   const [payment, setPayment] = useState<string>("CREDIT_CARD")
   const handleChange = (event: SelectChangeEvent) => {
     setPayment(event.target.value)
@@ -32,13 +60,13 @@ function OrderForm() {
 
   const validationSchema = Yup.object().shape({
     address: Yup.string().required().max(100),
-    deliveryTime: Yup.string().required().max(20),
+    deliveryTime: Yup.date().required(),
   })
 
   const formik = useFormik({
     initialValues: {
       address: "",
-      deliveryTime: "",
+      deliveryTime: new Date(),
       paymentMethod: payment,
     },
     validationSchema,
@@ -46,28 +74,29 @@ function OrderForm() {
 
     onSubmit(values, helpers) {
       dispatch(
-        ordersAction.createOrder({
+        orderAction.confirmOrder({
+          id: currentOrderID,
           address: values.address,
           deliveryTime: values.deliveryTime,
           paymentMethod: payment,
         }),
       )
-
       helpers.resetForm()
+      // setOpen(true)
     },
   })
 
   return (
     <PageWrapper>
-      <PageName>Make Order</PageName>
+      <PageName>Order details</PageName>
       <RegistrationContainer onSubmit={formik.handleSubmit}>
         <InputContainer>
           <Input
             id="address-id"
             name="address"
             type="text"
-            placeholder="Here your address"
-            label="Address*"
+            placeholder="Hauptstr 2, 667834 Berlin"
+            label="Address* (only Berlin)"
             value={formik.values.address}
             onChange={formik.handleChange}
             error={formik.errors.address}
@@ -75,10 +104,10 @@ function OrderForm() {
           <Input
             id="deliveryTime-id"
             name="deliveryTime"
-            type="text"
-            placeholder="Here your deliveryTime"
+            type="datetime-local"
+            placeholder="12.10.2024 13:00"
             label="Delivery time*"
-            value={formik.values.deliveryTime}
+            value={String(formik.values.deliveryTime)}
             onChange={formik.handleChange}
             error={formik.errors.deliveryTime}
           />
@@ -106,6 +135,35 @@ function OrderForm() {
             type="submit"
           />
         </ButtonContainer>
+
+        {/* окно об успешном заказе  */}
+        <BootstrapDialog
+          onClose={handleClose}
+          aria-labelledby="customized-dialog-title"
+          open={open}
+        >
+          <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
+            Order created successfully!
+          </DialogTitle>
+          <IconButton
+            aria-label="close"
+            onClick={handleClose}
+            sx={theme => ({
+              position: "absolute",
+              right: 8,
+              top: 8,
+              color: theme.palette.grey[500],
+            })}
+          >
+            <CloseIcon />
+          </IconButton>
+          <DialogContent dividers>
+            <Typography gutterBottom>
+              More info about your orders you can find in your profile.
+            </Typography>
+            <Typography gutterBottom> We will contact you later </Typography>
+          </DialogContent>
+        </BootstrapDialog>
       </RegistrationContainer>
     </PageWrapper>
   )
