@@ -16,7 +16,6 @@ import {
   userAuthSelectors,
 } from "store/redux/users/userAuthSlice"
 import { cartActions } from "store/redux/cart/cartSlice"
-import Orders from "pages/Orders/Orders"
 import AllProductsAdmin from "pages/AllProductsAdmin/AllProductsAdmin"
 import OrderForm from "pages/OrderForm/OrderForm"
 import AllOrdersAdmin from "pages/AllOrdersAdmin/AllOrdersAdmin"
