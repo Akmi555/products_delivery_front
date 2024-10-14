@@ -88,7 +88,7 @@ export const orderSlice = createAppSlice({
     ),
     getOrdersAdmin: create.asyncThunk(
       async () => {
-        const response = await axiosConfig.get(`/api/orders`)
+        const response = await axiosConfig.get(`/api/order`)
         return response.data
       },
       {

@@ -15,6 +15,6 @@ export interface ProductObject {
 }
 
 export interface CartObject {
-  userId : number | undefined
-  productId: number 
+  userId: number | undefined
+  productId: number
 }

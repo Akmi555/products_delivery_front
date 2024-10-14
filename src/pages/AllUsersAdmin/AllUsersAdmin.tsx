@@ -11,7 +11,6 @@ import { PageWrapper } from "./styles"
 import { IconButton } from "@mui/material"
 
 function AllUsers() {
-  const [allUsers, setAllUsers] = useState([])
   const dispatch = useAppDispatch()
 
   const { currentUser, accessToken } = useAppSelector(
