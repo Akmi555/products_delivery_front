@@ -1,4 +1,4 @@
-import { orderObject } from "store/redux/orders/types";
+import { orderObject } from "store/redux/order/types";
 
 
 export interface orderObjDataProps {

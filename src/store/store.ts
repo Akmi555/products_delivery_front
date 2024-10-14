@@ -5,7 +5,7 @@ import { userAuthSlice } from "./redux/users/userAuthSlice"
 import { oneProductSlice } from "./redux/oneProduct/oneProductSlice"
 import { cartSlice } from "./redux/cart/cartSlice"
 import { allUsersSlice } from "./redux/allUsers/allUsersSlice"
-import { orderSlice } from "./redux/orders/orderSlice"
+import { orderSlice } from "./redux/order/orderSlice"
 
 // сюда добавляются слайсы через запятую
 const rootReducer = combineSlices(
