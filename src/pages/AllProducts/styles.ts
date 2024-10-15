@@ -10,10 +10,12 @@ export const PageWrapper = styled.div`
 `
 export const ProductCardsWrapper = styled.div`
   display: flex;
-  gap: 30px;
+  margin-left: 53px;
+  margin-right: 53px;
+  padding: 10px;
+  gap: 40px;
   flex-wrap: wrap;
-  /* justify-content: space-evenly; */
-  /* justify-content: center */
+  justify-content: start;
 `
 
 export const PaginatorWrapper = styled.div`
@@ -31,6 +33,6 @@ export const ButtonContainer = styled.div`
 
 export const GoBackButtonWrapper = styled.div`
   display: flex;
- /* flex-direction: column; */
- justify-content: end ;
+  /* flex-direction: column; */
+  justify-content: end;
 `
