@@ -1,4 +1,5 @@
 import { FormikErrors } from "formik"
+import { ReactNode } from "react"
 
 export interface OrderSliceState {
   currentOrder: orderObject | undefined
@@ -13,7 +14,7 @@ export interface orderObject {
   userId: number
   orderTime: string
   address: string
-  deliveryTime: Date
+  deliveryTime: string
   productList: orderProduct[]
   orderStatus: OrderStatus
   paymentMethod: string

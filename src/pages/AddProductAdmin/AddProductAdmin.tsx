@@ -2,7 +2,7 @@ import { useFormik } from "formik"
 import * as Yup from "yup"
 import { useDispatch } from "react-redux"
 import { useState, useRef } from "react"
-import { Alert } from "@mui/material"
+import { Alert} from "@mui/material"
 import { AppDispatch } from "store/store"
 
 import ButtonMain from "components/ButtonMain/ButtonMain"
@@ -19,8 +19,11 @@ import {
   ImgUploadButtonContainer,
   ImgCodeContainer,
   UploadedImg,
+  GoBackButtonWrapper,
+  NameAndFormWrapper,
 } from "./styles"
 import { oneProductAction } from "store/redux/oneProduct/oneProductSlice"
+import GoBackArrowButton from "components/GoBackArrowButton/GoBackArrowButton"
 
 function AddProductAdmin() {
   const [isModalOpen, setModalOpen] = useState<boolean>(false)
@@ -115,8 +118,10 @@ function AddProductAdmin() {
       const res = await fetch("/api/files/upload", {
         method: "POST",
         body: formData,
-        headers: { "Authorization": `Bearer ${localStorage.getItem("accessToken")}` }
-      } )
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      })
 
       if (!res.ok) {
         throw new Error(`Response status: ${res.status}`)
@@ -133,81 +138,94 @@ function AddProductAdmin() {
 
   return (
     <PageWrapper>
-      <PageName>Add NEW product</PageName>
-      <AddProductContainer onSubmit={formik.handleSubmit}>
-        <InputContainer>
-          <Input
-            id="title-id"
-            name="title"
-            type="text"
-            label="Title*"
-            value={formik.values.title}
-            onChange={formik.handleChange}
-            error={formik.errors.title}
-          />
-          <Input
-            id="price-id"
-            name="price"
-            type="number"
-            label="Price*"
-            value={formik.values.price}
-            onChange={formik.handleChange}
-            error={formik.errors.price}
-          />
-          <Input
-            id="product-code-id"
-            name="productCode"
-            type="text"
-            label="Product code*"
-            value={formik.values.productCode}
-            onChange={formik.handleChange}
-            error={formik.errors.productCode}
-          />
-          <Input
-            id="min-quantity-id"
-            name="minQuantity"
-            type="text"
-            label="Quantity*"
-            value={formik.values.minQuantity}
-            onChange={formik.handleChange}
-            error={formik.errors.minQuantity}
-          />
-          <Input
-            id="description-id"
-            name="description"
-            type="text"
-            label="Description*"
-            value={formik.values.description}
-            onChange={formik.handleChange}
-            error={formik.errors.description}
-          />
-          <ImgUploadButtonContainer>
-            <ButtonMain onClick={handlePick} buttonName=" 1 - Choose img"></ButtonMain>
-            <InputHidden
-              type="file"
-              onChange={handleChangeImg}
-              accept="image/*,.png,.jpg,.bmp,.gif"
-              $ref={filePicker}
+      <GoBackButtonWrapper>
+      <GoBackArrowButton/>
+      </GoBackButtonWrapper>
+
+      <NameAndFormWrapper>
+        <PageName>Add NEW product</PageName>
+        <AddProductContainer onSubmit={formik.handleSubmit}>
+          <InputContainer>
+            <Input
+              id="title-id"
+              name="title"
+              type="text"
+              label="Title*"
+              value={formik.values.title}
+              onChange={formik.handleChange}
+              error={formik.errors.title}
             />
-            <ButtonMain onClick={handleImgUpload} buttonName="2 - Upload img"></ButtonMain>
-          </ImgUploadButtonContainer>
-          <ImgCodeContainer>
-            {selectedImg && <p>{selectedImg.name}</p>}
-            {imgId && <p>Изображение успешно загружено!</p>}
-            {imgId && <UploadedImg alt="" src={photoLink} />}
-          </ImgCodeContainer>
-        </InputContainer>
-        <ButtonContainer>
-          <ButtonMain
-            disabled={!formik.dirty || formik.isSubmitting}
-            buttonName="Add product to DB"
-            type="submit"
-          />
-        </ButtonContainer>
-        <Modal open={isModalOpen} onClose={() => setModalOpen(false)}>
-          <Alert severity="success">Successful</Alert>
-        </Modal>
-      </AddProductContainer>
+            <Input
+              id="price-id"
+              name="price"
+              type="number"
+              label="Price*"
+              value={formik.values.price}
+              onChange={formik.handleChange}
+              error={formik.errors.price}
+            />
+            <Input
+              id="product-code-id"
+              name="productCode"
+              type="text"
+              label="Product code*"
+              value={formik.values.productCode}
+              onChange={formik.handleChange}
+              error={formik.errors.productCode}
+            />
+            <Input
+              id="min-quantity-id"
+              name="minQuantity"
+              type="text"
+              label="Quantity*"
+              value={formik.values.minQuantity}
+              onChange={formik.handleChange}
+              error={formik.errors.minQuantity}
+            />
+            <Input
+              id="description-id"
+              name="description"
+              type="text"
+              label="Description*"
+              value={formik.values.description}
+              onChange={formik.handleChange}
+              error={formik.errors.description}
+            />
+            <ImgUploadButtonContainer>
+              <ButtonMain
+                onClick={handlePick}
+                buttonName=" 1 - Choose img"
+              ></ButtonMain>
+              <InputHidden
+                type="file"
+                onChange={handleChangeImg}
+                accept="image/*,.png,.jpg,.bmp,.gif"
+                $ref={filePicker}
+              />
+              <ButtonMain
+                onClick={handleImgUpload}
+                buttonName="2 - Upload img"
+              ></ButtonMain>
+            </ImgUploadButtonContainer>
+            <ImgCodeContainer>
+              {selectedImg && <p>{selectedImg.name}</p>}
+              {imgId && <p>Изображение успешно загружено!</p>}
+              {imgId && <UploadedImg alt="" src={photoLink} />}
+            </ImgCodeContainer>
+          </InputContainer>
+          <ButtonContainer>
+            <ButtonMain
+              disabled={!formik.dirty || formik.isSubmitting}
+              buttonName="Add product to DB"
+              type="submit"
+            />
+          </ButtonContainer>
+          <Modal open={isModalOpen} onClose={() => setModalOpen(false)}>
+            <Alert severity="success">Successful</Alert>
+          </Modal>
+        </AddProductContainer>
+      </NameAndFormWrapper>
+      <div></div>
     </PageWrapper>
   )
 }

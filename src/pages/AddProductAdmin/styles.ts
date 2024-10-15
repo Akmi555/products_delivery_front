@@ -4,9 +4,23 @@ import { globalPageStyles } from "styles/GlobalStyles"
 
 export const PageWrapper = styled.div`
   ${globalPageStyles}
+  justify-content: space-between;
+  flex: 1;
+  padding: 40px ;
+`
+
+export const GoBackButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+`
+
+export const NameAndFormWrapper = styled.div`
+  display: flex;
   flex-direction: column;
   align-items: center;
 `
+
 export const PageName = styled.h4`
   font-size: xx-large;
   margin-top: 10px;
@@ -38,16 +52,16 @@ export const ButtonContainer = styled.div`
 `
 
 export const ImgUploadButtonContainer = styled.div`
-display: flex;
-gap: 30px;
-justify-content: center;
-padding: 0 40px 0 40px;
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  padding: 0 40px 0 40px;
 `
 export const ImgCodeContainer = styled.div`
-display: flex;
-flex-direction: column;
-gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 `
 export const UploadedImg = styled.img`
-width: 100px;
+  width: 100px;
 `

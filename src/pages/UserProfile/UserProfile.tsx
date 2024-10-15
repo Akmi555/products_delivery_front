@@ -1,12 +1,14 @@
 import { useAppDispatch, useAppSelector } from "store/hooks"
 import {
+  GoBackButtonUserCardWrapper,
+  GoBackButtonWrapper,
   OrderTitles,
   OrdersContainer,
   PageWrapper,
+  ScrollUpButtonWrapper,
   TitleOrder,
   UseProfileWrapper,
 } from "./styles"
-import { userAuthSelectors } from "store/redux/users/userAuthSlice"
 import { LoginMistakeContainer } from "pages/Cart/styles"
 import { Link } from "react-router-dom"
 import { useEffect } from "react"
@@ -14,6 +16,9 @@ import UserCard from "components/UserCard/UserCard"
 import { orderAction, orderSelector } from "store/redux/order/orderSlice"
 import Order from "components/Order/Order"
 import { v4 } from "uuid"
+import GoBackArrowButton from "components/GoBackArrowButton/GoBackArrowButton"
+import ScrollUpArrowButton from "components/ScrollUpArrowButton/ScrollUpArrowButton"
+
 
 function UserProfile() {
   // получение айди залогиненного пользователя для отображения корзины (запрос находится в useEffect ниже)
@@ -44,7 +49,14 @@ function UserProfile() {
       )}
       {localStorage.getItem("accessToken") && (
         <UseProfileWrapper>
+
+          <GoBackButtonUserCardWrapper>
+          <GoBackButtonWrapper>
+            <GoBackArrowButton/>
+          </GoBackButtonWrapper>
           <UserCard />
+          </GoBackButtonUserCardWrapper>
+          
 
           <OrdersContainer>
             <h2 style={{ paddingLeft: "20px" }}>Orders:</h2>
@@ -59,6 +71,12 @@ function UserProfile() {
 
             {userOrders}
           </OrdersContainer>
+
+          {orders && (
+            <ScrollUpButtonWrapper>
+              <ScrollUpArrowButton/>
+            </ScrollUpButtonWrapper>
+          )}
         </UseProfileWrapper>
       )}
     </PageWrapper>

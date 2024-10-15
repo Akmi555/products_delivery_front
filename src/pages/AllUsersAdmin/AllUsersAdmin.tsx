@@ -7,8 +7,10 @@ import Paper from "@mui/material/Paper"
 
 import { UserObject } from "store/redux/allUsers/types"
 import { useEffect, useState } from "react"
-import { PageWrapper } from "./styles"
+import { GoBackButtonWrapper, PageWrapper, ScrollUpButtonWrapper } from "./styles"
 import { IconButton } from "@mui/material"
+import GoBackArrowButton from "components/GoBackArrowButton/GoBackArrowButton"
+import ScrollUpArrowButton from "components/ScrollUpArrowButton/ScrollUpArrowButton"
 
 function AllUsers() {
   const dispatch = useAppDispatch()
@@ -25,19 +27,19 @@ function AllUsers() {
       field: "id",
       headerName: "Id",
       type: "number",
-      width: 80,
+      width: 50,
     },
     {
       field: "firstName",
       headerName: "First name",
       type: "string",
-      width: 200,
+      width: 100,
     },
     {
       field: "lastName",
       headerName: "Last name",
       type: "string",
-      width: 200,
+      width: 100,
     },
     {
       field: "email",
@@ -55,13 +57,13 @@ function AllUsers() {
       field: "roles",
       headerName: "Roles",
       type: "string",
-      width: 200,
+      width: 120,
     },
     {
       field: "action",
       headerName: "Delete",
       type: "actions",
-      width: 200,
+      width: 70,
       renderCell(params) {
         const onClick = (e: React.MouseEvent) => {
           e.stopPropagation()
@@ -104,6 +106,10 @@ function AllUsers() {
   const paginationModel = { page: 0, pageSize: 10 }
   return (
     <PageWrapper>
+      <GoBackButtonWrapper>
+        <GoBackArrowButton />
+        <h1>All users</h1>
+      </GoBackButtonWrapper>
       <Paper sx={{ height: "100%", width: "100%" }}>
         <DataGrid
           rows={rows}
@@ -114,6 +120,9 @@ function AllUsers() {
           sx={{ border: 0 }}
         />
       </Paper>
+      <ScrollUpButtonWrapper>
+        <ScrollUpArrowButton/>
+      </ScrollUpButtonWrapper>
     </PageWrapper>
   )
 }

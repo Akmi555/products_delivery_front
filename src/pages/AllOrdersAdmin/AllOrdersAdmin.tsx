@@ -1,13 +1,28 @@
 import { useAppDispatch, useAppSelector } from "store/hooks"
 import { orderAction, orderSelector } from "store/redux/order/orderSlice"
-import { userAuthSelectors } from "store/redux/users/userAuthSlice"
 
 import { DataGrid, GridColDef } from "@mui/x-data-grid"
 import Paper from "@mui/material/Paper"
-import { useEffect} from "react"
+import { useEffect } from "react"
 import { orderObject } from "store/redux/order/types"
-import { PageWrapper } from "./styles"
+import {
+  GoBackButtonWrapper,
+  PageWrapper,
+  ScrollUpButtonWrapper,
+} from "./styles"
+import GoBackArrowButton from "components/GoBackArrowButton/GoBackArrowButton"
+import ScrollUpArrowButton from "components/ScrollUpArrowButton/ScrollUpArrowButton"
 
+export function getNormalDateAndTimeFromOrderObject(dateInString: string) {
+  const year: string = dateInString?.slice(0, 4)
+  const month: string = dateInString?.slice(5, 7)
+  const day: string = dateInString?.slice(8, 10)
+  const hours: string = dateInString?.slice(11, 13)
+  const minutes: string = dateInString?.slice(14, 16)
+  if (dateInString) {
+    return `${day}.${month}.${year} ${hours}:${minutes} `
+  } else return ""
+}
 
 function AllOrdersAdmin() {
   const dispatch = useAppDispatch()
@@ -18,7 +33,7 @@ function AllOrdersAdmin() {
       field: "id",
       headerName: "Id",
       type: "number",
-      width: 80,
+      width: 50,
     },
     {
       field: "userId",
@@ -30,7 +45,7 @@ function AllOrdersAdmin() {
       field: "orderTime",
       headerName: "Order time",
       type: "string",
-      width: 173,
+      width: 170,
     },
     {
       field: "address",
@@ -42,13 +57,13 @@ function AllOrdersAdmin() {
       field: "deliveryTime",
       headerName: "Delivery time",
       type: "string",
-      width: 250,
+      width: 170,
     },
     {
       field: "orderStatus",
       headerName: "Order status",
       type: "string",
-      width: 150,
+      width: 110,
     },
     {
       field: "totalSum",
@@ -57,13 +72,14 @@ function AllOrdersAdmin() {
       width: 100,
     },
   ]
+
   const rows = ordersAdmin.map((obj: orderObject) => {
     return {
       id: obj.id,
       userId: obj.userId,
-      orderTime: obj.orderTime,
+      orderTime: getNormalDateAndTimeFromOrderObject(obj.orderTime),
       address: obj.address,
-      deliveryTime: obj.deliveryTime,
+      deliveryTime: getNormalDateAndTimeFromOrderObject(obj.deliveryTime),
       orderStatus: obj.orderStatus,
       totalSum: obj.totalSum,
     }
@@ -71,11 +87,16 @@ function AllOrdersAdmin() {
 
   useEffect(() => {
     dispatch(orderAction.getOrdersAdmin())
-  },[])
+  }, [])
 
   const paginationModel = { page: 0, pageSize: 10 }
   return (
     <PageWrapper>
+      <GoBackButtonWrapper>
+        <GoBackArrowButton />
+        <h1>All orders</h1>
+      </GoBackButtonWrapper>
+
       <Paper sx={{ height: "100%", width: "100%" }}>
         <DataGrid
           rows={rows}
@@ -86,10 +107,12 @@ function AllOrdersAdmin() {
           sx={{ border: 0 }}
         />
       </Paper>
+
+      <ScrollUpButtonWrapper>
+        <ScrollUpArrowButton />
+      </ScrollUpButtonWrapper>
     </PageWrapper>
   )
 }
 
 export default AllOrdersAdmin
-
-

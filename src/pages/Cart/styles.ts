@@ -3,17 +3,27 @@ import { globalPageStyles } from "styles/GlobalStyles"
 
 export const PageWrapper = styled.div`
   ${globalPageStyles}
-  padding: 30px 0px 40px 80px;
-  justify-content: center;
+  padding: 40px;
+  /* justify-content: center; */
+  /* align-content: space-between; */
+  justify-content: space-between;
   gap: 40px;
 `
 
 export const CartItemsWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  /* margin-left: 160px; */
   gap: 20px;
 `
-
+export const GoBackButtonWrapper = styled.div`
+   display: flex;
+ flex-direction: column;
+ display: flex;
+  flex-direction: column;
+  height: 100%;
+`
+GoBackButtonWrapper
 export const TotalAmountContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -42,7 +52,7 @@ flex-direction: column;
 align-items: center;
 gap: 20px;
 `
-export const GoBackButtonWrapper = styled.div`
+export const ScrollUpButtonWrapper = styled.div`
   display: flex;
  flex-direction: column;
  justify-content: flex-end;
