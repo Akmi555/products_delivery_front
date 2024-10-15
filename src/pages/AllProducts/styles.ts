@@ -12,7 +12,8 @@ export const ProductCardsWrapper = styled.div`
   display: flex;
   gap: 30px;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  /* justify-content: space-evenly; */
+  /* justify-content: center */
 `
 
 export const PaginatorWrapper = styled.div`

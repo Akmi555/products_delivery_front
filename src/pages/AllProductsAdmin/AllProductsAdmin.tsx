@@ -36,25 +36,25 @@ function AllProductsAdmin() {
       field: "title",
       headerName: "Title",
       type: "string",
-      width: 200,
+      width: 100,
     },
     {
       field: "price",
       headerName: "Price",
       type: "number",
-      width: 200,
+      width: 50,
     },
     {
       field: "minQuantity",
       headerName: "Min Quantity",
       type: "string",
-      width: 200,
+      width: 100,
     },
     {
       field: "action",
       headerName: "Delete",
       type: "actions",
-      width: 200,
+      width: 70,
       renderCell(params) {
         const onClick = (e: React.MouseEvent) => {
           e.stopPropagation()
@@ -96,6 +96,7 @@ function AllProductsAdmin() {
     <PageWrapper>
       <GoBackButtonWrapper>
         <GoBackArrowButton/>
+        <h1>All products</h1>
       </GoBackButtonWrapper>
       <Paper sx={{ height: "100%", width: "100%" }}>
         <DataGrid

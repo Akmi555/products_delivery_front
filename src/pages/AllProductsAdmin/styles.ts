@@ -11,7 +11,8 @@ export const PageWrapper = styled.div`
 `
 export const GoBackButtonWrapper = styled.div`
   display: flex;
-  height: 100%;
+  gap: 100px;
+  /* height: 100%; */
   margin-bottom: 10px;
 `
 export const ScrollUpButtonWrapper = styled.div`

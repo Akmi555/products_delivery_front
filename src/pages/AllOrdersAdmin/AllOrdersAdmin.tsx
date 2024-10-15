@@ -13,17 +13,27 @@ import {
 import GoBackArrowButton from "components/GoBackArrowButton/GoBackArrowButton"
 import ScrollUpArrowButton from "components/ScrollUpArrowButton/ScrollUpArrowButton"
 
+export function getNormalDateAndTimeFromOrderObject(dateInString: string) {
+  const year: string = dateInString?.slice(0, 4)
+  const month: string = dateInString?.slice(5, 7)
+  const day: string = dateInString?.slice(8, 10)
+  const hours: string = dateInString?.slice(11, 13)
+  const minutes: string = dateInString?.slice(14, 16)
+  if (dateInString) {
+    return `${day}.${month}.${year} ${hours}:${minutes} `
+  } else return ""
+}
+
 function AllOrdersAdmin() {
   const dispatch = useAppDispatch()
 
   const { ordersAdmin } = useAppSelector(orderSelector.orderState)
-
   const columns: GridColDef[] = [
     {
       field: "id",
       headerName: "Id",
       type: "number",
-      width: 80,
+      width: 50,
     },
     {
       field: "userId",
@@ -35,7 +45,7 @@ function AllOrdersAdmin() {
       field: "orderTime",
       headerName: "Order time",
       type: "string",
-      width: 173,
+      width: 170,
     },
     {
       field: "address",
@@ -47,13 +57,13 @@ function AllOrdersAdmin() {
       field: "deliveryTime",
       headerName: "Delivery time",
       type: "string",
-      width: 250,
+      width: 170,
     },
     {
       field: "orderStatus",
       headerName: "Order status",
       type: "string",
-      width: 150,
+      width: 110,
     },
     {
       field: "totalSum",
@@ -62,28 +72,14 @@ function AllOrdersAdmin() {
       width: 100,
     },
   ]
-  const rows = ordersAdmin.map((obj: orderObject) => {
-    const orderTime: string = obj.orderTime
-    const year: number = Number(orderTime.slice(0, 4))
-    const month: number = Number(orderTime.slice(5, 7))
-    const day: number = Number(orderTime.slice(8, 10))
-    const hours: number = Number(orderTime.slice(11, 13))
-    const minutes: number = Number(orderTime.slice(14, 16))
-  
-    const deliveryTime: string = String(obj.deliveryTime)
-    const yearDeliveryTime: number = Number(deliveryTime.slice(0, 4))
-    const monthDeliveryTime: number = Number(deliveryTime.slice(5, 7))
-    const dayDeliveryTime: number = Number(deliveryTime.slice(8, 10))
-    const hoursDeliveryTime: number = Number(deliveryTime.slice(11, 13))
-    const minutesDeliveryTime: number = Number(deliveryTime.slice(14, 16))
 
+  const rows = ordersAdmin.map((obj: orderObject) => {
     return {
       id: obj.id,
       userId: obj.userId,
-      // orderTime: obj.orderTime,
-      orderTime:`${day}.${month}.${year} ${hours}: ${minutes} `,
+      orderTime: getNormalDateAndTimeFromOrderObject(obj.orderTime),
       address: obj.address,
-      deliveryTime: `${dayDeliveryTime}.${monthDeliveryTime}.${yearDeliveryTime} ${hoursDeliveryTime}: ${minutesDeliveryTime}`,
+      deliveryTime: getNormalDateAndTimeFromOrderObject(obj.deliveryTime),
       orderStatus: obj.orderStatus,
       totalSum: obj.totalSum,
     }
@@ -98,6 +94,7 @@ function AllOrdersAdmin() {
     <PageWrapper>
       <GoBackButtonWrapper>
         <GoBackArrowButton />
+        <h1>All orders</h1>
       </GoBackButtonWrapper>
 
       <Paper sx={{ height: "100%", width: "100%" }}>
@@ -110,8 +107,9 @@ function AllOrdersAdmin() {
           sx={{ border: 0 }}
         />
       </Paper>
+
       <ScrollUpButtonWrapper>
-        <ScrollUpArrowButton/>
+        <ScrollUpArrowButton />
       </ScrollUpButtonWrapper>
     </PageWrapper>
   )

@@ -14,7 +14,7 @@ export interface orderObject {
   userId: number
   orderTime: string
   address: string
-  deliveryTime: Date
+  deliveryTime: string
   productList: orderProduct[]
   orderStatus: OrderStatus
   paymentMethod: string
