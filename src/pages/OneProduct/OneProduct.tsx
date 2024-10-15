@@ -2,11 +2,12 @@ import {
   oneProductAction,
   oneProductSelectors,
 } from "store/redux/oneProduct/oneProductSlice"
-import { PageWrapper } from "./styles"
+import { GoBackButtonWrapper, PageWrapper } from "./styles"
 import { useAppDispatch, useAppSelector } from "store/hooks"
 import ProductDetailsCard from "components/OneProductCard/OneProductCard"
 import { useEffect } from "react"
 import { useParams } from "react-router-dom"
+import GoBackArrowButton from "components/GoBackArrowButton/GoBackArrowButton"
 
 function OneProduct() {
   const dispatch = useAppDispatch()
@@ -19,7 +20,11 @@ function OneProduct() {
 
   return (
     <PageWrapper>
+      <GoBackButtonWrapper>
+        <GoBackArrowButton />
+      </GoBackButtonWrapper>
       {currentProduct && <ProductDetailsCard productData={currentProduct} />}
+      <div></div>
     </PageWrapper>
   )
 }

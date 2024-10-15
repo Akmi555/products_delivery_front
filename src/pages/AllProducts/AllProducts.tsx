@@ -16,12 +16,10 @@ import { ProductObject } from "store/redux/allProducts/types"
 import { v4 } from "uuid"
 import {
   Container,
-  IconButton,
   Pagination,
   Stack,
-  Tooltip,
 } from "@mui/material"
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward"
+import ScrollUpArrowButton from "components/ScrollUpArrowButton/ScrollUpArrowButton"
 
 function AllProducts() {
   const dispatch = useAppDispatch()
@@ -72,16 +70,7 @@ function AllProducts() {
         </PaginatorWrapper>
       </Container>
       <GoBackButtonWrapper>
-        <Tooltip title="Scroll up">
-          <IconButton
-            aria-label="back"
-            onClick={() => {
-              window.scroll(0, 0)
-            }}
-          >
-            <ArrowUpwardIcon />
-          </IconButton>
-        </Tooltip>
+       <ScrollUpArrowButton/>
       </GoBackButtonWrapper>
     </PageWrapper>
   )

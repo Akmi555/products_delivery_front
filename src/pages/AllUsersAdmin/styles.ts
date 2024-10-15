@@ -5,9 +5,16 @@ export const PageWrapper = styled.div`
   ${globalPageStyles}
   flex-direction: column;
   justify-content: space-between;
-  gap: 35px;
+  gap: 10px;
   flex-wrap: wrap;
 `
+
+export const GoBackButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+`
+
 export const ProductCardsWrapper = styled.div`
   display: flex;
   gap: 30px;
@@ -26,4 +33,10 @@ export const ButtonContainer = styled.div`
   display: flex;
   flex: 1;
   width: 40px;
+`
+
+export const ScrollUpButtonWrapper = styled.div`
+  display: flex;
+ /* flex-direction: column; */
+ justify-content: end ;
 `

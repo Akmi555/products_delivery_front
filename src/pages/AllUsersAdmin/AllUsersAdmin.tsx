@@ -7,8 +7,10 @@ import Paper from "@mui/material/Paper"
 
 import { UserObject } from "store/redux/allUsers/types"
 import { useEffect, useState } from "react"
-import { PageWrapper } from "./styles"
+import { GoBackButtonWrapper, PageWrapper, ScrollUpButtonWrapper } from "./styles"
 import { IconButton } from "@mui/material"
+import GoBackArrowButton from "components/GoBackArrowButton/GoBackArrowButton"
+import ScrollUpArrowButton from "components/ScrollUpArrowButton/ScrollUpArrowButton"
 
 function AllUsers() {
   const dispatch = useAppDispatch()
@@ -104,6 +106,9 @@ function AllUsers() {
   const paginationModel = { page: 0, pageSize: 10 }
   return (
     <PageWrapper>
+      <GoBackButtonWrapper>
+        <GoBackArrowButton />
+      </GoBackButtonWrapper>
       <Paper sx={{ height: "100%", width: "100%" }}>
         <DataGrid
           rows={rows}
@@ -114,6 +119,9 @@ function AllUsers() {
           sx={{ border: 0 }}
         />
       </Paper>
+      <ScrollUpButtonWrapper>
+        <ScrollUpArrowButton/>
+      </ScrollUpButtonWrapper>
     </PageWrapper>
   )
 }

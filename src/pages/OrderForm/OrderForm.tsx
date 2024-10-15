@@ -73,7 +73,7 @@ function OrderForm() {
     validateOnChange: false,
 
     onSubmit(values, helpers) {
-      dispatch(
+      const dispatchResult = dispatch(
         orderAction.confirmOrder({
           id: currentOrderID,
           address: values.address,
@@ -81,8 +81,11 @@ function OrderForm() {
           paymentMethod: payment,
         }),
       )
+      // действие если fulfilled
+      if (orderAction.confirmOrder.fulfilled.match(dispatchResult)) {
+        setOpen(true)
+      }
       helpers.resetForm()
-      // setOpen(true)
     },
   })
 
