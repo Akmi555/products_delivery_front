@@ -36,7 +36,7 @@ export const orderSlice = createAppSlice({
       },
     ),
     confirmOrder: create.asyncThunk(
-      async (payload: confirmOrder ) => {
+      async (payload: confirmOrder) => {
         const response = await axiosConfig.put(`/api/order/confirmed`, {
           id: payload.id,
           address: payload.address,
@@ -58,7 +58,37 @@ export const orderSlice = createAppSlice({
             state.currentOrder.orderStatus = action.payload.orderStatus
             state.currentOrder.paymentMethod = action.payload.paymentMethod
           }
-
+          if (action.payload.payment_url) {
+            window.location.href = action.payload.payment_url
+          }
+        },
+        rejected: (state: OrderSliceState, action) => {
+          state.error = action.error.message
+          state.isPending = false
+        },
+      },
+    ),
+    payForOrder: create.asyncThunk(
+      async (payload: any) => {
+        const response = await axiosConfig.put(
+          `/api/order/paid/${payload.id}`,
+          {},
+        )
+        return response.data
+      },
+      {
+        pending: (state: OrderSliceState) => {
+          state.error = undefined
+          state.isPending = true
+        },
+        fulfilled: (state: OrderSliceState, action) => {
+          state.isPending = false
+          if (state.currentOrder) {
+            state.currentOrder.orderStatus = action.payload.orderStatus
+          }
+          if (action.payload.payment_url) {
+            window.location.href = action.payload.payment_url
+          }
         },
         rejected: (state: OrderSliceState, action) => {
           state.error = action.error.message
