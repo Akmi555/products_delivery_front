@@ -26,7 +26,8 @@ export const UseProfileWrapper = styled.div`
 `
 export const OrdersContainer = styled.div`
   display: flex;
-  width: 800px;
+  /* width: 800px; */
+  /* width: 100%; */
   flex: 1;
   flex-direction: column;
   gap: 10px;

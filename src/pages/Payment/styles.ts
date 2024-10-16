@@ -7,7 +7,7 @@ export const PageWrapper = styled.div`
   align-items: center;
   justify-content: center;
 `
-export const FormWrapper = styled.form`
+export const MessageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,4 +19,10 @@ export const FormWrapper = styled.form`
   border-radius: 10px;
   padding: 60px;
   margin: 50px;
+`
+
+export const TextWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `

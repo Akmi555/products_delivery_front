@@ -62,6 +62,7 @@ function Login() {
       if (userAuthAction.login.fulfilled.match(dispatchResult)) {
         dispatch(userAuthAction.getUser())
         dispatch(orderAction.getOrders())
+        dispatch(cartActions.openCart())
         navigate("/")
       }
       // ! в span поверх логина(формика) вывести просто текст ошибки, alert плохая практика

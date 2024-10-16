@@ -15,7 +15,7 @@ export interface orderObject {
   orderTime: string
   address: string
   deliveryTime: string
-  productList: orderProduct[]
+  orderProducts: orderProduct[]
   orderStatus: OrderStatus
   paymentMethod: string
   totalSum: number
@@ -32,7 +32,7 @@ export interface orderProduct {
   orderId: number
   productId: number
   productQuantity: number
-  productSum: number
+  sum: number
 }
 
 export enum PaymentMethod {
