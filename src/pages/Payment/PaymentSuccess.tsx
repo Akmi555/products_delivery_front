@@ -1,7 +1,7 @@
-import { useAppDispatch, useAppSelector } from "store/hooks"
-import { PageWrapper, FormWrapper } from "./styles"
-import { orderAction, orderSelector } from "store/redux/order/orderSlice"
-import { useEffect, useState } from "react"
+import { useAppDispatch } from "store/hooks"
+import { PageWrapper, TextWrapper, MessageContainer } from "./styles"
+import { orderAction } from "store/redux/order/orderSlice"
+import { useEffect } from "react"
 import { useQueryParam, NumberParam } from "use-query-params"
 import ButtonMain from "components/ButtonMain/ButtonMain"
 import { useNavigate } from "react-router-dom"
@@ -20,19 +20,21 @@ function PaymentSuccess() {
 
   return (
     <PageWrapper>
-      <FormWrapper>
-        <TaskAltIcon sx={{color: "#00BF63", fontSize: "5rem"}}/>
-        <h2>Order Success</h2>
-        <h4>
-          Thank you for choosing our delivery service! We appreciate your order.
-        </h4>
-        <h3>Have A Greate Day!</h3>
+      <MessageContainer>
+        <TaskAltIcon sx={{ color: "#00BF63", fontSize: "5rem" }} />
+        <h2>Successful payment</h2>
+        <p>Order number: {num}</p>
+        <TextWrapper>
+          <p>Thank you for choosing foodNOW!</p>
+          <p>We appreciate your order.</p>
+        </TextWrapper>
+        <h4>Have a great day!</h4>
         <ButtonMain
           type="button"
-          buttonName="GO TO HOME"
+          buttonName="continue shopping"
           onClick={() => navigate("/")}
         />
-      </FormWrapper>
+      </MessageContainer>
     </PageWrapper>
   )
 }

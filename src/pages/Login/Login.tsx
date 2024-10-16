@@ -23,6 +23,7 @@ import {
 import { Link, useNavigate } from "react-router-dom"
 import { useAppSelector } from "store/hooks"
 import { cartActions } from "store/redux/cart/cartSlice"
+import { orderAction } from "store/redux/order/orderSlice"
 
 function Login() {
   const dispatch = useDispatch<AppDispatch>()
@@ -57,17 +58,18 @@ function Login() {
           password: values.password,
         }),
       )
-      // пример как выполнить что то при fulfilled 
-      if ( userAuthAction.login.fulfilled.match(dispatchResult)) {
-        dispatch(userAuthAction.getUser());
-        navigate('/');
-      } 
-      // ! в span поверх логина(формика) вывести просто текст ошибки, alert плохая практика 
+      // пример как выполнить что то при fulfilled
+      if (userAuthAction.login.fulfilled.match(dispatchResult)) {
+        dispatch(userAuthAction.getUser())
+        dispatch(orderAction.getOrders())
+        dispatch(cartActions.openCart())
+        navigate("/")
+      }
+      // ! в span поверх логина(формика) вывести просто текст ошибки, alert плохая практика
       helpers.resetForm()
-      
     },
   })
-  
+
   return (
     <PageWrapper>
       <PageName>Login</PageName>

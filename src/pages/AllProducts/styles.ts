@@ -4,18 +4,18 @@ import { globalPageStyles } from "styles/GlobalStyles"
 export const PageWrapper = styled.div`
   ${globalPageStyles}
   flex-direction: column;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   gap: 35px;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
 `
 export const ProductCardsWrapper = styled.div`
   display: flex;
-  margin-left: 53px;
-  margin-right: 53px;
+  /* margin-left: 53px; */
+  /* margin-right: 53px; */
   padding: 10px;
-  gap: 40px;
+  gap: 27px;
   flex-wrap: wrap;
-  justify-content: start;
+  /* justify-content: start; */
 `
 
 export const PaginatorWrapper = styled.div`

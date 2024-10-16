@@ -19,16 +19,14 @@ import { v4 } from "uuid"
 import GoBackArrowButton from "components/GoBackArrowButton/GoBackArrowButton"
 import ScrollUpArrowButton from "components/ScrollUpArrowButton/ScrollUpArrowButton"
 
-
 function UserProfile() {
   // получение айди залогиненного пользователя для отображения корзины (запрос находится в useEffect ниже)
   // const { currentUser } = useAppSelector(userAuthSelectors.userAuthState)
+  const dispatch = useAppDispatch()
   const { orders } = useAppSelector(orderSelector.orderState)
 
-  const dispatch = useAppDispatch()
-
   const userOrders = orders.map(order => (
-    <Order key={v4()} orderObjData={order} />
+    <Order key={v4()} orderObject={order} />
   ))
 
   useEffect(() => {
@@ -38,7 +36,6 @@ function UserProfile() {
     }
   }, [])
 
-  console.log(orders)
   return (
     <PageWrapper>
       {!localStorage.getItem("accessToken") && (
@@ -49,14 +46,12 @@ function UserProfile() {
       )}
       {localStorage.getItem("accessToken") && (
         <UseProfileWrapper>
-
           <GoBackButtonUserCardWrapper>
-          <GoBackButtonWrapper>
-            <GoBackArrowButton/>
-          </GoBackButtonWrapper>
-          <UserCard />
+            <GoBackButtonWrapper>
+              <GoBackArrowButton />
+            </GoBackButtonWrapper>
+            <UserCard />
           </GoBackButtonUserCardWrapper>
-          
 
           <OrdersContainer>
             <h2 style={{ paddingLeft: "20px" }}>Orders:</h2>
@@ -68,13 +63,12 @@ function UserProfile() {
               <TitleOrder>Amount €: </TitleOrder>
               <TitleOrder>Order status: </TitleOrder>
             </OrderTitles>
-
             {userOrders}
           </OrdersContainer>
 
           {orders && (
             <ScrollUpButtonWrapper>
-              <ScrollUpArrowButton/>
+              <ScrollUpArrowButton />
             </ScrollUpButtonWrapper>
           )}
         </UseProfileWrapper>

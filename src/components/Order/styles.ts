@@ -12,7 +12,27 @@ export const OrderWrapper = styled.div`
   padding: 20px;
 `
 
+export const OrderWrapper2 = styled.div`
+  display: flex;
+  flex: 1;
+  width: 100%;
+  /* gap: 20px; */
+  /* width: 800px; */
+  align-items: center;
+  /* background-color: white; */
+  border-radius: 50px;
+  /* padding: 20px; */
+`
+
 export const DataContainer = styled.div`
-  min-width: 130px;
-  max-width:  130px;
+  display: flex;
+  min-width: 150px;
+  max-width: 150px;
+   min-height: 60px;
+  align-items: center;
+  justify-content: center;
+`
+export const DataWrapper = styled.div`
+  display: flex;
+  gap: 5px;
 `
