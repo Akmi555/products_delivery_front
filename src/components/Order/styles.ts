@@ -5,7 +5,6 @@ export const OrderWrapper = styled.div`
   flex: 1;
   width: 100%;
   gap: 20px;
-  /* width: 800px; */
   align-items: center;
   background-color: white;
   border-radius: 30px;
@@ -16,12 +15,8 @@ export const OrderWrapper2 = styled.div`
   display: flex;
   flex: 1;
   width: 100%;
-  /* gap: 20px; */
-  /* width: 800px; */
   align-items: center;
-  /* background-color: white; */
   border-radius: 50px;
-  /* padding: 20px; */
 `
 
 export const DataContainer = styled.div`
@@ -35,4 +30,5 @@ export const DataContainer = styled.div`
 export const DataWrapper = styled.div`
   display: flex;
   gap: 5px;
+  /* border-bottom: 1px solid black; */
 `

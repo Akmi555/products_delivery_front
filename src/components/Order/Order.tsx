@@ -78,7 +78,7 @@ function Order({ orderObject }: orderObjDataProps) {
   return (
     <OrderWrapper2>
       <Accordion sx={{ borderRadius: 50 }}>
-        <AccordionSummary sx={{backgroundColor: "#82d982", }} aria-controls="panel1-content" id="panel1-header">
+        <AccordionSummary sx={{ borderBottom: `4px solid ${colors.MAIN_GREEN}`  }} aria-controls="panel1-content" id="panel1-header">
           <DataWrapper>
             <DataContainer>
               {getNormalDateAndTimeFromOrderObject(orderObject.orderTime)}

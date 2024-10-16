@@ -8,6 +8,7 @@ export interface COLORS {
   DISABLED: string
   BACKGROUND_GRAY: string
   BACKGROUND_GRAY_TRANSPARENT: string
+  GREEN_TRANSPARENT: string
 }
 
 export const colors: COLORS = {
@@ -20,6 +21,5 @@ export const colors: COLORS = {
   DISABLED: "#3f3f3f",
   BACKGROUND_GRAY: "#e8e8e8",
   BACKGROUND_GRAY_TRANSPARENT: "rgba(232, 232, 232, 0.6)",
+  GREEN_TRANSPARENT: "rgba(0, 191, 99, 0.5)",
 }
-
-

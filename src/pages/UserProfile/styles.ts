@@ -39,11 +39,13 @@ export const OrderTitles = styled.div`
   flex: 1;
   width: 100%;
   padding-left: 20px;
-  gap: 20px;
+  /* gap: 5px; */
 `
 
 export const TitleOrder = styled.div`
-  min-width: 130px;
+  display: flex;
+  min-width: 150px;
+  justify-content: flex-start;
 `
 export const ScrollUpButtonWrapper = styled.div`
   display: flex;

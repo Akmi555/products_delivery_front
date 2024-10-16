@@ -4,6 +4,7 @@ import { DataContainer, ProductFromOrderWrapper, ProductImg } from "./styles"
 function ProductFromOrder({ orderProduct }: ProductFromOrderProps) {
   return (
     <ProductFromOrderWrapper>
+      
       <DataContainer>
         <ProductImg src={`/api/files/download/${orderProduct.photoLink}`} />
       </DataContainer>
