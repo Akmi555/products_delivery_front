@@ -19,3 +19,20 @@ export const paths: PATHS = {
   ADD_PRODUCT: "/addProduct",
   ALL_USERS: "/allUsers",
 }
+
+
+export enum PaymentMethod {
+  CREDIT_CARD,
+  PAYPAL,
+  BANK_TRANSFER,
+}
+
+export enum OrderStatus {
+  PENDING, //ожидает оплаты или подтверждения.
+  PAID, //  оплачен.
+  PROCESSING, //в процессе обработки.
+  SHIPPED, // отправлен.
+  DELIVERED, // доставлен клиенту.
+  CANCELLED, // отменён.
+  REFUNDED, // средства за заказ возвращены.
+}

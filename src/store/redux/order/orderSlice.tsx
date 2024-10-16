@@ -1,5 +1,10 @@
 import { createAppSlice } from "store/createAppSlice"
-import { OrderSliceState, confirmOrder, orderObject } from "./types"
+import {
+  OrderSliceState,
+  confirmOrder,
+  orderObject,
+  updateOrder,
+} from "./types"
 import axiosConfig from "../../../../axiosConfig"
 
 const orderInitialState: OrderSliceState = {
@@ -136,14 +141,34 @@ export const orderSlice = createAppSlice({
         },
       },
     ),
-    updateOrder: create.asyncThunk(
-      async (payload: any) => {
-        const response = await axiosConfig.put(
-          `/api/orders/${payload.orderId}`,
-          {
-            orderStatus: payload.orderStatus,
-          },
-        )
+    // updateOrder: create.asyncThunk(
+    //   async (payload: updateOrder) => {
+    //     const response = await axiosConfig.put(
+    //       `/api/orders/${payload.orderId}`,
+    //       {
+    //         orderStatus: payload.orderStatus,
+    //       },
+    //     )
+    //     return response.data
+    //   },
+    //   {
+    //     pending: (state: OrderSliceState) => {
+    //       state.error = undefined
+    //       state.isPending = true
+    //     },
+    //     fulfilled: (state: OrderSliceState, action) => {
+    //       state.currentOrder = action.payload
+    //       state.isPending = false
+    //     },
+    //     rejected: (state: OrderSliceState, action) => {
+    //       state.error = action.error.message
+    //       state.isPending = false
+    //     },
+    //   },
+    // ),
+    cancelOrder: create.asyncThunk(
+      async (orderId: number) => {
+        const response = await axiosConfig.post(`/api/order/${orderId}/cancel`)
         return response.data
       },
       {
@@ -152,8 +177,14 @@ export const orderSlice = createAppSlice({
           state.isPending = true
         },
         fulfilled: (state: OrderSliceState, action) => {
-          state.currentOrder = action.payload
           state.isPending = false
+          if (state.orders.some(o => o.id === action.payload.id)) {
+            state.orders = state.orders.map(o =>
+              o.id === action.payload.productId
+                ? action.payload.orderStatus
+                : o,
+            )
+          }
         },
         rejected: (state: OrderSliceState, action) => {
           state.error = action.error.message

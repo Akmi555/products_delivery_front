@@ -14,7 +14,7 @@ import AccordionDetails from "@mui/material/AccordionDetails"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import Button from "@mui/material/Button"
 import ProductFromOrder from "components/ProductFromOrder/ProductFromOrder"
-import { orderProduct } from "store/redux/order/types"
+import { orderProduct, updateOrder } from "store/redux/order/types"
 import { v4 } from "uuid"
 import { Children, useEffect, useState } from "react"
 import { useAppDispatch } from "store/hooks"
@@ -22,11 +22,16 @@ import { oneProductAction } from "store/redux/oneProduct/oneProductSlice"
 import { OneProductObject } from "store/redux/oneProduct/types"
 import { ProductFromOrderProps } from "components/ProductFromOrder/types"
 import { colors } from "styles/colors"
+import ButtonMain from "components/ButtonMain/ButtonMain"
+import { orderAction } from "store/redux/order/orderSlice"
 
 function Order({ orderObject }: orderObjDataProps) {
   const dispatch = useAppDispatch()
   const [products, setProducts] = useState<OneProductObject[]>([])
-
+  // const cancelOrderData: updateOrder = {
+  //   orderId: orderObject.id,
+  //   orderStatus: "CANCELLED",
+  // }
   // orderObject - это сам заказ, внутри есть массив из orderProduct
   const orderProductArray: orderProduct[] = orderObject.orderProducts
 
@@ -59,7 +64,7 @@ function Order({ orderObject }: orderObjDataProps) {
       const cartItem = orderProductArray.find(
         item => item.productId === product.id,
       )
-      // тут добавляем к данным объекта товара данные о заказе 
+      // тут добавляем к данным объекта товара данные о заказе
       return {
         ...product,
         productQuantity: cartItem ? cartItem.productQuantity : 0,
@@ -75,10 +80,23 @@ function Order({ orderObject }: orderObjDataProps) {
     ),
   )
 
+  const canselOrder = async () => {
+    const dispatchResult = await dispatch(
+      orderAction.cancelOrder(orderObject.id),
+    )
+    if (orderAction.cancelOrder.fulfilled.match(dispatchResult)) {
+      dispatch(orderAction.getOrders())
+    }
+  }
+
   return (
     <OrderWrapper2>
       <Accordion sx={{ borderRadius: 50 }}>
-        <AccordionSummary sx={{ borderBottom: `4px solid ${colors.MAIN_GREEN}`  }} aria-controls="panel1-content" id="panel1-header">
+        <AccordionSummary
+          sx={{ borderBottom: `4px solid ${colors.MAIN_GREEN}` }}
+          aria-controls="panel1-content"
+          id="panel1-header"
+        >
           <DataWrapper>
             <DataContainer>
               {getNormalDateAndTimeFromOrderObject(orderObject.orderTime)}
@@ -92,6 +110,9 @@ function Order({ orderObject }: orderObjDataProps) {
           </DataWrapper>
         </AccordionSummary>
         <AccordionDetails>{ordersAllProducts}</AccordionDetails>
+        <AccordionActions>
+          <ButtonMain buttonName="Cancel order" onClick={canselOrder} />
+        </AccordionActions>
       </Accordion>
     </OrderWrapper2>
   )
