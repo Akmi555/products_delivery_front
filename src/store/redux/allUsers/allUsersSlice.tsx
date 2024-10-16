@@ -35,6 +35,24 @@ export const allUsersSlice = createAppSlice({
         },
       },
     ),
+    deleteUser: create.asyncThunk(async (userID: number| undefined) => {
+      const response = await axiosConfig.delete(`/api/users/${userID}`)
+      return response.data
+    },
+    {
+      pending: (state: UsersSliceState) => {
+        state.error = undefined
+        state.isPending = true
+      },
+      fulfilled: (state: UsersSliceState, action) => {
+        state.isPending = false
+        state.users = state.users.filter(u => u.id!== action.payload.id)
+      },
+      rejected: (state: UsersSliceState, action) => {
+        state.error = action.error.message
+        state.isPending = false
+      },
+    }),
   }),
   selectors: {
     usersState: (state: UsersSliceState) => state,

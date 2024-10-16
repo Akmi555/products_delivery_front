@@ -7,7 +7,11 @@ import Paper from "@mui/material/Paper"
 
 import { UserObject } from "store/redux/allUsers/types"
 import { useEffect, useState } from "react"
-import { GoBackButtonWrapper, PageWrapper, ScrollUpButtonWrapper } from "./styles"
+import {
+  GoBackButtonWrapper,
+  PageWrapper,
+  ScrollUpButtonWrapper,
+} from "./styles"
 import { IconButton } from "@mui/material"
 import GoBackArrowButton from "components/GoBackArrowButton/GoBackArrowButton"
 import ScrollUpArrowButton from "components/ScrollUpArrowButton/ScrollUpArrowButton"
@@ -65,10 +69,14 @@ function AllUsers() {
       type: "actions",
       width: 70,
       renderCell(params) {
-        const onClick = (e: React.MouseEvent) => {
+        const onClick = async (e: React.MouseEvent) => {
           e.stopPropagation()
-          // здесь вставить функцию удаления пользователя
-          alert("User deleted")
+          const dispatchResult = await dispatch(
+            usersAction.deleteUser(params.row.id),
+          )
+          if (usersAction.deleteUser.fulfilled.match(dispatchResult)) {
+            dispatch(usersAction.getUsers())
+          }
         }
         return (
           <IconButton aria-label="delete">
@@ -121,7 +129,7 @@ function AllUsers() {
         />
       </Paper>
       <ScrollUpButtonWrapper>
-        <ScrollUpArrowButton/>
+        <ScrollUpArrowButton />
       </ScrollUpButtonWrapper>
     </PageWrapper>
   )
