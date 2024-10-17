@@ -1,5 +1,5 @@
 import { FormikErrors } from "formik"
-import { HTMLInputTypeAttribute, ChangeEvent } from "react"
+import { HTMLInputTypeAttribute, ChangeEvent, ReactNode } from "react"
 
 export interface InputProps {
   id: string
@@ -9,6 +9,7 @@ export interface InputProps {
   label: string
   disabled?: boolean
   error?: string | undefined | FormikErrors<Date>
+  // | FormikErrors<Date> | ReactNode
   value?: string | number
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void
 }

@@ -57,4 +57,3 @@ export const Email = styled.p``
 export const Phone = styled.p``
 
 export const Role = styled.p``
-

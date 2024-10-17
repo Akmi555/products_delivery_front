@@ -103,8 +103,7 @@ export const userAuthSlice = createAppSlice({
       state.accessToken = undefined
       state.role = undefined
       state.error = undefined
-    }
-      ),
+    }),
   }),
   selectors: {
     userAuthState: (state: UserAuthSliceState) => state,

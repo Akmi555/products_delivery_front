@@ -4,7 +4,7 @@ import { orderAction, orderSelector } from "store/redux/order/orderSlice"
 import { DataGrid, GridColDef } from "@mui/x-data-grid"
 import Paper from "@mui/material/Paper"
 import { useEffect } from "react"
-import { orderObject } from "store/redux/order/types"
+import { OrderObject } from "store/redux/order/types"
 import {
   GoBackButtonWrapper,
   PageWrapper,
@@ -20,7 +20,7 @@ export function getNormalDateAndTimeFromOrderObject(dateInString: string) {
   const hours: string = dateInString?.slice(11, 13)
   const minutes: string = dateInString?.slice(14, 16)
   if (dateInString) {
-    return `${day}.${month}.${year} ${hours}:${minutes} `
+    return `${day}.${month}.${year}    ${hours}:${minutes} `
   } else return ""
 }
 
@@ -73,7 +73,7 @@ function AllOrdersAdmin() {
     },
   ]
 
-  const rows = ordersAdmin.map((obj: orderObject) => {
+  const rows = ordersAdmin.map((obj: OrderObject) => {
     return {
       id: obj.id,
       userId: obj.userId,

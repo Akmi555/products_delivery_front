@@ -114,12 +114,11 @@ export const cartSlice = createAppSlice({
           //   state.allProductsFromCart.some(
           //     p => p.productId === action.payload.productId,
           //   )
-          // ) 
+          // )
           state.allProductsFromCart = state.allProductsFromCart.filter(
             p => p.productId !== action.payload.productId,
           )
           console.log("продукты из корзины переписались в стейте ")
-        
         },
         rejected: (state: CartSliceState, action) => {
           state.error = action.error.message

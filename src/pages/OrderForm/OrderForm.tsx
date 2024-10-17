@@ -18,7 +18,7 @@ import {
   Select,
   SelectChangeEvent,
 } from "@mui/material"
-import { PaymentMethod } from "store/redux/order/types"
+// import { PaymentMethod } from "store/redux/order/types"
 import { useState } from "react"
 import ButtonMain from "components/ButtonMain/ButtonMain"
 // для окна об успешном заказе
