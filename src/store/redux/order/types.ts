@@ -1,14 +1,14 @@
 import { FormikErrors } from "formik"
 import { ReactNode } from "react"
-export type OrderStatusType =
-  | "PENDING"
-  | "PAID"
-  | "PROCESSING"
-  | "SHIPPED"
-  | "DELIVERED"
-  | "CANCELLED"
-  | "REFUNDED"
-export type PaymentMethod = "CREDIT_CARD" | "PAYPAL" | "BANK_TRANSFER"
+// export type OrderStatusType =
+//   | "PENDING"
+//   | "PAID"
+//   | "PROCESSING"
+//   | "SHIPPED"
+//   | "DELIVERED"
+//   | "CANCELLED"
+//   | "REFUNDED"
+// export type PaymentMethod = "CREDIT_CARD" | "PAYPAL" | "BANK_TRANSFER"
 
 export interface OrderSliceState {
   currentOrder: orderObject | undefined
@@ -25,7 +25,7 @@ export interface orderObject {
   address: string
   deliveryTime: string
   orderProducts: orderProduct[]
-  orderStatus: OrderStatusType
+  orderStatus: OrderStatus
   paymentMethod: string
   totalSum: number
 }
@@ -39,7 +39,7 @@ export interface confirmOrder {
 
 export interface updateOrder {
   orderId: number
-  orderStatus: OrderStatusType
+  orderStatus: OrderStatus
 }
 
 export interface orderProduct {
@@ -49,18 +49,18 @@ export interface orderProduct {
   sum: number
 }
 
-// export enum PaymentMethod {
-//   CREDIT_CARD,
-//   PAYPAL,
-//   BANK_TRANSFER,
-// }
+export enum PaymentMethod {
+  CREDIT_CARD,
+  PAYPAL,
+  BANK_TRANSFER,
+}
 
-// export enum OrderStatus {
-//   PENDING, //ожидает оплаты или подтверждения.
-//   PAID, //  оплачен.
-//   PROCESSING, //в процессе обработки.
-//   SHIPPED, // отправлен.
-//   DELIVERED, // доставлен клиенту.
-//   CANCELLED, // отменён.
-//   REFUNDED, // средства за заказ возвращены.
-// }
+export enum OrderStatus {
+  PENDING, //ожидает оплаты или подтверждения.
+  PAID, //  оплачен.
+  PROCESSING, //в процессе обработки.
+  SHIPPED, // отправлен.
+  DELIVERED, // доставлен клиенту.
+  CANCELLED, // отменён.
+  REFUNDED, // средства за заказ возвращены.
+}

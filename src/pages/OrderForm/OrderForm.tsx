@@ -18,7 +18,7 @@ import {
   Select,
   SelectChangeEvent,
 } from "@mui/material"
-import { PaymentMethod } from "store/redux/order/types"
+// import { PaymentMethod } from "store/redux/order/types"
 import { useState } from "react"
 import ButtonMain from "components/ButtonMain/ButtonMain"
 // для окна об успешном заказе
@@ -112,7 +112,7 @@ function OrderForm() {
             label="Delivery time*"
             value={String(formik.values.deliveryTime)}
             onChange={formik.handleChange}
-            error={formik.errors.deliveryTime}
+            error={String(formik.errors.deliveryTime)}
           />
           <Box sx={{ minWidth: 120 }}>
             <FormControl fullWidth>

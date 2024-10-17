@@ -1,33 +1,59 @@
 import { getNormalDateAndTimeFromOrderObject } from "pages/AllOrdersAdmin/AllOrdersAdmin"
-import {
-  DataContainer,
-  DataWrapper,
-  OrderWrapper,
-  OrderWrapper2,
-} from "./styles"
+import { DataContainer, DataWrapper, OrderWrapper2 } from "./styles"
 import { OrderAndProductData, orderObjDataProps } from "./types"
+
 // для раскрывающегося списка
 import Accordion from "@mui/material/Accordion"
 import AccordionActions from "@mui/material/AccordionActions"
 import AccordionSummary from "@mui/material/AccordionSummary"
 import AccordionDetails from "@mui/material/AccordionDetails"
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
-import Button from "@mui/material/Button"
 import ProductFromOrder from "components/ProductFromOrder/ProductFromOrder"
-import { orderProduct, updateOrder } from "store/redux/order/types"
+
+// для окошка при отмене заказа
+import Button from "@mui/material/Button"
+import Dialog from "@mui/material/Dialog"
+import DialogActions from "@mui/material/DialogActions"
+import DialogContent from "@mui/material/DialogContent"
+import DialogContentText from "@mui/material/DialogContentText"
+import DialogTitle from "@mui/material/DialogTitle"
+import Slide from "@mui/material/Slide"
+import { TransitionProps } from "@mui/material/transitions"
+
+// для snackbar
+import Snackbar, { SnackbarCloseReason } from "@mui/material/Snackbar"
+
+import { OrderStatus, orderProduct } from "store/redux/order/types"
 import { v4 } from "uuid"
-import { Children, useEffect, useState } from "react"
+import {
+  Fragment,
+  ReactElement,
+  Ref,
+  SyntheticEvent,
+  forwardRef,
+  useEffect,
+  useState,
+} from "react"
 import { useAppDispatch } from "store/hooks"
 import { oneProductAction } from "store/redux/oneProduct/oneProductSlice"
 import { OneProductObject } from "store/redux/oneProduct/types"
-import { ProductFromOrderProps } from "components/ProductFromOrder/types"
 import { colors } from "styles/colors"
 import ButtonMain from "components/ButtonMain/ButtonMain"
 import { orderAction } from "store/redux/order/orderSlice"
 
+// для окошка при отмене заказа
+const Transition = forwardRef(function Transition(
+  props: TransitionProps & {
+    children: ReactElement<any, any>
+  },
+  ref: Ref<unknown>,
+) {
+  return <Slide direction="up" ref={ref} {...props} />
+})
+
 function Order({ orderObject }: orderObjDataProps) {
   const dispatch = useAppDispatch()
   const [products, setProducts] = useState<OneProductObject[]>([])
+
   // const cancelOrderData: updateOrder = {
   //   orderId: orderObject.id,
   //   orderStatus: "CANCELLED",
@@ -80,13 +106,51 @@ function Order({ orderObject }: orderObjDataProps) {
     ),
   )
 
-  const canselOrder = async () => {
+  // для окошка при отмене заказа
+  const [openCanselWindow, setOpenCanselWindow] = useState(false)
+
+  const handleClickOpen = () => {
+    setOpenCanselWindow(true)
+  }
+
+  const handleCanselOrder = async () => {
+    setOpenCanselWindow(false)
     const dispatchResult = await dispatch(
       orderAction.cancelOrder(orderObject.id),
     )
     if (orderAction.cancelOrder.fulfilled.match(dispatchResult)) {
       dispatch(orderAction.getOrders())
+      // ! ЭТО НЕ РАБОТАЕТ, openSnackbar все равно остается FALSE 
+      setOpenSnackbar(true)
+      console.log(openSnackbar)
+
+      // а вот так почему то работает 
+      // const handleClick = () => {
+      //   setOpenSnackbar(true)
+      // }
     }
+  }
+
+  const handleClose = () => {
+    setOpenCanselWindow(false)
+  }
+
+  // для snackbar
+  const [openSnackbar, setOpenSnackbar] = useState(false)
+
+  const handleClick = () => {
+    setOpenSnackbar(true)
+  }
+
+  const handleCloseSnackbar = (
+    event: SyntheticEvent | Event,
+    reason?: SnackbarCloseReason,
+  ) => {
+    if (reason === "clickaway") {
+      return
+    }
+
+    setOpenSnackbar(false)
   }
 
   return (
@@ -111,7 +175,48 @@ function Order({ orderObject }: orderObjDataProps) {
         </AccordionSummary>
         <AccordionDetails>{ordersAllProducts}</AccordionDetails>
         <AccordionActions>
-          <ButtonMain buttonName="Cancel order" onClick={canselOrder} />
+          {/* <ButtonMain buttonName="Cancel order" onClick={canselOrder} /> */}
+
+          {/* окошко при отмене заказа*/}
+          <Fragment>
+            { String(orderObject.orderStatus) !== "CANCELLED"  && <ButtonMain buttonName="Cancel order" onClick={handleClickOpen} />}
+            
+            <Dialog
+              open={openCanselWindow}
+              TransitionComponent={Transition}
+              keepMounted
+              onClose={handleClose}
+              aria-describedby="alert-dialog-slide-description"
+            >
+              <DialogTitle>
+                {"Are you sure you want to cancel your order? "}
+              </DialogTitle>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-slide-description">
+                  This action cannot be undone, please confirm
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose}>Close window</Button>
+                <Button
+                  sx={{ color: "rgb(255, 0, 0)" }}
+                  onClick={handleCanselOrder}
+                >
+                  Cansel order
+                </Button>
+              </DialogActions>
+            </Dialog>
+          </Fragment>
+
+          {/* snackbar */}
+          <div>
+            <Snackbar
+              open={openSnackbar}
+              autoHideDuration={5000}
+              onClose={handleCloseSnackbar}
+              message={`Order with id:${orderObject.id} was cancelled`}
+            />
+          </div>
         </AccordionActions>
       </Accordion>
     </OrderWrapper2>

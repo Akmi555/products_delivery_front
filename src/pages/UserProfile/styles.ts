@@ -38,7 +38,7 @@ export const OrderTitles = styled.div`
   display: flex;
   flex: 1;
   width: 100%;
-  padding-left: 20px;
+  padding-left: 16px;
   /* gap: 5px; */
 `
 

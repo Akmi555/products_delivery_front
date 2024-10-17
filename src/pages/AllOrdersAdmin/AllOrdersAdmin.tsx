@@ -20,7 +20,7 @@ export function getNormalDateAndTimeFromOrderObject(dateInString: string) {
   const hours: string = dateInString?.slice(11, 13)
   const minutes: string = dateInString?.slice(14, 16)
   if (dateInString) {
-    return `${day}.${month}.${year} ${hours}:${minutes} `
+    return `${day}.${month}.${year}    ${hours}:${minutes} `
   } else return ""
 }
 
