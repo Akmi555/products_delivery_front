@@ -8,7 +8,7 @@ export interface InputProps {
   placeholder?: string
   label: string
   disabled?: boolean
-  error?: string | undefined 
+  error?: string | undefined | FormikErrors<Date>
   // | FormikErrors<Date> | ReactNode
   value?: string | number
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void

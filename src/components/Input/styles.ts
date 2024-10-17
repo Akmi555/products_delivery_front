@@ -5,7 +5,7 @@ import { ReactNode } from "react";
 import { colors } from "styles/colors";
 
 interface StyledInputProps {
-  $error: string | undefined | FormikErrors<Date> | ReactNode ;
+  $error: string | undefined | FormikErrors<Date>  ;
 }
 
 export const InputWrapper = styled.div`
@@ -21,7 +21,7 @@ export const InputLabel = styled.label`
 
 const getStyledInputBorder = (
   disabled: boolean | undefined,
-  error: string | undefined | FormikErrors<Date> | ReactNode
+  error: string | undefined | FormikErrors<Date> 
 ) => {
   if (typeof error === "string") {
     return colors.ERROR;

@@ -57,9 +57,10 @@ function Cart() {
     .filter(item => item.productQuantity > 0)
 
   // отображение элементов корзины
-  const cartsAllProducts = cartAndProductDat.map((obj: CartAndProductData) => (
-    <CartComponent key={v4()} cartObjData={obj} />
-  ))
+  // Алишер сказал что это плохая практика и надо пистаь сразу это в return
+  // const cartsAllProducts = cartAndProductDat.map((obj: CartAndProductData) => (
+  //   <CartComponent key={v4()} cartObjData={obj} />
+  // ))
 
   // проверка на залогиненного пользователя
   if (accessToken) {
@@ -118,7 +119,10 @@ function Cart() {
           </Stack>
         )}
 
-        {cartsAllProducts}
+        {/* {cartsAllProducts} */}
+        {cartAndProductDat.map((obj: CartAndProductData) => (
+          <CartComponent key={v4()} cartObjData={obj} />
+        ))}
       </CartItemsWrapper>
       {accessToken && (
         <TotalAmountContainer>

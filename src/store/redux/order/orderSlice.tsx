@@ -2,10 +2,11 @@ import { createAppSlice } from "store/createAppSlice"
 import {
   OrderSliceState,
   confirmOrder,
-  orderObject,
+  OrderObject,
   updateOrder,
 } from "./types"
 import axiosConfig from "../../../../axiosConfig"
+import { PayloadAction } from "@reduxjs/toolkit"
 
 const orderInitialState: OrderSliceState = {
   currentOrder: undefined,
@@ -140,6 +141,9 @@ export const orderSlice = createAppSlice({
           state.isPending = false
         },
       },
+    ),
+    putToCurrentOrder: create.reducer((state: OrderSliceState, action: PayloadAction< OrderObject>)=> 
+    {state.currentOrder = action.payload }
     ),
     // updateOrder: create.asyncThunk(
     //   async (payload: updateOrder) => {

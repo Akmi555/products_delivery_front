@@ -39,6 +39,8 @@ import { OneProductObject } from "store/redux/oneProduct/types"
 import { colors } from "styles/colors"
 import ButtonMain from "components/ButtonMain/ButtonMain"
 import { orderAction } from "store/redux/order/orderSlice"
+import { cartActions } from "store/redux/cart/cartSlice"
+import { useNavigate } from "react-router-dom"
 
 // для окошка при отмене заказа
 const Transition = forwardRef(function Transition(
@@ -52,6 +54,7 @@ const Transition = forwardRef(function Transition(
 
 function Order({ orderObject }: orderObjDataProps) {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   const [products, setProducts] = useState<OneProductObject[]>([])
 
   // const cancelOrderData: updateOrder = {
@@ -106,6 +109,12 @@ function Order({ orderObject }: orderObjDataProps) {
     ),
   )
 
+  // для оплаты заказа который в статусе pending
+  const addOrderData = () => {
+    // тут положить данные этого ордера в currentOrder
+    navigate("/order-form")
+  }
+
   // для окошка при отмене заказа
   const [openCanselWindow, setOpenCanselWindow] = useState(false)
 
@@ -119,12 +128,12 @@ function Order({ orderObject }: orderObjDataProps) {
       orderAction.cancelOrder(orderObject.id),
     )
     if (orderAction.cancelOrder.fulfilled.match(dispatchResult)) {
-      dispatch(orderAction.getOrders())
-      // ! ЭТО НЕ РАБОТАЕТ, openSnackbar все равно остается FALSE 
+      // dispatch(orderAction.getOrders())
+      // ! ЭТО НЕ РАБОТАЕТ, openSnackbar все равно остается FALSE
       setOpenSnackbar(true)
-      console.log(openSnackbar)
+      // console.log(openSnackbar)
 
-      // а вот так почему то работает 
+      // а вот так почему то работает
       // const handleClick = () => {
       //   setOpenSnackbar(true)
       // }
@@ -136,7 +145,7 @@ function Order({ orderObject }: orderObjDataProps) {
   }
 
   // для snackbar
-  const [openSnackbar, setOpenSnackbar] = useState(false)
+  const [openSnackbar, setOpenSnackbar] = useState<boolean>(false)
 
   const handleClick = () => {
     setOpenSnackbar(true)
@@ -152,6 +161,10 @@ function Order({ orderObject }: orderObjDataProps) {
 
     setOpenSnackbar(false)
   }
+
+  useEffect(() => {
+    console.log("lalala")
+  }, [openSnackbar])
 
   return (
     <OrderWrapper2>
@@ -179,8 +192,10 @@ function Order({ orderObject }: orderObjDataProps) {
 
           {/* окошко при отмене заказа*/}
           <Fragment>
-            { String(orderObject.orderStatus) !== "CANCELLED"  && <ButtonMain buttonName="Cancel order" onClick={handleClickOpen} />}
-            
+            {String(orderObject.orderStatus) !== "CANCELLED" && (
+              <ButtonMain buttonName="Cancel order" onClick={handleClickOpen} />
+            )}
+
             <Dialog
               open={openCanselWindow}
               TransitionComponent={Transition}
@@ -208,15 +223,27 @@ function Order({ orderObject }: orderObjDataProps) {
             </Dialog>
           </Fragment>
 
+          {String(orderObject.orderStatus) === "PENDING" && (
+            // <ButtonMain buttonName="Pay order" onClick={}></ButtonMain>
+            // <ButtonMain
+            //   buttonName="Pay"
+            //   onClick={payPendingOrder}
+            // />
+            <ButtonMain
+              buttonName="Proceed to checkout"
+              onClick={addOrderData}
+            />
+          )}
+
           {/* snackbar */}
-          <div>
+          {/* <div> */}
             <Snackbar
               open={openSnackbar}
               autoHideDuration={5000}
-              onClose={handleCloseSnackbar}
+              // onClose={handleCloseSnackbar}
               message={`Order with id:${orderObject.id} was cancelled`}
             />
-          </div>
+          {/* </div> */}
         </AccordionActions>
       </Accordion>
     </OrderWrapper2>

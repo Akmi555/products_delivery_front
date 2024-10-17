@@ -11,14 +11,14 @@ import { ReactNode } from "react"
 // export type PaymentMethod = "CREDIT_CARD" | "PAYPAL" | "BANK_TRANSFER"
 
 export interface OrderSliceState {
-  currentOrder: orderObject | undefined
-  orders: orderObject[]
-  ordersAdmin: orderObject[]
+  currentOrder: OrderObject | undefined
+  orders: OrderObject[]
+  ordersAdmin: OrderObject[]
   error: string | undefined
   isPending: boolean
 }
 
-export interface orderObject {
+export interface OrderObject {
   id: number
   userId: number
   orderTime: string
@@ -33,7 +33,7 @@ export interface orderObject {
 export interface confirmOrder {
   id: number
   address: string
-  deliveryTime: Date
+  deliveryTime: string | Date
   paymentMethod: string
 }
 

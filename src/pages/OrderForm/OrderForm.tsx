@@ -112,7 +112,7 @@ function OrderForm() {
             label="Delivery time*"
             value={String(formik.values.deliveryTime)}
             onChange={formik.handleChange}
-            error={String(formik.errors.deliveryTime)}
+            error={formik.errors.deliveryTime}
           />
           <Box sx={{ minWidth: 120 }}>
             <FormControl fullWidth>
