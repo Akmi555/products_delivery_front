@@ -4,7 +4,7 @@ import { createTheme, ThemeProvider } from "@mui/material"
 
 import { ButtonImg } from "./styles"
 import { ButtonStyledProps } from "./types"
-
+// Test commit and push
 // Augment the palette to include an ochre color
 declare module "@mui/material/styles" {
   interface Palette {
