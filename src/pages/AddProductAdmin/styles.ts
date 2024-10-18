@@ -6,7 +6,7 @@ export const PageWrapper = styled.div`
   ${globalPageStyles}
   justify-content: space-between;
   flex: 1;
-  padding: 40px ;
+  padding: 40px;
 `
 
 export const GoBackButtonWrapper = styled.div`
@@ -57,11 +57,13 @@ export const ImgUploadButtonContainer = styled.div`
   justify-content: center;
   padding: 0 40px 0 40px;
 `
+
 export const ImgCodeContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
 `
+
 export const UploadedImg = styled.img`
   width: 100px;
 `

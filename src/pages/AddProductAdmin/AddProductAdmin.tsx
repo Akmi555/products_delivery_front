@@ -1,14 +1,16 @@
-import { useFormik } from "formik"
-import * as Yup from "yup"
 import { useDispatch } from "react-redux"
 import { useState, useRef } from "react"
-import { Alert} from "@mui/material"
 import { AppDispatch } from "store/store"
+
+import { useFormik } from "formik"
+import * as Yup from "yup"
 
 import ButtonMain from "components/ButtonMain/ButtonMain"
 import Input from "components/Input/Input"
 import Modal from "components/Modal/Modal"
 import InputHidden from "components/InputHidden/InputHidden"
+
+import { Alert } from "@mui/material"
 
 import {
   InputContainer,
@@ -138,7 +140,7 @@ function AddProductAdmin() {
   return (
     <PageWrapper>
       <GoBackButtonWrapper>
-      <GoBackArrowButton/>
+        <GoBackArrowButton />
       </GoBackButtonWrapper>
 
       <NameAndFormWrapper>

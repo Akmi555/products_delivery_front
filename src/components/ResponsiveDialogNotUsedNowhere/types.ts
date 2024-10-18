@@ -3,7 +3,6 @@ import { ButtonStyledProps } from "components/ButtonMain/types"
 export interface MessageButtonProps {
   buttonProps: ButtonStyledProps
   messageProps: MessageProps
-  
 }
 
 export interface MessageProps {

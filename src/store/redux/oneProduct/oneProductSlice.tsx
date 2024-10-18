@@ -1,7 +1,8 @@
 import axios from "axios"
 import { createAppSlice } from "store/createAppSlice"
-import { AddDBObject, OneProductObject, OneProductSliceState } from "./types"
 import axiosConfig from "../../../../axiosConfig"
+
+import { AddDBObject, OneProductSliceState } from "./types"
 
 const oneProductInitialState: OneProductSliceState = {
   currentProduct: undefined,
@@ -26,7 +27,6 @@ export const oneProductSlice = createAppSlice({
         fulfilled: (state: OneProductSliceState, action) => {
           state.isPending = false
           state.currentProduct = action.payload
-          // console.log(action.payload)
         },
         rejected: (state: OneProductSliceState, action) => {
           state.error = action.error.message

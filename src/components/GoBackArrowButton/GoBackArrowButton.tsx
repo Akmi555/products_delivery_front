@@ -1,5 +1,6 @@
 import { IconButton, Tooltip } from "@mui/material"
 import ArrowBackIosRoundedIcon from "@mui/icons-material/ArrowBackIosRounded"
+
 import { GoBackButtonWrapper } from "./styles"
 
 function GoBackArrowButton() {

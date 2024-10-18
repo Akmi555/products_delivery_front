@@ -1,3 +1,14 @@
+import { useNavigate } from "react-router-dom"
+
+import { useAppDispatch, useAppSelector } from "store/hooks"
+import { cartActions } from "store/redux/cart/cartSlice"
+import {
+  userAuthAction,
+  userAuthSelectors,
+} from "store/redux/users/userAuthSlice"
+
+import { Button } from "@mui/material"
+
 import ButtonMain from "components/ButtonMain/ButtonMain"
 import {
   AvatarWrapper,
@@ -14,15 +25,8 @@ import {
   UserCardWrapper,
   UserDataWrapper,
 } from "./styles"
-import { useAppDispatch, useAppSelector } from "store/hooks"
-import { cartActions } from "store/redux/cart/cartSlice"
-import {
-  userAuthAction,
-  userAuthSelectors,
-} from "store/redux/users/userAuthSlice"
+
 import emptyProfileImg from "assets/profile.png"
-import { Button } from "@mui/material"
-import { useNavigate } from "react-router-dom"
 
 function UserCard() {
   const { currentUser } = useAppSelector(userAuthSelectors.userAuthState)

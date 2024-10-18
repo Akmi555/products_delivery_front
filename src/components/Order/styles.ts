@@ -13,9 +13,9 @@ export const DataContainer = styled.div`
   display: flex;
   min-width: 150px;
   max-width: 150px;
-   min-height: 60px;
+  min-height: 60px;
   align-items: center;
-  
+
   /* justify-content: center; */
 `
 export const DataWrapper = styled.div`

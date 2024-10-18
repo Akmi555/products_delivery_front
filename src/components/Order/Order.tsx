@@ -1,13 +1,37 @@
+import { v4 } from "uuid"
+import {
+  Fragment,
+  ReactElement,
+  Ref,
+  forwardRef,
+  useEffect,
+  useState,
+} from "react"
+import { useNavigate } from "react-router-dom"
+
+import { useAppDispatch } from "store/hooks"
+import { oneProductAction } from "store/redux/oneProduct/oneProductSlice"
+import { OneProductObject } from "store/redux/oneProduct/types"
+import { orderAction } from "store/redux/order/orderSlice"
+
 import { getNormalDateAndTimeFromOrderObject } from "pages/AllOrdersAdmin/AllOrdersAdmin"
 import { DataContainer, DataWrapper, OrderWrapper2 } from "./styles"
-import { OrderAndProductData, orderObjDataProps } from "./types"
+import { colors } from "styles/colors"
+import { OrderAndProductData, OrderObjDataProps } from "./types"
+import { orderProduct } from "store/redux/order/types"
+
+import ProductFromOrder from "components/ProductFromOrder/ProductFromOrder"
+import ButtonMain from "components/ButtonMain/ButtonMain"
+
+// для вывода уведомлений в маленьком окошке
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 // для раскрывающегося списка
 import Accordion from "@mui/material/Accordion"
 import AccordionActions from "@mui/material/AccordionActions"
 import AccordionSummary from "@mui/material/AccordionSummary"
 import AccordionDetails from "@mui/material/AccordionDetails"
-import ProductFromOrder from "components/ProductFromOrder/ProductFromOrder"
 
 // для окошка при отмене заказа
 import Button from "@mui/material/Button"
@@ -19,30 +43,6 @@ import DialogTitle from "@mui/material/DialogTitle"
 import Slide from "@mui/material/Slide"
 import { TransitionProps } from "@mui/material/transitions"
 
-// для вывода уведомлений в маленьком окошке
-import { ToastContainer, toast } from "react-toastify"
-import "react-toastify/dist/ReactToastify.css"
-
-import { OrderStatus, orderProduct } from "store/redux/order/types"
-import { v4 } from "uuid"
-import {
-  Fragment,
-  ReactElement,
-  Ref,
-  SyntheticEvent,
-  forwardRef,
-  useEffect,
-  useState,
-} from "react"
-import { useAppDispatch } from "store/hooks"
-import { oneProductAction } from "store/redux/oneProduct/oneProductSlice"
-import { OneProductObject } from "store/redux/oneProduct/types"
-import { colors } from "styles/colors"
-import ButtonMain from "components/ButtonMain/ButtonMain"
-import { orderAction } from "store/redux/order/orderSlice"
-import { cartActions } from "store/redux/cart/cartSlice"
-import { useNavigate } from "react-router-dom"
-
 // для окошка при отмене заказа
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -53,7 +53,7 @@ const Transition = forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />
 })
 
-function Order({ orderObject }: orderObjDataProps) {
+function Order({ orderObject }: OrderObjDataProps) {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const [products, setProducts] = useState<OneProductObject[]>([])
@@ -128,7 +128,8 @@ function Order({ orderObject }: orderObjDataProps) {
   }
 
   // для toastify
-  const notify = () => toast(`Order with id:${orderObject.id} successfully was cancelled`)
+  const notify = () =>
+    toast(`Order with id:${orderObject.id} successfully was cancelled`)
 
   return (
     <OrderWrapper2>

@@ -17,9 +17,9 @@ export const CartItemsWrapper = styled.div`
   gap: 20px;
 `
 export const GoBackButtonWrapper = styled.div`
-   display: flex;
- flex-direction: column;
- display: flex;
+  display: flex;
+  flex-direction: column;
+  display: flex;
   flex-direction: column;
   height: 100%;
 `
@@ -32,7 +32,7 @@ export const TotalAmountContainer = styled.div`
   top: 0;
   justify-content: center;
   gap: 30px;
-  padding: 20px ;
+  padding: 20px;
   margin-top: 60px;
   width: 300px;
   height: 200px;
@@ -47,24 +47,24 @@ export const PriceContainer = styled.div`
   gap: 10px;
 `
 export const LoginMistakeContainer = styled.div`
-display: flex;
-flex: 1;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-gap: 20px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
 `
 export const ScrollUpButtonWrapper = styled.div`
   display: flex;
- flex-direction: column;
- justify-content: flex-end;
+  flex-direction: column;
+  justify-content: flex-end;
 `
 
 export const EmptyCartMessageWrapper = styled.div`
-display: flex;
-flex: 1;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-gap: 20px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
 `

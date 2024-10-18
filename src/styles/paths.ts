@@ -20,7 +20,6 @@ export const paths: PATHS = {
   ALL_USERS: "/allUsers",
 }
 
-
 export enum PaymentMethod {
   CREDIT_CARD,
   PAYPAL,

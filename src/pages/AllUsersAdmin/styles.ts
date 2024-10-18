@@ -11,7 +11,7 @@ export const PageWrapper = styled.div`
 
 export const GoBackButtonWrapper = styled.div`
   display: flex;
-   gap: 100px;
+  gap: 100px;
   /* flex-direction: column;
   height: 100%; */
 `
@@ -38,6 +38,6 @@ export const ButtonContainer = styled.div`
 
 export const ScrollUpButtonWrapper = styled.div`
   display: flex;
- /* flex-direction: column; */
- justify-content: end ;
+  /* flex-direction: column; */
+  justify-content: end;
 `

@@ -1,3 +1,8 @@
+import { useAppDispatch } from "store/hooks"
+import { cartActions } from "store/redux/cart/cartSlice"
+
+import ButtonMain from "components/ButtonMain/ButtonMain"
+
 import {
   ButtonContainer,
   ImgContainer,
@@ -12,12 +17,9 @@ import {
   ProductWeight,
   ProductWrapper,
 } from "./styles"
-import ButtonMain from "components/ButtonMain/ButtonMain"
-import cartWhite from "assets/shopping-cart-white.png"
-import { useAppDispatch } from "store/hooks"
-import { cartActions } from "store/redux/cart/cartSlice"
 import { ProductDescriptionProps } from "./types"
 
+import cartWhite from "assets/shopping-cart-white.png"
 
 function ProductDetailsCard({ productData }: ProductDescriptionProps) {
   const dispatch = useAppDispatch()

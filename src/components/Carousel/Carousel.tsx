@@ -1,43 +1,41 @@
-import React from 'react';
-import Carousel from 'react-material-ui-carousel';
-import { Paper, Button } from '@mui/material';
-
+import Carousel from "react-material-ui-carousel"
+import { Paper, Button } from "@mui/material"
 
 function CarouselMui() {
   var items = [
     {
-      name: 'Random Name #1',
-      description: 'Probably the most random thing you have ever seen!',
+      name: "Random Name #1",
+      description: "Probably the most random thing you have ever seen!",
     },
     {
-      name: 'Random Name #2',
-      description: 'Hello World!',
+      name: "Random Name #2",
+      description: "Hello World!",
     },
     {
-      name: 'Random Name #3',
-      description: 'Another random thing!',
+      name: "Random Name #3",
+      description: "Another random thing!",
     },
-  ];
+  ]
   return (
     <Carousel
       autoPlay={true}
       interval={5000}
-    //   timeout={1000}
+      //   timeout={1000}
       indicatorIconButtonProps={{
         style: {
-          padding: '10px',
-          color: 'white',
+          padding: "10px",
+          color: "white",
         },
       }}
       activeIndicatorIconButtonProps={{
         style: {
-          backgroundColor: 'black',
+          backgroundColor: "black",
         },
       }}
       indicatorContainerProps={{
         style: {
-          marginTop: '50px',
-          textAlign: 'right',
+          marginTop: "50px",
+          textAlign: "right",
         },
       }}
     >
@@ -49,7 +47,7 @@ function CarouselMui() {
         </Paper>
       ))}
     </Carousel>
-  );
-};
+  )
+}
 
-export default CarouselMui;
+export default CarouselMui
