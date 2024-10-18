@@ -25,6 +25,7 @@ import AllProductsAdmin from "pages/AllProductsAdmin/AllProductsAdmin"
 import OrderForm from "pages/OrderForm/OrderForm"
 import AllOrdersAdmin from "pages/AllOrdersAdmin/AllOrdersAdmin"
 import PaymentSuccess from "pages/Payment/PaymentSuccess"
+import AboutUs from "pages/AboutUs/AboutUs"
 
 import GlobalStyles from "styles/GlobalStyles"
 
@@ -61,6 +62,7 @@ function App() {
             <Route path="/all-products-admin" element={<AllProductsAdmin />} />
             <Route path="/order-form" element={<OrderForm />} />
             <Route path="/payment/success" element={<PaymentSuccess />} />
+            <Route path="/about-us" element={<AboutUs />} />
             <Route path="*" element={"error 404 - Page not found"} />
           </Routes>
         </QueryParamProvider>
