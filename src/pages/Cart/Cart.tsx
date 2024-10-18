@@ -1,8 +1,21 @@
-import CartComponent from "components/CartComponent/CartComponent"
+import { useEffect, useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import { v4 } from "uuid"
+
 import { useAppDispatch, useAppSelector } from "store/hooks"
 import { cartActions, cartSelectors } from "store/redux/cart/cartSlice"
+import { oneProductAction } from "store/redux/oneProduct/oneProductSlice"
+import { OneProductObject } from "store/redux/oneProduct/types"
+import { orderAction } from "store/redux/order/orderSlice"
 
-import { v4 } from "uuid"
+import ButtonMain from "components/ButtonMain/ButtonMain"
+import CartComponent from "components/CartComponent/CartComponent"
+import ScrollUpArrowButton from "components/ScrollUpArrowButton/ScrollUpArrowButton"
+import GoBackArrowButton from "components/GoBackArrowButton/GoBackArrowButton"
+
+import { IconButton, Stack, Tooltip } from "@mui/material"
+import { GridDeleteIcon } from "@mui/x-data-grid"
+
 import {
   Amount,
   CartItemsWrapper,
@@ -15,17 +28,7 @@ import {
   ScrollUpButtonWrapper,
   EmptyCartMessageWrapper,
 } from "./styles"
-import { useEffect, useState } from "react"
-import { oneProductAction } from "store/redux/oneProduct/oneProductSlice"
 import { CartAndProductData } from "./types"
-import { OneProductObject } from "store/redux/oneProduct/types"
-import ButtonMain from "components/ButtonMain/ButtonMain"
-import { Link, useNavigate } from "react-router-dom"
-import { IconButton, Stack, Tooltip } from "@mui/material"
-import { GridDeleteIcon } from "@mui/x-data-grid"
-import { orderAction } from "store/redux/order/orderSlice"
-import ScrollUpArrowButton from "components/ScrollUpArrowButton/ScrollUpArrowButton"
-import GoBackArrowButton from "components/GoBackArrowButton/GoBackArrowButton"
 
 function Cart() {
   const dispatch = useAppDispatch()
@@ -88,6 +91,7 @@ function Cart() {
       fetchProducts()
     }, [])
   } else {
+  // !! нужен ли тут консоль лог? 
     console.log("user is not logged in")
   }
 

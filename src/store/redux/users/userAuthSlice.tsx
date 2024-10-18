@@ -1,7 +1,8 @@
 import axios from "axios"
 import { createAppSlice } from "store/createAppSlice"
-import { UserAuthSliceState, LoginData } from "./types"
 import axiosConfig from "../../../../axiosConfig"
+
+import { UserAuthSliceState, LoginData } from "./types"
 
 const userAuthInitialState: UserAuthSliceState = {
   currentUser: undefined,

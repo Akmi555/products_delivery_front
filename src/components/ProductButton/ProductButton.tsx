@@ -1,4 +1,4 @@
-import { ButtonImg, ButtonStyled} from "./styles"
+import { ButtonImg, ButtonStyled } from "./styles"
 import { ButtonStyledProps } from "./types"
 
 function ProductButton({
@@ -10,9 +10,8 @@ function ProductButton({
   return (
     <ButtonStyled type={type} onClick={onClick}>
       {buttonName}
-    
-        {imgSrc && <ButtonImg alt="" src={imgSrc}/>}
-     
+
+      {imgSrc && <ButtonImg alt="" src={imgSrc} />}
     </ButtonStyled>
   )
 }

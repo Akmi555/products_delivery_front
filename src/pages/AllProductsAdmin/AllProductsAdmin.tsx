@@ -1,22 +1,27 @@
+import { useEffect, useState } from "react"
+
 import { useAppDispatch, useAppSelector } from "store/hooks"
+import { oneProductAction } from "store/redux/oneProduct/oneProductSlice"
+import { ProductObject } from "store/redux/allProducts/types"
 import {
   productsAction,
   productsSelectors,
 } from "store/redux/allProducts/allProductsSlice"
 
 import { DataGrid, GridColDef, GridDeleteIcon } from "@mui/x-data-grid"
-import { Paper } from "@mui/material"
+import { Paper, IconButton } from "@mui/material"
 
-import { ProductObject } from "store/redux/allProducts/types"
-import { useEffect, useState } from "react"
-import { GoBackButtonWrapper, PageWrapper, ScrollUpButtonWrapper } from "./styles"
-import { IconButton } from "@mui/material"
-import { oneProductAction } from "store/redux/oneProduct/oneProductSlice"
 import GoBackArrowButton from "components/GoBackArrowButton/GoBackArrowButton"
 import ScrollUpArrowButton from "components/ScrollUpArrowButton/ScrollUpArrowButton"
 
+import {
+  GoBackButtonWrapper,
+  PageWrapper,
+  ScrollUpButtonWrapper,
+} from "./styles"
+
 function AllProductsAdmin() {
-//   const [allProducts, setAllProducts] = useState([])
+  //   const [allProducts, setAllProducts] = useState([])
   const dispatch = useAppDispatch()
 
   // const { currentProduct, accessToken } = useAppSelector()
@@ -69,9 +74,9 @@ function AllProductsAdmin() {
     },
   ]
 
-  const [currentPage, setCurrentPage] = useState<number>(1)
+  const [currentPage] = useState<number>(1)
   const [pageSize] = useState<number>(20)
-  const [pageQuantity, setPageQuantity] = useState<number>(1)
+  const [pageQuantity] = useState<number>(1)
 
   const rows = products.map((obj: ProductObject) => {
     return {
@@ -95,7 +100,7 @@ function AllProductsAdmin() {
   return (
     <PageWrapper>
       <GoBackButtonWrapper>
-        <GoBackArrowButton/>
+        <GoBackArrowButton />
         <h1>All products</h1>
       </GoBackButtonWrapper>
       <Paper sx={{ height: "100%", width: "100%" }}>
@@ -109,7 +114,7 @@ function AllProductsAdmin() {
         />
       </Paper>
       <ScrollUpButtonWrapper>
-        <ScrollUpArrowButton/>
+        <ScrollUpArrowButton />
       </ScrollUpButtonWrapper>
     </PageWrapper>
   )

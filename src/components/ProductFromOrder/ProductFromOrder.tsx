@@ -1,20 +1,22 @@
-import { ProductFromOrderProps } from "./types"
-import { DataContainer, ImgContainer, ProductFromOrderWrapper, ProductImg } from "./styles"
-import ProductButton from "components/ProductButton/ProductButton"
 import { useNavigate } from "react-router-dom"
+
+import ProductButton from "components/ProductButton/ProductButton"
+
+import { DataContainer, ImgContainer, ProductFromOrderWrapper } from "./styles"
+import { ProductFromOrderProps } from "./types"
 
 function ProductFromOrder({ orderProduct }: ProductFromOrderProps) {
   const navigate = useNavigate()
   const openCurrentProduct = () => {
     navigate(`/${orderProduct.id}`)
   }
-  
+
   return (
     <ProductFromOrderWrapper>
       <DataContainer>
         <ImgContainer>
           <ProductButton
-          onClick={openCurrentProduct}
+            onClick={openCurrentProduct}
             imgSrc={`/api/files/download/${orderProduct.photoLink}`}
           />
           {/* <ProductImg src={`/api/files/download/${orderProduct.photoLink}`} /> */}

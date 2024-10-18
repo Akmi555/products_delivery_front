@@ -1,31 +1,26 @@
 import { useAppDispatch, useAppSelector } from "store/hooks"
 import { usersAction, usersSelectors } from "store/redux/allUsers/allUsersSlice"
-import { userAuthSelectors } from "store/redux/users/userAuthSlice"
 
 import { DataGrid, GridColDef, GridDeleteIcon } from "@mui/x-data-grid"
 import Paper from "@mui/material/Paper"
+import { IconButton } from "@mui/material"
 
-import { UserObject } from "store/redux/allUsers/types"
+import GoBackArrowButton from "components/GoBackArrowButton/GoBackArrowButton"
+import ScrollUpArrowButton from "components/ScrollUpArrowButton/ScrollUpArrowButton"
+
 import { useEffect, useState } from "react"
 import {
   GoBackButtonWrapper,
   PageWrapper,
   ScrollUpButtonWrapper,
 } from "./styles"
-import { IconButton } from "@mui/material"
-import GoBackArrowButton from "components/GoBackArrowButton/GoBackArrowButton"
-import ScrollUpArrowButton from "components/ScrollUpArrowButton/ScrollUpArrowButton"
+import { UserObject } from "store/redux/allUsers/types"
 
 function AllUsers() {
   const dispatch = useAppDispatch()
 
-  const { currentUser, accessToken } = useAppSelector(
-    userAuthSelectors.userAuthState,
-  )
-  const currentUserID: number | undefined = currentUser?.id
-
   // для работы таблицы из  MUI
-  const { users, totalPages } = useAppSelector(usersSelectors.usersState)
+  const { users } = useAppSelector(usersSelectors.usersState)
   const columns: GridColDef[] = [
     {
       field: "id",
@@ -87,9 +82,9 @@ function AllUsers() {
     },
   ]
 
-  const [currentPage, setCurrentPage] = useState<number>(1)
-  const [pageSize] = useState<number>(20)
-  const [pageQuantity, setPageQuantity] = useState<number>(1)
+  const [currentPage] = useState<number>(1)
+
+  const [pageQuantity] = useState<number>(1)
 
   const rows = users.map((obj: UserObject) => {
     return {

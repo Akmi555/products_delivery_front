@@ -1,17 +1,20 @@
+import { useEffect } from "react"
+
 import { useAppDispatch, useAppSelector } from "store/hooks"
 import { orderAction, orderSelector } from "store/redux/order/orderSlice"
+import { OrderObject } from "store/redux/order/types"
 
 import { DataGrid, GridColDef } from "@mui/x-data-grid"
 import Paper from "@mui/material/Paper"
-import { useEffect } from "react"
-import { OrderObject } from "store/redux/order/types"
+
+import GoBackArrowButton from "components/GoBackArrowButton/GoBackArrowButton"
+import ScrollUpArrowButton from "components/ScrollUpArrowButton/ScrollUpArrowButton"
+
 import {
   GoBackButtonWrapper,
   PageWrapper,
   ScrollUpButtonWrapper,
 } from "./styles"
-import GoBackArrowButton from "components/GoBackArrowButton/GoBackArrowButton"
-import ScrollUpArrowButton from "components/ScrollUpArrowButton/ScrollUpArrowButton"
 
 export function getNormalDateAndTimeFromOrderObject(dateInString: string) {
   const year: string = dateInString?.slice(0, 4)

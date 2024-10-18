@@ -1,3 +1,21 @@
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { useAppDispatch, useAppSelector } from "store/hooks"
+import { productsSelectors } from "store/redux/allProducts/allProductsSlice"
+import { cartActions } from "store/redux/cart/cartSlice"
+
+import ButtonMain from "components/ButtonMain/ButtonMain"
+import ProductButton from "components/ProductButton/ProductButton"
+
+import { Tooltip } from "@mui/material"
+import Dialog from "@mui/material/Dialog"
+import DialogActions from "@mui/material/DialogActions"
+import DialogContent from "@mui/material/DialogContent"
+import DialogContentText from "@mui/material/DialogContentText"
+import DialogTitle from "@mui/material/DialogTitle"
+import useMediaQuery from "@mui/material/useMediaQuery"
+import { useTheme } from "@mui/material/styles"
+
 import {
   ButtonContainer,
   ImgContainer,
@@ -8,25 +26,9 @@ import {
   ProductWeight,
   ProductWrapper,
 } from "./styles"
-import ButtonMain from "components/ButtonMain/ButtonMain"
-import cartWhite from "assets/shopping-cart-white.png"
-import { useAppDispatch, useAppSelector } from "store/hooks"
-import ProductButton from "components/ProductButton/ProductButton"
-import { useNavigate } from "react-router-dom"
-
-import { cartActions } from "store/redux/cart/cartSlice"
 import { ProductCardProps } from "./types"
-import { Tooltip } from "@mui/material"
-import { useState } from "react"
 
-import Dialog from "@mui/material/Dialog"
-import DialogActions from "@mui/material/DialogActions"
-import DialogContent from "@mui/material/DialogContent"
-import DialogContentText from "@mui/material/DialogContentText"
-import DialogTitle from "@mui/material/DialogTitle"
-import useMediaQuery from "@mui/material/useMediaQuery"
-import { useTheme } from "@mui/material/styles"
-import { productsSelectors } from "store/redux/allProducts/allProductsSlice"
+import cartWhite from "assets/shopping-cart-white.png"
 
 function ProductCard({ productData }: ProductCardProps) {
   const dispatch = useAppDispatch()

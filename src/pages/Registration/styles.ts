@@ -17,7 +17,7 @@ export const PageName = styled.h4`
 export const RegistrationContainer = styled.form`
   display: flex;
   flex-direction: column;
-  
+
   margin: 50px;
   width: 590px;
   min-height: 450px;

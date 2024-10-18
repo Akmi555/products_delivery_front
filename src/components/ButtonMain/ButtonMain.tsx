@@ -1,8 +1,9 @@
-import { ButtonImg } from "./styles"
-import { ButtonStyledProps } from "./types"
 import Stack from "@mui/material/Stack"
 import Button from "@mui/material/Button"
 import { createTheme, ThemeProvider } from "@mui/material"
+
+import { ButtonImg } from "./styles"
+import { ButtonStyledProps } from "./types"
 
 // Augment the palette to include an ochre color
 declare module "@mui/material/styles" {

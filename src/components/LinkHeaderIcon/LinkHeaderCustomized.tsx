@@ -8,7 +8,7 @@ function LinkHeaderCustomized({
   whiteImg,
   greenImg,
   linkText,
-  children
+  children,
 }: LinkHeaderCustomizedProps) {
   const match = useMatch(to)
 
@@ -22,5 +22,3 @@ function LinkHeaderCustomized({
   )
 }
 export default LinkHeaderCustomized
-
-

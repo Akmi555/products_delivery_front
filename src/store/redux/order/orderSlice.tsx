@@ -1,7 +1,8 @@
 import { createAppSlice } from "store/createAppSlice"
-import { OrderSliceState, confirmOrder, OrderObject } from "./types"
 import axiosConfig from "../../../../axiosConfig"
 import { PayloadAction } from "@reduxjs/toolkit"
+
+import { OrderSliceState, confirmOrder, OrderObject } from "./types"
 
 const orderInitialState: OrderSliceState = {
   currentOrder: undefined,

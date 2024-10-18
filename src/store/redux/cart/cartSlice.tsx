@@ -1,7 +1,6 @@
 import { createAppSlice } from "store/createAppSlice"
-import { CartSliceState, ChangeProductAmountData } from "./types"
 import axiosConfig from "../../../../axiosConfig"
-import { isAction } from "@reduxjs/toolkit"
+import { CartSliceState, ChangeProductAmountData } from "./types"
 
 const cartInitialState: CartSliceState = {
   currentProductFromCart: undefined,
@@ -118,7 +117,6 @@ export const cartSlice = createAppSlice({
           state.allProductsFromCart = state.allProductsFromCart.filter(
             p => p.productId !== action.payload.productId,
           )
-          console.log("продукты из корзины переписались в стейте ")
         },
         rejected: (state: CartSliceState, action) => {
           state.error = action.error.message

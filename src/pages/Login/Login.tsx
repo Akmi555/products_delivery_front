@@ -1,17 +1,24 @@
+import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { Link, useNavigate } from "react-router-dom"
+import * as React from 'react';
+
 import { useFormik } from "formik"
 import * as Yup from "yup"
-import { Alert } from "@mui/material"
-import { useEffect, useState } from "react"
-import { useDispatch } from "react-redux"
 import { AppDispatch } from "store/store"
-
-import Input from "components/Input/Input"
-import Modal from "components/Modal/Modal"
-import ButtonMain from "components/ButtonMain/ButtonMain"
+import { useAppSelector } from "store/hooks"
+import { cartActions } from "store/redux/cart/cartSlice"
+import { orderAction } from "store/redux/order/orderSlice"
 import {
   userAuthAction,
   userAuthSelectors,
 } from "store/redux/users/userAuthSlice"
+
+import { Alert } from "@mui/material"
+
+import Input from "components/Input/Input"
+import Modal from "components/Modal/Modal"
+import ButtonMain from "components/ButtonMain/ButtonMain"
 
 import {
   ButtonContainer,
@@ -20,20 +27,26 @@ import {
   PageName,
   PageWrapper,
 } from "./styles"
-import { Link, useNavigate } from "react-router-dom"
-import { useAppSelector } from "store/hooks"
-import { cartActions } from "store/redux/cart/cartSlice"
-import { orderAction } from "store/redux/order/orderSlice"
 
 function Login() {
   const dispatch = useDispatch<AppDispatch>()
   const [isModalOpen, setModalOpen] = useState<boolean>(false)
   const navigate = useNavigate()
-  const { currentUser, error, accessToken } = useAppSelector(
-    userAuthSelectors.userAuthState,
-  )
+  const { error } = useAppSelector(userAuthSelectors.userAuthState)
 
   let EMAIL_REGX = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
+
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
+
+  const handleMouseUpPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
 
   const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -88,7 +101,7 @@ function Login() {
           <Input
             id="password-id"
             name="password"
-            type="text"
+            type="password"
             label="Password*"
             value={formik.values.password}
             onChange={formik.handleChange}

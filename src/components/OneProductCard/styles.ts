@@ -23,7 +23,7 @@ export const ProductMainInfoContainer = styled.div`
   flex-direction: column;
   gap: 10px;
   width: 100%;
-  width: 200px ;
+  width: 200px;
 `
 
 export const LinkProductCard = styled(Link)`
@@ -69,6 +69,6 @@ export const ButtonContainer = styled.div`
 export const ProductDescriptionContainer = styled.div`
   display: flex;
   flex-direction: column;
- gap: 20px;
+  gap: 20px;
 `
 export const ProductDescription = styled.div``

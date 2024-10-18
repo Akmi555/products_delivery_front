@@ -1,18 +1,17 @@
-import { OrderObject } from "store/redux/order/types";
+import { OrderObject } from "store/redux/order/types"
 
-
-export interface orderObjDataProps {
-    orderObject: OrderObject
+export interface OrderObjDataProps {
+  orderObject: OrderObject
 }
 
 export interface OrderAndProductData {
-    id: number
-    title: string
-    price: number
-    productCode: string
-    minQuantity: string
-    description: string
-    photoLink: string | undefined
-    productQuantity: number
-    sum: number
-  }
+  id: number
+  title: string
+  price: number
+  productCode: string
+  minQuantity: string
+  description: string
+  photoLink: string | undefined
+  productQuantity: number
+  sum: number
+}
