@@ -19,9 +19,6 @@ import DialogTitle from "@mui/material/DialogTitle"
 import Slide from "@mui/material/Slide"
 import { TransitionProps } from "@mui/material/transitions"
 
-// для snackbar
-import Snackbar, { SnackbarCloseReason } from "@mui/material/Snackbar"
-
 import { OrderStatus, orderProduct } from "store/redux/order/types"
 import { v4 } from "uuid"
 import {
@@ -57,10 +54,6 @@ function Order({ orderObject }: orderObjDataProps) {
   const navigate = useNavigate()
   const [products, setProducts] = useState<OneProductObject[]>([])
 
-  // const cancelOrderData: updateOrder = {
-  //   orderId: orderObject.id,
-  //   orderStatus: "CANCELLED",
-  // }
   // orderObject - это сам заказ, внутри есть массив из orderProduct
   const orderProductArray: orderProduct[] = orderObject.orderProducts
 
@@ -102,70 +95,32 @@ function Order({ orderObject }: orderObjDataProps) {
     })
     .filter(item => item.productQuantity > 0)
 
-  //отображение элементов корзины
-  const ordersAllProducts = orderAndProductDat.map(
-    (obj: OrderAndProductData) => (
-      <ProductFromOrder key={v4()} orderProduct={obj} />
-    ),
-  )
-
   // для оплаты заказа который в статусе pending
   const addOrderData = () => {
-    // тут положить данные этого ордера в currentOrder
+    dispatch(orderAction.putToCurrentOrder(orderObject))
     navigate("/order-form")
   }
 
   // для окошка при отмене заказа
-  const [openCanselWindow, setOpenCanselWindow] = useState(false)
+  const [openCancelWindow, setOpenCanselWindow] = useState(false)
 
   const handleClickOpen = () => {
     setOpenCanselWindow(true)
   }
 
-  const handleCanselOrder = async () => {
+  const handleCancelOrder = async () => {
     setOpenCanselWindow(false)
     const dispatchResult = await dispatch(
       orderAction.cancelOrder(orderObject.id),
     )
     if (orderAction.cancelOrder.fulfilled.match(dispatchResult)) {
-      // dispatch(orderAction.getOrders())
-      // ! ЭТО НЕ РАБОТАЕТ, openSnackbar все равно остается FALSE
-      setOpenSnackbar(true)
-      // console.log(openSnackbar)
-
-      // а вот так почему то работает
-      // const handleClick = () => {
-      //   setOpenSnackbar(true)
-      // }
+      dispatch(orderAction.getOrders())
     }
   }
 
   const handleClose = () => {
     setOpenCanselWindow(false)
   }
-
-  // для snackbar
-  const [openSnackbar, setOpenSnackbar] = useState<boolean>(false)
-
-  const handleClick = () => {
-    setOpenSnackbar(true)
-  }
-
-  const handleCloseSnackbar = (
-    event: SyntheticEvent | Event,
-    reason?: SnackbarCloseReason,
-  ) => {
-    if (reason === "clickaway") {
-      return
-    }
-
-    setOpenSnackbar(false)
-  }
-
-  useEffect(() => {
-    console.log("lalala")
-  }, [openSnackbar])
-
   return (
     <OrderWrapper2>
       <Accordion sx={{ borderRadius: 50 }}>
@@ -186,10 +141,13 @@ function Order({ orderObject }: orderObjDataProps) {
             <DataContainer> {orderObject.orderStatus}</DataContainer>
           </DataWrapper>
         </AccordionSummary>
-        <AccordionDetails>{ordersAllProducts}</AccordionDetails>
+        {/* отображение элементов корзины */}
+        <AccordionDetails>
+          {orderAndProductDat.map((obj: OrderAndProductData) => (
+            <ProductFromOrder key={v4()} orderProduct={obj} />
+          ))}
+        </AccordionDetails>
         <AccordionActions>
-          {/* <ButtonMain buttonName="Cancel order" onClick={canselOrder} /> */}
-
           {/* окошко при отмене заказа*/}
           <Fragment>
             {String(orderObject.orderStatus) !== "CANCELLED" && (
@@ -197,7 +155,7 @@ function Order({ orderObject }: orderObjDataProps) {
             )}
 
             <Dialog
-              open={openCanselWindow}
+              open={openCancelWindow}
               TransitionComponent={Transition}
               keepMounted
               onClose={handleClose}
@@ -215,35 +173,20 @@ function Order({ orderObject }: orderObjDataProps) {
                 <Button onClick={handleClose}>Close window</Button>
                 <Button
                   sx={{ color: "rgb(255, 0, 0)" }}
-                  onClick={handleCanselOrder}
+                  onClick={handleCancelOrder}
                 >
-                  Cansel order
+                  Cancel order
                 </Button>
               </DialogActions>
             </Dialog>
           </Fragment>
 
           {String(orderObject.orderStatus) === "PENDING" && (
-            // <ButtonMain buttonName="Pay order" onClick={}></ButtonMain>
-            // <ButtonMain
-            //   buttonName="Pay"
-            //   onClick={payPendingOrder}
-            // />
             <ButtonMain
               buttonName="Proceed to checkout"
               onClick={addOrderData}
             />
           )}
-
-          {/* snackbar */}
-          {/* <div> */}
-            <Snackbar
-              open={openSnackbar}
-              autoHideDuration={5000}
-              // onClose={handleCloseSnackbar}
-              message={`Order with id:${orderObject.id} was cancelled`}
-            />
-          {/* </div> */}
         </AccordionActions>
       </Accordion>
     </OrderWrapper2>

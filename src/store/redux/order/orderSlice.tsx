@@ -1,10 +1,5 @@
 import { createAppSlice } from "store/createAppSlice"
-import {
-  OrderSliceState,
-  confirmOrder,
-  OrderObject,
-  updateOrder,
-} from "./types"
+import { OrderSliceState, confirmOrder, OrderObject } from "./types"
 import axiosConfig from "../../../../axiosConfig"
 import { PayloadAction } from "@reduxjs/toolkit"
 
@@ -33,7 +28,7 @@ export const orderSlice = createAppSlice({
         fulfilled: (state: OrderSliceState, action) => {
           state.isPending = false
           state.currentOrder = action.payload
-          // очищать корзину , вызвать на странице где это происходит через диспатч
+          // и еще надо очищать корзину , вызвать метод на странице где это происходит через диспатч
         },
         rejected: (state: OrderSliceState, action) => {
           state.error = action.error.message
@@ -142,37 +137,14 @@ export const orderSlice = createAppSlice({
         },
       },
     ),
-    putToCurrentOrder: create.reducer((state: OrderSliceState, action: PayloadAction< OrderObject>)=> 
-    {state.currentOrder = action.payload }
+    putToCurrentOrder: create.reducer(
+      (state: OrderSliceState, action: PayloadAction<OrderObject>) => {
+        state.currentOrder = action.payload
+      },
     ),
-    // updateOrder: create.asyncThunk(
-    //   async (payload: updateOrder) => {
-    //     const response = await axiosConfig.put(
-    //       `/api/orders/${payload.orderId}`,
-    //       {
-    //         orderStatus: payload.orderStatus,
-    //       },
-    //     )
-    //     return response.data
-    //   },
-    //   {
-    //     pending: (state: OrderSliceState) => {
-    //       state.error = undefined
-    //       state.isPending = true
-    //     },
-    //     fulfilled: (state: OrderSliceState, action) => {
-    //       state.currentOrder = action.payload
-    //       state.isPending = false
-    //     },
-    //     rejected: (state: OrderSliceState, action) => {
-    //       state.error = action.error.message
-    //       state.isPending = false
-    //     },
-    //   },
-    // ),
     cancelOrder: create.asyncThunk(
       async (orderId: number) => {
-        const response = await axiosConfig.post(`/api/order/${orderId}/cancel`)
+        const response = await axiosConfig.put(`/api/order/${orderId}/cancel`)
         return response.data
       },
       {
