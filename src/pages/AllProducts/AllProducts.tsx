@@ -1,21 +1,24 @@
 import { useEffect, useState } from "react"
+import { v4 } from "uuid"
+
+import { useAppDispatch, useAppSelector } from "store/hooks"
+import { ProductObject } from "store/redux/allProducts/types"
+import {
+  productsAction,
+  productsSelectors,
+} from "store/redux/allProducts/allProductsSlice"
+
+import ProductCard from "components/ProductCard/ProductCard"
+import ScrollUpArrowButton from "components/ScrollUpArrowButton/ScrollUpArrowButton"
+
+import { Container, Pagination, Stack } from "@mui/material"
+
 import {
   GoBackButtonWrapper,
   PageWrapper,
   PaginatorWrapper,
   ProductCardsWrapper,
 } from "./styles"
-import ProductCard from "components/ProductCard/ProductCard"
-import { useAppDispatch, useAppSelector } from "store/hooks"
-import {
-  productsAction,
-  productsSelectors,
-} from "store/redux/allProducts/allProductsSlice"
-
-import { ProductObject } from "store/redux/allProducts/types"
-import { v4 } from "uuid"
-import { Container, Pagination, Stack } from "@mui/material"
-import ScrollUpArrowButton from "components/ScrollUpArrowButton/ScrollUpArrowButton"
 
 function AllProducts() {
   const dispatch = useAppDispatch()

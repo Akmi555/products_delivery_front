@@ -1,4 +1,16 @@
+import { Link } from "react-router-dom"
+import { useEffect } from "react"
+import { v4 } from "uuid"
+
+import { orderAction, orderSelector } from "store/redux/order/orderSlice"
 import { useAppDispatch, useAppSelector } from "store/hooks"
+
+import UserCard from "components/UserCard/UserCard"
+import Order from "components/Order/Order"
+import GoBackArrowButton from "components/GoBackArrowButton/GoBackArrowButton"
+import ScrollUpArrowButton from "components/ScrollUpArrowButton/ScrollUpArrowButton"
+
+import { LoginMistakeContainer } from "pages/Cart/styles"
 import {
   GoBackButtonUserCardWrapper,
   GoBackButtonWrapper,
@@ -9,15 +21,6 @@ import {
   TitleOrder,
   UseProfileWrapper,
 } from "./styles"
-import { LoginMistakeContainer } from "pages/Cart/styles"
-import { Link } from "react-router-dom"
-import { useEffect } from "react"
-import UserCard from "components/UserCard/UserCard"
-import { orderAction, orderSelector } from "store/redux/order/orderSlice"
-import Order from "components/Order/Order"
-import { v4 } from "uuid"
-import GoBackArrowButton from "components/GoBackArrowButton/GoBackArrowButton"
-import ScrollUpArrowButton from "components/ScrollUpArrowButton/ScrollUpArrowButton"
 
 function UserProfile() {
   // получение айди залогиненного пользователя для отображения корзины (запрос находится в useEffect ниже)

@@ -1,6 +1,6 @@
 import axios from "axios"
 import { createAppSlice } from "store/createAppSlice"
-import { CartObject, ProductsSliceState } from "./types"
+import { ProductsSliceState } from "./types"
 
 const productsInitialState: ProductsSliceState = {
   currentProduct: undefined,

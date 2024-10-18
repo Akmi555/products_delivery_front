@@ -1,15 +1,14 @@
+import { useState } from "react"
+
 import { useFormik } from "formik"
 import * as Yup from "yup"
+
 import { useAppDispatch, useAppSelector } from "store/hooks"
 import { orderAction, orderSelector } from "store/redux/order/orderSlice"
-import {
-  ButtonContainer,
-  InputContainer,
-  PageName,
-  PageWrapper,
-  RegistrationContainer,
-} from "./styles"
+
+import ButtonMain from "components/ButtonMain/ButtonMain"
 import Input from "components/Input/Input"
+
 import {
   Box,
   FormControl,
@@ -18,11 +17,8 @@ import {
   Select,
   SelectChangeEvent,
 } from "@mui/material"
-// import { PaymentMethod } from "store/redux/order/types"
-import { useState } from "react"
-import ButtonMain from "components/ButtonMain/ButtonMain"
-// для окна об успешном заказе
 
+// для окна об успешном заказе
 import { styled } from "@mui/material/styles"
 import Dialog from "@mui/material/Dialog"
 import DialogTitle from "@mui/material/DialogTitle"
@@ -31,11 +27,18 @@ import IconButton from "@mui/material/IconButton"
 import CloseIcon from "@mui/icons-material/Close"
 import Typography from "@mui/material/Typography"
 
+import {
+  ButtonContainer,
+  InputContainer,
+  PageName,
+  PageWrapper,
+  RegistrationContainer,
+} from "./styles"
+
 function OrderForm() {
   const dispatch = useAppDispatch()
   const { currentOrder } = useAppSelector(orderSelector.orderState)
   const currentOrderID: number = currentOrder ? currentOrder.id : 0
-  let date = new Date(Date.now())
 
   // для окна об успешном создании заказа
   const BootstrapDialog = styled(Dialog)(({ theme }) => ({

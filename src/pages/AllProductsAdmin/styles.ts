@@ -17,8 +17,8 @@ export const GoBackButtonWrapper = styled.div`
 `
 export const ScrollUpButtonWrapper = styled.div`
   display: flex;
- /* flex-direction: column; */
- justify-content: end ;
+  /* flex-direction: column; */
+  justify-content: end;
 `
 
 // export const ProductCardsWrapper = styled.div`

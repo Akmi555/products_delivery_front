@@ -1,4 +1,9 @@
 import * as React from "react"
+
+import ButtonMain from "components/ButtonMain/ButtonMain"
+
+import { MessageButtonProps } from "./types"
+
 import Button from "@mui/material/Button"
 import Dialog from "@mui/material/Dialog"
 import DialogActions from "@mui/material/DialogActions"
@@ -7,8 +12,6 @@ import DialogContentText from "@mui/material/DialogContentText"
 import DialogTitle from "@mui/material/DialogTitle"
 import useMediaQuery from "@mui/material/useMediaQuery"
 import { useTheme } from "@mui/material/styles"
-import ButtonMain from "components/ButtonMain/ButtonMain"
-import { MessageButtonProps } from "./types"
 
 export default function ResponsiveDialog(
   {buttonProps,messageProps } : MessageButtonProps

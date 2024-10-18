@@ -1,24 +1,26 @@
 import { useAppDispatch, useAppSelector } from "store/hooks"
-import { cartObjProps } from "./types"
+import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+
+import { cartActions, cartSelectors } from "store/redux/cart/cartSlice"
+
+import { IconButton, Stack, Tooltip } from "@mui/material"
+import DeleteIcon from "@mui/icons-material/Delete"
+
+import ButtonMain from "components/ButtonMain/ButtonMain"
+import ProductButton from "components/ProductButton/ProductButton"
+
 import {
   Counter,
-  Img,
   ImgContainer,
   InfoContainer,
-  Name,
   Price,
   PriceContainer,
   ProductWrapper,
   SelectContainer,
   Amount,
 } from "./styles"
-import { IconButton, Stack, Tooltip } from "@mui/material"
-import DeleteIcon from "@mui/icons-material/Delete"
-import { useState } from "react"
-import ButtonMain from "components/ButtonMain/ButtonMain"
-import { cartActions, cartSelectors } from "store/redux/cart/cartSlice"
-import ProductButton from "components/ProductButton/ProductButton"
+import { cartObjProps } from "./types"
 
 function CartComponent({ cartObjData }: cartObjProps) {
   const dispatch = useAppDispatch()
@@ -68,15 +70,15 @@ function CartComponent({ cartObjData }: cartObjProps) {
   return (
     <ProductWrapper>
       <ImgContainer>
-      <ProductButton
-            type="button"
-            imgSrc={photoLink}
-            onClick={openCurrentProduct}
-          ></ProductButton>
+        <ProductButton
+          type="button"
+          imgSrc={photoLink}
+          onClick={openCurrentProduct}
+        ></ProductButton>
         {/* <Img src={photoLink}></Img> */}
       </ImgContainer>
       <InfoContainer>
-      <ProductButton
+        <ProductButton
           type="button"
           buttonName={title}
           onClick={openCurrentProduct}

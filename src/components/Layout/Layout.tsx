@@ -1,3 +1,17 @@
+import { useMatch } from "react-router-dom"
+import { useAppSelector } from "store/hooks"
+import { cartSelectors } from "store/redux/cart/cartSlice"
+import { userAuthSelectors } from "store/redux/users/userAuthSlice"
+
+import Badge, { BadgeProps } from "@mui/material/Badge"
+import { styled } from "@mui/material/styles"
+import AccessTimeIcon from "@mui/icons-material/AccessTime"
+import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet"
+import LocalShippingIcon from "@mui/icons-material/LocalShipping"
+import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium"
+
+import LinkHeaderCustomized from "components/LinkHeaderIcon/LinkHeaderCustomized"
+
 import {
   Footer,
   CompanyInfoContainer,
@@ -18,26 +32,13 @@ import {
   TextBold,
   TextNormal,
 } from "./styles"
+import { LayoutProps } from "./types"
+
 import logoWhite from "assets/logo-white.png"
 import userWhite from "assets/user-white.png"
 import cartWhite from "assets/shopping-cart-white.png"
 import userGreen from "assets/user-green.png"
 import cartGreen from "assets/shopping-cart-green.png"
-import { LayoutProps } from "./types"
-import LinkHeaderCustomized from "components/LinkHeaderIcon/LinkHeaderCustomized"
-import { useMatch } from "react-router-dom"
-
-import Badge, { BadgeProps } from "@mui/material/Badge"
-import { styled } from "@mui/material/styles"
-import { useAppSelector } from "store/hooks"
-import { cartSelectors } from "store/redux/cart/cartSlice"
-import { userAuthSelectors } from "store/redux/users/userAuthSlice"
-import CarouselMui from "components/Carousel/Carousel"
-import { colors } from "styles/colors"
-import AccessTimeIcon from "@mui/icons-material/AccessTime"
-import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet"
-import LocalShippingIcon from "@mui/icons-material/LocalShipping"
-import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium"
 
 function Layout({ children }: LayoutProps) {
   const match = useMatch("/")
@@ -89,7 +90,7 @@ function Layout({ children }: LayoutProps) {
               greenImg={userGreen}
             >
               {currentUser && (
-              <StyledSircle color="success" variant="dot"></StyledSircle>
+                <StyledSircle color="success" variant="dot"></StyledSircle>
               )}
             </LinkHeaderCustomized>
             <LinkHeaderCustomized

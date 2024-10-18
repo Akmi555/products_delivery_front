@@ -1,36 +1,35 @@
-import styled from "@emotion/styled";
-import { FormikErrors } from "formik";
-import { ReactNode } from "react";
+import styled from "@emotion/styled"
+import { FormikErrors } from "formik"
 
-import { colors } from "styles/colors";
+import { colors } from "styles/colors"
 
 interface StyledInputProps {
-  $error: string | undefined | FormikErrors<Date>  ;
+  $error: string | undefined | FormikErrors<Date>
 }
 
 export const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4px;
-`;
+`
 
 export const InputLabel = styled.label`
   font-size: 16px;
   color: black;
-`;
+`
 
 const getStyledInputBorder = (
   disabled: boolean | undefined,
-  error: string | undefined | FormikErrors<Date> 
+  error: string | undefined | FormikErrors<Date>,
 ) => {
   if (typeof error === "string") {
-    return colors.ERROR;
+    return colors.ERROR
   } else if (disabled) {
-    return "grey";
+    return "grey"
   } else {
-    return colors.DISABLED;
+    return colors.DISABLED
   }
-};
+}
 
 export const StyledInput = styled.input<StyledInputProps>`
   width: 100%;
@@ -45,9 +44,9 @@ export const StyledInput = styled.input<StyledInputProps>`
     color: ${colors.PLACEHOLDER};
     font-size: 16px;
   }
-`;
+`
 
 export const ErrorContainer = styled.div`
   color: ${colors.ERROR};
   font-size: 18px;
-`;
+`

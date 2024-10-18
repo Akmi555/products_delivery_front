@@ -1,20 +1,23 @@
-import { useAppDispatch } from "store/hooks"
-import { PageWrapper, TextWrapper, MessageContainer } from "./styles"
-import { orderAction } from "store/redux/order/orderSlice"
 import { useEffect } from "react"
-import { useQueryParam, NumberParam } from "use-query-params"
-import ButtonMain from "components/ButtonMain/ButtonMain"
 import { useNavigate } from "react-router-dom"
+import { useQueryParam, NumberParam } from "use-query-params"
+
+import { useAppDispatch } from "store/hooks"
+import { orderAction } from "store/redux/order/orderSlice"
+
+import ButtonMain from "components/ButtonMain/ButtonMain"
+
 import TaskAltIcon from "@mui/icons-material/TaskAlt"
+
+import { PageWrapper, TextWrapper, MessageContainer } from "./styles"
 
 function PaymentSuccess() {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
-  const [num, setNum] = useQueryParam("orderId", NumberParam)
+  const [num] = useQueryParam("orderId", NumberParam)
 
   useEffect(() => {
-    console.log(num)
     dispatch(orderAction.payForOrder({ id: num }))
   }, [])
 
