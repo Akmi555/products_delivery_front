@@ -22,6 +22,7 @@ import AllOrdersAdmin from "pages/AllOrdersAdmin/AllOrdersAdmin"
 import PaymentSuccess from "pages/Payment/PaymentSuccess"
 import { QueryParamProvider } from "use-query-params"
 import { ReactRouter6Adapter } from "use-query-params/adapters/react-router-6"
+import AboutUs from "pages/AboutUs/AboutUs"
 
 function App() {
   const { currentUser } = useAppSelector(userAuthSelectors.userAuthState)
@@ -56,6 +57,7 @@ function App() {
             <Route path="/all-products-admin" element={<AllProductsAdmin />} />
             <Route path="/order-form" element={<OrderForm />} />
             <Route path="/payment/success" element={<PaymentSuccess />} />
+            <Route path="/about-us" element={<AboutUs />} />
             <Route path="*" element={"error 404 - Page not found"} />
           </Routes>
         </QueryParamProvider>
