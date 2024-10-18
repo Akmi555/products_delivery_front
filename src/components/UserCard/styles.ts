@@ -41,6 +41,7 @@ flex-direction: column;
 `
 export const Name = styled.div`
 display: flex;
+gap: 5px;
 `
 export const DataWrapper = styled.div`
 display: flex;

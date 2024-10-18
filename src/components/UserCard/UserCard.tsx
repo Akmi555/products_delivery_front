@@ -28,11 +28,6 @@ function UserCard() {
   const { currentUser } = useAppSelector(userAuthSelectors.userAuthState)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
-  const firstName: string | undefined = currentUser?.firstName
-  const lastName: string | undefined = currentUser?.lastName
-  const email: string | undefined = currentUser?.email
-  const phone: string | undefined = currentUser?.phone
-  const role: string | undefined = currentUser?.roles[0].authority
   const roleID: number | undefined = currentUser?.roles[0].id
 
   const logOut = () => {
@@ -52,23 +47,24 @@ function UserCard() {
           <div>
             <Description>Name:</Description>
             <Name>
-              <FirstName>{firstName}</FirstName>
-              <LastName>{lastName}</LastName>
+              <FirstName>{currentUser?.firstName}</FirstName>
+              <LastName>{currentUser?.lastName}</LastName>
             </Name>
           </div>
           <div>
             <Description>Email:</Description>
-            <Email>{email}</Email>
+            <Email>{currentUser?.email}</Email>
           </div>
           <div>
             <Description>Phone:</Description>
-            <Phone>{phone}</Phone>
+            <Phone>{currentUser?.phone}</Phone>
           </div>
-          {roleID === 2 && 
-          <div>
-            <Description>Role:</Description>
-            <Role>{role}</Role>
-          </div>}
+          {roleID === 2 && (
+            <div>
+              <Description>Role:</Description>
+              <Role>{currentUser?.roles[0].authority}</Role>
+            </div>
+          )}
         </DataWrapper>
       </UserDataWrapper>
       <ButtonsContainer>
@@ -77,28 +73,27 @@ function UserCard() {
             <p>Admin menu:</p>
             <ButtonMain
               type="button"
-              onClick={() =>  navigate('/add-product')}
+              onClick={() => navigate("/add-product")}
               buttonName="Add product"
             />
             <ButtonMain
               type="button"
-              onClick={() => navigate('/all-products-admin')}
+              onClick={() => navigate("/all-products-admin")}
               buttonName="All products"
             />
             <ButtonMain
               type="button"
-              onClick={() => navigate('/all-users')}
+              onClick={() => navigate("/all-users")}
               buttonName="All users"
             />
             <ButtonMain
               type="button"
-              onClick={() => navigate('/orders')}
+              onClick={() => navigate("/orders")}
               buttonName="All orders"
             />
             <p>Customer menu:</p>
           </>
         )}
-        {/* <ButtonMain type="button" onClick={() => {}} buttonName="My orders" /> */}
         <Button
           variant="contained"
           onClick={logOut}
