@@ -34,8 +34,6 @@ function UserCard() {
     localStorage.clear()
     dispatch(cartActions.clearCartLogOut())
     dispatch(userAuthAction.logOut())
-    // dispatch(cartActions.deleteCart())
-    // ! СДЕЛАТЬ ЧТОБЫ ОБНОВИЛАСЬ СТРАНИЦА
   }
   return (
     <UserCardWrapper>

@@ -48,12 +48,23 @@ export const PriceContainer = styled.div`
 `
 export const LoginMistakeContainer = styled.div`
 display: flex;
+flex: 1;
 flex-direction: column;
 align-items: center;
+justify-content: center;
 gap: 20px;
 `
 export const ScrollUpButtonWrapper = styled.div`
   display: flex;
  flex-direction: column;
  justify-content: flex-end;
+`
+
+export const EmptyCartMessageWrapper = styled.div`
+display: flex;
+flex: 1;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 20px;
 `

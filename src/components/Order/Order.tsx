@@ -19,6 +19,10 @@ import DialogTitle from "@mui/material/DialogTitle"
 import Slide from "@mui/material/Slide"
 import { TransitionProps } from "@mui/material/transitions"
 
+// для вывода уведомлений в маленьком окошке
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+
 import { OrderStatus, orderProduct } from "store/redux/order/types"
 import { v4 } from "uuid"
 import {
@@ -115,12 +119,17 @@ function Order({ orderObject }: orderObjDataProps) {
     )
     if (orderAction.cancelOrder.fulfilled.match(dispatchResult)) {
       dispatch(orderAction.getOrders())
+      notify()
     }
   }
 
   const handleClose = () => {
     setOpenCanselWindow(false)
   }
+
+  // для toastify
+  const notify = () => toast(`Order with id:${orderObject.id} successfully was cancelled`)
+
   return (
     <OrderWrapper2>
       <Accordion sx={{ borderRadius: 50 }}>
@@ -177,6 +186,7 @@ function Order({ orderObject }: orderObjDataProps) {
                 >
                   Cancel order
                 </Button>
+                <ToastContainer />
               </DialogActions>
             </Dialog>
           </Fragment>

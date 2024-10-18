@@ -40,8 +40,8 @@ function UserProfile() {
     <PageWrapper>
       {!localStorage.getItem("accessToken") && (
         <LoginMistakeContainer>
-          <h4>Oops!</h4> <p> You are not logged in</p>
-          <Link to="/login">login</Link>
+          <h4>Oops! &#x1F625;</h4> <p> You are not logged in</p>
+          <Link to="/login">login &#128072; </Link>
         </LoginMistakeContainer>
       )}
       {localStorage.getItem("accessToken") && (
@@ -54,15 +54,17 @@ function UserProfile() {
           </GoBackButtonUserCardWrapper>
 
           <OrdersContainer>
-            <h2 style={{ paddingLeft: "20px" }}>Orders:</h2>
+            {userOrders.length > 0 && (
+              <OrderTitles>
+                <h2 style={{ paddingLeft: "20px" }}>Orders:</h2>
+                <TitleOrder>Date of order: </TitleOrder>
+                <TitleOrder>Adress: </TitleOrder>
+                <TitleOrder>Delivery time:</TitleOrder>
+                <TitleOrder>Amount €: </TitleOrder>
+                <TitleOrder>Order status: </TitleOrder>
+              </OrderTitles>
+            )}
 
-            <OrderTitles>
-              <TitleOrder>Date of order: </TitleOrder>
-              <TitleOrder>Adress: </TitleOrder>
-              <TitleOrder>Delivery time:</TitleOrder>
-              <TitleOrder>Amount €: </TitleOrder>
-              <TitleOrder>Order status: </TitleOrder>
-            </OrderTitles>
             {userOrders}
           </OrdersContainer>
 

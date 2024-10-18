@@ -14,11 +14,7 @@ import {
 
 import { ProductObject } from "store/redux/allProducts/types"
 import { v4 } from "uuid"
-import {
-  Container,
-  Pagination,
-  Stack,
-} from "@mui/material"
+import { Container, Pagination, Stack } from "@mui/material"
 import ScrollUpArrowButton from "components/ScrollUpArrowButton/ScrollUpArrowButton"
 
 function AllProducts() {
@@ -70,7 +66,7 @@ function AllProducts() {
         </PaginatorWrapper>
       </Container>
       <GoBackButtonWrapper>
-       <ScrollUpArrowButton/>
+        <ScrollUpArrowButton />
       </GoBackButtonWrapper>
     </PageWrapper>
   )
