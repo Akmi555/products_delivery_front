@@ -87,7 +87,6 @@ function AddProductAdmin() {
   })
 
   // НИЖЕ ЛОГИКА ДЛЯ ЗАГРУЗКИ ФОТО НА СЕРВЕР
-  // useState выше
   const photoLink: string = `/api/files/download/${imgId}`
 
   //! вместо any было ChangeEvent<HTMLInputElement>
@@ -95,7 +94,7 @@ function AddProductAdmin() {
     setSelectedImg(event.target.files[0])
   }
 
-  // для того чтобы при клике на кнопку открывался инпут для файла сразу (работает )
+  // для того чтобы при клике на кнопку открывался инпут для файла сразу
   const filePicker = useRef<HTMLInputElement>(null)
   const handlePick = () => {
     {

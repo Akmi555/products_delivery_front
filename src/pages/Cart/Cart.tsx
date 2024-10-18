@@ -13,6 +13,7 @@ import {
   LoginMistakeContainer,
   GoBackButtonWrapper,
   ScrollUpButtonWrapper,
+  EmptyCartMessageWrapper,
 } from "./styles"
 import { useEffect, useState } from "react"
 import { oneProductAction } from "store/redux/oneProduct/oneProductSlice"
@@ -102,12 +103,13 @@ function Cart() {
       navigate("/order-form")
     }
   }
-
   return (
     <PageWrapper>
-      <GoBackButtonWrapper>
-        <GoBackArrowButton />
-      </GoBackButtonWrapper>
+      {accessToken && (
+        <GoBackButtonWrapper>
+          <GoBackArrowButton />
+        </GoBackButtonWrapper>
+      )}
       <CartItemsWrapper>
         {allProductsFromCart.length >= 1 && (
           <Stack direction="row" spacing={1}>
@@ -118,13 +120,11 @@ function Cart() {
             </Tooltip>
           </Stack>
         )}
-
-        {/* {cartsAllProducts} */}
         {cartAndProductDat.map((obj: CartAndProductData) => (
           <CartComponent key={v4()} cartObjData={obj} />
         ))}
       </CartItemsWrapper>
-      {accessToken && (
+      {allProductsFromCart.length >= 1 && (
         <TotalAmountContainer>
           <PriceContainer>
             <Text>Subtotal ({totalQuantity} items):</Text>
@@ -137,12 +137,12 @@ function Cart() {
               onClick={createOrder}
             />
           )}
-          {allProductsFromCart.length === 0 && (
+          {/* {allProductsFromCart.length === 0 && (
             <ButtonMain
               buttonName="Go shopping"
               onClick={() => navigate("/")}
             ></ButtonMain>
-          )}
+          )} */}
         </TotalAmountContainer>
       )}
       {allProductsFromCart.length >= 1 && (
@@ -150,10 +150,19 @@ function Cart() {
           <ScrollUpArrowButton />
         </ScrollUpButtonWrapper>
       )}
+      {allProductsFromCart.length === 0 && accessToken && (
+        <EmptyCartMessageWrapper>
+          <p> Your cart is empty &#128577;</p>
+          <ButtonMain
+            buttonName="Go shopping"
+            onClick={() => navigate("/")}
+          ></ButtonMain>
+        </EmptyCartMessageWrapper>
+      )}
       {!accessToken && (
         <LoginMistakeContainer>
-          <h4>Oops!</h4> <p> You are not logged in</p>
-          <Link to="/login">login</Link>
+          <h4>Oops! &#x1F625; </h4> <p> You are not logged in</p>
+          <Link to="/login">login &#128072;</Link>
         </LoginMistakeContainer>
       )}
     </PageWrapper>
