@@ -198,6 +198,13 @@ function Order({ orderObject }: OrderObjDataProps) {
               onClick={addOrderData}
             />
           )}
+          {String(orderObject.orderStatus) === "CONFIRMED" && (
+            <ButtonMain
+              buttonName="Pay"
+              // !! передать сюда логику на оплату
+              onClick={()=>{}}
+            />
+          )}
         </AccordionActions>
       </Accordion>
     </OrderWrapper2>
