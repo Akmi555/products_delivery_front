@@ -11,9 +11,11 @@ import {
 import ProductCard from "components/ProductCard/ProductCard"
 import ScrollUpArrowButton from "components/ScrollUpArrowButton/ScrollUpArrowButton"
 
-import { Container, Pagination, Stack } from "@mui/material"
+import { Container, Pagination, Stack, Tooltip } from "@mui/material"
 
 import {
+  CategoriesWrapper,
+  Category,
   GoBackButtonWrapper,
   PageWrapper,
   PaginatorWrapper,
@@ -33,11 +35,6 @@ function AllProducts() {
     productsSelectors.productsState,
   )
 
-  // МАПинг
-  const productCards = products.map((productObj: ProductObject) => (
-    <ProductCard key={v4()} productData={productObj} />
-  ))
-
   // пагинация
   const handleChange = (_: any, value: number) => {
     setCurrentPage(value)
@@ -56,7 +53,40 @@ function AllProducts() {
 
   return (
     <PageWrapper>
-      <ProductCardsWrapper>{productCards}</ProductCardsWrapper>
+      <CategoriesWrapper>
+        <Tooltip title="DAIRY">
+          <Category>&#129472; &#129371;</Category>
+        </Tooltip>
+        <Tooltip title="MEAT">
+          <Category>&#129385; &#127831;</Category>
+        </Tooltip>
+        <Tooltip title="BEVERAGES">
+          <Category>&#127866; &#127870;</Category>
+        </Tooltip>
+        <Tooltip title="VEGETABLES & FRUITS">
+          <Category>&#129382; &#127822;</Category>
+        </Tooltip>
+        <Tooltip title="BAKERY">
+          <Category>&#127838; &#129360;</Category>
+        </Tooltip>
+        <Tooltip title="SEAFOOD">
+          <Category>&#129424; &#129425;</Category>
+        </Tooltip>
+        <Tooltip title="SNACKS & SWEETS">
+          <Category>&#127851; &#127871; </Category>
+        </Tooltip>
+        <Tooltip title="GRAINS">
+          <Category>&#127834; </Category>
+        </Tooltip>
+        <Tooltip title="FROZEN">
+          <Category>&#129482;</Category>
+        </Tooltip>
+      </CategoriesWrapper>
+      <ProductCardsWrapper>
+        {products.map((productObj: ProductObject) => (
+          <ProductCard key={v4()} productData={productObj} />
+        ))}
+      </ProductCardsWrapper>
       <Container>
         <PaginatorWrapper>
           <Stack spacing={2}>
