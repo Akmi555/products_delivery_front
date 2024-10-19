@@ -17,7 +17,7 @@ import {
 import { Alert } from "@mui/material"
 
 import Input from "components/Input/Input"
-import Modal from "components/Modal/Modal"
+import Modal from "components/ModalNeedsToBeReplased/Modal"
 import ButtonMain from "components/ButtonMain/ButtonMain"
 
 import {

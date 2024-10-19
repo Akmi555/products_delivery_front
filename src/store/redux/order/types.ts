@@ -12,7 +12,7 @@ export interface OrderSliceState {
   currentOrder: OrderObject | undefined
   orders: OrderObject[]
   ordersAdmin: OrderObject[]
-  error: string | undefined
+  error: string | undefined 
   isPending: boolean
 }
 
@@ -22,25 +22,25 @@ export interface OrderObject {
   orderTime: string
   address: string
   deliveryTime: string
-  orderProducts: orderProduct[]
+  orderProducts: OrderProduct[]
   orderStatus: OrderStatus
   paymentMethod: string
   totalSum: number
 }
 
-export interface confirmOrder {
+export interface ConfirmOrder {
   id: number
   address: string
   deliveryTime: string | Date
   paymentMethod: string
 }
 
-export interface updateOrder {
+export interface UpdateOrder {
   orderId: number
   orderStatus: OrderStatus
 }
 
-export interface orderProduct {
+export interface OrderProduct {
   orderId: number
   productId: number
   productQuantity: number

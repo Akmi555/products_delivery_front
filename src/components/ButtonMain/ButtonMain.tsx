@@ -50,12 +50,6 @@ function ButtonMain({
   onClick,
 }: ButtonStyledProps) {
   return (
-    // кнопка до MUI (оставила на всякий )
-    // <ButtonStyled type={type} onClick={onClick}>
-    //   {buttonName}
-    //   {imgSrc && <ButtonImg src={imgSrc}></ButtonImg>}
-    // </ButtonStyled>
-
     <Stack spacing={2} direction="row">
       <ThemeProvider theme={theme}>
         <Button

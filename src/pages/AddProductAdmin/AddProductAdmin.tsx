@@ -7,7 +7,7 @@ import * as Yup from "yup"
 
 import ButtonMain from "components/ButtonMain/ButtonMain"
 import Input from "components/Input/Input"
-import Modal from "components/Modal/Modal"
+import Modal from "components/ModalNeedsToBeReplased/Modal"
 import InputHidden from "components/InputHidden/InputHidden"
 
 import { Alert } from "@mui/material"

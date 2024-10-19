@@ -18,7 +18,7 @@ import { getNormalDateAndTimeFromOrderObject } from "pages/AllOrdersAdmin/AllOrd
 import { DataContainer, DataWrapper, OrderWrapper2 } from "./styles"
 import { colors } from "styles/colors"
 import { OrderAndProductData, OrderObjDataProps } from "./types"
-import { orderProduct } from "store/redux/order/types"
+import { OrderProduct } from "store/redux/order/types"
 
 import ProductFromOrder from "components/ProductFromOrder/ProductFromOrder"
 import ButtonMain from "components/ButtonMain/ButtonMain"
@@ -59,7 +59,7 @@ function Order({ orderObject }: OrderObjDataProps) {
   const [products, setProducts] = useState<OneProductObject[]>([])
 
   // orderObject - это сам заказ, внутри есть массив из orderProduct
-  const orderProductArray: orderProduct[] = orderObject.orderProducts
+  const orderProductArray: OrderProduct[] = orderObject.orderProducts
 
   // проверка на залогиненного пользователя
   if (localStorage.getItem("accessToken")) {

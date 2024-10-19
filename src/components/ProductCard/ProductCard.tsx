@@ -44,13 +44,8 @@ function ProductCard({ productData }: ProductCardProps) {
 
   // функция которая стоит на картинке и имени товара чтобы открыть этот товар в новом окне
   const openCurrentProduct = () => {
-    // dispatch(oneProductAction.openProduct(productId))
     navigate(`/${productId}`)
   }
-
-  // const onAddToCart = () => {
-  //   dispatch(cartActions.addProductToCart(productId))
-  // }
 
   // для всплывающего окна
   const [open, setOpen] = useState(false)
@@ -122,14 +117,6 @@ function ProductCard({ productData }: ProductCardProps) {
                   </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                  {/* <Button
-                    autoFocus
-                    onClick={() => {
-                      navigate("/login")
-                    }}
-                  >
-                    Log in
-                  </Button> */}
                   <ButtonMain
                     buttonName="Log in"
                     type="button"
