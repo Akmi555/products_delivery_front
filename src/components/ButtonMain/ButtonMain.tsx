@@ -34,6 +34,12 @@ const theme = createTheme({
       dark: "#018344",
       contrastText: "#ffffff",
     },
+    // disabled: {
+    //   main: "#00BF63",
+    //   light: "#02e376",
+    //   dark: "#018344",
+    //   contrastText: "#ffffff",
+    // },
     // log_out : {
     //   main: "#c43a18",
     //   light: "#f3471c",
@@ -48,11 +54,13 @@ function ButtonMain({
   type = "button",
   buttonName,
   onClick,
+  disabled = false,
 }: ButtonStyledProps) {
   return (
     <Stack spacing={2} direction="row">
       <ThemeProvider theme={theme}>
         <Button
+          disabled={disabled}
           type={type}
           variant="contained"
           onClick={onClick}

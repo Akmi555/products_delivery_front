@@ -40,10 +40,10 @@ function Cart() {
   const accessToken: string | null = localStorage.getItem("accessToken")
 
   for (let i = 0; i <= allProductsFromCart.length - 1; i++) {
-    totalAmount = totalAmount + allProductsFromCart[i].sum
+    totalAmount += allProductsFromCart[i].sum
   }
   for (let i = 0; i <= allProductsFromCart.length - 1; i++) {
-    totalQuantity = totalQuantity + allProductsFromCart[i].productQuantity
+    totalQuantity += allProductsFromCart[i].productQuantity
   }
 
   // соединили products и allProductsFromCart в один объект и один массив
@@ -85,7 +85,7 @@ function Cart() {
       fetchProducts()
     }, [])
   } else {
-  // !! нужен ли тут консоль лог? 
+    // !! нужен ли тут консоль лог?
     console.log("user is not logged in")
   }
 
@@ -129,11 +129,22 @@ function Cart() {
             <Amount> € {totalAmount.toFixed(2)} </Amount>
           </PriceContainer>
 
-          {allProductsFromCart.length >= 1 && (
+          {allProductsFromCart.length >= 1 && totalAmount >= 10 && (
             <ButtonMain
               buttonName="Proceed to checkout"
               onClick={createOrder}
             />
+          )}
+
+          {totalAmount < 10 && (
+            <>
+              <ButtonMain
+                disabled
+                buttonName="Proceed to checkout"
+                onClick={createOrder}
+              />
+              <p style={{color: "red"}}>Order amount must be at least 10 €</p>
+            </>
           )}
         </TotalAmountContainer>
       )}
