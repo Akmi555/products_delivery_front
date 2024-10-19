@@ -1,4 +1,5 @@
 export default interface CotegoryButtonProps {
     name: string, 
-    onClick: () => void
+    onClick: () => void,
+    color?: string,
 }

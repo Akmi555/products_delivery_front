@@ -65,7 +65,7 @@ function Layout({ children }: LayoutProps) {
     }
   }
 
-  const StyledSircle = styled(Badge)<BadgeProps>(({ theme }) => ({
+  const StyledSircle = styled(Badge)<BadgeProps>(() => ({
     "& .MuiBadge-badge": {
       right: -3,
       top: -20,

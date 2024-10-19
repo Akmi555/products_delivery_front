@@ -2,8 +2,9 @@ import { useEffect, useState } from "react"
 import { v4 } from "uuid"
 
 import { useAppDispatch, useAppSelector } from "store/hooks"
-import { ProductObject } from "store/redux/allProducts/types"
+import { ProductCotegories, ProductObject } from "store/redux/allProducts/types"
 import {
+  allProductsSlice,
   productsAction,
   productsSelectors,
 } from "store/redux/allProducts/allProductsSlice"
@@ -12,7 +13,7 @@ import ProductCard from "components/ProductCard/ProductCard"
 import ScrollUpArrowButton from "components/ScrollUpArrowButton/ScrollUpArrowButton"
 import CategoryButton from "components/CategoryButton/CategoryButton"
 
-import {Container, Pagination, Stack } from "@mui/material"
+import { Container, Pagination, Stack } from "@mui/material"
 
 import {
   CategoriesWrapper,
@@ -21,6 +22,7 @@ import {
   PaginatorWrapper,
   ProductCardsWrapper,
 } from "./styles"
+import { colors } from "styles/colors"
 
 function AllProducts() {
   const dispatch = useAppDispatch()
@@ -49,20 +51,141 @@ function AllProducts() {
         pageSize: pageSize,
       }),
     )
+    setCategory("ALL_PRODUCTS")
   }, [currentPage, pageQuantity])
+
+  const [category, setCategory] = useState<string>("")
+
+  const getProductsByCategory = (category: string) => {
+    setCategory(category)
+    dispatch(
+      allProductsSlice.actions.getCategoryProducts({
+        currentPage: currentPage,
+        pageSize: pageSize,
+        category: category,
+      }),
+    )
+  }
 
   return (
     <PageWrapper>
       <CategoriesWrapper>
-        <CategoryButton name="Dairy" onClick={() => {}} />
-        <CategoryButton name="Meat" onClick={() => {}} />
-        <CategoryButton name="Beverages" onClick={() => {}} />
-        <CategoryButton name="Vegetables & fruits" onClick={() => {}} />
-        <CategoryButton name="Bakery" onClick={() => {}} />
-        <CategoryButton name="Seafood" onClick={() => {}} />
-        <CategoryButton name="Snacks & sweets" onClick={() => {}} />
-        <CategoryButton name="Grains" onClick={() => {}} />
-        <CategoryButton name="Frozen" onClick={() => {}} />
+        <CategoryButton
+          name="All products"
+          color={
+            category === "ALL_PRODUCTS"
+              ? `${colors.MAIN_GREEN}`
+              : "gray"
+          }
+          onClick={() => {
+            setCategory("ALL_PRODUCTS")
+            dispatch(
+              productsAction.getProducts({
+                currentPage: currentPage,
+                pageSize: pageSize,
+              }),
+            )
+          }}
+        />
+        <CategoryButton
+          name="Dairy"
+          color={
+            category === ProductCotegories.DAIRY
+              ? `${colors.MAIN_GREEN}`
+              : "gray"
+          }
+          onClick={() => {
+            getProductsByCategory(ProductCotegories.DAIRY)
+          }}
+        />
+        <CategoryButton
+          name="Meat"
+          color={
+            category === ProductCotegories.MEAT
+              ? `${colors.MAIN_GREEN}`
+              : "gray"
+          }
+          onClick={() => {
+            getProductsByCategory(ProductCotegories.MEAT)
+          }}
+        />
+        <CategoryButton
+          name="Beverages"
+          color={
+            category === ProductCotegories.BEVERAGES
+              ? `${colors.MAIN_GREEN}`
+              : "gray"
+          }
+          onClick={() => {
+            getProductsByCategory(ProductCotegories.BEVERAGES)
+          }}
+        />
+        <CategoryButton
+          name="Vegetables fruits"
+          color={
+            category === ProductCotegories.VEGETABLES_FRUITS
+              ? `${colors.MAIN_GREEN}`
+              : "gray"
+          }
+          onClick={() => {
+            getProductsByCategory(ProductCotegories.VEGETABLES_FRUITS)
+          }}
+        />
+        <CategoryButton
+          name="Bakery"
+          color={
+            category === ProductCotegories.BAKERY
+              ? `${colors.MAIN_GREEN}`
+              : "gray"
+          }
+          onClick={() => {
+            getProductsByCategory(ProductCotegories.BAKERY)
+          }}
+        />
+        <CategoryButton
+          name="Seafood"
+          color={
+            category === ProductCotegories.SEAFOOD
+              ? `${colors.MAIN_GREEN}`
+              : "gray"
+          }
+          onClick={() => {
+            getProductsByCategory(ProductCotegories.SEAFOOD)
+          }}
+        />
+        <CategoryButton
+          name="Snacks sweets"
+          color={
+            category === ProductCotegories.SNACKS_SWEETS
+              ? `${colors.MAIN_GREEN}`
+              : "gray"
+          }
+          onClick={() => {
+            getProductsByCategory(ProductCotegories.SNACKS_SWEETS)
+          }}
+        />
+        <CategoryButton
+          name="Grains"
+          color={
+            category === ProductCotegories.GRAINS
+              ? `${colors.MAIN_GREEN}`
+              : "gray"
+          }
+          onClick={() => {
+            getProductsByCategory(ProductCotegories.GRAINS)
+          }}
+        />
+        <CategoryButton
+          name="Frozen"
+          color={
+            category === ProductCotegories.FROZEN
+              ? `${colors.MAIN_GREEN}`
+              : "gray"
+          }
+          onClick={() => {
+            getProductsByCategory(ProductCotegories.FROZEN)
+          }}
+        />
       </CategoriesWrapper>
       <ProductCardsWrapper>
         {products.map((productObj: ProductObject) => (
