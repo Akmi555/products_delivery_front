@@ -25,7 +25,6 @@ export const NamePhotoWrapper = styled.div`
 `
 
 export const AvatarWrapper = styled.div`
-  /* height: 100px; */
 `
 export const Description = styled.p`
   color: gray;

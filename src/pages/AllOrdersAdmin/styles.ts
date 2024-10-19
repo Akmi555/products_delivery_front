@@ -11,13 +11,10 @@ export const PageWrapper = styled.div`
 `
 export const GoBackButtonWrapper = styled.div`
   display: flex;
-  /* flex-direction: column; */
-  /* height: 100%; */
   gap: 100px;
 `
 
 export const ScrollUpButtonWrapper = styled.div`
   display: flex;
-  /* flex-direction: column; */
   justify-content: end;
 `

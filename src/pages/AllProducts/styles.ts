@@ -10,8 +10,8 @@ export const PageWrapper = styled.div`
 export const CategoriesWrapper = styled.div`
   display: flex;
   align-items: center;
- justify-content: center;
- align-items: flex-start;
+  justify-content: center;
+  align-items: flex-start;
   flex-wrap: wrap;
   gap: 20px;
 `

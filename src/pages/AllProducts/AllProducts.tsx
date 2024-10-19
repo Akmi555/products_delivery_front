@@ -26,7 +26,7 @@ import { colors } from "styles/colors"
 
 function AllProducts() {
   const dispatch = useAppDispatch()
-
+  const [category, setCategory] = useState<string>("")
   // для пагинации:
   const [currentPage, setCurrentPage] = useState<number>(1)
   // ! ТУТ СТАВИТСЯ КОЛ-ВО ПРОДУКТОВ НА СТРАНИЦЕ
@@ -36,7 +36,6 @@ function AllProducts() {
   const { products, totalPages } = useAppSelector(
     productsSelectors.productsState,
   )
-
   // пагинация
   const handleChange = (_: any, value: number) => {
     setCurrentPage(value)
@@ -53,8 +52,6 @@ function AllProducts() {
     )
     setCategory("ALL_PRODUCTS")
   }, [currentPage, pageQuantity])
-
-  const [category, setCategory] = useState<string>("")
 
   const getProductsByCategory = (category: string) => {
     setCategory(category)

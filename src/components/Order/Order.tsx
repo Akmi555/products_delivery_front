@@ -18,7 +18,7 @@ import { getNormalDateAndTimeFromOrderObject } from "pages/AllOrdersAdmin/AllOrd
 import { DataContainer, DataWrapper, OrderWrapper } from "./styles"
 import { colors } from "styles/colors"
 import { OrderAndProductData, OrderObjDataProps } from "./types"
-import { OrderProduct, OrderStatus } from "store/redux/order/types"
+import { OrderProduct } from "store/redux/order/types"
 
 import ProductFromOrder from "components/ProductFromOrder/ProductFromOrder"
 import ButtonMain from "components/ButtonMain/ButtonMain"
@@ -58,6 +58,8 @@ function Order({ orderObject }: OrderObjDataProps) {
   const navigate = useNavigate()
   const [products, setProducts] = useState<OneProductObject[]>([])
   const [status, setStatus] = useState<string>()
+  const [openCancelWindow, setOpenCanselWindow] = useState<boolean>(false)
+
   // для toastify
   const notify = () =>
     toast.success(
@@ -80,9 +82,12 @@ function Order({ orderObject }: OrderObjDataProps) {
   // проверка на залогиненного пользователя
   if (localStorage.getItem("accessToken")) {
     useEffect(() => {
+      // кладем статус заказа в стейт чтобы потом менять цвет отмененного заказа
       setStatus(String(orderObject.orderStatus))
+
+      // далее логика объединения жлементов массива 
       // вытащили в массив айди тех продуктов, которые в ЗАКАЗЕ
-      const productIds = orderProductArray.map(item => item.productId)
+      const productIds: number[] = orderProductArray.map(item => item.productId)
 
       // достаем данные о продуктах (сложная логика)
       const fetchProducts = async () => {
@@ -90,8 +95,8 @@ function Order({ orderObject }: OrderObjDataProps) {
           const productDataPromises = productIds.map(productId =>
             dispatch(oneProductAction.openProduct(productId)),
           )
-          const productsData = await Promise.all(productDataPromises)
-          const productsDataPayload = productsData.map(item => item.payload)
+          const productsData  = await Promise.all(productDataPromises)
+          const productsDataPayload : OneProductObject[] = productsData.map(item => item.payload)
           setProducts(productsDataPayload)
         } catch (e) {
           console.error("Error fetching products:", e)
@@ -122,9 +127,6 @@ function Order({ orderObject }: OrderObjDataProps) {
     navigate("/order-form")
   }
 
-  // для окошка при отмене заказа
-  const [openCancelWindow, setOpenCanselWindow] = useState(false)
-
   const handleClickOpen = () => {
     setOpenCanselWindow(true)
   }
@@ -144,8 +146,6 @@ function Order({ orderObject }: OrderObjDataProps) {
     setOpenCanselWindow(false)
   }
 
-
-
   return (
     <>
       <ToastContainer />
@@ -154,7 +154,7 @@ function Order({ orderObject }: OrderObjDataProps) {
           <AccordionSummary
             sx={{
               borderBottom: `4px solid ${colors.MAIN_GREEN}`,
-              backgroundColor: `${status === "CANCELLED"? `${colors.CANCELLED}` : "white"}`,
+              backgroundColor: `${status === "CANCELLED" ? `${colors.CANCELLED}` : "white"}`,
             }}
             aria-controls="panel1-content"
             id="panel1-header"

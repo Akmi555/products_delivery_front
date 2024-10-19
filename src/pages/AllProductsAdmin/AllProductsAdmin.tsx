@@ -19,17 +19,37 @@ import {
   PageWrapper,
   ScrollUpButtonWrapper,
 } from "./styles"
+import { ToastContainer, toast } from "react-toastify"
 
 function AllProductsAdmin() {
-  //   const [allProducts, setAllProducts] = useState([])
+  const [currentPage] = useState<number>(1)
+  const [pageSize] = useState<number>(20)
+  const [pageQuantity] = useState<number>(1)
   const dispatch = useAppDispatch()
+  const { products } = useAppSelector(productsSelectors.productsState)
+  const notifyRejected = () =>
+    toast.error("Failed to delete user", {
+      position: "bottom-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    })
+  const notifyFulfilled = () =>
+    toast.success("User was successfully deleted", {
+      position: "bottom-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    })
 
-  // const { currentProduct, accessToken } = useAppSelector()
-  // const currentUserID: number | undefined = currentProduct?.id
-
-  const { products, totalPages } = useAppSelector(
-    productsSelectors.productsState,
-  )
   const columns: GridColDef[] = [
     {
       field: "id",
@@ -61,9 +81,22 @@ function AllProductsAdmin() {
       type: "actions",
       width: 70,
       renderCell(params) {
-        const onClick = (e: React.MouseEvent) => {
+        const onClick = async (e: React.MouseEvent) => {
           e.stopPropagation()
-          dispatch(oneProductAction.deleteProductFromDB(params.row.id))
+
+          const dispatchResult = await dispatch(
+            oneProductAction.deleteProductFromDB(params.row.id),
+          )
+          if (
+            oneProductAction.deleteProductFromDB.fulfilled.match(dispatchResult)
+          ) {
+            notifyFulfilled()
+          }
+          if (
+            oneProductAction.deleteProductFromDB.rejected.match(dispatchResult)
+          ) {
+            notifyRejected()
+          }
         }
         return (
           <IconButton>
@@ -73,10 +106,6 @@ function AllProductsAdmin() {
       },
     },
   ]
-
-  const [currentPage] = useState<number>(1)
-  const [pageSize] = useState<number>(20)
-  const [pageQuantity] = useState<number>(1)
 
   const rows = products.map((obj: ProductObject) => {
     return {
@@ -99,6 +128,7 @@ function AllProductsAdmin() {
   const paginationModel = { page: 0, pageSize: 10 }
   return (
     <PageWrapper>
+      <ToastContainer />
       <GoBackButtonWrapper>
         <GoBackArrowButton />
         <h1>All products</h1>

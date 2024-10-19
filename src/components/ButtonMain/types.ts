@@ -1,5 +1,5 @@
-import { PaletteColorOptions } from "@mui/material"
 import { MouseEvent } from "react"
+
 export type ButtonType = "button" | "submit" | "reset" | undefined
 
 export interface ButtonStyledProps {
@@ -8,7 +8,5 @@ export interface ButtonStyledProps {
   buttonName?: string
   onClick?: (event: MouseEvent) => void
   disabled?: boolean
-  //   isTransparent?: boolean
-  // color?: PaletteColorOptions | undefined
   color?: string
 }

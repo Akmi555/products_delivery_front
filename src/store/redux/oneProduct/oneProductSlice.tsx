@@ -52,7 +52,19 @@ export const oneProductSlice = createAppSlice({
         )
         return response.data
       },
-      { pending: () => {}, fulfilled: () => {}, rejected: () => {} },
+      {
+        pending: (state: OneProductSliceState) => {
+          state.error = undefined
+          state.isPending = true
+        },
+        fulfilled: (state: OneProductSliceState) => {
+          state.isPending = false
+        },
+        rejected: (state: OneProductSliceState, action) => {
+          state.error = action.error.message
+          state.isPending = false
+        },
+      },
     ),
     deleteProductFromDB: create.asyncThunk(
       async (productId: number | undefined) => {

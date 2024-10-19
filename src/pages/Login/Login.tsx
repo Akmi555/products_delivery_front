@@ -1,23 +1,14 @@
-import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
-import * as React from "react"
 
 import { useFormik } from "formik"
 import * as Yup from "yup"
 import { AppDispatch } from "store/store"
-import { useAppSelector } from "store/hooks"
 import { cartActions } from "store/redux/cart/cartSlice"
 import { orderAction } from "store/redux/order/orderSlice"
-import {
-  userAuthAction,
-  userAuthSelectors,
-} from "store/redux/users/userAuthSlice"
-
-import { Alert } from "@mui/material"
+import { userAuthAction } from "store/redux/users/userAuthSlice"
 
 import Input from "components/Input/Input"
-import Modal from "components/ModalNeedsToBeReplased/Modal"
 import ButtonMain from "components/ButtonMain/ButtonMain"
 
 import {
@@ -27,31 +18,23 @@ import {
   PageName,
   PageWrapper,
 } from "./styles"
-import { toast } from "react-toastify"
+import { ToastContainer, toast } from "react-toastify"
 
 function Login() {
   const dispatch = useDispatch<AppDispatch>()
-  const [isModalOpen, setModalOpen] = useState<boolean>(false)
   const navigate = useNavigate()
-  const { error } = useAppSelector(userAuthSelectors.userAuthState)
-
+  const notifyLoginRejected = () =>
+    toast.error("Login or email is invalid. Try again.", {
+      position: "bottom-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    })
   let EMAIL_REGX = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
-
-  const [showPassword, setShowPassword] = React.useState(false)
-
-  const handleClickShowPassword = () => setShowPassword(show => !show)
-
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>,
-  ) => {
-    event.preventDefault()
-  }
-
-  const handleMouseUpPassword = (
-    event: React.MouseEvent<HTMLButtonElement>,
-  ) => {
-    event.preventDefault()
-  }
 
   const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -78,34 +61,22 @@ function Login() {
       )
       // пример как выполнить что то при fulfilled
       if (userAuthAction.login.fulfilled.match(dispatchResult)) {
-        dispatch(userAuthAction.getUser())
-        dispatch(orderAction.getOrders())
-        dispatch(cartActions.openCart())
-        navigate("/user-profile")
+        dispatch(userAuthAction.getUser()),
+          dispatch(orderAction.getOrders()),
+          dispatch(cartActions.openCart()),
+          navigate("/user-profile")
+        helpers.resetForm()
       }
-
-      if (userAuthAction.login.rejected.match(dispatchResult)){
-        notify()
+      // пример как выполнить что то при rejected
+      if (userAuthAction.login.rejected.match(dispatchResult)) {
+        notifyLoginRejected()
       }
-      // ! в span поверх логина(формика) вывести просто текст ошибки, alert плохая практика
-      helpers.resetForm()
     },
   })
-  const notify = () =>
-    toast.error(`${error}`, {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    })
 
-    notify()
   return (
     <PageWrapper>
+      <ToastContainer />
       <PageName>Login</PageName>
       <FormWrapper onSubmit={formik.handleSubmit}>
         <InputContainer>
@@ -137,9 +108,6 @@ function Login() {
           />
         </ButtonContainer>
         <Link to="/registration">or register</Link>
-        <Modal open={isModalOpen} onClose={() => setModalOpen(false)}>
-          <Alert severity="error">Error: {error}</Alert>
-        </Modal>
       </FormWrapper>
     </PageWrapper>
   )

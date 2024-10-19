@@ -1,16 +1,14 @@
 import { useDispatch } from "react-redux"
 import { useState, useRef } from "react"
 import { AppDispatch } from "store/store"
+import { ToastContainer, toast } from "react-toastify"
 
 import { useFormik } from "formik"
 import * as Yup from "yup"
 
 import ButtonMain from "components/ButtonMain/ButtonMain"
 import Input from "components/Input/Input"
-import Modal from "components/ModalNeedsToBeReplased/Modal"
 import InputHidden from "components/InputHidden/InputHidden"
-
-import { Alert } from "@mui/material"
 
 import {
   InputContainer,
@@ -24,16 +22,51 @@ import {
   GoBackButtonWrapper,
   NameAndFormWrapper,
 } from "./styles"
-import { oneProductAction } from "store/redux/oneProduct/oneProductSlice"
+import {
+  oneProductAction,
+  oneProductSelectors,
+} from "store/redux/oneProduct/oneProductSlice"
+import { useAppSelector } from "store/hooks"
 import GoBackArrowButton from "components/GoBackArrowButton/GoBackArrowButton"
 
 function AddProductAdmin() {
-  const [isModalOpen, setModalOpen] = useState<boolean>(false)
   const dispatch = useDispatch<AppDispatch>()
-
   const [selectedImg, setSelectedImg] = useState<never | null | any>(null) // выбранная картинка на фронтэнде
   const [imgId, setImgId] = useState<string>() // ID картинки для создания карточки
-
+  const { error } = useAppSelector(oneProductSelectors.productState)
+  const notifyRejected = () =>
+    toast.error(error, {
+      position: "bottom-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    })
+  const notifyFulfilled = () =>
+    toast.success("Product was successfully added to data base", {
+      position: "bottom-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    })
+    const notifyImgNotSelected = () =>
+    toast.warn("Image was not selected", {
+      position: "bottom-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    })
   const quanityRegExp = /^[0-9.]+(\s?(g|kg|ml|l))$/
 
   const validationSchema = Yup.object().shape({
@@ -70,8 +103,8 @@ function AddProductAdmin() {
     validationSchema,
     validateOnChange: false,
 
-    onSubmit: (values, helpers) => {
-      dispatch(
+    onSubmit: async (values, helpers) => {
+      const dispatchResult = await dispatch(
         oneProductAction.addProductToDB({
           title: values.title,
           price: values.price,
@@ -81,10 +114,16 @@ function AddProductAdmin() {
           photoLink: imgId,
         }),
       )
-      helpers.resetForm()
-      // ! ПОЧИНИТЬ МОДАЛКУ , а то всегда sussecc
-      // setModalOpen(true)
-      setImgId("")
+
+      if (oneProductAction.addProductToDB.fulfilled.match(dispatchResult)) {
+        helpers.resetForm()
+        setImgId("")
+        notifyFulfilled()
+      }
+
+      if (oneProductAction.addProductToDB.rejected.match(dispatchResult)) {
+        notifyRejected()
+      }
     },
   })
 
@@ -107,11 +146,11 @@ function AddProductAdmin() {
   const handleImgUpload = async () => {
     // если картинка не выбрана, то выйдет алерт
     if (!selectedImg) {
-      alert("Please select img")
+      notifyImgNotSelected()
       return
     }
 
-    // способ как загружаются картинки на сайт (вроде не работает с axios но это не точно)
+    // способ как загружаются картинки на сайт (вроде не работает с axios)
     const formData = new FormData()
     formData.append("file", selectedImg)
 
@@ -139,10 +178,10 @@ function AddProductAdmin() {
 
   return (
     <PageWrapper>
+      <ToastContainer />
       <GoBackButtonWrapper>
         <GoBackArrowButton />
       </GoBackButtonWrapper>
-
       <NameAndFormWrapper>
         <PageName>Add NEW product</PageName>
         <AddProductContainer onSubmit={formik.handleSubmit}>
@@ -221,9 +260,6 @@ function AddProductAdmin() {
               type="submit"
             />
           </ButtonContainer>
-          <Modal open={isModalOpen} onClose={() => setModalOpen(false)}>
-            <Alert severity="success">Successful</Alert>
-          </Modal>
         </AddProductContainer>
       </NameAndFormWrapper>
       <div></div>

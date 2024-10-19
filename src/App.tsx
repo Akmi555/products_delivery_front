@@ -7,6 +7,7 @@ import {
   userAuthSelectors,
 } from "store/redux/users/userAuthSlice"
 import { cartActions } from "store/redux/cart/cartSlice"
+import { orderAction } from "store/redux/order/orderSlice"
 
 import { QueryParamProvider } from "use-query-params"
 import { ReactRouter6Adapter } from "use-query-params/adapters/react-router-6"
@@ -40,6 +41,7 @@ function App() {
   useEffect(() => {
     if (currentUser) {
       dispatch(cartActions.openCart())
+      dispatch(orderAction.getOrders())
     }
   }, [currentUser])
 
@@ -52,7 +54,6 @@ function App() {
             <Route path="/" element={<AllProducts />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/user-profile" element={<UserProfile />} />
-            {/* <Route path="/one-product-card" element={<OneProduct />} /> */}
             <Route path="/:id" element={<OneProduct />} />
             <Route path="/registration" element={<Registration />} />
             <Route path="/login" element={<Login />} />
