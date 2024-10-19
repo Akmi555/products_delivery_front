@@ -61,7 +61,7 @@ function Order({ orderObject }: OrderObjDataProps) {
   // для toastify
   const notify = () =>
     toast.success(
-      `Order with id:${orderObject.id} successfully was cancelled`,
+      `Order with id: ${orderObject.id} was successfully cancelled`,
       {
         position: "bottom-left",
         autoClose: 3000,
@@ -134,8 +134,8 @@ function Order({ orderObject }: OrderObjDataProps) {
       orderAction.cancelOrder(orderObject.id),
     )
     if (orderAction.cancelOrder.fulfilled.match(dispatchResult)) {
-      notify()
-      setTimeout(() => dispatch(orderAction.getOrders()), 3100)
+      dispatch(orderAction.getOrders())
+      setTimeout(() => notify(), 500)
     }
   }
 
