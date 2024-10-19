@@ -18,7 +18,7 @@ import { getNormalDateAndTimeFromOrderObject } from "pages/AllOrdersAdmin/AllOrd
 import { DataContainer, DataWrapper, OrderWrapper } from "./styles"
 import { colors } from "styles/colors"
 import { OrderAndProductData, OrderObjDataProps } from "./types"
-import { OrderProduct } from "store/redux/order/types"
+import { OrderProduct, OrderStatus } from "store/redux/order/types"
 
 import ProductFromOrder from "components/ProductFromOrder/ProductFromOrder"
 import ButtonMain from "components/ButtonMain/ButtonMain"
@@ -57,7 +57,7 @@ function Order({ orderObject }: OrderObjDataProps) {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const [products, setProducts] = useState<OneProductObject[]>([])
-
+  const [status, setStatus] = useState<string>()
   // для toastify
   const notify = () =>
     toast.success(
@@ -80,6 +80,7 @@ function Order({ orderObject }: OrderObjDataProps) {
   // проверка на залогиненного пользователя
   if (localStorage.getItem("accessToken")) {
     useEffect(() => {
+      setStatus(String(orderObject.orderStatus))
       // вытащили в массив айди тех продуктов, которые в ЗАКАЗЕ
       const productIds = orderProductArray.map(item => item.productId)
 
@@ -143,13 +144,18 @@ function Order({ orderObject }: OrderObjDataProps) {
     setOpenCanselWindow(false)
   }
 
+
+
   return (
     <>
       <ToastContainer />
       <OrderWrapper>
         <Accordion sx={{ borderRadius: 50 }}>
           <AccordionSummary
-            sx={{ borderBottom: `4px solid ${colors.MAIN_GREEN}` }}
+            sx={{
+              borderBottom: `4px solid ${colors.MAIN_GREEN}`,
+              backgroundColor: `${status === "CANCELLED"? `${colors.CANCELLED}` : "white"}`,
+            }}
             aria-controls="panel1-content"
             id="panel1-header"
           >
