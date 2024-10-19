@@ -1,4 +1,3 @@
-import { FormikErrors } from "formik"
 import { HTMLInputTypeAttribute, ChangeEvent } from "react"
 
 export interface InputProps {

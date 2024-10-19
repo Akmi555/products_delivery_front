@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
 
@@ -12,11 +11,8 @@ import {
   userAuthSelectors,
 } from "store/redux/users/userAuthSlice"
 
-import { Alert } from "@mui/material"
-
 import ButtonMain from "components/ButtonMain/ButtonMain"
 import Input from "components/Input/Input"
-import Modal from "components/ModalNeedsToBeReplased/Modal"
 
 import {
   RegistrationContainer,
@@ -25,16 +21,43 @@ import {
   PageWrapper,
   PageName,
 } from "./styles"
+import { ToastContainer, toast } from "react-toastify"
 
 function Registration() {
   const navigate = useNavigate()
-  const [isModalOpen, setModalOpen] = useState<boolean>(false)
+  const dispatch = useDispatch<AppDispatch>()
+  const { error } = useAppSelector(userAuthSelectors.userAuthState)
+  const notifyRegistrationFulfilled = () =>
+    toast.success(
+      "Registered successfully. Please log in now. You will re redirected to login page automatically in 5 seconds",
+      {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      },
+    )
+    const notifyRegistrationRejected = () =>
+    toast.error(
+      `Registration failed. ${error}`,
+      {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      },
+    )
   const EMAIL_REGX = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
   const phoneRegExp =
     /^((\+[1-9]{1,4}[ \-]*)|(\([0-9]{2,3}\)[ \-]*)|([0-9]{2,4})[ \-]*)*?[0-9]{3,4}?[ \-]*[0-9]{3,4}?$/
-
-  const dispatch = useDispatch<AppDispatch>()
-  const { error } = useAppSelector(userAuthSelectors.userAuthState)
 
   const validationSchema = Yup.object().shape({
     firstName: Yup.string()
@@ -67,8 +90,8 @@ function Registration() {
     validationSchema,
     validateOnChange: false,
 
-    onSubmit: (values, helpers) => {
-      dispatch(
+    onSubmit: async (values, helpers) => {
+      const dispatchResult = await dispatch(
         userAuthAction.register({
           firstName: values.firstName,
           lastName: values.lastName,
@@ -77,14 +100,22 @@ function Registration() {
           phone: values.phoneNumber,
         }),
       )
-      helpers.resetForm()
-      setModalOpen(true)
-      navigate("/user-profile")
+
+      if (userAuthAction.register.fulfilled.match(dispatchResult)) {
+        notifyRegistrationFulfilled()
+        helpers.resetForm()
+        setTimeout(() => navigate("/user-profile"), 5000)
+      }
+
+      if (userAuthAction.register.rejected.match(dispatchResult)) {
+        notifyRegistrationRejected()
+      }
     },
   })
 
   return (
     <PageWrapper>
+        <ToastContainer />
       <PageName>Registration</PageName>
       <RegistrationContainer onSubmit={formik.handleSubmit}>
         <InputContainer>
@@ -146,9 +177,6 @@ function Registration() {
           />
         </ButtonContainer>
         <Link to="/login">or login</Link>
-        <Modal open={isModalOpen} onClose={() => setModalOpen(false)}>
-          <Alert severity="success">{error}</Alert>
-        </Modal>
       </RegistrationContainer>
     </PageWrapper>
   )

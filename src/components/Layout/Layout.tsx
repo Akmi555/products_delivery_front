@@ -60,7 +60,7 @@ function Layout({ children }: LayoutProps) {
   let totalQuantity: number = 0
 
   if (currentUser) {
-    for (let i = 0; i <= allProductsFromCart.length - 1; i++) {
+    for (let i: number = 0; i <= allProductsFromCart.length - 1; i++) {
       totalQuantity = totalQuantity + allProductsFromCart[i].productQuantity
     }
   }
@@ -156,7 +156,12 @@ function Layout({ children }: LayoutProps) {
       <Main>{children}</Main>
       <Footer>
         <CompanyInfoContainer>
-          <Link to={"/about-us"} style={{color: colors.MAIN_GREEN, fontSize: 14}}>About us</Link>
+          <Link
+            to={"/about-us"}
+            style={{ color: colors.MAIN_GREEN, fontSize: 14 }}
+          >
+            About us
+          </Link>
           <CompanyInfo>foodNOW GmbH</CompanyInfo>
           <CompanyInfo>foodNOW@gmail.com</CompanyInfo>
           <CompanyInfo>+49 175 456 76 45</CompanyInfo>

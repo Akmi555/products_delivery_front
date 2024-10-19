@@ -38,14 +38,14 @@ function CartComponent({ cartObjData }: cartObjProps) {
 
   const onPlus = () => {
     setNewAm(newAm + 1)
-    const am = newAm + 1
+    const am: number = newAm + 1
     dispatch(cartActions.changeAmountInCart({ productId, newAmount: am }))
   }
 
   const onMinus = () => {
     if (newAm > 1) {
       setNewAm(newAm - 1)
-      const am = newAm - 1
+      const am: number = newAm - 1
       dispatch(cartActions.changeAmountInCart({ productId, newAmount: am }))
     }
   }

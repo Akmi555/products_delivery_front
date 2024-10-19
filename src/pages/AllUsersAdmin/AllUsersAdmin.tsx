@@ -15,12 +15,36 @@ import {
   ScrollUpButtonWrapper,
 } from "./styles"
 import { UserObject } from "store/redux/allUsers/types"
+import { ToastContainer, toast } from "react-toastify"
 
 function AllUsers() {
   const dispatch = useAppDispatch()
-
+  const [currentPage] = useState<number>(1)
+  const [pageQuantity] = useState<number>(1)
   // для работы таблицы из  MUI
   const { users } = useAppSelector(usersSelectors.usersState)
+  const notifyUserDeletedSuccessfully = () =>
+    toast.success("User was deleted successfully", {
+      position: "bottom-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    })
+  const notifyUserDeletRejected = () =>
+    toast.error("Could not delete the user", {
+      position: "bottom-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    })
   const columns: GridColDef[] = [
     {
       field: "id",
@@ -71,6 +95,10 @@ function AllUsers() {
           )
           if (usersAction.deleteUser.fulfilled.match(dispatchResult)) {
             dispatch(usersAction.getUsers())
+            setTimeout(() => notifyUserDeletedSuccessfully(), 500)
+          }
+          if (usersAction.deleteUser.rejected.match(dispatchResult)) {
+            notifyUserDeletRejected()
           }
         }
         return (
@@ -81,10 +109,6 @@ function AllUsers() {
       },
     },
   ]
-
-  const [currentPage] = useState<number>(1)
-
-  const [pageQuantity] = useState<number>(1)
 
   const rows = users.map((obj: UserObject) => {
     return {
@@ -97,11 +121,6 @@ function AllUsers() {
     }
   })
 
-  // const handleChange = (_: any, value: number) => {
-  //   setCurrentPage(value)
-  //   setPageQuantity(totalPages)
-  // }
-
   useEffect(() => {
     dispatch(usersAction.getUsers())
   }, [currentPage, pageQuantity])
@@ -109,6 +128,7 @@ function AllUsers() {
   const paginationModel = { page: 0, pageSize: 10 }
   return (
     <PageWrapper>
+      <ToastContainer />
       <GoBackButtonWrapper>
         <GoBackArrowButton />
         <h1>All users</h1>

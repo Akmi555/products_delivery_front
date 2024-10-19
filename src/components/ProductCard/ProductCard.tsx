@@ -29,32 +29,64 @@ import {
 import { ProductCardProps } from "./types"
 
 import cartWhite from "assets/shopping-cart-white.png"
+import { ToastContainer, toast } from "react-toastify"
 
 function ProductCard({ productData }: ProductCardProps) {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
-
+  const { error } = useAppSelector(productsSelectors.productsState)
   const productId: number = productData.id
   const photoLink: string = `/api/files/download/${productData.photoLink}`
   const title: string = productData.title
   const minQuantity: string = productData.minQuantity
   const price: number = productData.price
-
-  const { error } = useAppSelector(productsSelectors.productsState)
-
-  // функция которая стоит на картинке и имени товара чтобы открыть этот товар в новом окне
-  const openCurrentProduct = () => {
-    navigate(`/${productId}`)
-  }
-
   // для всплывающего окна
   const [open, setOpen] = useState(false)
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"))
+  const notifyAddedToCartSuccessfully = () =>
+    toast.success(`${productData.title} was added to cart`, {
+      position: "bottom-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    })
+  const notifyAddedToCartRejected = () =>
+    toast.error(
+      `Coud not add ${productData.title} to cart. Try again or contact support`,
+      {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      },
+    )
+  const openCurrentProduct = () => {
+    navigate(`/${productId}`)
+  }
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (localStorage.getItem("accessToken")) {
-      dispatch(cartActions.addProductToCart(productId))
+      const dispatchResult = await dispatch(
+        cartActions.addProductToCart(productId),
+      )
+
+      // пример как выполнить что то при fulfilled
+      if (cartActions.addProductToCart.fulfilled.match(dispatchResult)) {
+        notifyAddedToCartSuccessfully()
+      }
+      // пример как выполнить что то при rejected
+      if (cartActions.addProductToCart.rejected.match(dispatchResult)) {
+        notifyAddedToCartRejected()
+      }
     } else if (!localStorage.getItem("accessToken")) {
       setOpen(true)
     }
@@ -66,6 +98,7 @@ function ProductCard({ productData }: ProductCardProps) {
 
   return (
     <ProductWrapper>
+      <ToastContainer />
       <PhotoNameWrapper>
         <Tooltip title="Open product">
           <ImgContainer>
