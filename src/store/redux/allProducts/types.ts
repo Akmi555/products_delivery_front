@@ -18,3 +18,16 @@ export interface CartObject {
   userId: number | undefined
   productId: number
 }
+
+
+export const ProductCotegories = {
+  DAIRY:"DAIRY",
+  MEAT:"MEAT",
+  BEVERAGES:"BEVERAGES",
+  VEGETABLES_FRUITS:"VEGETABLES_FRUITS",
+  BAKERY:"BAKERY",
+  SEAFOOD:"SEAFOOD",
+  SNACKS_SWEETS:"SNACKS_SWEETS",
+  GRAINS:"GRAINS",
+  FROZEN:"FROZEN",
+}
