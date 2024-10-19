@@ -56,14 +56,16 @@ function UserProfile() {
 
           <OrdersContainer>
             {userOrders.length > 0 && (
-              <OrderTitles>
-                <h2 style={{ paddingLeft: "20px" }}>Orders:</h2>
-                <TitleOrder>Date of order: </TitleOrder>
-                <TitleOrder>Adress: </TitleOrder>
-                <TitleOrder>Delivery time:</TitleOrder>
-                <TitleOrder>Amount €: </TitleOrder>
-                <TitleOrder>Order status: </TitleOrder>
-              </OrderTitles>
+              <>
+                <h2 style={{ paddingLeft: "16px" }}>Orders</h2>
+                <OrderTitles>
+                  <TitleOrder>Date of order </TitleOrder>
+                  <TitleOrder>Adress </TitleOrder>
+                  <TitleOrder>Delivery time</TitleOrder>
+                  <TitleOrder>Amount € </TitleOrder>
+                  <TitleOrder>Order status</TitleOrder>
+                </OrderTitles>
+              </>
             )}
 
             {userOrders}
