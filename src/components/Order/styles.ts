@@ -1,6 +1,6 @@
 import styled from "@emotion/styled"
 
-export const OrderWrapper2 = styled.div`
+export const OrderWrapper = styled.div`
   display: flex;
   flex: 1;
   width: 100%;

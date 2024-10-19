@@ -15,7 +15,7 @@ import { OneProductObject } from "store/redux/oneProduct/types"
 import { orderAction } from "store/redux/order/orderSlice"
 
 import { getNormalDateAndTimeFromOrderObject } from "pages/AllOrdersAdmin/AllOrdersAdmin"
-import { DataContainer, DataWrapper, OrderWrapper2 } from "./styles"
+import { DataContainer, DataWrapper, OrderWrapper } from "./styles"
 import { colors } from "styles/colors"
 import { OrderAndProductData, OrderObjDataProps } from "./types"
 import { OrderProduct } from "store/redux/order/types"
@@ -57,6 +57,22 @@ function Order({ orderObject }: OrderObjDataProps) {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const [products, setProducts] = useState<OneProductObject[]>([])
+
+  // для toastify
+  const notify = () =>
+    toast.success(
+      `Order with id:${orderObject.id} successfully was cancelled`,
+      {
+        position: "bottom-left",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      },
+    )
 
   // orderObject - это сам заказ, внутри есть массив из orderProduct
   const orderProductArray: OrderProduct[] = orderObject.orderProducts
@@ -118,8 +134,8 @@ function Order({ orderObject }: OrderObjDataProps) {
       orderAction.cancelOrder(orderObject.id),
     )
     if (orderAction.cancelOrder.fulfilled.match(dispatchResult)) {
-      dispatch(orderAction.getOrders())
       notify()
+      setTimeout(() => dispatch(orderAction.getOrders()), 3100)
     }
   }
 
@@ -127,87 +143,96 @@ function Order({ orderObject }: OrderObjDataProps) {
     setOpenCanselWindow(false)
   }
 
-  // для toastify
-  const notify = () =>
-    toast(`Order with id:${orderObject.id} successfully was cancelled`)
-
   return (
-    <OrderWrapper2>
-      <Accordion sx={{ borderRadius: 50 }}>
-        <AccordionSummary
-          sx={{ borderBottom: `4px solid ${colors.MAIN_GREEN}` }}
-          aria-controls="panel1-content"
-          id="panel1-header"
-        >
-          <DataWrapper>
-            <DataContainer>
-              {getNormalDateAndTimeFromOrderObject(orderObject.orderTime)}
-            </DataContainer>
-            <DataContainer> {orderObject.address}</DataContainer>
-            <DataContainer>
-              {getNormalDateAndTimeFromOrderObject(orderObject.deliveryTime)}
-            </DataContainer>
-            <DataContainer> {orderObject.totalSum}</DataContainer>
-            <DataContainer> {orderObject.orderStatus}</DataContainer>
-          </DataWrapper>
-        </AccordionSummary>
-        {/* отображение элементов корзины */}
-        <AccordionDetails>
-          {orderAndProductDat.map((obj: OrderAndProductData) => (
-            <ProductFromOrder key={v4()} orderProduct={obj} />
-          ))}
-        </AccordionDetails>
-        <AccordionActions>
-          {/* окошко при отмене заказа*/}
-          <Fragment>
-            {String(orderObject.orderStatus) !== "CANCELLED" && (
-              <ButtonMain buttonName="Cancel order" onClick={handleClickOpen} />
+    <>
+      <ToastContainer />
+      <OrderWrapper>
+        <Accordion sx={{ borderRadius: 50 }}>
+          <AccordionSummary
+            sx={{ borderBottom: `4px solid ${colors.MAIN_GREEN}` }}
+            aria-controls="panel1-content"
+            id="panel1-header"
+          >
+            <DataWrapper>
+              <DataContainer>
+                {getNormalDateAndTimeFromOrderObject(orderObject.orderTime)}
+              </DataContainer>
+              <DataContainer> {orderObject.address}</DataContainer>
+              <DataContainer>
+                {getNormalDateAndTimeFromOrderObject(orderObject.deliveryTime)}
+              </DataContainer>
+              <DataContainer> {orderObject.totalSum}</DataContainer>
+              <DataContainer> {orderObject.orderStatus}</DataContainer>
+            </DataWrapper>
+          </AccordionSummary>
+          {/* отображение элементов корзины */}
+          <AccordionDetails>
+            {orderAndProductDat.map((obj: OrderAndProductData) => (
+              <ProductFromOrder key={v4()} orderProduct={obj} />
+            ))}
+          </AccordionDetails>
+          <AccordionActions>
+            {/* окошко при отмене заказа*/}
+            <Fragment>
+              {String(orderObject.orderStatus) !== "CANCELLED" && (
+                <ButtonMain
+                  buttonName="Cancel order"
+                  onClick={handleClickOpen}
+                />
+              )}
+
+              <Dialog
+                open={openCancelWindow}
+                TransitionComponent={Transition}
+                keepMounted
+                onClose={handleClose}
+                aria-describedby="alert-dialog-slide-description"
+              >
+                <DialogTitle>
+                  {"Are you sure you want to cancel your order? "}
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-slide-description">
+                    This action cannot be undone, please confirm
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleClose}>Close window</Button>
+                  <div>
+                    <Button
+                      sx={{ color: "rgb(255, 0, 0)" }}
+                      onClick={handleCancelOrder}
+                    >
+                      Cancel order
+                    </Button>
+                    {/* <ToastContainer /> */}
+                  </div>
+                </DialogActions>
+              </Dialog>
+            </Fragment>
+
+            {/* <div>
+            <Button onClick={notify}>toastify</Button>
+           
+          </div> */}
+
+            {String(orderObject.orderStatus) === "PENDING" && (
+              <ButtonMain
+                buttonName="Proceed to checkout"
+                onClick={addOrderData}
+              />
             )}
-
-            <Dialog
-              open={openCancelWindow}
-              TransitionComponent={Transition}
-              keepMounted
-              onClose={handleClose}
-              aria-describedby="alert-dialog-slide-description"
-            >
-              <DialogTitle>
-                {"Are you sure you want to cancel your order? "}
-              </DialogTitle>
-              <DialogContent>
-                <DialogContentText id="alert-dialog-slide-description">
-                  This action cannot be undone, please confirm
-                </DialogContentText>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={handleClose}>Close window</Button>
-                <Button
-                  sx={{ color: "rgb(255, 0, 0)" }}
-                  onClick={handleCancelOrder}
-                >
-                  Cancel order
-                </Button>
-                <ToastContainer />
-              </DialogActions>
-            </Dialog>
-          </Fragment>
-
-          {String(orderObject.orderStatus) === "PENDING" && (
-            <ButtonMain
-              buttonName="Proceed to checkout"
-              onClick={addOrderData}
-            />
-          )}
-          {String(orderObject.orderStatus) === "CONFIRMED" && (
-            <ButtonMain
-              buttonName="Pay"
-              // !! передать сюда логику на оплату
-              onClick={()=>{}}
-            />
-          )}
-        </AccordionActions>
-      </Accordion>
-    </OrderWrapper2>
+            {String(orderObject.orderStatus) === "CONFIRMED" && (
+              <ButtonMain
+                buttonName="Pay"
+                // !! передать сюда логику на оплату
+                onClick={() => {}}
+              />
+            )}
+          </AccordionActions>
+        </Accordion>
+      </OrderWrapper>
+    </>
   )
 }
 

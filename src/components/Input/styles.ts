@@ -1,7 +1,4 @@
 import styled from "@emotion/styled"
-import { FormikErrors } from "formik"
-import { ReactNode } from "react"
-
 import { colors } from "styles/colors"
 
 interface StyledInputProps {
