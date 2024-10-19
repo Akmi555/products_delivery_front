@@ -34,11 +34,24 @@ import {
   PageWrapper,
   RegistrationContainer,
 } from "./styles"
+import { ToastContainer, toast } from "react-toastify"
 
 function OrderForm() {
   const dispatch = useAppDispatch()
-  const { currentOrder } = useAppSelector(orderSelector.orderState)
+  const { currentOrder, error } = useAppSelector(orderSelector.orderState)
   const currentOrderID: number = currentOrder ? currentOrder.id : 0
+
+  const notify = () =>
+    toast.error(`${error}`, {
+      position: "bottom-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    })
 
   // для окна об успешном создании заказа
   const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -69,7 +82,7 @@ function OrderForm() {
   const formik = useFormik({
     initialValues: {
       address: "",
-      deliveryTime: new Date(),
+      deliveryTime: new Date(new Date().setHours(new Date().getHours() + 5)).toJSON().slice(0,-8),
       paymentMethod: payment,
     },
     validationSchema,
@@ -88,12 +101,18 @@ function OrderForm() {
       if (orderAction.confirmOrder.fulfilled.match(dispatchResult)) {
         setOpen(true)
       }
+      if (error) {
+        notify()
+        console.log(error)
+      }
       helpers.resetForm()
     },
   })
 
+  console.log(new Date(new Date().setHours(new Date().getHours() + 2)))
   return (
     <PageWrapper>
+      <ToastContainer />
       <PageName>Order details</PageName>
       <RegistrationContainer onSubmit={formik.handleSubmit}>
         <InputContainer>
@@ -101,7 +120,7 @@ function OrderForm() {
             id="address-id"
             name="address"
             type="text"
-            placeholder="Hauptstr 2, 667834 Berlin"
+            placeholder="Hauptstr 2, 66783 Berlin"
             label="Address* (only Berlin)"
             value={formik.values.address}
             onChange={formik.handleChange}
@@ -111,11 +130,11 @@ function OrderForm() {
             id="deliveryTime-id"
             name="deliveryTime"
             type="datetime-local"
-            placeholder="12.10.2024 13:00"
+            // placeholder="12.10.2024 13:00"
             label="Delivery time*"
             value={String(formik.values.deliveryTime)}
             onChange={formik.handleChange}
-            error={formik.errors.deliveryTime}
+            // error={String(formik.errors.deliveryTime)}
           />
           <Box sx={{ minWidth: 120 }}>
             <FormControl fullWidth>

@@ -84,9 +84,6 @@ function Cart() {
       }
       fetchProducts()
     }, [])
-  } else {
-    // !! нужен ли тут консоль лог?
-    console.log("user is not logged in")
   }
 
   const clearCart = () => {
@@ -143,7 +140,15 @@ function Cart() {
                 buttonName="Proceed to checkout"
                 onClick={createOrder}
               />
-              <p style={{color: "red"}}>Order amount must be at least 10 €</p>
+              <p
+                style={{
+                  color: "red",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                Min order amount is 10 €
+              </p>
             </>
           )}
         </TotalAmountContainer>

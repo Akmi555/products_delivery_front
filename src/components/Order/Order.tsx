@@ -178,7 +178,7 @@ function Order({ orderObject }: OrderObjDataProps) {
                 <ButtonMain
                   buttonName="Cancel order"
                   onClick={handleClickOpen}
-                  color= {colors.ERROR}
+                  color={colors.ERROR}
                 />
               )}
 
@@ -206,17 +206,10 @@ function Order({ orderObject }: OrderObjDataProps) {
                     >
                       Cancel order
                     </Button>
-                    {/* <ToastContainer /> */}
                   </div>
                 </DialogActions>
               </Dialog>
             </Fragment>
-
-            {/* <div>
-            <Button onClick={notify}>toastify</Button>
-           
-          </div> */}
-
             {String(orderObject.orderStatus) === "PENDING" && (
               <ButtonMain
                 buttonName="Proceed to checkout"
@@ -226,8 +219,7 @@ function Order({ orderObject }: OrderObjDataProps) {
             {String(orderObject.orderStatus) === "CONFIRMED" && (
               <ButtonMain
                 buttonName="Pay"
-                // !! передать сюда логику на оплату
-                onClick={() => {}}
+                onClick={() => (window.location.href = orderObject.paymentUrl)}
               />
             )}
           </AccordionActions>
