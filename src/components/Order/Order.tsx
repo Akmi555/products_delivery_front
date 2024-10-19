@@ -178,6 +178,7 @@ function Order({ orderObject }: OrderObjDataProps) {
                 <ButtonMain
                   buttonName="Cancel order"
                   onClick={handleClickOpen}
+                  color= {colors.ERROR}
                 />
               )}
 
