@@ -10,7 +10,6 @@ function ProductButton({
   return (
     <ButtonStyled type={type} onClick={onClick}>
       {buttonName}
-
       {imgSrc && <ButtonImg alt="" src={imgSrc} />}
     </ButtonStyled>
   )

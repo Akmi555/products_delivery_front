@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
-import * as React from 'react';
+import * as React from "react"
 
 import { useFormik } from "formik"
 import * as Yup from "yup"
@@ -17,7 +17,7 @@ import {
 import { Alert } from "@mui/material"
 
 import Input from "components/Input/Input"
-import Modal from "components/Modal/Modal"
+import Modal from "components/ModalNeedsToBeReplased/Modal"
 import ButtonMain from "components/ButtonMain/ButtonMain"
 
 import {
@@ -27,6 +27,7 @@ import {
   PageName,
   PageWrapper,
 } from "./styles"
+import { toast } from "react-toastify"
 
 function Login() {
   const dispatch = useDispatch<AppDispatch>()
@@ -36,17 +37,21 @@ function Login() {
 
   let EMAIL_REGX = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
 
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword, setShowPassword] = React.useState(false)
 
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleClickShowPassword = () => setShowPassword(show => !show)
 
-  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-  };
+  const handleMouseDownPassword = (
+    event: React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    event.preventDefault()
+  }
 
-  const handleMouseUpPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-  };
+  const handleMouseUpPassword = (
+    event: React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    event.preventDefault()
+  }
 
   const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -76,13 +81,29 @@ function Login() {
         dispatch(userAuthAction.getUser())
         dispatch(orderAction.getOrders())
         dispatch(cartActions.openCart())
-        navigate("/")
+        navigate("/user-profile")
+      }
+
+      if (userAuthAction.login.rejected.match(dispatchResult)){
+        notify()
       }
       // ! в span поверх логина(формика) вывести просто текст ошибки, alert плохая практика
       helpers.resetForm()
     },
   })
+  const notify = () =>
+    toast.error(`${error}`, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    })
 
+    notify()
   return (
     <PageWrapper>
       <PageName>Login</PageName>

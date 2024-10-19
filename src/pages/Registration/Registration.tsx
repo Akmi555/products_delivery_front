@@ -16,7 +16,7 @@ import { Alert } from "@mui/material"
 
 import ButtonMain from "components/ButtonMain/ButtonMain"
 import Input from "components/Input/Input"
-import Modal from "components/Modal/Modal"
+import Modal from "components/ModalNeedsToBeReplased/Modal"
 
 import {
   RegistrationContainer,
@@ -79,7 +79,7 @@ function Registration() {
       )
       helpers.resetForm()
       setModalOpen(true)
-      navigate("/")
+      navigate("/user-profile")
     },
   })
 

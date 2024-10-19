@@ -2,7 +2,7 @@ import { createAppSlice } from "store/createAppSlice"
 import axiosConfig from "../../../../axiosConfig"
 import { PayloadAction } from "@reduxjs/toolkit"
 
-import { OrderSliceState, confirmOrder, OrderObject } from "./types"
+import { OrderSliceState, ConfirmOrder, OrderObject } from "./types"
 
 const orderInitialState: OrderSliceState = {
   currentOrder: undefined,
@@ -38,7 +38,7 @@ export const orderSlice = createAppSlice({
       },
     ),
     confirmOrder: create.asyncThunk(
-      async (payload: confirmOrder) => {
+      async (payload: ConfirmOrder) => {
         const response = await axiosConfig.put(`/api/order/confirmed`, {
           id: payload.id,
           address: payload.address,

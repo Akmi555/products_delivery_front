@@ -1,4 +1,4 @@
-import { useMatch } from "react-router-dom"
+import { Link, useMatch } from "react-router-dom"
 import { useAppSelector } from "store/hooks"
 import { cartSelectors } from "store/redux/cart/cartSlice"
 import { userAuthSelectors } from "store/redux/users/userAuthSlice"
@@ -39,6 +39,7 @@ import userWhite from "assets/user-white.png"
 import cartWhite from "assets/shopping-cart-white.png"
 import userGreen from "assets/user-green.png"
 import cartGreen from "assets/shopping-cart-green.png"
+import { colors } from "styles/colors"
 
 function Layout({ children }: LayoutProps) {
   const match = useMatch("/")
@@ -50,12 +51,11 @@ function Layout({ children }: LayoutProps) {
     "& .MuiBadge-badge": {
       right: -3,
       top: -20,
-      // border: `2px solid ${theme.palette.background.paper}`,
       padding: "0 4px",
     },
   }))
 
-  // вынести в useEffect
+  // !! вынести в useEffect
   // или сделать отдельное свойство в стейте корзины
   let totalQuantity: number = 0
 
@@ -89,7 +89,7 @@ function Layout({ children }: LayoutProps) {
               whiteImg={userWhite}
               greenImg={userGreen}
             >
-              {currentUser && (
+              {localStorage.getItem("accessToken") && (
                 <StyledSircle color="success" variant="dot"></StyledSircle>
               )}
             </LinkHeaderCustomized>
@@ -104,7 +104,6 @@ function Layout({ children }: LayoutProps) {
               ></StyledBadge>
             </LinkHeaderCustomized>
           </NavigationContainer>
-          {/* <CarouselMui /> */}
         </LogoLinksWrapper>
         {match ? (
           <ShortInfoContainer>
@@ -157,6 +156,7 @@ function Layout({ children }: LayoutProps) {
       <Main>{children}</Main>
       <Footer>
         <CompanyInfoContainer>
+          <Link to={"/about-us"} style={{color: colors.MAIN_GREEN, fontSize: 14}}>About us</Link>
           <CompanyInfo>foodNOW GmbH</CompanyInfo>
           <CompanyInfo>foodNOW@gmail.com</CompanyInfo>
           <CompanyInfo>+49 175 456 76 45</CompanyInfo>

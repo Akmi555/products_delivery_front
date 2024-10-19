@@ -22,12 +22,9 @@ export const UseProfileWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  /* gap: 100px; */
 `
 export const OrdersContainer = styled.div`
   display: flex;
-  /* width: 800px; */
-  /* width: 100%; */
   flex: 1;
   flex-direction: column;
   gap: 10px;
@@ -39,7 +36,6 @@ export const OrderTitles = styled.div`
   flex: 1;
   width: 100%;
   padding-left: 16px;
-  /* gap: 5px; */
 `
 
 export const TitleOrder = styled.div`

@@ -1,12 +1,10 @@
 import styled from "@emotion/styled"
 
-export const OrderWrapper2 = styled.div`
+export const OrderWrapper = styled.div`
   display: flex;
   flex: 1;
   width: 100%;
   align-items: center;
-  /* padding-left: 450px; */
-  /* border-radius: 50px; */
 `
 
 export const DataContainer = styled.div`
@@ -15,12 +13,7 @@ export const DataContainer = styled.div`
   max-width: 150px;
   min-height: 60px;
   align-items: center;
-
-  /* justify-content: center; */
 `
 export const DataWrapper = styled.div`
   display: flex;
-  /* gap: 5px; */
-
-  /* border-bottom: 1px solid black; */
 `

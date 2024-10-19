@@ -33,7 +33,6 @@ export const LinkProductCard = styled(Link)`
 
 export const ImgContainer = styled.div`
   width: 450px;
-  /* height: 450px; */
 `
 
 export const ImgProduct = styled.img`

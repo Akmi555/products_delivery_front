@@ -16,7 +16,6 @@ function LinkHeaderCustomized({
     <Link to={to}>
       {!linkText && <LinkImg src={match ? greenImg : whiteImg} />}
       {linkText && <LinkText> {linkText}</LinkText>}
-      {/* <LinkImg src={({match})=>({match? greenImg : whiteImg})} /> */}
       {children && children}
     </Link>
   )

@@ -6,7 +6,4 @@ export interface InputProps {
   accept?: string
   //!  починить any
   $ref?: any
-  // $ref?: typeof React.createRef
-  // ref?: HTMLInputElement | undefined
-  //  React.MutableRefObject<null>
 }

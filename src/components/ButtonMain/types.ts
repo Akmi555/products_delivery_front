@@ -9,5 +9,6 @@ export interface ButtonStyledProps {
   onClick?: (event: MouseEvent) => void
   disabled?: boolean
   //   isTransparent?: boolean
-  color?: PaletteColorOptions | undefined
+  // color?: PaletteColorOptions | undefined
+  color?: string
 }

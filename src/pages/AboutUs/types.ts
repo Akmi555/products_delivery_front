@@ -4,33 +4,32 @@ import elviraKhismatullinaPhoto from "assets/aboutUs/elviraKhismatullina.png"
 import vladimirGavriliukPhoto from "assets/aboutUs/vladimirGavriliuk.png"
 
 export const vladislavMagid = {
-    programmerAvatar: vladislavMagidPhoto,
-    fullName: "Vladislav Magid",
-    description: "frontend",
-  }
+  programmerAvatar: vladislavMagidPhoto,
+  fullName: "Vladislav Magid",
+  description: "frontend",
+}
 export const doinaSirbu = {
   programmerAvatar: doinaSirbuPhoto,
   fullName: "DoinaSirbu",
   description: "backend",
-  }
+}
 export const elviraKhismatullina = {
-    programmerAvatar: elviraKhismatullinaPhoto,
-    fullName: "Elvira Khismatullina",
-    description: "frontend",
-  }
+  programmerAvatar: elviraKhismatullinaPhoto,
+  fullName: "Elvira Khismatullina",
+  description: "frontend",
+}
 export const dimitriDiel = {
-    programmerAvatar: "",
-    fullName: "Dimitri Diel",
-    description: "frontend",   
-} 
+  programmerAvatar: "",
+  fullName: "Dimitri Diel",
+  description: "frontend",
+}
 export const vladimirGavriliuk = {
-    programmerAvatar: vladimirGavriliukPhoto,
-    fullName: "Vladimir Gavriliuk",
-    description: "backend",  
+  programmerAvatar: vladimirGavriliukPhoto,
+  fullName: "Vladimir Gavriliuk",
+  description: "backend",
 }
 export const maksymBilousenko = {
-    programmerAvatar: "",
-    fullName: "Maksym Bilousenko",
-    description: "backend", 
+  programmerAvatar: "",
+  fullName: "Maksym Bilousenko",
+  description: "backend",
 }
-

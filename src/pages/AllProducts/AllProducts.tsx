@@ -10,10 +10,12 @@ import {
 
 import ProductCard from "components/ProductCard/ProductCard"
 import ScrollUpArrowButton from "components/ScrollUpArrowButton/ScrollUpArrowButton"
+import CategoryButton from "components/CategoryButton/CategoryButton"
 
-import { Container, Pagination, Stack } from "@mui/material"
+import {Container, Pagination, Stack } from "@mui/material"
 
 import {
+  CategoriesWrapper,
   GoBackButtonWrapper,
   PageWrapper,
   PaginatorWrapper,
@@ -33,11 +35,6 @@ function AllProducts() {
     productsSelectors.productsState,
   )
 
-  // МАПинг
-  const productCards = products.map((productObj: ProductObject) => (
-    <ProductCard key={v4()} productData={productObj} />
-  ))
-
   // пагинация
   const handleChange = (_: any, value: number) => {
     setCurrentPage(value)
@@ -56,7 +53,22 @@ function AllProducts() {
 
   return (
     <PageWrapper>
-      <ProductCardsWrapper>{productCards}</ProductCardsWrapper>
+      <CategoriesWrapper>
+        <CategoryButton name="Dairy" onClick={() => {}} />
+        <CategoryButton name="Meat" onClick={() => {}} />
+        <CategoryButton name="Beverages" onClick={() => {}} />
+        <CategoryButton name="Vegetables & fruits" onClick={() => {}} />
+        <CategoryButton name="Bakery" onClick={() => {}} />
+        <CategoryButton name="Seafood" onClick={() => {}} />
+        <CategoryButton name="Snacks & sweets" onClick={() => {}} />
+        <CategoryButton name="Grains" onClick={() => {}} />
+        <CategoryButton name="Frozen" onClick={() => {}} />
+      </CategoriesWrapper>
+      <ProductCardsWrapper>
+        {products.map((productObj: ProductObject) => (
+          <ProductCard key={v4()} productData={productObj} />
+        ))}
+      </ProductCardsWrapper>
       <Container>
         <PaginatorWrapper>
           <Stack spacing={2}>

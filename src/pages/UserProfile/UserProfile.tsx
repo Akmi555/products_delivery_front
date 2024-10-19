@@ -23,8 +23,6 @@ import {
 } from "./styles"
 
 function UserProfile() {
-  // получение айди залогиненного пользователя для отображения корзины (запрос находится в useEffect ниже)
-  // const { currentUser } = useAppSelector(userAuthSelectors.userAuthState)
   const dispatch = useAppDispatch()
   const { orders } = useAppSelector(orderSelector.orderState)
 
@@ -35,7 +33,6 @@ function UserProfile() {
   useEffect(() => {
     if (localStorage.getItem("accessToken")) {
       dispatch(orderAction.getOrders())
-      // dispatch(userAuthAction.getUser())
     }
   }, [])
 
@@ -44,7 +41,8 @@ function UserProfile() {
       {!localStorage.getItem("accessToken") && (
         <LoginMistakeContainer>
           <h4>Oops! &#x1F625;</h4> <p> You are not logged in</p>
-          <Link to="/login">login &#128072; </Link>
+          <Link to="/login">login &#128072;</Link>
+          <Link to="/registration">or register</Link>
         </LoginMistakeContainer>
       )}
       {localStorage.getItem("accessToken") && (
@@ -58,14 +56,16 @@ function UserProfile() {
 
           <OrdersContainer>
             {userOrders.length > 0 && (
-              <OrderTitles>
-                <h2 style={{ paddingLeft: "20px" }}>Orders:</h2>
-                <TitleOrder>Date of order: </TitleOrder>
-                <TitleOrder>Adress: </TitleOrder>
-                <TitleOrder>Delivery time:</TitleOrder>
-                <TitleOrder>Amount €: </TitleOrder>
-                <TitleOrder>Order status: </TitleOrder>
-              </OrderTitles>
+              <>
+                <h2 style={{ paddingLeft: "16px" }}>Orders</h2>
+                <OrderTitles>
+                  <TitleOrder>Date of order </TitleOrder>
+                  <TitleOrder>Adress </TitleOrder>
+                  <TitleOrder>Delivery time</TitleOrder>
+                  <TitleOrder>Amount € </TitleOrder>
+                  <TitleOrder>Order status</TitleOrder>
+                </OrderTitles>
+              </>
             )}
 
             {userOrders}

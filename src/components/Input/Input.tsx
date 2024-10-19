@@ -22,9 +22,7 @@ function Input({
         type={type}
         placeholder={placeholder}
         $error={error}
-        // value - это значение самого инпута, т.е то значение котрое введет потенциальный пользователь
         value={value}
-        // onChange - функция, которая срабатывает, когда пользователь что-то вводит в инпут
         onChange={onChange}
       />
       {!!error && <ErrorContainer>{error}</ErrorContainer>}

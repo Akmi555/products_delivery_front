@@ -29,7 +29,6 @@ function CartComponent({ cartObjData }: cartObjProps) {
   const { allProductsFromCart } = useAppSelector(cartSelectors.cartState)
 
   const productId: number = cartObjData.id
-  // const productQuantity: number = cartObjData.productQuantity
   const title: string | undefined = cartObjData.title
   const price: number | undefined = cartObjData.price
   const photoLink: string | undefined =
@@ -53,7 +52,6 @@ function CartComponent({ cartObjData }: cartObjProps) {
 
   // открыть страницу продукта
   const openCurrentProduct = () => {
-    // dispatch(oneProductAction.openProduct(productId))
     navigate(`/${productId}`)
   }
 
@@ -75,7 +73,6 @@ function CartComponent({ cartObjData }: cartObjProps) {
           imgSrc={photoLink}
           onClick={openCurrentProduct}
         ></ProductButton>
-        {/* <Img src={photoLink}></Img> */}
       </ImgContainer>
       <InfoContainer>
         <ProductButton
@@ -83,7 +80,6 @@ function CartComponent({ cartObjData }: cartObjProps) {
           buttonName={title}
           onClick={openCurrentProduct}
         ></ProductButton>
-        {/* <Name>{title}</Name> */}
         <SelectContainer>
           <Counter>
             <ButtonMain buttonName="-" onClick={onMinus} />

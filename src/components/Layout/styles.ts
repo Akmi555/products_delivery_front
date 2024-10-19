@@ -20,8 +20,6 @@ export const HeaderMainPaige = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
-  /* align-items: flex-start; */
   width: 100%;
   padding: 30px;
   height: fit-content;

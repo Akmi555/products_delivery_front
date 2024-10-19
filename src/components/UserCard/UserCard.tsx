@@ -7,8 +7,6 @@ import {
   userAuthSelectors,
 } from "store/redux/users/userAuthSlice"
 
-import { Button } from "@mui/material"
-
 import ButtonMain from "components/ButtonMain/ButtonMain"
 import {
   AvatarWrapper,
@@ -27,6 +25,7 @@ import {
 } from "./styles"
 
 import emptyProfileImg from "assets/profile.png"
+import { colors } from "styles/colors"
 
 function UserCard() {
   const { currentUser } = useAppSelector(userAuthSelectors.userAuthState)
@@ -96,14 +95,11 @@ function UserCard() {
             <p>Customer menu:</p>
           </>
         )}
-        <Button
-          variant="contained"
+        <ButtonMain
+          buttonName="Log out"
           onClick={logOut}
-          color="error"
-          style={{ borderRadius: 50, width: "100%" }}
-        >
-          Log out
-        </Button>
+          color={colors.ERROR}
+        />
       </ButtonsContainer>
     </UserCardWrapper>
   )

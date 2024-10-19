@@ -19,7 +19,6 @@ function ProductFromOrder({ orderProduct }: ProductFromOrderProps) {
             onClick={openCurrentProduct}
             imgSrc={`/api/files/download/${orderProduct.photoLink}`}
           />
-          {/* <ProductImg src={`/api/files/download/${orderProduct.photoLink}`} /> */}
         </ImgContainer>
       </DataContainer>
       <DataContainer>

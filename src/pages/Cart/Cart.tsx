@@ -40,10 +40,10 @@ function Cart() {
   const accessToken: string | null = localStorage.getItem("accessToken")
 
   for (let i = 0; i <= allProductsFromCart.length - 1; i++) {
-    totalAmount = totalAmount + allProductsFromCart[i].sum
+    totalAmount += allProductsFromCart[i].sum
   }
   for (let i = 0; i <= allProductsFromCart.length - 1; i++) {
-    totalQuantity = totalQuantity + allProductsFromCart[i].productQuantity
+    totalQuantity += allProductsFromCart[i].productQuantity
   }
 
   // соединили products и allProductsFromCart в один объект и один массив
@@ -59,12 +59,6 @@ function Cart() {
       }
     })
     .filter(item => item.productQuantity > 0)
-
-  // отображение элементов корзины
-  // Алишер сказал что это плохая практика и надо пистаь сразу это в return
-  // const cartsAllProducts = cartAndProductDat.map((obj: CartAndProductData) => (
-  //   <CartComponent key={v4()} cartObjData={obj} />
-  // ))
 
   // проверка на залогиненного пользователя
   if (accessToken) {
@@ -90,9 +84,6 @@ function Cart() {
       }
       fetchProducts()
     }, [])
-  } else {
-  // !! нужен ли тут консоль лог? 
-    console.log("user is not logged in")
   }
 
   const clearCart = () => {
@@ -135,18 +126,31 @@ function Cart() {
             <Amount> € {totalAmount.toFixed(2)} </Amount>
           </PriceContainer>
 
-          {allProductsFromCart.length >= 1 && (
+          {allProductsFromCart.length >= 1 && totalAmount >= 10 && (
             <ButtonMain
               buttonName="Proceed to checkout"
               onClick={createOrder}
             />
           )}
-          {/* {allProductsFromCart.length === 0 && (
-            <ButtonMain
-              buttonName="Go shopping"
-              onClick={() => navigate("/")}
-            ></ButtonMain>
-          )} */}
+
+          {totalAmount < 10 && (
+            <>
+              <ButtonMain
+                disabled
+                buttonName="Proceed to checkout"
+                onClick={createOrder}
+              />
+              <p
+                style={{
+                  color: "red",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                Min order amount is 10 €
+              </p>
+            </>
+          )}
         </TotalAmountContainer>
       )}
       {allProductsFromCart.length >= 1 && (
@@ -167,6 +171,7 @@ function Cart() {
         <LoginMistakeContainer>
           <h4>Oops! &#x1F625; </h4> <p> You are not logged in</p>
           <Link to="/login">login &#128072;</Link>
+          <Link to="/registration">or register</Link>
         </LoginMistakeContainer>
       )}
     </PageWrapper>
