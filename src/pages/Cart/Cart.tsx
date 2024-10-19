@@ -60,12 +60,6 @@ function Cart() {
     })
     .filter(item => item.productQuantity > 0)
 
-  // отображение элементов корзины
-  // Алишер сказал что это плохая практика и надо пистаь сразу это в return
-  // const cartsAllProducts = cartAndProductDat.map((obj: CartAndProductData) => (
-  //   <CartComponent key={v4()} cartObjData={obj} />
-  // ))
-
   // проверка на залогиненного пользователя
   if (accessToken) {
     useEffect(() => {
@@ -141,12 +135,6 @@ function Cart() {
               onClick={createOrder}
             />
           )}
-          {/* {allProductsFromCart.length === 0 && (
-            <ButtonMain
-              buttonName="Go shopping"
-              onClick={() => navigate("/")}
-            ></ButtonMain>
-          )} */}
         </TotalAmountContainer>
       )}
       {allProductsFromCart.length >= 1 && (
@@ -167,6 +155,7 @@ function Cart() {
         <LoginMistakeContainer>
           <h4>Oops! &#x1F625; </h4> <p> You are not logged in</p>
           <Link to="/login">login &#128072;</Link>
+          <Link to="/registration">or register</Link>
         </LoginMistakeContainer>
       )}
     </PageWrapper>

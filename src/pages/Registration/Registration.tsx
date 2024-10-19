@@ -79,7 +79,7 @@ function Registration() {
       )
       helpers.resetForm()
       setModalOpen(true)
-      navigate("/")
+      navigate("/user-profile")
     },
   })
 

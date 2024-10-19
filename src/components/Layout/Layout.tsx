@@ -55,7 +55,7 @@ function Layout({ children }: LayoutProps) {
     },
   }))
 
-  // вынести в useEffect
+  // !! вынести в useEffect
   // или сделать отдельное свойство в стейте корзины
   let totalQuantity: number = 0
 
@@ -89,7 +89,7 @@ function Layout({ children }: LayoutProps) {
               whiteImg={userWhite}
               greenImg={userGreen}
             >
-              {currentUser && (
+              {localStorage.getItem("accessToken") && (
                 <StyledSircle color="success" variant="dot"></StyledSircle>
               )}
             </LinkHeaderCustomized>

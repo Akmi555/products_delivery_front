@@ -44,7 +44,8 @@ function UserProfile() {
       {!localStorage.getItem("accessToken") && (
         <LoginMistakeContainer>
           <h4>Oops! &#x1F625;</h4> <p> You are not logged in</p>
-          <Link to="/login">login &#128072; </Link>
+          <Link to="/login">login &#128072;</Link>
+          <Link to="/registration">or register</Link>
         </LoginMistakeContainer>
       )}
       {localStorage.getItem("accessToken") && (

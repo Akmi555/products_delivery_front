@@ -76,7 +76,7 @@ function Login() {
         dispatch(userAuthAction.getUser())
         dispatch(orderAction.getOrders())
         dispatch(cartActions.openCart())
-        navigate("/")
+        navigate("/user-profile")
       }
       // ! в span поверх логина(формика) вывести просто текст ошибки, alert плохая практика
       helpers.resetForm()
