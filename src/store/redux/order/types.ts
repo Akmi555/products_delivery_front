@@ -1,18 +1,8 @@
-// export type OrderStatusType =
-//   | "PENDING"
-//   | "PAID"
-//   | "PROCESSING"
-//   | "SHIPPED"
-//   | "DELIVERED"
-//   | "CANCELLED"
-//   | "REFUNDED"
-// export type PaymentMethod = "CREDIT_CARD" | "PAYPAL" | "BANK_TRANSFER"
-
 export interface OrderSliceState {
   currentOrder: OrderObject | undefined
   orders: OrderObject[]
   ordersAdmin: OrderObject[]
-  error: string | undefined 
+  error: string | undefined
   isPending: boolean
 }
 
@@ -26,6 +16,7 @@ export interface OrderObject {
   orderStatus: OrderStatus
   paymentMethod: string
   totalSum: number
+  paymentUrl: string
 }
 
 export interface ConfirmOrder {

@@ -13,16 +13,6 @@ export const CategoriesWrapper = styled.div`
   justify-content: space-between;
 `
 
-export const Category = styled.button`
-  height: 50px;
-  width: 100px;
-  cursor: pointer;
-  background-color: white;
-  border: none;
-  border-radius: 50px;
-  font-size: 30px;
-`
-
 export const ProductCardsWrapper = styled.div`
   display: flex;
   padding: 10px;

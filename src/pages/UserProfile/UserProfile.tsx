@@ -23,8 +23,6 @@ import {
 } from "./styles"
 
 function UserProfile() {
-  // получение айди залогиненного пользователя для отображения корзины (запрос находится в useEffect ниже)
-  // const { currentUser } = useAppSelector(userAuthSelectors.userAuthState)
   const dispatch = useAppDispatch()
   const { orders } = useAppSelector(orderSelector.orderState)
 
@@ -35,7 +33,6 @@ function UserProfile() {
   useEffect(() => {
     if (localStorage.getItem("accessToken")) {
       dispatch(orderAction.getOrders())
-      // dispatch(userAuthAction.getUser())
     }
   }, [])
 

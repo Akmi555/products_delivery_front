@@ -54,6 +54,7 @@ const Transition = forwardRef(function Transition(
 })
 
 function Order({ orderObject }: OrderObjDataProps) {
+  console.log(orderObject)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const [products, setProducts] = useState<OneProductObject[]>([])
