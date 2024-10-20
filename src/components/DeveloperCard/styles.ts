@@ -1,0 +1,19 @@
+import styled from "@emotion/styled"
+
+export const CardWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  background-color: white;
+  border-radius: 50px;
+  padding: 40px;
+  margin: 4px;
+  gap: 30px;
+`
+
+export const AvatarStyles = styled.img`
+  width: 100%;
+`
+export const Name = styled.p`
+  width: 450px;
+`
