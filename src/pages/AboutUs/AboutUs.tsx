@@ -40,7 +40,7 @@ function AboutUs() {
       />
       <DeveloperCard
         avatar = {vladZatoplyaevPhoto}
-        fullName = "Vlad Zatoplyaev"
+        fullName = "Vladislav Zatoplyaev"
         description = "frontend"
       />
       <DeveloperCard

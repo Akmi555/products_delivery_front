@@ -4,7 +4,7 @@ export const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 400px;
-  background-color: white;
+  background-color: white ;
   border-radius: 50px;
   padding: 40px;
   margin: 4px;
@@ -13,7 +13,12 @@ export const CardWrapper = styled.div`
 
 export const AvatarStyles = styled.img`
   width: 100%;
+  border-radius: 20px;
 `
 export const Name = styled.p`
-  width: 450px;
+  text-align: center;
+`
+
+export const Description = styled.p`
+  text-align: center;
 `
