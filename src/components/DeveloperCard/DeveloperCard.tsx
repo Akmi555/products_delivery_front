@@ -1,4 +1,4 @@
-import { CardWrapper, AvatarStyles, Name } from "./styles"
+import { CardWrapper, AvatarStyles, Name, Description } from "./styles"
 import { DeveloperCardProps } from "./types"
 
 
@@ -7,7 +7,7 @@ const DeveloperCard: React.FC<DeveloperCardProps> = ({ avatar, fullName, descrip
     <CardWrapper>
       <AvatarStyles src={avatar} alt="avatar" />
       <Name>{fullName}</Name>
-      <p>{description}</p>
+      <Description>{description}</Description>
     </CardWrapper>
   )
 }
