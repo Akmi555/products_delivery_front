@@ -31,7 +31,7 @@ function AboutUs() {
       <DeveloperCard
         avatar = {dimitriDielPhoto}
         fullName = "Dimitri Diel"
-        description = "backend"
+        description = "fullstack/team leader"
       />
       <DeveloperCard
         avatar = {vladimirGavriliukPhoto}
