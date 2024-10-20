@@ -12,12 +12,11 @@ export const CardWrapper = styled.div`
 `
 
 export const AvatarStyles = styled.img`
-  /* height: 40;
-  width: 10; */
   border-radius: 20px;
 `
 export const Name = styled.p`
   text-align: center;
+  font-weight: bold;
 `
 
 export const Description = styled.p`

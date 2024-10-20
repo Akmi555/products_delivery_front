@@ -3,7 +3,7 @@ import { globalPageStyles } from "styles/GlobalStyles"
 
 export const CardContainer = styled.div`
   ${globalPageStyles}
-  padding: 10px;
-  gap: 27px;
+  padding: 60px;
+  gap: 30px;
   flex-wrap: wrap;
 `
