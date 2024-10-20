@@ -33,7 +33,7 @@ function AllProducts() {
   const [pageSize] = useState<number>(20)
   const [pageQuantity, setPageQuantity] = useState<number>(1)
   // в аппСелектор добавили общее кол-во страниц для пагинатора
-  const { products, totalPages } = useAppSelector(
+  const { products, totalPages, error } = useAppSelector(
     productsSelectors.productsState,
   )
   // пагинация
@@ -53,15 +53,22 @@ function AllProducts() {
     setCategory("ALL_PRODUCTS")
   }, [currentPage, pageQuantity])
 
-  const getProductsByCategory = (category: string) => {
+  const getProductsByCategory = async (category: string) => {
     setCategory(category)
-    dispatch(
+    const dispatchResult = await dispatch(
       allProductsSlice.actions.getCategoryProducts({
         currentPage: currentPage,
         pageSize: pageSize,
         category: category,
       }),
     )
+    if (
+      allProductsSlice.actions.getCategoryProducts.rejected.match(
+        dispatchResult,
+      )
+    ) {
+      // мб вернуть
+    }
   }
 
   return (
@@ -69,11 +76,7 @@ function AllProducts() {
       <CategoriesWrapper>
         <CategoryButton
           name="All products"
-          color={
-            category === "ALL_PRODUCTS"
-              ? `${colors.MAIN_GREEN}`
-              : "gray"
-          }
+          color={category === "ALL_PRODUCTS" ? `${colors.MAIN_GREEN}` : "gray"}
           onClick={() => {
             setCategory("ALL_PRODUCTS")
             dispatch(
@@ -185,9 +188,15 @@ function AllProducts() {
         />
       </CategoriesWrapper>
       <ProductCardsWrapper>
-        {products.map((productObj: ProductObject) => (
-          <ProductCard key={v4()} productData={productObj} />
-        ))}
+        {error ? (
+          <p>This category is empty</p>
+        ) : (
+          <>
+            {products.map((productObj: ProductObject) => (
+              <ProductCard key={v4()} productData={productObj} />
+            ))}
+          </>
+        )}
       </ProductCardsWrapper>
       <Container>
         <PaginatorWrapper>
