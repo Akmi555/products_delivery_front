@@ -12,7 +12,8 @@ export const CardWrapper = styled.div`
 `
 
 export const AvatarStyles = styled.img`
-  width: 100%;
+  /* height: 40;
+  width: 10; */
   border-radius: 20px;
 `
 export const Name = styled.p`
