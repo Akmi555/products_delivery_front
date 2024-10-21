@@ -9,6 +9,7 @@ import Paper from "@mui/material/Paper"
 
 import GoBackArrowButton from "components/GoBackArrowButton/GoBackArrowButton"
 import ScrollUpArrowButton from "components/ScrollUpArrowButton/ScrollUpArrowButton"
+import ProgressCircle from "components/ProgressCircle/ProgressCircle"
 
 import {
   GoBackButtonWrapper,
@@ -30,7 +31,7 @@ export function getNormalDateAndTimeFromOrderObject(dateInString: string) {
 function AllOrdersAdmin() {
   const dispatch = useAppDispatch()
 
-  const { ordersAdmin } = useAppSelector(orderSelector.orderState)
+  const { ordersAdmin, isPending } = useAppSelector(orderSelector.orderState)
   const columns: GridColDef[] = [
     {
       field: "id",
@@ -99,21 +100,25 @@ function AllOrdersAdmin() {
         <GoBackArrowButton />
         <h1>All orders</h1>
       </GoBackButtonWrapper>
-
-      <Paper sx={{ height: "100%", width: "100%" }}>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          initialState={{ pagination: { paginationModel } }}
-          pageSizeOptions={[5, 10]}
-          checkboxSelection
-          sx={{ border: 0 }}
-        />
-      </Paper>
-
-      <ScrollUpButtonWrapper>
-        <ScrollUpArrowButton />
-      </ScrollUpButtonWrapper>
+      {isPending ? (
+        <ProgressCircle />
+      ) : (
+        <>
+          <Paper sx={{ height: "100%", width: "100%" }}>
+            <DataGrid
+              rows={rows}
+              columns={columns}
+              initialState={{ pagination: { paginationModel } }}
+              pageSizeOptions={[5, 10]}
+              checkboxSelection
+              sx={{ border: 0 }}
+            />
+          </Paper>
+          <ScrollUpButtonWrapper>
+            <ScrollUpArrowButton />
+          </ScrollUpButtonWrapper>{" "}
+        </>
+      )}
     </PageWrapper>
   )
 }

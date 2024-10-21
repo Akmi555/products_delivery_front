@@ -9,6 +9,7 @@ import UserCard from "components/UserCard/UserCard"
 import Order from "components/Order/Order"
 import GoBackArrowButton from "components/GoBackArrowButton/GoBackArrowButton"
 import ScrollUpArrowButton from "components/ScrollUpArrowButton/ScrollUpArrowButton"
+import ProgressCircle from "components/ProgressCircle/ProgressCircle"
 
 import { LoginMistakeContainer } from "pages/Cart/styles"
 import {
@@ -24,7 +25,7 @@ import {
 
 function UserProfile() {
   const dispatch = useAppDispatch()
-  const { orders } = useAppSelector(orderSelector.orderState)
+  const { orders, isPending } = useAppSelector(orderSelector.orderState)
 
   const userOrders = orders.map(order => (
     <Order key={v4()} orderObject={order} />
@@ -68,7 +69,7 @@ function UserProfile() {
               </>
             )}
 
-            {userOrders}
+            {isPending ? <ProgressCircle /> : <>{userOrders}</>}
           </OrdersContainer>
 
           {orders && (

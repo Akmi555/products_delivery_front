@@ -10,7 +10,6 @@ import { userAuthAction } from "store/redux/users/userAuthSlice"
 
 import Input from "components/Input/Input"
 import ButtonMain from "components/ButtonMain/ButtonMain"
-import axiosConfig from "../../../axiosConfig"
 
 import {
   ButtonContainer,

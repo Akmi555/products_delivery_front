@@ -8,6 +8,7 @@ import {
 } from "store/redux/users/userAuthSlice"
 
 import ButtonMain from "components/ButtonMain/ButtonMain"
+import ProgressCircle from "components/ProgressCircle/ProgressCircle"
 
 import {
   AvatarWrapper,
@@ -30,7 +31,7 @@ import { colors } from "styles/colors"
 import { orderAction } from "store/redux/order/orderSlice"
 
 function UserCard() {
-  const { currentUser } = useAppSelector(userAuthSelectors.userAuthState)
+  const { currentUser, isPending } = useAppSelector(userAuthSelectors.userAuthState)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const roleID: number | undefined = currentUser?.roles[0].id
@@ -41,70 +42,76 @@ function UserCard() {
     dispatch(userAuthAction.logOut())
     dispatch(orderAction.logOut())
   }
-  
+
   return (
     <UserCardWrapper>
-      <UserDataWrapper>
-        <AvatarWrapper>
-          <Avatarka src={emptyProfileImg} />
-        </AvatarWrapper>
-        <DataWrapper>
-          <div>
-            <Description>Name:</Description>
-            <Name>
-              <FirstName>{currentUser?.firstName}</FirstName>
-              <LastName>{currentUser?.lastName}</LastName>
-            </Name>
-          </div>
-          <div>
-            <Description>Email:</Description>
-            <Email>{currentUser?.email}</Email>
-          </div>
-          <div>
-            <Description>Phone:</Description>
-            <Phone>{currentUser?.phone}</Phone>
-          </div>
-          {roleID === 2 && (
-            <div>
-              <Description>Role:</Description>
-              <Role>{currentUser?.roles[0].authority}</Role>
-            </div>
-          )}
-        </DataWrapper>
-      </UserDataWrapper>
-      <ButtonsContainer>
-        {roleID === 2 && (
-          <>
-            <p>Admin menu:</p>
+      {isPending ? (
+        <ProgressCircle />
+      ) : (
+        <>
+          <UserDataWrapper>
+            <AvatarWrapper>
+              <Avatarka src={emptyProfileImg} />
+            </AvatarWrapper>
+            <DataWrapper>
+              <div>
+                <Description>Name:</Description>
+                <Name>
+                  <FirstName>{currentUser?.firstName}</FirstName>
+                  <LastName>{currentUser?.lastName}</LastName>
+                </Name>
+              </div>
+              <div>
+                <Description>Email:</Description>
+                <Email>{currentUser?.email}</Email>
+              </div>
+              <div>
+                <Description>Phone:</Description>
+                <Phone>{currentUser?.phone}</Phone>
+              </div>
+              {roleID === 2 && (
+                <div>
+                  <Description>Role:</Description>
+                  <Role>{currentUser?.roles[0].authority}</Role>
+                </div>
+              )}
+            </DataWrapper>
+          </UserDataWrapper>
+          <ButtonsContainer>
+            {roleID === 2 && (
+              <>
+                <p>Admin menu:</p>
+                <ButtonMain
+                  type="button"
+                  onClick={() => navigate("/add-product")}
+                  buttonName="Add product"
+                />
+                <ButtonMain
+                  type="button"
+                  onClick={() => navigate("/all-products-admin")}
+                  buttonName="All products"
+                />
+                <ButtonMain
+                  type="button"
+                  onClick={() => navigate("/all-users")}
+                  buttonName="All users"
+                />
+                <ButtonMain
+                  type="button"
+                  onClick={() => navigate("/orders")}
+                  buttonName="All orders"
+                />
+                <p>Customer menu:</p>
+              </>
+            )}
             <ButtonMain
-              type="button"
-              onClick={() => navigate("/add-product")}
-              buttonName="Add product"
+              buttonName="Log out"
+              onClick={logOut}
+              color={colors.ERROR}
             />
-            <ButtonMain
-              type="button"
-              onClick={() => navigate("/all-products-admin")}
-              buttonName="All products"
-            />
-            <ButtonMain
-              type="button"
-              onClick={() => navigate("/all-users")}
-              buttonName="All users"
-            />
-            <ButtonMain
-              type="button"
-              onClick={() => navigate("/orders")}
-              buttonName="All orders"
-            />
-            <p>Customer menu:</p>
-          </>
-        )}
-        <ButtonMain
-          buttonName="Log out"
-          onClick={logOut}
-          color={colors.ERROR}
-        />
-      </ButtonsContainer>
+          </ButtonsContainer>
+        </>
+      )}
     </UserCardWrapper>
   )
 }

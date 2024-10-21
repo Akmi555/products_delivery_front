@@ -13,6 +13,7 @@ import { Paper, IconButton } from "@mui/material"
 
 import GoBackArrowButton from "components/GoBackArrowButton/GoBackArrowButton"
 import ScrollUpArrowButton from "components/ScrollUpArrowButton/ScrollUpArrowButton"
+import ProgressCircle from "components/ProgressCircle/ProgressCircle"
 
 import {
   GoBackButtonWrapper,
@@ -26,7 +27,9 @@ function AllProductsAdmin() {
   const [pageSize] = useState<number>(20)
   const [pageQuantity] = useState<number>(1)
   const dispatch = useAppDispatch()
-  const { products } = useAppSelector(productsSelectors.productsState)
+  const { products, isPending } = useAppSelector(
+    productsSelectors.productsState,
+  )
   const notifyRejected = () =>
     toast.error("Failed to delete user", {
       position: "bottom-left",
@@ -133,19 +136,25 @@ function AllProductsAdmin() {
         <GoBackArrowButton />
         <h1>All products</h1>
       </GoBackButtonWrapper>
-      <Paper sx={{ height: "100%", width: "100%" }}>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          initialState={{ pagination: { paginationModel } }}
-          pageSizeOptions={[5, 10]}
-          checkboxSelection
-          sx={{ border: 0 }}
-        />
-      </Paper>
-      <ScrollUpButtonWrapper>
-        <ScrollUpArrowButton />
-      </ScrollUpButtonWrapper>
+      {isPending ? (
+        <ProgressCircle />
+      ) : (
+        <>
+          <Paper sx={{ height: "100%", width: "100%" }}>
+            <DataGrid
+              rows={rows}
+              columns={columns}
+              initialState={{ pagination: { paginationModel } }}
+              pageSizeOptions={[5, 10]}
+              checkboxSelection
+              sx={{ border: 0 }}
+            />
+          </Paper>
+          <ScrollUpButtonWrapper>
+            <ScrollUpArrowButton />
+          </ScrollUpButtonWrapper>
+        </>
+      )}
     </PageWrapper>
   )
 }

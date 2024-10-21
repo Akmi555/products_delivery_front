@@ -23,21 +23,21 @@ function PaymentSuccess() {
 
   return (
     <PageWrapper>
-      <MessageContainer>
-        <TaskAltIcon sx={{ color: "#00BF63", fontSize: "5rem" }} />
-        <h2>Successful payment</h2>
-        <p>Order number: {num}</p>
-        <TextWrapper>
-          <p>Thank you for choosing foodNOW!</p>
-          <p>We appreciate your order.</p>
-        </TextWrapper>
-        <h4>Have a great day!</h4>
-        <ButtonMain
-          type="button"
-          buttonName="continue shopping"
-          onClick={() => navigate("/")}
-        />
-      </MessageContainer>
+        <MessageContainer>
+          <TaskAltIcon sx={{ color: "#00BF63", fontSize: "5rem" }} />
+          <h2>Successful payment</h2>
+          <p>Order number: {num}</p>
+          <TextWrapper>
+            <p>Thank you for choosing foodNOW!</p>
+            <p>We appreciate your order.</p>
+          </TextWrapper>
+          <h4>Have a great day!</h4>
+          <ButtonMain
+            type="button"
+            buttonName="continue shopping"
+            onClick={() => navigate("/")}
+          />
+        </MessageContainer>
     </PageWrapper>
   )
 }

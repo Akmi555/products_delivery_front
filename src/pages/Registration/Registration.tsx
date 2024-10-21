@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
+import { ToastContainer, toast } from "react-toastify"
 
 import { useFormik } from "formik"
 import * as Yup from "yup"
@@ -21,7 +22,6 @@ import {
   PageWrapper,
   PageName,
 } from "./styles"
-import { ToastContainer, toast } from "react-toastify"
 
 function Registration() {
   const navigate = useNavigate()
