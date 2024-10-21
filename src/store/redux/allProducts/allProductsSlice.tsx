@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios, { AxiosError } from "axios"
 import { createAppSlice } from "store/createAppSlice"
 import { ProductsSliceState } from "./types"
 
@@ -47,16 +47,20 @@ export const allProductsSlice = createAppSlice({
     ),
     getCategoryProducts: create.asyncThunk(
       async (payload: any) => {
-        const response = await axios.get(
-          `/api/products/page?page=${payload.currentPage - 1}&size=${payload.pageSize}&category=${payload.category}`,
-          {
-            // код ниже помог решить ошибку в консоли
-            headers: {
-              "Content-Type": "application/json",
+        const response = await axios
+          .get(
+            `/api/products/page?page=${payload.currentPage - 1}&size=${payload.pageSize}&category=${payload.category}`,
+            {
+              // код ниже помог решить ошибку в консоли
+              headers: {
+                "Content-Type": "application/json",
+              },
             },
-          },
-        )
-        return response.data
+          )
+          .catch(e => {
+            throw new Error(e.response.data.message)
+          })
+        return response
       },
       {
         pending: (state: ProductsSliceState) => {
@@ -65,8 +69,8 @@ export const allProductsSlice = createAppSlice({
         },
         fulfilled: (state: ProductsSliceState, action) => {
           state.isPending = false
-          state.products = action.payload.content
-          state.totalPages = action.payload.totalPages
+          state.products = action.payload.data.content
+          state.totalPages = action.payload.data.totalPages
         },
         rejected: (state: ProductsSliceState, action) => {
           state.error = action.error.message
