@@ -64,8 +64,8 @@ function Login() {
         dispatch(userAuthAction.getUser()),
           dispatch(orderAction.getOrders()),
           dispatch(cartActions.openCart()),
-          navigate("/user-profile")
-        helpers.resetForm()
+          helpers.resetForm()
+        navigate("/user-profile")
       }
       // пример как выполнить что то при rejected
       if (userAuthAction.login.rejected.match(dispatchResult)) {

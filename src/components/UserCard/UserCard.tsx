@@ -26,6 +26,7 @@ import {
 
 import emptyProfileImg from "assets/profile.png"
 import { colors } from "styles/colors"
+import { orderAction } from "store/redux/order/orderSlice"
 
 function UserCard() {
   const { currentUser } = useAppSelector(userAuthSelectors.userAuthState)
@@ -35,8 +36,10 @@ function UserCard() {
 
   const logOut = () => {
     localStorage.clear()
-    dispatch(cartActions.clearCartLogOut())
+    dispatch(cartActions.logOut())
     dispatch(userAuthAction.logOut())
+    dispatch(orderAction.logOut())
+    console.log(currentUser)
   }
   
   return (

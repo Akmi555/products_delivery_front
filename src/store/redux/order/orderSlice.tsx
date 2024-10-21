@@ -169,6 +169,13 @@ export const orderSlice = createAppSlice({
         },
       },
     ),
+    logOut: create.reducer((state: OrderSliceState) => {
+      state.currentOrder = undefined
+      state.error = undefined
+      state.isPending = false
+      state.orders = []
+      state.ordersAdmin = []
+    }),
   }),
   selectors: {
     orderState: (state: OrderSliceState) => state,

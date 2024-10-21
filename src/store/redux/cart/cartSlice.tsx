@@ -64,7 +64,13 @@ export const cartSlice = createAppSlice({
         },
       },
     ),
-    clearCartLogOut: create.reducer(() => cartInitialState),
+    // clearCartLogOut: create.reducer(() => cartInitialState),
+    logOut: create.reducer((state: CartSliceState) => {
+      state.allProductsFromCart = []
+      state.currentProductFromCart = undefined
+      state.error = undefined
+      state.isPending = false
+    }),
     changeAmountInCart: create.asyncThunk(
       async (data: ChangeProductAmountData) => {
         const response = await axiosConfig.put(

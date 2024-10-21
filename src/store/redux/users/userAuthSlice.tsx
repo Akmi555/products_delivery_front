@@ -68,7 +68,7 @@ export const userAuthSlice = createAppSlice({
           state.isPending = false
           state.currentUser = action.payload.user
           state.accessToken = action.payload.token.accessToken
-          // !
+          // ! как положить в localStorage какое то значение 
           localStorage.setItem("accessToken", action.payload.token.accessToken)
           state.role = action.payload.user.roles[0].authority
         },
