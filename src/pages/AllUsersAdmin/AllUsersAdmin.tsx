@@ -1,3 +1,5 @@
+import { ToastContainer, toast } from "react-toastify"
+
 import { useAppDispatch, useAppSelector } from "store/hooks"
 import { usersAction, usersSelectors } from "store/redux/allUsers/allUsersSlice"
 
@@ -16,14 +18,13 @@ import {
   ScrollUpButtonWrapper,
 } from "./styles"
 import { UserObject } from "store/redux/allUsers/types"
-import { ToastContainer, toast } from "react-toastify"
 
 function AllUsers() {
   const dispatch = useAppDispatch()
   const [currentPage] = useState<number>(1)
   const [pageQuantity] = useState<number>(1)
   // для работы таблицы из  MUI
-  const { users, isPending } = useAppSelector(usersSelectors.usersState)
+  const { users, isPending, error } = useAppSelector(usersSelectors.usersState)
   const notifyUserDeletedSuccessfully = () =>
     toast.success("User was deleted successfully", {
       position: "bottom-left",
@@ -36,7 +37,7 @@ function AllUsers() {
       theme: "light",
     })
   const notifyUserDeletRejected = () =>
-    toast.error("Could not delete the user", {
+    toast.error(error, {
       position: "bottom-left",
       autoClose: 5000,
       hideProgressBar: false,

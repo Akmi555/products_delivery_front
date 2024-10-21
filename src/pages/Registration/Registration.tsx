@@ -29,10 +29,10 @@ function Registration() {
   const { error } = useAppSelector(userAuthSelectors.userAuthState)
   const notifyRegistrationFulfilled = () =>
     toast.success(
-      "Registered successfully. Please log in now. You will re redirected to login page automatically in 5 seconds",
+      "Registered successfully. Please log in now. You will re redirected to login page automatically in 10 seconds",
       {
         position: "bottom-left",
-        autoClose: 5000,
+        autoClose: 10000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -104,7 +104,7 @@ function Registration() {
       if (userAuthAction.register.fulfilled.match(dispatchResult)) {
         notifyRegistrationFulfilled()
         helpers.resetForm()
-        setTimeout(() => navigate("/user-profile"), 5000)
+        setTimeout(() => navigate("/user-profile"), 10000)
       }
 
       if (userAuthAction.register.rejected.match(dispatchResult)) {
