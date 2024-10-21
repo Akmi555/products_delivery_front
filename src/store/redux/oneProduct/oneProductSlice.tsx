@@ -1,6 +1,5 @@
 import axios from "axios"
 import { createAppSlice } from "store/createAppSlice"
-import axiosConfig from "../../../../axiosConfig"
 
 import { AddDBObject, OneProductSliceState } from "./types"
 
@@ -36,7 +35,7 @@ export const oneProductSlice = createAppSlice({
     ),
     addProductToDB: create.asyncThunk(
       async (payload: AddDBObject) => {
-        const response = await axiosConfig.post(
+        const response = await axios.post(
           `/api/products`,
           {
             title: payload.title,
@@ -47,7 +46,10 @@ export const oneProductSlice = createAppSlice({
             photoLink: payload.photoLink,
           },
           {
-            headers: { "Content-Type": "application/json" },
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+              "Content-Type": "application/json",
+            },
           },
         )
         return response.data
@@ -68,7 +70,11 @@ export const oneProductSlice = createAppSlice({
     ),
     deleteProductFromDB: create.asyncThunk(
       async (productId: number | undefined) => {
-        const response = await axiosConfig.delete(`/api/products/${productId}`)
+        const response = await axios.delete(`/api/products/${productId}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        })
         return response.data
       },
       {

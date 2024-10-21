@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios"
+import axios from "axios"
 import { createAppSlice } from "store/createAppSlice"
 import { ProductsSliceState } from "./types"
 

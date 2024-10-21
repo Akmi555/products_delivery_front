@@ -8,6 +8,7 @@ import {
 } from "store/redux/users/userAuthSlice"
 
 import ButtonMain from "components/ButtonMain/ButtonMain"
+
 import {
   AvatarWrapper,
   Avatarka,
@@ -39,7 +40,6 @@ function UserCard() {
     dispatch(cartActions.logOut())
     dispatch(userAuthAction.logOut())
     dispatch(orderAction.logOut())
-    console.log(currentUser)
   }
   
   return (

@@ -1,7 +1,7 @@
 import { createAppSlice } from "store/createAppSlice"
 
-import axiosConfig from "../../../../axiosConfig"
 import { UsersSliceState } from "./types"
+import axios from "axios"
 
 const usersInitialState: UsersSliceState = {
   currentUser: undefined,
@@ -17,7 +17,11 @@ export const allUsersSlice = createAppSlice({
   reducers: create => ({
     getUsers: create.asyncThunk(
       async () => {
-        const response = await axiosConfig.get(`/api/users`)
+        const response = await axios.get(`/api/users`,  {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        })
         return response.data
       },
       {
@@ -38,7 +42,11 @@ export const allUsersSlice = createAppSlice({
     ),
     deleteUser: create.asyncThunk(
       async (userID: number | undefined) => {
-        const response = await axiosConfig.delete(`/api/users/${userID}`)
+        const response = await axios.delete(`/api/users/${userID}`,  {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        })
         return response.data
       },
       {

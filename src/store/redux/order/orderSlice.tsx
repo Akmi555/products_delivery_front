@@ -1,8 +1,8 @@
 import { createAppSlice } from "store/createAppSlice"
-import axiosConfig from "../../../../axiosConfig"
 import { PayloadAction } from "@reduxjs/toolkit"
 
 import { OrderSliceState, ConfirmOrder, OrderObject } from "./types"
+import axios from "axios"
 
 const orderInitialState: OrderSliceState = {
   currentOrder: undefined,
@@ -18,7 +18,11 @@ export const orderSlice = createAppSlice({
   reducers: create => ({
     createOrder: create.asyncThunk(
       async () => {
-        const response = await axiosConfig.post(`/api/order`)
+        const response = await axios.post(`/api/order`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        })
         return response.data
       },
       {
@@ -39,12 +43,20 @@ export const orderSlice = createAppSlice({
     ),
     confirmOrder: create.asyncThunk(
       async (payload: ConfirmOrder) => {
-        const response = await axiosConfig.put(`/api/order/confirmed`, {
-          id: payload.id,
-          address: payload.address,
-          deliveryTime: payload.deliveryTime,
-          paymentMethod: payload.paymentMethod,
-        })
+        const response = await axios.put(
+          `/api/order/confirmed`,
+          {
+            id: payload.id,
+            address: payload.address,
+            deliveryTime: payload.deliveryTime,
+            paymentMethod: payload.paymentMethod,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+          },
+        )
         return response.data
       },
       {
@@ -72,10 +84,11 @@ export const orderSlice = createAppSlice({
     ),
     payForOrder: create.asyncThunk(
       async (payload: any) => {
-        const response = await axiosConfig.put(
-          `/api/order/paid/${payload.id}`,
-          {},
-        )
+        const response = await axios.put(`/api/order/paid/${payload.id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        })
         return response.data
       },
       {
@@ -100,7 +113,11 @@ export const orderSlice = createAppSlice({
     ),
     getOrders: create.asyncThunk(
       async () => {
-        const response = await axiosConfig.get(`/api/order/my`)
+        const response = await axios.get(`/api/order/my`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        })
         return response.data
       },
       {
@@ -120,7 +137,11 @@ export const orderSlice = createAppSlice({
     ),
     getOrdersAdmin: create.asyncThunk(
       async () => {
-        const response = await axiosConfig.get(`/api/order`)
+        const response = await axios.get(`/api/order`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        })
         return response.data
       },
       {
@@ -145,7 +166,11 @@ export const orderSlice = createAppSlice({
     ),
     cancelOrder: create.asyncThunk(
       async (orderId: number) => {
-        const response = await axiosConfig.put(`/api/order/${orderId}/cancel`)
+        const response = await axios.put(`/api/order/${orderId}/cancel`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        })
         return response.data
       },
       {

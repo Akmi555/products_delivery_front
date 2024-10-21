@@ -1,6 +1,5 @@
 import axios from "axios"
 import { createAppSlice } from "store/createAppSlice"
-import axiosConfig from "../../../../axiosConfig"
 
 import { UserAuthSliceState, LoginData } from "./types"
 
@@ -68,8 +67,12 @@ export const userAuthSlice = createAppSlice({
           state.isPending = false
           state.currentUser = action.payload.user
           state.accessToken = action.payload.token.accessToken
-          // ! как положить в localStorage какое то значение 
+          // ! как положить в localStorage какое то значение
           localStorage.setItem("accessToken", action.payload.token.accessToken)
+
+          axios.defaults.headers.common["Authorization"] =
+            `Bearer ${action.payload.token.accessToken}`
+
           state.role = action.payload.user.roles[0].authority
         },
         rejected: (state: UserAuthSliceState, action) => {
@@ -80,7 +83,11 @@ export const userAuthSlice = createAppSlice({
     ),
     getUser: create.asyncThunk(
       async () => {
-        const response = await axiosConfig.get(`/api/auth/profile`)
+        const response = await axios.get(`/api/auth/profile`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        })
         return response.data
       },
       {

@@ -1,6 +1,6 @@
 import { createAppSlice } from "store/createAppSlice"
-import axiosConfig from "../../../../axiosConfig"
 import { CartSliceState, ChangeProductAmountData } from "./types"
+import axios from "axios"
 
 const cartInitialState: CartSliceState = {
   currentProductFromCart: undefined,
@@ -15,7 +15,11 @@ export const cartSlice = createAppSlice({
   reducers: create => ({
     addProductToCart: create.asyncThunk(
       async (productId: number) => {
-        const response = await axiosConfig.post(`/api/cart/${productId}`)
+        const response = await axios.post(`/api/cart/${productId}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        })
         return response.data
       },
       {
@@ -46,7 +50,11 @@ export const cartSlice = createAppSlice({
     ),
     openCart: create.asyncThunk(
       async () => {
-        const response: any = await axiosConfig.get("/api/cart")
+        const response: any = await axios.get("/api/cart", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        })
         return response.data
       },
       {
@@ -73,8 +81,13 @@ export const cartSlice = createAppSlice({
     }),
     changeAmountInCart: create.asyncThunk(
       async (data: ChangeProductAmountData) => {
-        const response = await axiosConfig.put(
+        const response = await axios.put(
           `/api/cart/${data.productId}/${data.newAmount}`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+          },
         )
         return response.data
       },
@@ -104,8 +117,11 @@ export const cartSlice = createAppSlice({
     ),
     deleteProductFromCart: create.asyncThunk(
       async (productId: number) => {
-        const response = await axiosConfig.delete(`api/cart/${productId}
-        `)
+        const response = await axios.delete(`api/cart/${productId}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        })
         return response.data
       },
       {
@@ -115,11 +131,6 @@ export const cartSlice = createAppSlice({
         },
         fulfilled: (state: CartSliceState, action) => {
           state.isPending = false
-          // if (
-          //   state.allProductsFromCart.some(
-          //     p => p.productId === action.payload.productId,
-          //   )
-          // )
           state.allProductsFromCart = state.allProductsFromCart.filter(
             p => p.productId !== action.payload.productId,
           )
@@ -132,7 +143,11 @@ export const cartSlice = createAppSlice({
     ),
     deleteCart: create.asyncThunk(
       async () => {
-        const response = await axiosConfig.delete("api/cart")
+        const response = await axios.delete("api/cart", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        })
         return response.data
       },
       {
