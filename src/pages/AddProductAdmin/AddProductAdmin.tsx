@@ -9,6 +9,8 @@ import * as Yup from "yup"
 import ButtonMain from "components/ButtonMain/ButtonMain"
 import Input from "components/Input/Input"
 import InputHidden from "components/InputHidden/InputHidden"
+import GoBackArrowButton from "components/GoBackArrowButton/GoBackArrowButton"
+import ProgressCircle from "components/ProgressCircle/ProgressCircle"
 
 import {
   InputContainer,
@@ -27,13 +29,13 @@ import {
   oneProductSelectors,
 } from "store/redux/oneProduct/oneProductSlice"
 import { useAppSelector } from "store/hooks"
-import GoBackArrowButton from "components/GoBackArrowButton/GoBackArrowButton"
+
 
 function AddProductAdmin() {
   const dispatch = useDispatch<AppDispatch>()
   const [selectedImg, setSelectedImg] = useState<never | null | any>(null) // выбранная картинка на фронтэнде
   const [imgId, setImgId] = useState<string>() // ID картинки для создания карточки
-  const { error } = useAppSelector(oneProductSelectors.productState)
+  const { error, isPending } = useAppSelector(oneProductSelectors.productState)
   const notifyRejected = () =>
     toast.error(error, {
       position: "bottom-left",
@@ -56,7 +58,7 @@ function AddProductAdmin() {
       progress: undefined,
       theme: "light",
     })
-    const notifyImgNotSelected = () =>
+  const notifyImgNotSelected = () =>
     toast.warn("Image was not selected", {
       position: "bottom-left",
       autoClose: 5000,
@@ -184,83 +186,90 @@ function AddProductAdmin() {
       </GoBackButtonWrapper>
       <NameAndFormWrapper>
         <PageName>Add NEW product</PageName>
-        <AddProductContainer onSubmit={formik.handleSubmit}>
-          <InputContainer>
-            <Input
-              id="title-id"
-              name="title"
-              type="text"
-              label="Title*"
-              value={formik.values.title}
-              onChange={formik.handleChange}
-              error={formik.errors.title}
-            />
-            <Input
-              id="price-id"
-              name="price"
-              type="number"
-              label="Price*"
-              value={formik.values.price}
-              onChange={formik.handleChange}
-              error={formik.errors.price}
-            />
-            <Input
-              id="product-code-id"
-              name="productCode"
-              type="text"
-              label="Product code*"
-              value={formik.values.productCode}
-              onChange={formik.handleChange}
-              error={formik.errors.productCode}
-            />
-            <Input
-              id="min-quantity-id"
-              name="minQuantity"
-              type="text"
-              label="Quantity*"
-              value={formik.values.minQuantity}
-              onChange={formik.handleChange}
-              error={formik.errors.minQuantity}
-            />
-            <Input
-              id="description-id"
-              name="description"
-              type="text"
-              label="Description*"
-              value={formik.values.description}
-              onChange={formik.handleChange}
-              error={formik.errors.description}
-            />
-            <ImgUploadButtonContainer>
-              <ButtonMain
-                onClick={handlePick}
-                buttonName=" 1 - Choose img"
-              ></ButtonMain>
-              <InputHidden
-                type="file"
-                onChange={handleChangeImg}
-                accept="image/*,.png,.jpg,.bmp,.gif"
-                $ref={filePicker}
-              />
-              <ButtonMain
-                onClick={handleImgUpload}
-                buttonName="2 - Upload img"
-              ></ButtonMain>
-            </ImgUploadButtonContainer>
-            <ImgCodeContainer>
-              {selectedImg && <p>{selectedImg.name}</p>}
-              {imgId && <p>Изображение успешно загружено!</p>}
-              {imgId && <UploadedImg alt="" src={photoLink} />}
-            </ImgCodeContainer>
-          </InputContainer>
-          <ButtonContainer>
-            <ButtonMain
-              disabled={!formik.dirty || formik.isSubmitting}
-              buttonName="Add product to DB"
-              type="submit"
-            />
-          </ButtonContainer>
-        </AddProductContainer>
+
+        {isPending ? (
+          <ProgressCircle />
+        ) : (
+          <>
+            <AddProductContainer onSubmit={formik.handleSubmit}>
+              <InputContainer>
+                <Input
+                  id="title-id"
+                  name="title"
+                  type="text"
+                  label="Title*"
+                  value={formik.values.title}
+                  onChange={formik.handleChange}
+                  error={formik.errors.title}
+                />
+                <Input
+                  id="price-id"
+                  name="price"
+                  type="number"
+                  label="Price*"
+                  value={formik.values.price}
+                  onChange={formik.handleChange}
+                  error={formik.errors.price}
+                />
+                <Input
+                  id="product-code-id"
+                  name="productCode"
+                  type="text"
+                  label="Product code*"
+                  value={formik.values.productCode}
+                  onChange={formik.handleChange}
+                  error={formik.errors.productCode}
+                />
+                <Input
+                  id="min-quantity-id"
+                  name="minQuantity"
+                  type="text"
+                  label="Quantity*"
+                  value={formik.values.minQuantity}
+                  onChange={formik.handleChange}
+                  error={formik.errors.minQuantity}
+                />
+                <Input
+                  id="description-id"
+                  name="description"
+                  type="text"
+                  label="Description*"
+                  value={formik.values.description}
+                  onChange={formik.handleChange}
+                  error={formik.errors.description}
+                />
+                <ImgUploadButtonContainer>
+                  <ButtonMain
+                    onClick={handlePick}
+                    buttonName=" 1 - Choose img"
+                  ></ButtonMain>
+                  <InputHidden
+                    type="file"
+                    onChange={handleChangeImg}
+                    accept="image/*,.png,.jpg,.bmp,.gif"
+                    $ref={filePicker}
+                  />
+                  <ButtonMain
+                    onClick={handleImgUpload}
+                    buttonName="2 - Upload img"
+                  ></ButtonMain>
+                </ImgUploadButtonContainer>
+                <ImgCodeContainer>
+                  {selectedImg && <p>{selectedImg.name}</p>}
+                  {imgId && <p>Изображение успешно загружено!</p>}
+                  {imgId && <UploadedImg alt="" src={photoLink} />}
+                </ImgCodeContainer>
+              </InputContainer>
+              <ButtonContainer>
+                <ButtonMain
+                  disabled={!formik.dirty || formik.isSubmitting}
+                  buttonName="Add product to DB"
+                  type="submit"
+                />
+              </ButtonContainer>
+            </AddProductContainer>
+          </>
+        )}
       </NameAndFormWrapper>
       <div></div>
     </PageWrapper>

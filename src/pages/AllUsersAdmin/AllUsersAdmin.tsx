@@ -1,3 +1,5 @@
+import { ToastContainer, toast } from "react-toastify"
+
 import { useAppDispatch, useAppSelector } from "store/hooks"
 import { usersAction, usersSelectors } from "store/redux/allUsers/allUsersSlice"
 
@@ -7,6 +9,7 @@ import { IconButton } from "@mui/material"
 
 import GoBackArrowButton from "components/GoBackArrowButton/GoBackArrowButton"
 import ScrollUpArrowButton from "components/ScrollUpArrowButton/ScrollUpArrowButton"
+import ProgressCircle from "components/ProgressCircle/ProgressCircle"
 
 import { useEffect, useState } from "react"
 import {
@@ -15,14 +18,13 @@ import {
   ScrollUpButtonWrapper,
 } from "./styles"
 import { UserObject } from "store/redux/allUsers/types"
-import { ToastContainer, toast } from "react-toastify"
 
 function AllUsers() {
   const dispatch = useAppDispatch()
   const [currentPage] = useState<number>(1)
   const [pageQuantity] = useState<number>(1)
   // для работы таблицы из  MUI
-  const { users } = useAppSelector(usersSelectors.usersState)
+  const { users, isPending, error } = useAppSelector(usersSelectors.usersState)
   const notifyUserDeletedSuccessfully = () =>
     toast.success("User was deleted successfully", {
       position: "bottom-left",
@@ -35,7 +37,7 @@ function AllUsers() {
       theme: "light",
     })
   const notifyUserDeletRejected = () =>
-    toast.error("Could not delete the user", {
+    toast.error(error, {
       position: "bottom-left",
       autoClose: 5000,
       hideProgressBar: false,
@@ -133,19 +135,26 @@ function AllUsers() {
         <GoBackArrowButton />
         <h1>All users</h1>
       </GoBackButtonWrapper>
-      <Paper sx={{ height: "100%", width: "100%" }}>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          initialState={{ pagination: { paginationModel } }}
-          pageSizeOptions={[5, 10]}
-          checkboxSelection
-          sx={{ border: 0 }}
-        />
-      </Paper>
-      <ScrollUpButtonWrapper>
-        <ScrollUpArrowButton />
-      </ScrollUpButtonWrapper>
+
+      {isPending ? (
+        <ProgressCircle />
+      ) : (
+        <>
+          <Paper sx={{ height: "100%", width: "100%" }}>
+            <DataGrid
+              rows={rows}
+              columns={columns}
+              initialState={{ pagination: { paginationModel } }}
+              pageSizeOptions={[5, 10]}
+              checkboxSelection
+              sx={{ border: 0 }}
+            />
+          </Paper>
+          <ScrollUpButtonWrapper>
+            <ScrollUpArrowButton />
+          </ScrollUpButtonWrapper>
+        </>
+      )}
     </PageWrapper>
   )
 }

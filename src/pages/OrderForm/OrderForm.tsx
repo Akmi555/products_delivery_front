@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { ToastContainer, toast } from "react-toastify"
 
 import { useFormik } from "formik"
 import * as Yup from "yup"
@@ -34,7 +35,7 @@ import {
   PageWrapper,
   RegistrationContainer,
 } from "./styles"
-import { ToastContainer, toast } from "react-toastify"
+
 
 function OrderForm() {
   const dispatch = useAppDispatch()
@@ -42,7 +43,7 @@ function OrderForm() {
   const currentOrderID: number = currentOrder ? currentOrder.id : 0
 
   const notify = () =>
-    toast.error(`${error}`, {
+    toast.error(error, {
       position: "bottom-left",
       autoClose: 5000,
       hideProgressBar: false,
@@ -97,13 +98,11 @@ function OrderForm() {
           paymentMethod: payment,
         }),
       )
-      // действие если fulfilled
       if (orderAction.confirmOrder.fulfilled.match(dispatchResult)) {
         setOpen(true)
       }
       if (error) {
         notify()
-        console.log(error)
       }
       helpers.resetForm()
     },

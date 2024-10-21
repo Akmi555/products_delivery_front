@@ -9,12 +9,16 @@ import {
 
 import ProductDetailsCard from "components/OneProductCard/OneProductCard"
 import GoBackArrowButton from "components/GoBackArrowButton/GoBackArrowButton"
+import ProgressCircle from "components/ProgressCircle/ProgressCircle"
 
 import { GoBackButtonWrapper, PageWrapper } from "./styles"
 
+
 function OneProduct() {
   const dispatch = useAppDispatch()
-  const { currentProduct } = useAppSelector(oneProductSelectors.productState)
+  const { currentProduct, isPending } = useAppSelector(
+    oneProductSelectors.productState,
+  )
   const { id } = useParams()
 
   useEffect(() => {
@@ -26,7 +30,16 @@ function OneProduct() {
       <GoBackButtonWrapper>
         <GoBackArrowButton />
       </GoBackButtonWrapper>
-      {currentProduct && <ProductDetailsCard productData={currentProduct} />}
+
+      {isPending ? (
+        <ProgressCircle />
+      ) : (
+        <>
+          {currentProduct && (
+            <ProductDetailsCard productData={currentProduct} />
+          )}
+        </>
+      )}
       <div></div>
     </PageWrapper>
   )

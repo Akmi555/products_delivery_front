@@ -12,6 +12,7 @@ import {
 import ProductCard from "components/ProductCard/ProductCard"
 import ScrollUpArrowButton from "components/ScrollUpArrowButton/ScrollUpArrowButton"
 import CategoryButton from "components/CategoryButton/CategoryButton"
+import ProgressCircle from "components/ProgressCircle/ProgressCircle"
 
 import { Container, Pagination, Stack } from "@mui/material"
 
@@ -24,6 +25,7 @@ import {
 } from "./styles"
 import { colors } from "styles/colors"
 
+
 function AllProducts() {
   const dispatch = useAppDispatch()
   const [category, setCategory] = useState<string>("")
@@ -33,7 +35,7 @@ function AllProducts() {
   const [pageSize] = useState<number>(20)
   const [pageQuantity, setPageQuantity] = useState<number>(1)
   // в аппСелектор добавили общее кол-во страниц для пагинатора
-  const { products, totalPages } = useAppSelector(
+  const { products, totalPages, error, isPending } = useAppSelector(
     productsSelectors.productsState,
   )
   // пагинация
@@ -69,11 +71,7 @@ function AllProducts() {
       <CategoriesWrapper>
         <CategoryButton
           name="All products"
-          color={
-            category === "ALL_PRODUCTS"
-              ? `${colors.MAIN_GREEN}`
-              : "gray"
-          }
+          color={category === "ALL_PRODUCTS" ? `${colors.MAIN_GREEN}` : "gray"}
           onClick={() => {
             setCategory("ALL_PRODUCTS")
             dispatch(
@@ -184,25 +182,37 @@ function AllProducts() {
           }}
         />
       </CategoriesWrapper>
-      <ProductCardsWrapper>
-        {products.map((productObj: ProductObject) => (
-          <ProductCard key={v4()} productData={productObj} />
-        ))}
-      </ProductCardsWrapper>
-      <Container>
-        <PaginatorWrapper>
-          <Stack spacing={2}>
-            <Pagination
-              count={totalPages}
-              page={currentPage}
-              onChange={handleChange}
-            />
-          </Stack>
-        </PaginatorWrapper>
-      </Container>
-      <GoBackButtonWrapper>
-        <ScrollUpArrowButton />
-      </GoBackButtonWrapper>
+      {isPending ? (
+        <ProgressCircle />
+      ) : (
+        <>
+          <ProductCardsWrapper>
+            {error ? (
+              <p>{error}</p>
+            ) : (
+              <>
+                {products.map((productObj: ProductObject) => (
+                  <ProductCard key={v4()} productData={productObj} />
+                ))}
+              </>
+            )}
+          </ProductCardsWrapper>
+          <Container>
+            <PaginatorWrapper>
+              <Stack spacing={2}>
+                <Pagination
+                  count={totalPages}
+                  page={currentPage}
+                  onChange={handleChange}
+                />
+              </Stack>
+            </PaginatorWrapper>
+          </Container>
+          <GoBackButtonWrapper>
+            <ScrollUpArrowButton />
+          </GoBackButtonWrapper>
+        </>
+      )}
     </PageWrapper>
   )
 }

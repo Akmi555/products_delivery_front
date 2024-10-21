@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { ToastContainer, toast } from "react-toastify"
 
 import { useAppDispatch, useAppSelector } from "store/hooks"
 import { oneProductAction } from "store/redux/oneProduct/oneProductSlice"
@@ -13,22 +14,24 @@ import { Paper, IconButton } from "@mui/material"
 
 import GoBackArrowButton from "components/GoBackArrowButton/GoBackArrowButton"
 import ScrollUpArrowButton from "components/ScrollUpArrowButton/ScrollUpArrowButton"
+import ProgressCircle from "components/ProgressCircle/ProgressCircle"
 
 import {
   GoBackButtonWrapper,
   PageWrapper,
   ScrollUpButtonWrapper,
 } from "./styles"
-import { ToastContainer, toast } from "react-toastify"
 
 function AllProductsAdmin() {
   const [currentPage] = useState<number>(1)
   const [pageSize] = useState<number>(20)
   const [pageQuantity] = useState<number>(1)
   const dispatch = useAppDispatch()
-  const { products } = useAppSelector(productsSelectors.productsState)
+  const { products, isPending, error } = useAppSelector(
+    productsSelectors.productsState,
+  )
   const notifyRejected = () =>
-    toast.error("Failed to delete user", {
+    toast.error(error, {
       position: "bottom-left",
       autoClose: 5000,
       hideProgressBar: false,
@@ -133,19 +136,25 @@ function AllProductsAdmin() {
         <GoBackArrowButton />
         <h1>All products</h1>
       </GoBackButtonWrapper>
-      <Paper sx={{ height: "100%", width: "100%" }}>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          initialState={{ pagination: { paginationModel } }}
-          pageSizeOptions={[5, 10]}
-          checkboxSelection
-          sx={{ border: 0 }}
-        />
-      </Paper>
-      <ScrollUpButtonWrapper>
-        <ScrollUpArrowButton />
-      </ScrollUpButtonWrapper>
+      {isPending ? (
+        <ProgressCircle />
+      ) : (
+        <>
+          <Paper sx={{ height: "100%", width: "100%" }}>
+            <DataGrid
+              rows={rows}
+              columns={columns}
+              initialState={{ pagination: { paginationModel } }}
+              pageSizeOptions={[5, 10]}
+              checkboxSelection
+              sx={{ border: 0 }}
+            />
+          </Paper>
+          <ScrollUpButtonWrapper>
+            <ScrollUpArrowButton />
+          </ScrollUpButtonWrapper>
+        </>
+      )}
     </PageWrapper>
   )
 }
