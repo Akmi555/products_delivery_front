@@ -30,17 +30,40 @@ import {
 } from "./styles"
 import { CartAndProductData } from "./types"
 import ProgressCircle from "components/ProgressCircle/ProgressCircle"
+import { ToastContainer, toast } from "react-toastify"
 
 function Cart() {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const [products, setProducts] = useState<OneProductObject[]>([])
-  const { allProductsFromCart, isPending } = useAppSelector(
+  const { allProductsFromCart, isPending, error } = useAppSelector(
     cartSelectors.cartState,
   )
   let totalAmount: number = 0
   let totalQuantity: number = 0
   const accessToken: string | null = localStorage.getItem("accessToken")
+  const notifyDeleteCartRejected = () =>
+    toast.error(error, {
+      position: "bottom-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    })
+  const notifyDeleteCartFulfilled = () =>
+    toast.success("Cart is empty now", {
+      position: "bottom-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    })
 
   for (let i = 0; i <= allProductsFromCart.length - 1; i++) {
     totalAmount += allProductsFromCart[i].sum
@@ -89,8 +112,15 @@ function Cart() {
     }, [])
   }
 
-  const clearCart = () => {
-    dispatch(cartActions.deleteCart())
+  const clearCart = async () => {
+    const dispatchResult = await dispatch(cartActions.deleteCart())
+    if (cartActions.deleteCart.fulfilled.match(dispatchResult)) {
+      notifyDeleteCartFulfilled()
+    }
+
+    if (cartActions.deleteCart.rejected.match(dispatchResult)) {
+      notifyDeleteCartRejected()
+    }
   }
 
   const createOrder = async () => {
@@ -103,6 +133,7 @@ function Cart() {
   }
   return (
     <PageWrapper>
+      <ToastContainer />
       {isPending ? (
         <ProgressCircle />
       ) : (

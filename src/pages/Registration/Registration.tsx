@@ -41,20 +41,17 @@ function Registration() {
         theme: "light",
       },
     )
-    const notifyRegistrationRejected = () =>
-    toast.error(
-      `Registration failed. ${error}`,
-      {
-        position: "bottom-left",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      },
-    )
+  const notifyRegistrationRejected = () =>
+    toast.error(`Registration failed. ${error}`, {
+      position: "bottom-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    })
   const EMAIL_REGX = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
   const phoneRegExp =
     /^((\+[1-9]{1,4}[ \-]*)|(\([0-9]{2,3}\)[ \-]*)|([0-9]{2,4})[ \-]*)*?[0-9]{3,4}?[ \-]*[0-9]{3,4}?$/
@@ -115,7 +112,7 @@ function Registration() {
 
   return (
     <PageWrapper>
-        <ToastContainer />
+      <ToastContainer />
       <PageName>Registration</PageName>
       <RegistrationContainer onSubmit={formik.handleSubmit}>
         <InputContainer>
