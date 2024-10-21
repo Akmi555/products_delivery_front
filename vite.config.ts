@@ -19,7 +19,6 @@ export default defineConfig({
     proxy: {
       "/api": {
         target: "http://localhost:8080",
-        // target: "https://oyster-app-hck73.ondigitalocean.app",
       },
     },
   },
