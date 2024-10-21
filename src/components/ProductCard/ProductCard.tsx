@@ -70,7 +70,7 @@ function ProductCard({ productData }: ProductCardProps) {
       },
     )
   const openCurrentProduct = () => {
-    navigate(`/${productId}`)
+    navigate(`/products/${productId}`)
   }
 
   const handleClick = async () => {
