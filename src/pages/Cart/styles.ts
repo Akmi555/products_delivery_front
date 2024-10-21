@@ -4,8 +4,6 @@ import { globalPageStyles } from "styles/GlobalStyles"
 export const PageWrapper = styled.div`
   ${globalPageStyles}
   padding: 40px;
-  /* justify-content: center; */
-  /* align-content: space-between; */
   justify-content: space-between;
   gap: 40px;
 `
@@ -13,7 +11,6 @@ export const PageWrapper = styled.div`
 export const CartItemsWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  /* margin-left: 160px; */
   gap: 20px;
 `
 export const GoBackButtonWrapper = styled.div`

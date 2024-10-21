@@ -21,20 +21,40 @@ import {
   Amount,
 } from "./styles"
 import { cartObjProps } from "./types"
+import { ToastContainer, toast } from "react-toastify"
 
 function CartComponent({ cartObjData }: cartObjProps) {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
-
-  const { allProductsFromCart } = useAppSelector(cartSelectors.cartState)
-
+  const { allProductsFromCart, error } = useAppSelector(cartSelectors.cartState)
+  const [newAm, setNewAm] = useState<number>(cartObjData.productQuantity)
   const productId: number = cartObjData.id
   const title: string | undefined = cartObjData.title
   const price: number | undefined = cartObjData.price
   const photoLink: string | undefined =
     `/api/files/download/${cartObjData.photoLink}`
-
-  const [newAm, setNewAm] = useState<number>(cartObjData.productQuantity)
+  const notifyDeleteProductRejected = () =>
+    toast.error(`${cartObjData.title} was not deleted. Error: ${error}`, {
+      position: "bottom-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    })
+  const notifyDeleteProductFulfilled = () =>
+    toast.success(`${cartObjData.title} was deleted from cart`, {
+      position: "bottom-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    })
 
   const onPlus = () => {
     setNewAm(newAm + 1)
@@ -52,21 +72,31 @@ function CartComponent({ cartObjData }: cartObjProps) {
 
   // открыть страницу продукта
   const openCurrentProduct = () => {
-    navigate(`/${productId}`)
+    navigate(`/products/${productId}`)
   }
 
   // удалить продукт из корзины
-  const deleteProduct = () => {
+  const deleteProduct = async () => {
     if (allProductsFromCart.length === 1) {
       dispatch(cartActions.deleteCart())
     } else {
-      dispatch(cartActions.deleteProductFromCart(productId)).then(() => {
+      const dispatchResult = await dispatch(
+        cartActions.deleteProductFromCart(productId),
+      )
+
+      if (cartActions.deleteProductFromCart.fulfilled.match(dispatchResult)) {
         dispatch(cartActions.openCart())
-      })
+        setTimeout(() => notifyDeleteProductFulfilled(), 100)
+      }
+
+      if (cartActions.deleteProductFromCart.rejected.match(dispatchResult)) {
+        notifyDeleteProductRejected()
+      }
     }
   }
   return (
     <ProductWrapper>
+      <ToastContainer />
       <ImgContainer>
         <ProductButton
           type="button"

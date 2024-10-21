@@ -61,9 +61,23 @@ function Order({ orderObject }: OrderObjDataProps) {
   const [openCancelWindow, setOpenCanselWindow] = useState<boolean>(false)
 
   // для toastify
-  const notify = () =>
+  const notifyFulfilled = () =>
     toast.success(
       `Order with id: ${orderObject.id} was successfully cancelled`,
+      {
+        position: "bottom-left",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      },
+    )
+  const notifyRejected = () =>
+    toast.error(
+      `Order with id: ${orderObject.id} was not cancelled.`,
       {
         position: "bottom-left",
         autoClose: 3000,
@@ -85,7 +99,7 @@ function Order({ orderObject }: OrderObjDataProps) {
       // кладем статус заказа в стейт чтобы потом менять цвет отмененного заказа
       setStatus(String(orderObject.orderStatus))
 
-      // далее логика объединения жлементов массива 
+      // далее логика объединения жлементов массива
       // вытащили в массив айди тех продуктов, которые в ЗАКАЗЕ
       const productIds: number[] = orderProductArray.map(item => item.productId)
 
@@ -95,8 +109,10 @@ function Order({ orderObject }: OrderObjDataProps) {
           const productDataPromises = productIds.map(productId =>
             dispatch(oneProductAction.openProduct(productId)),
           )
-          const productsData  = await Promise.all(productDataPromises)
-          const productsDataPayload : OneProductObject[] = productsData.map(item => item.payload)
+          const productsData = await Promise.all(productDataPromises)
+          const productsDataPayload: OneProductObject[] = productsData.map(
+            item => item.payload,
+          )
           setProducts(productsDataPayload)
         } catch (e) {
           console.error("Error fetching products:", e)
@@ -138,7 +154,10 @@ function Order({ orderObject }: OrderObjDataProps) {
     )
     if (orderAction.cancelOrder.fulfilled.match(dispatchResult)) {
       dispatch(orderAction.getOrders())
-      setTimeout(() => notify(), 500)
+      setTimeout(() => notifyFulfilled(), 500)
+    }
+    if (orderAction.cancelOrder.rejected.match(dispatchResult)) {
+      notifyRejected()
     }
   }
 
