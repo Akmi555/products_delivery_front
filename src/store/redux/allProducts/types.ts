@@ -6,6 +6,12 @@ export interface ProductsSliceState {
   isPending: boolean
 }
 
+// export interface ErrorObj {
+//   message: string
+//   statusCode: number
+//   errorType: string
+// }
+
 export interface ProductObject {
   id: number
   title: string
@@ -19,15 +25,14 @@ export interface CartObject {
   productId: number
 }
 
-
 export const ProductCotegories = {
-  DAIRY:"DAIRY",
-  MEAT:"MEAT",
-  BEVERAGES:"BEVERAGES",
-  VEGETABLES_FRUITS:"VEGETABLES_FRUITS",
-  BAKERY:"BAKERY",
-  SEAFOOD:"SEAFOOD",
-  SNACKS_SWEETS:"SNACKS_SWEETS",
-  GRAINS:"GRAINS",
-  FROZEN:"FROZEN",
+  DAIRY: "DAIRY",
+  MEAT: "MEAT",
+  BEVERAGES: "BEVERAGES",
+  VEGETABLES_FRUITS: "VEGETABLES_FRUITS",
+  BAKERY: "BAKERY",
+  SEAFOOD: "SEAFOOD",
+  SNACKS_SWEETS: "SNACKS_SWEETS",
+  GRAINS: "GRAINS",
+  FROZEN: "FROZEN",
 }

@@ -53,22 +53,15 @@ function AllProducts() {
     setCategory("ALL_PRODUCTS")
   }, [currentPage, pageQuantity])
 
-  const getProductsByCategory = async (category: string) => {
+  const getProductsByCategory = (category: string) => {
     setCategory(category)
-    const dispatchResult = await dispatch(
+    dispatch(
       allProductsSlice.actions.getCategoryProducts({
         currentPage: currentPage,
         pageSize: pageSize,
         category: category,
       }),
     )
-    if (
-      allProductsSlice.actions.getCategoryProducts.rejected.match(
-        dispatchResult,
-      )
-    ) {
-      // мб вернуть
-    }
   }
 
   return (
@@ -189,7 +182,7 @@ function AllProducts() {
       </CategoriesWrapper>
       <ProductCardsWrapper>
         {error ? (
-          <p>This category is empty</p>
+          <p>{error}</p>
         ) : (
           <>
             {products.map((productObj: ProductObject) => (

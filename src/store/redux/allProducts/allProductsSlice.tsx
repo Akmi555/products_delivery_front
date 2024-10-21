@@ -46,7 +46,6 @@ export const allProductsSlice = createAppSlice({
       },
     ),
     getCategoryProducts: create.asyncThunk(
-      // !!!!
       async (payload: any) => {
         const response = await axios.get(
           `/api/products/page?page=${payload.currentPage - 1}&size=${payload.pageSize}&category=${payload.category}`,
@@ -67,7 +66,6 @@ export const allProductsSlice = createAppSlice({
         fulfilled: (state: ProductsSliceState, action) => {
           state.isPending = false
           state.products = action.payload.content
-          //!!!!
           state.totalPages = action.payload.totalPages
         },
         rejected: (state: ProductsSliceState, action) => {
