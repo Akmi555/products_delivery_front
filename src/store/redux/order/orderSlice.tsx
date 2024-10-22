@@ -88,11 +88,15 @@ export const orderSlice = createAppSlice({
     ),
     payForOrder: create.asyncThunk(
       async (payload: any) => {
-        const response = await axios.put(`/api/order/paid/${payload.id}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        const response = await axios.put(
+          `/api/order/paid/${payload.id}`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
           },
-        })
+        )
         return response.data
       },
       {
