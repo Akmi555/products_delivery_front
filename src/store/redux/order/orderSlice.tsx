@@ -174,7 +174,9 @@ export const orderSlice = createAppSlice({
     ),
     cancelOrder: create.asyncThunk(
       async (orderId: number) => {
-        const response = await axios.put(`/api/order/${orderId}/cancel`, {
+        const response = await axios.put(`/api/order/${orderId}/cancel`, 
+        {},
+        {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
