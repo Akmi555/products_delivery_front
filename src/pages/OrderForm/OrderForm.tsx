@@ -36,7 +36,6 @@ import {
   RegistrationContainer,
 } from "./styles"
 
-
 function OrderForm() {
   const dispatch = useAppDispatch()
   const { currentOrder, error } = useAppSelector(orderSelector.orderState)
@@ -83,7 +82,9 @@ function OrderForm() {
   const formik = useFormik({
     initialValues: {
       address: "",
-      deliveryTime: new Date(new Date().setHours(new Date().getHours() + 5)).toJSON().slice(0,-8),
+      deliveryTime: new Date(new Date().setHours(new Date().getHours() + 5))
+        .toJSON()
+        .slice(0, -8),
       paymentMethod: payment,
     },
     validationSchema,
@@ -108,7 +109,6 @@ function OrderForm() {
     },
   })
 
-  console.log(new Date(new Date().setHours(new Date().getHours() + 2)))
   return (
     <PageWrapper>
       <ToastContainer />
@@ -129,11 +129,9 @@ function OrderForm() {
             id="deliveryTime-id"
             name="deliveryTime"
             type="datetime-local"
-            // placeholder="12.10.2024 13:00"
             label="Delivery time*"
             value={String(formik.values.deliveryTime)}
             onChange={formik.handleChange}
-            // error={String(formik.errors.deliveryTime)}
           />
           <Box sx={{ minWidth: 120 }}>
             <FormControl fullWidth>

@@ -180,11 +180,12 @@ function AddProductAdmin() {
 
   return (
     <PageWrapper>
-      <ToastContainer />
+     
       <GoBackButtonWrapper>
         <GoBackArrowButton />
       </GoBackButtonWrapper>
       <NameAndFormWrapper>
+         <ToastContainer />
         <PageName>Add NEW product</PageName>
 
         {isPending ? (

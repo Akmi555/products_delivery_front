@@ -16,11 +16,9 @@ export const CartItemsWrapper = styled.div`
 export const GoBackButtonWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  display: flex;
-  flex-direction: column;
   height: 100%;
 `
-GoBackButtonWrapper
+
 export const TotalAmountContainer = styled.div`
   display: flex;
   flex-direction: column;

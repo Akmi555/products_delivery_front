@@ -5,13 +5,11 @@ import { globalPageStyles } from "styles/GlobalStyles"
 export const PageWrapper = styled.div`
   ${globalPageStyles}
   justify-content: space-between;
-  flex: 1;
   padding: 40px;
 `
 
 export const GoBackButtonWrapper = styled.div`
   display: flex;
-  flex-direction: column;
   height: 100%;
 `
 

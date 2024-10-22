@@ -15,11 +15,15 @@ export const cartSlice = createAppSlice({
   reducers: create => ({
     addProductToCart: create.asyncThunk(
       async (productId: number) => {
-        const response = await axios.post(`/api/cart/${productId}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        const response = await axios.post(
+          `/api/cart/${productId}`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
           },
-        })
+        )
         return response.data
       },
       {
