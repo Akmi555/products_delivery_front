@@ -87,6 +87,7 @@ export const cartSlice = createAppSlice({
       async (data: ChangeProductAmountData) => {
         const response = await axios.put(
           `/api/cart/${data.productId}/${data.newAmount}`,
+          {},
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("accessToken")}`,

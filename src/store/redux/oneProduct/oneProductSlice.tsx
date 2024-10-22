@@ -82,7 +82,7 @@ export const oneProductSlice = createAppSlice({
           state.error = undefined
           state.isPending = true
         },
-        fulfilled: (state: OneProductSliceState, action) => {
+        fulfilled: (state: OneProductSliceState) => {
           state.isPending = false
           state.currentProduct = undefined
         },

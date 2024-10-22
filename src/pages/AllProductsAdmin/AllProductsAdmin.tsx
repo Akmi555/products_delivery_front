@@ -42,7 +42,7 @@ function AllProductsAdmin() {
       theme: "light",
     })
   const notifyFulfilled = () =>
-    toast.success("User was successfully deleted", {
+    toast.success("Product was successfully deleted", {
       position: "bottom-left",
       autoClose: 5000,
       hideProgressBar: false,
