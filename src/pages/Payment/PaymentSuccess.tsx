@@ -29,7 +29,6 @@ function PaymentSuccess() {
           <p>Order number: {num}</p>
           <TextWrapper>
             <p>Thank you for choosing foodNOW!</p>
-            <p>We appreciate your order.</p>
           </TextWrapper>
           <h4>Have a great day!</h4>
           <ButtonMain
