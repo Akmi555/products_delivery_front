@@ -4,24 +4,20 @@ import { globalPageStyles } from "styles/GlobalStyles"
 export const PageWrapper = styled.div`
   ${globalPageStyles}
   padding: 40px;
-  justify-content: center;
-  align-items: center;
-`
-export const ContentWrapper = styled.div`
-  display: flex;
-  flex: 1;
   justify-content: space-between;
-  gap: 40px;
 `
 
 export const CartItemsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  padding-left: 60px;
 `
 export const GoBackButtonWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
   height: 100%;
 `
 
