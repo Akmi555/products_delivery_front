@@ -129,6 +129,7 @@ function AllProductsAdmin() {
   }, [currentPage, pageQuantity])
 
   const paginationModel = { page: 0, pageSize: 10 }
+  
   return (
     <PageWrapper>
       <ToastContainer />

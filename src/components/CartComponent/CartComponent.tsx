@@ -94,6 +94,7 @@ function CartComponent({ cartObjData }: cartObjProps) {
       }
     }
   }
+  
   return (
     <ProductWrapper>
       <ToastContainer />

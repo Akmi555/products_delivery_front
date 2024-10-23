@@ -27,6 +27,7 @@ import {
   GoBackButtonWrapper,
   ScrollUpButtonWrapper,
   EmptyCartMessageWrapper,
+  ContentWrapper,
 } from "./styles"
 import { CartAndProductData } from "./types"
 import ProgressCircle from "components/ProgressCircle/ProgressCircle"
@@ -131,90 +132,97 @@ function Cart() {
       navigate("/order-form")
     }
   }
+  
   return (
     <>
-      <ToastContainer />
       <PageWrapper>
-        {isPending ? (
-          <ProgressCircle />
-        ) : (
-          <>
-            {accessToken && (
-              <GoBackButtonWrapper>
-                <GoBackArrowButton />
-              </GoBackButtonWrapper>
-            )}
-            <CartItemsWrapper>
-              {allProductsFromCart.length >= 1 && (
-                <Stack direction="row" spacing={1}>
-                  <Tooltip title="Clear all cart">
-                    <IconButton aria-label="delete" onClick={clearCart}>
-                      <GridDeleteIcon />
-                    </IconButton>
-                  </Tooltip>
-                </Stack>
+        <ToastContainer />
+        <ContentWrapper>
+          {isPending ? (
+            <ProgressCircle />
+          ) : (
+            <>
+              {accessToken && (
+                <GoBackButtonWrapper>
+                  <GoBackArrowButton />
+                </GoBackButtonWrapper>
               )}
-              {cartAndProductDat.map((obj: CartAndProductData) => (
-                <CartComponent key={v4()} cartObjData={obj} />
-              ))}
-            </CartItemsWrapper>
-            {allProductsFromCart.length >= 1 && (
-              <TotalAmountContainer>
-                <PriceContainer>
-                  <Text>Subtotal ({totalQuantity} items):</Text>
-                  <Amount> € {totalAmount.toFixed(2)} </Amount>
-                </PriceContainer>
-
-                {allProductsFromCart.length >= 1 && totalAmount >= 10 && (
-                  <ButtonMain
-                    buttonName="Proceed to checkout"
-                    onClick={createOrder}
-                  />
+              <CartItemsWrapper>
+                {allProductsFromCart.length >= 1 && (
+                  <Stack direction="row" spacing={1}>
+                    <Tooltip title="Clear all cart">
+                      <IconButton aria-label="delete" onClick={clearCart}>
+                        <GridDeleteIcon />
+                      </IconButton>
+                    </Tooltip>
+                  </Stack>
                 )}
+                {cartAndProductDat.map((obj: CartAndProductData) => (
+                  <CartComponent key={v4()} cartObjData={obj} />
+                ))}
+              </CartItemsWrapper>
+              {allProductsFromCart.length >= 1 && (
+                <TotalAmountContainer>
+                  <PriceContainer>
+                    <Text>Subtotal ({totalQuantity} items):</Text>
+                    <Amount> € {totalAmount.toFixed(2)} </Amount>
+                  </PriceContainer>
 
-                {totalAmount < 10 && (
-                  <>
+                  {allProductsFromCart.length >= 1 && totalAmount >= 10 && (
                     <ButtonMain
-                      disabled
                       buttonName="Proceed to checkout"
                       onClick={createOrder}
                     />
-                    <p
-                      style={{
-                        color: "red",
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    >
-                      Min order amount is 10 €
-                    </p>
-                  </>
-                )}
-              </TotalAmountContainer>
-            )}
-            {allProductsFromCart.length >= 1 && (
-              <ScrollUpButtonWrapper>
-                <ScrollUpArrowButton />
-              </ScrollUpButtonWrapper>
-            )}
-            {allProductsFromCart.length === 0 && accessToken && (
-              <EmptyCartMessageWrapper>
-                <p> Your cart is empty &#128577;</p>
-                <ButtonMain
-                  buttonName="Go shopping"
-                  onClick={() => navigate("/")}
-                ></ButtonMain>
-              </EmptyCartMessageWrapper>
-            )}
-            {!accessToken && (
-              <LoginMistakeContainer>
-                <h4>Oops! &#x1F625; </h4> <p> You are not logged in</p>
-                <Link to="/login">login &#128072;</Link>
-                <Link to="/registration">or register</Link>
-              </LoginMistakeContainer>
-            )}
-          </>
-        )}
+                  )}
+
+                  {totalAmount < 10 && (
+                    <>
+                      <ButtonMain
+                        disabled
+                        buttonName="Proceed to checkout"
+                        onClick={createOrder}
+                      />
+                      <p
+                        style={{
+                          color: "red",
+                          display: "flex",
+                          justifyContent: "center",
+                        }}
+                      >
+                        Min order amount is 10 €
+                      </p>
+                    </>
+                  )}
+                </TotalAmountContainer>
+              )}
+              {allProductsFromCart.length >= 1 && (
+                <ScrollUpButtonWrapper>
+                  <ScrollUpArrowButton />
+                </ScrollUpButtonWrapper>
+              )}
+              {allProductsFromCart.length === 0 && accessToken && (
+                <EmptyCartMessageWrapper>
+                  <p> Your cart is empty &#128577;</p>
+                  <ButtonMain
+                    buttonName="Go shopping"
+                    onClick={() => navigate("/")}
+                  ></ButtonMain>
+                </EmptyCartMessageWrapper>
+              )}
+              {!accessToken && (
+                <LoginMistakeContainer>
+                  <h4>Oops! &#x1F625; </h4> <p> You are not logged in</p>
+                  <Link style={{ color: "green" }} to="/login">
+                    login &#128072;
+                  </Link>
+                  <Link style={{ color: "green" }} to="/registration">
+                    or register
+                  </Link>
+                </LoginMistakeContainer>
+              )}
+            </>
+          )}
+        </ContentWrapper>
       </PageWrapper>
     </>
   )

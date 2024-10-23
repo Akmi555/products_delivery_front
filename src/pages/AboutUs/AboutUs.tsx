@@ -16,12 +16,7 @@ function AboutUs() {
       <DeveloperCard
         avatar={dimitriDielPhoto}
         fullName="Dimitri Diel"
-        description="fullstack/team leader"
-      />
-      <DeveloperCard
-        avatar={vladislavMagidPhoto}
-        fullName="Vladislav Magid"
-        description="frontend"
+        description="fullstack / team leader"
       />
       <DeveloperCard
         avatar={doinaSirbuPhoto}
@@ -29,20 +24,9 @@ function AboutUs() {
         description="backend"
       />
       <DeveloperCard
-        avatar={elviraKhismatullinaPhoto}
-        fullName="Elvira Khismatullina"
-        description="frontend"
-      />
-
-      <DeveloperCard
-        avatar={vladimirGavriliukPhoto}
-        fullName="Vladimir Gavriliuk"
+        avatar={veraArkindPhoto}
+        fullName="Vera Arkind"
         description="backend"
-      />
-      <DeveloperCard
-        avatar={vladZatoplyaevPhoto}
-        fullName="Vladislav Zatoplyaev"
-        description="frontend"
       />
       <DeveloperCard
         avatar={maksymBilousenkoPhoto}
@@ -50,9 +34,24 @@ function AboutUs() {
         description="backend"
       />
       <DeveloperCard
-        avatar={veraArkindPhoto}
-        fullName="Vera Arkind"
+        avatar={vladimirGavriliukPhoto}
+        fullName="Vladimir Gavriliuk"
         description="backend"
+      />
+      <DeveloperCard
+        avatar={vladislavMagidPhoto}
+        fullName="Vladislav Magid"
+        description="frontend"
+      />
+      <DeveloperCard
+        avatar={elviraKhismatullinaPhoto}
+        fullName="Elvira Khismatullina"
+        description="frontend"
+      />
+      <DeveloperCard
+        avatar={vladZatoplyaevPhoto}
+        fullName="Vladislav Zatoplyaev"
+        description="frontend"
       />
     </CardContainer>
   )
