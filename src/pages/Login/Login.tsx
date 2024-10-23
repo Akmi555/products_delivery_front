@@ -107,7 +107,9 @@ function Login() {
             type="submit"
           />
         </ButtonContainer>
-        <Link to="/registration">or register</Link>
+        <Link style={{ color: "green" }} to="/registration">
+          or register
+        </Link>
       </FormWrapper>
     </PageWrapper>
   )

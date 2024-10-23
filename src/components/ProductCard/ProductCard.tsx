@@ -121,7 +121,6 @@ function ProductCard({ productData }: ProductCardProps) {
         <ProductWeight>{minQuantity}</ProductWeight>
         <PriceButtonContainer>
           <ProductPrice>{price} €</ProductPrice>
-
           <Tooltip title="Add to cart">
             <ButtonContainer>
               <ButtonMain

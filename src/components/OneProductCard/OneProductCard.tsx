@@ -20,6 +20,7 @@ import {
 import { ProductDescriptionProps } from "./types"
 
 import cartWhite from "assets/shopping-cart-white.png"
+import { Tooltip } from "@mui/material"
 
 function ProductDetailsCard({ productData }: ProductDescriptionProps) {
   const dispatch = useAppDispatch()
@@ -46,13 +47,15 @@ function ProductDetailsCard({ productData }: ProductDescriptionProps) {
           <ProductWeight>{minQuantity}</ProductWeight>
           <PriceButtonContainer>
             <ProductPrice>{price} €</ProductPrice>
-            <ButtonContainer>
-              <ButtonMain
-                imgSrc={cartWhite}
-                type="button"
-                onClick={onAddToCart}
-              />
-            </ButtonContainer>
+            <Tooltip title="Add to cart">
+              <ButtonContainer>
+                <ButtonMain
+                  imgSrc={cartWhite}
+                  type="button"
+                  onClick={onAddToCart}
+                />
+              </ButtonContainer>
+            </Tooltip>
           </PriceButtonContainer>
         </ProductMainInfoContainer>
       </MainInfoAndImgContainer>
