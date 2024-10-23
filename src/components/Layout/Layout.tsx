@@ -43,10 +43,8 @@ import { colors } from "styles/colors"
 
 function Layout({ children }: LayoutProps) {
   const match = useMatch("/")
-
   const { allProductsFromCart } = useAppSelector(cartSelectors.cartState)
   const { currentUser } = useAppSelector(userAuthSelectors.userAuthState)
-
   const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
     "& .MuiBadge-badge": {
       right: -3,
@@ -54,9 +52,6 @@ function Layout({ children }: LayoutProps) {
       padding: "0 4px",
     },
   }))
-
-  // !! вынести в useEffect
-  // или сделать отдельное свойство в стейте корзины
   let totalQuantity: number = 0
 
   if (currentUser) {

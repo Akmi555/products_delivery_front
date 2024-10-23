@@ -25,15 +25,6 @@ import {
 } from "./styles"
 import { colors } from "styles/colors"
 
-// window.onload = () => {
-//   const savedPos = sessionStorage.getItem("scrollPos")
-//   if (savedPos) {
-//     window.scrollTo(0, Number(savedPos))
-//     // После себя прибирайте!
-//     sessionStorage.removeItem("scrollPos")
-//   }
-// }
-
 function AllProducts() {
   const dispatch = useAppDispatch()
   const [category, setCategory] = useState<string>("")
