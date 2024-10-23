@@ -42,6 +42,7 @@ import DialogContentText from "@mui/material/DialogContentText"
 import DialogTitle from "@mui/material/DialogTitle"
 import Slide from "@mui/material/Slide"
 import { TransitionProps } from "@mui/material/transitions"
+import { TextBold } from "components/Layout/styles"
 
 // для окошка при отмене заказа
 const Transition = forwardRef(function Transition(
@@ -76,19 +77,16 @@ function Order({ orderObject }: OrderObjDataProps) {
       },
     )
   const notifyRejected = () =>
-    toast.error(
-      `Order with id: ${orderObject.id} was not cancelled.`,
-      {
-        position: "bottom-left",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      },
-    )
+    toast.error(`Order with id: ${orderObject.id} was not cancelled.`, {
+      position: "bottom-left",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    })
 
   // orderObject - это сам заказ, внутри есть массив из orderProduct
   const orderProductArray: OrderProduct[] = orderObject.orderProducts
@@ -191,7 +189,12 @@ function Order({ orderObject }: OrderObjDataProps) {
             </DataWrapper>
           </AccordionSummary>
           {/* отображение элементов корзины */}
-          <AccordionDetails>
+          <AccordionDetails
+            sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+          >
+            <p> Order ID : {orderObject.id}</p>
+            <p> Payment method : {orderObject.paymentMethod}</p>
+            <p style={{ fontWeight: "bold" }}> Order items:</p>
             {orderAndProductDat.map((obj: OrderAndProductData) => (
               <ProductFromOrder key={v4()} orderProduct={obj} />
             ))}
@@ -199,13 +202,14 @@ function Order({ orderObject }: OrderObjDataProps) {
           <AccordionActions>
             {/* окошко при отмене заказа*/}
             <Fragment>
-              {String(orderObject.orderStatus) !== "CANCELLED" && (
-                <ButtonMain
-                  buttonName="Cancel order"
-                  onClick={handleClickOpen}
-                  color={colors.ERROR}
-                />
-              )}
+              {String(orderObject.orderStatus) !== "CANCELLED" &&
+                String(orderObject.orderStatus) !== "PAID" && (
+                  <ButtonMain
+                    buttonName="Cancel order"
+                    onClick={handleClickOpen}
+                    color={colors.ERROR}
+                  />
+                )}
 
               <Dialog
                 open={openCancelWindow}

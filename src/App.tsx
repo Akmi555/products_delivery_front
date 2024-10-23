@@ -31,6 +31,15 @@ import NotFoundPage from "pages/NotFoundPage/NotFoundPage"
 
 import GlobalStyles from "styles/GlobalStyles"
 
+window.onload = () => {
+  const savedPos = sessionStorage.getItem("scrollPos")
+  if (savedPos) {
+    window.scrollTo(0, Number(savedPos))
+    // После себя прибирайте!
+    sessionStorage.removeItem("scrollPos")
+  }
+}
+
 function App() {
   const { currentUser } = useAppSelector(userAuthSelectors.userAuthState)
 

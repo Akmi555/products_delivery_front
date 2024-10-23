@@ -4,6 +4,12 @@ import { globalPageStyles } from "styles/GlobalStyles"
 export const PageWrapper = styled.div`
   ${globalPageStyles}
   padding: 40px;
+  justify-content: center;
+  align-items: center;
+`
+export const ContentWrapper = styled.div`
+  display: flex;
+  flex: 1;
   justify-content: space-between;
   gap: 40px;
 `

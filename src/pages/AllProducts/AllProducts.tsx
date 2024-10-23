@@ -25,7 +25,6 @@ import {
 } from "./styles"
 import { colors } from "styles/colors"
 
-
 function AllProducts() {
   const dispatch = useAppDispatch()
   const [category, setCategory] = useState<string>("")

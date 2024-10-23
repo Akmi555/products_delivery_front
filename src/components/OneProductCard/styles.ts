@@ -70,4 +70,6 @@ export const ProductDescriptionContainer = styled.div`
   flex-direction: column;
   gap: 20px;
 `
-export const ProductDescription = styled.div``
+export const ProductDescription = styled.div`
+width: 500px;
+`
