@@ -42,6 +42,7 @@ import DialogContentText from "@mui/material/DialogContentText"
 import DialogTitle from "@mui/material/DialogTitle"
 import Slide from "@mui/material/Slide"
 import { TransitionProps } from "@mui/material/transitions"
+import { TextBold } from "components/Layout/styles"
 
 // для окошка при отмене заказа
 const Transition = forwardRef(function Transition(
@@ -188,7 +189,12 @@ function Order({ orderObject }: OrderObjDataProps) {
             </DataWrapper>
           </AccordionSummary>
           {/* отображение элементов корзины */}
-          <AccordionDetails>
+          <AccordionDetails
+            sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+          >
+            <p> Order ID : {orderObject.id}</p>
+            <p> Payment method : {orderObject.paymentMethod}</p>
+            <p style={{ fontWeight: "bold" }}> Order items:</p>
             {orderAndProductDat.map((obj: OrderAndProductData) => (
               <ProductFromOrder key={v4()} orderProduct={obj} />
             ))}

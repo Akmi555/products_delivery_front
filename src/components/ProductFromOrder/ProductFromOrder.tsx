@@ -28,7 +28,7 @@ function ProductFromOrder({ orderProduct }: ProductFromOrderProps) {
         <p>Quantity: {orderProduct.productQuantity}</p>
       </DataContainer>
       <DataContainer>
-        <p>Sum: {orderProduct.sum}</p>
+        <p>Sum: {orderProduct.sum} €</p>
       </DataContainer>
     </ProductFromOrderWrapper>
   )
