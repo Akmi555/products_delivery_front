@@ -76,19 +76,16 @@ function Order({ orderObject }: OrderObjDataProps) {
       },
     )
   const notifyRejected = () =>
-    toast.error(
-      `Order with id: ${orderObject.id} was not cancelled.`,
-      {
-        position: "bottom-left",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      },
-    )
+    toast.error(`Order with id: ${orderObject.id} was not cancelled.`, {
+      position: "bottom-left",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    })
 
   // orderObject - это сам заказ, внутри есть массив из orderProduct
   const orderProductArray: OrderProduct[] = orderObject.orderProducts
@@ -199,13 +196,14 @@ function Order({ orderObject }: OrderObjDataProps) {
           <AccordionActions>
             {/* окошко при отмене заказа*/}
             <Fragment>
-              {String(orderObject.orderStatus) !== "CANCELLED" && (
-                <ButtonMain
-                  buttonName="Cancel order"
-                  onClick={handleClickOpen}
-                  color={colors.ERROR}
-                />
-              )}
+              {String(orderObject.orderStatus) !== "CANCELLED" &&
+                String(orderObject.orderStatus) !== "PAID" && (
+                  <ButtonMain
+                    buttonName="Cancel order"
+                    onClick={handleClickOpen}
+                    color={colors.ERROR}
+                  />
+                )}
 
               <Dialog
                 open={openCancelWindow}
